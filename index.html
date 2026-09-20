@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio resmi Shifan Shalih Adiluhung - Terpelajar, Pengembang Teknologi, dan Individu Berorientasi pada Nilai Luhur (Adiluhung).">
+    <meta name="keywords" content="Shifan Shalih Adiluhung, Portofolio Shifan, Shifan Ciamis, Adiluhung, Web Developer, Santri Terpelajar, Personal Website">
+    <meta name="author" content="Shifan Shalih Adiluhung">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Shifan Shalih Adiluhung | Personal Portfolio & Bio">
+    <meta property="og:description" content="Mengenal Shifan Shalih Adiluhung: Dedikasi Keilmuan, Inovasi Teknologi, dan Filosofi Nilai Luhur (Adiluhung).">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/shifan_hero.jpg">
+    
+    <title>Shifan Shalih Adiluhung | Official Portfolio & Bio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Custom Glowing Cursor Follower -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-blur" id="cursorBlur"></div>
+
+    <!-- Navigation Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <a href="#hero" class="logo-brand" id="logoBrand">
+                <div class="logo-badge">SSA</div>
+                <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#about" class="nav-link"><i class="fa-solid fa-user"></i> Tentang</a>
+                <a href="#values" class="nav-link"><i class="fa-solid fa-gem"></i> Filosofi</a>
+                <a href="#skills" class="nav-link"><i class="fa-solid fa-code"></i> Keahlian</a>
+                <a href="#achievements" class="nav-link"><i class="fa-solid fa-award"></i> Rekam Jejak</a>
+                <a href="#projects" class="nav-link"><i class="fa-solid fa-layer-group"></i> Proyek</a>
+                <a href="#editor" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Live Editor</a>
+                <a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Kontak</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ubah Tema">
+                    <i class="fa-solid fa-moon icon-moon"></i>
+                    <i class="fa-solid fa-sun icon-sun"></i>
+                </button>
+                <a href="#contact" class="btn btn-primary btn-sm btn-glow" id="headerCtaBtn">
+                    <span>Hubungi Saya</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Buka Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="ambient-glow glow-1"></div>
+            <div class="ambient-glow glow-2"></div>
+            
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge-pill" id="heroBadge">
+                        <span class="pulse-dot"></span>
+                        <span>Official Portfolio & Bio</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Halo, Saya <br>
+                        <span class="text-gradient" id="heroNameDisplay">Shifan Shalih Adiluhung</span>
+                    </h1>
+                    
+                    <div class="hero-typing-wrapper">
+                        <span class="typing-prefix">Saya seorang</span>
+                        <span class="typing-text" id="typingText"></span>
+                        <span class="typing-cursor">|</span>
+                    </div>
+                    
+                    <p class="hero-description" id="heroBioDisplay">
+                        Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai <em>Adiluhung</em> (luhur & agung).
+                    </p>
+                    
+                    <div class="hero-cta-group">
+                        <a href="#about" class="btn btn-primary btn-lg btn-glow">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Jelajahi Profil</span>
+                        </a>
+                        <a href="#editor" class="btn btn-glass btn-lg">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span>Kustomisasi Profil</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-book-quran"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Integritas Keilmuan</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number">Modern</span>
+                                <span class="stat-label">Tech & Development</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-number">Adiluhung</span>
+                                <span class="stat-label">Nilai Luhur & Agung</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="hero-image-wrapper" id="heroCardTilt">
+                        <div class="glass-frame">
+                            <img src="assets/images/shifan_hero.jpg" alt="Shifan Shalih Adiluhung Portrait" class="hero-portrait" id="heroPortraitImg">
+                            <div class="frame-overlay"></div>
+                        </div>
+                        <div class="floating-badge badge-1">
+                            <i class="fa-solid fa-certificate"></i>
+                            <div>
+                                <strong>Hafalan & Akademik</strong>
+                                <span>Terbukti & Terdaftar</span>
+                            </div>
+                        </div>
+                        <div class="floating-badge badge-2">
+                            <i class="fa-solid fa-code-commit"></i>
+                            <div>
+                                <strong>Kemajuan Berkelanjutan</strong>
+                                <span>Continuous Growth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section section-padding" id="about">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-user-check"></i> Mengenal Shifan</span>
+                    <h2 class="section-title">Profil & Latar Belakang <span class="text-gradient">Shifan Shalih Adiluhung</span></h2>
+                    <p class="section-description">Informasi komprehensif mengenai rekam jejak, asal-usul nama, serta perjalanan karakter Shifan.</p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-card glass-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-crown"></i></div>
+                        <h3>Makna Nama "Adiluhung"</h3>
+                        <p>
+                            Dalam bahasa Indonesia, kata <strong>"Adiluhung"</strong> memiliki arti mutlak yaitu <em>luhur, agung, atau bernilai tinggi</em>. Nama ini mencerminkan standar moral dan visi hidup yang tinggi untuk senantiasa memberikan hasil karya dan perilaku terbaik dalam setiap aspek kehidupan.
+                        </p>
+                    </div>
+
+                    <div class="about-card glass-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h3>Rekam Jejak Pendidikan & Kedisiplinan</h3>
+                        <p>
+                            Nama <strong>Shifan Shalih Adiluhung</strong> tercatat secara publik dalam rekam prestasi pendidikan dan capaian santri (hafalan Al-Qur'an) serta data siswa di wilayah Ciamis, Jawa Barat. Hal ini membuktikan fondasi kedisiplinan dan daya ingat tinggi sejak usia muda.
+                        </p>
+                    </div>
+
+                    <div class="about-card glass-card">
+                        <div class="about-card-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                        <h3>Visi Pengembangan Masa Depan</h3>
+                        <p>
+                            Menggabungkan karakter keilmuan yang kuat dengan keahlian dunia teknologi informasi modern. Shifan terus mengasah kemampuan analitis, pembuatan aplikasi web, dan pemecahan masalah (problem solving) untuk memberikan dampak nyata.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Info Drawer Box -->
+                <div class="info-banner glass-card mt-5">
+                    <div class="info-banner-content">
+                        <div class="info-banner-badge">Fakta Singkat</div>
+                        <h3>Perpaduan Nilai Tradisi & Inovasi Teknologi</h3>
+                        <p>
+                            Shifan Shalih Adiluhung mewakili generasi yang memegang teguh etika dan integritas spiritual santri, sembari adaptif dan unggul dalam menguasai ekosistem teknologi digital era modern.
+                        </p>
+                    </div>
+                    <button class="btn btn-outline" id="openNameModalBtn">
+                        <i class="fa-solid fa-circle-info"></i> Pelajari Arti Nama
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values-section section-padding bg-alt" id="values">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-compass"></i> Pedoman Hidup</span>
+                    <h2 class="section-title">4 Pilar Utama <span class="text-gradient">Karakter Shifan</span></h2>
+                    <p class="section-description">Prinsip-prinsip yang melandasi setiap proses belajar dan penciptaan karya.</p>
+                </div>
+
+                <div class="values-grid">
+                    <div class="value-box">
+                        <div class="value-number">01</div>
+                        <div class="value-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h4>Keunggulan (Adiluhung)</h4>
+                        <p>Tidak pernah puas dengan standar rata-rata. Selalu mengupayakan kualitas tertinggi yang luhur dan bernilai pada setiap proyek.</p>
+                    </div>
+
+                    <div class="value-box">
+                        <div class="value-number">02</div>
+                        <div class="value-icon"><i class="fa-solid fa-seedling"></i></div>
+                        <h4>Istiqamah & Ketekunan</h4>
+                        <p>Sebagaimana ketekunan dalam hafalan dan akademis, Shifan percaya bahwa konsistensi harian adalah kunci penguasaan keahlian.</p>
+                    </div>
+
+                    <div class="value-box">
+                        <div class="value-number">03</div>
+                        <div class="value-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                        <h4>Integritas & Moralitas</h4>
+                        <p>Menjaga kejujuran, kerendahan hati, dan etika profesional dalam berkomunikasi maupun berkolaborasi dengan sesama.</p>
+                    </div>
+
+                    <div class="value-box">
+                        <div class="value-number">04</div>
+                        <div class="value-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h4>Inovasi Adaptif</h4>
+                        <p>Terus memperbarui wawasan sains dan teknologi terkini agar dapat menjawab tantangan jaman yang terus berubah secara responsif.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section section-padding" id="skills">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-bolt"></i> Kompetensi</span>
+                    <h2 class="section-title">Keahlian & <span class="text-gradient">Bidang Minat</span></h2>
+                    <p class="section-description">Kombinasi antara kecakapan teknis digital dan kompetensi akademis-karakter.</p>
+                </div>
+
+                <div class="skills-wrapper">
+                    <!-- Technical Skills -->
+                    <div class="skills-category glass-card">
+                        <div class="category-header">
+                            <i class="fa-solid fa-code"></i>
+                            <h3>Teknologi & Pengembangan Web</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>HTML5 & CSS3 Architecture (Responsive Design)</span>
+                                    <span class="skill-pct">92%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>JavaScript (ES6+, DOM Manipulation, Interactive Logic)</span>
+                                    <span class="skill-pct">88%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>UI/UX Design & Aesthetic Styling (Vanilla CSS / Design Systems)</span>
+                                    <span class="skill-pct">90%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>Web Performance & SEO Optimization</span>
+                                    <span class="skill-pct">85%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal & Soft Skills -->
+                    <div class="skills-category glass-card">
+                        <div class="category-header">
+                            <i class="fa-solid fa-brain"></i>
+                            <h3>Kapasitas Diri & Kedisiplinan</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>Metode Daya Ingat & Hafalan (Memory & Memorization)</span>
+                                    <span class="skill-pct">95%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>Berpikir Analitis & Pemecahan Masalah (Problem Solving)</span>
+                                    <span class="skill-pct">90%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>Manajemen Waktu & Kedisiplinan Terstruktur</span>
+                                    <span class="skill-pct">93%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 93%;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>Komunikasi & Kepemimpinan Beretika</span>
+                                    <span class="skill-pct">87%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 87%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Badges Grid -->
+                <div class="skill-badges-grid mt-4">
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Web Development</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Clean Code</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Hafalan Al-Qur'an</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> UI Glassmorphism</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Analytical Mindset</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Leadership</span>
+                    <span class="badge-tag"><i class="fa-solid fa-check"></i> Continuous Learning</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="achievements-section section-padding bg-alt" id="achievements">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-trophy"></i> Milestone</span>
+                    <h2 class="section-title">Rekam Jejak & <span class="text-gradient">Pencapaian</span></h2>
+                    <p class="section-description">Perjalanan penting yang membentuk karakter dan kompetensi Shifan Shalih Adiluhung.</p>
+                </div>
+
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> Rekam Historis</span>
+                            <h3>Capaian Santri & Hafalan Al-Qur'an</h3>
+                            <p>Tercatat resmi dalam arsip capaian hafalan lembaga pendidikan. Menjadi tonggak dasar pembentukan daya ingat tajam, kedisiplinan mental, dan akhlak luhur.</p>
+                            <div class="timeline-tags">
+                                <span>Kedisiplinan</span>
+                                <span>Hafalan</span>
+                                <span>Karakter</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date"><i class="fa-solid fa-school"></i> Jawa Barat, Indonesia</span>
+                            <h3>Pendidikan & Basis Akademis Ciamis</h3>
+                            <p>Tercatat dalam data siswa Jawa Barat dengan reputasi keilmuan yang konsisten, membentuk dasar kemampuan bernalar dan berinteraksi secara ilmiah.</p>
+                            <div class="timeline-tags">
+                                <span>Akademik</span>
+                                <span>Ciamis</span>
+                                <span>Jawa Barat</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date"><i class="fa-solid fa-laptop-code"></i> Era Digital</span>
+                            <h3>Penguasaan Teknologi & Aplikasi Web Modern</h3>
+                            <p>Pengembangan keterampilan software modern, pembuatan platform web interaktif berstandar tinggi, dan penerapan filosofi <em>Adiluhung</em> dalam dunia digital.</p>
+                            <div class="timeline-tags">
+                                <span>Web Engineering</span>
+                                <span>Modern Design</span>
+                                <span>Adiluhung Standards</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Gallery Section -->
+        <section class="projects-section section-padding" id="projects">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-folder-open"></i> Karya Pilihan</span>
+                    <h2 class="section-title">Portofolio & <span class="text-gradient">Proyek Digital</span></h2>
+                    <p class="section-description">Beberapa contoh konsep dan implementasi proyek berbasis web yang dikembangkan.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">Semua Proyek</button>
+                    <button class="filter-btn" data-filter="web">Aplikasi Web</button>
+                    <button class="filter-btn" data-filter="edu">Pendidikan & Keilmuan</button>
+                    <button class="filter-btn" data-filter="creative">Kreatif & Desain</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid">
+                    <!-- Project Card 1 -->
+                    <div class="project-card glass-card" data-category="web">
+                        <div class="project-thumb">
+                            <div class="thumb-icon"><i class="fa-solid fa-globe"></i></div>
+                            <span class="project-category">Web App</span>
+                        </div>
+                        <div class="project-details">
+                            <h3>Shifan Adiluhung Portfolio Hub</h3>
+                            <p>Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, kustomisasi profil langsung, dan mode tema cerdas.</p>
+                            <div class="project-tech">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript ES6</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Shifan Adiluhung Portfolio Hub" data-desc="Platform personal ini dirancang menggunakan standar keagungan estetika web modern, menyajikan informasi biodata Shifan Shalih Adiluhung secara lengkap dan dapat diedit secara real-time." data-tech="HTML5, Modern CSS Variables, Vanilla JS, LocalStorage Engine">
+                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="project-card glass-card" data-category="edu">
+                        <div class="project-thumb">
+                            <div class="thumb-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                            <span class="project-category">Pendidikan</span>
+                        </div>
+                        <div class="project-details">
+                            <h3>Al-Qur'an & Memorization Tracker</h3>
+                            <p>Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik sederhana.</p>
+                            <div class="project-tech">
+                                <span>JavaScript</span>
+                                <span>Web Storage</span>
+                                <span>UI Dashboard</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Al-Qur'an & Memorization Tracker" data-desc="Dirancang khusus untuk mendukung santri dan pelajar dalam menjaga hafalan dengan metode pengulangan terstruktur (Spaced Repetition) serta analitik grafik progres harian." data-tech="Interactive JS Charts, LocalStorage Data Persistence, Responsive Mobile View">
+                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="project-card glass-card" data-category="web">
+                        <div class="project-thumb">
+                            <div class="thumb-icon"><i class="fa-solid fa-box-archive"></i></div>
+                            <span class="project-category">Web App</span>
+                        </div>
+                        <div class="project-details">
+                            <h3>Arsip Digital Santri & Siswa Ciamis</h3>
+                            <p>Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.</p>
+                            <div class="project-tech">
+                                <span>Database Concept</span>
+                                <span>Search & Filter</span>
+                                <span>UI UX</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Arsip Digital Santri & Siswa Ciamis" data-desc="Platform arsip digital terpadu untuk mendokumentasikan data siswa, riwayat hafalan, dan prestasi akademis dengan sistem pencarian instan dan ekspor laporan PDF." data-tech="Search Engine UI, Data Table Pagination, Modern CSS Grids">
+                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4 -->
+                    <div class="project-card glass-card" data-category="creative">
+                        <div class="project-thumb">
+                            <div class="thumb-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <span class="project-category">Kreatif</span>
+                        </div>
+                        <div class="project-details">
+                            <h3>Interactive Bio & CV Builder</h3>
+                            <p>Alat pembuat ringkasan profil pribadi interaktif yang memungkinkan pengguna mengubah biodata secara langsung dan mengunduh ringkasan tampilan.</p>
+                            <div class="project-tech">
+                                <span>DOM Engine</span>
+                                <span>Custom Theme</span>
+                                <span>Dynamic Export</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Interactive Bio & CV Builder" data-desc="Fitur pembuat resume dinamis yang langsung terintegrasi di dalam website ini. Pengguna dapat mengubah nama, headline, dan bio lalu menyimpannya di browser." data-tech="Vanilla JavaScript, State Management, LocalStorage">
+                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Profile Customizer Section -->
+        <section class="editor-section section-padding bg-alt" id="editor">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-sliders"></i> Fitur Interaktif</span>
+                    <h2 class="section-title">Live Editor Profil <span class="text-gradient">Shifan</span></h2>
+                    <p class="section-description">Anda dapat memperbarui informasi hero & bio website ini secara langsung di browser!</p>
+                </div>
+
+                <div class="editor-box glass-card">
+                    <form id="profileEditorForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="editName"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+                                <input type="text" id="editName" class="form-control" value="Shifan Shalih Adiluhung" placeholder="Masukkan nama...">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editSubheadline"><i class="fa-solid fa-tag"></i> Sub-Headline (Pisahkan dengan koma)</label>
+                                <input type="text" id="editSubheadline" class="form-control" value="Scholar & Santri Terpelajar, Tech Practitioner, Continuous Learner, Innovator" placeholder="Contoh: Web Developer, Designer...">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="editBio"><i class="fa-solid fa-paragraph"></i> Ringkasan Bio Hero</label>
+                                <textarea id="editBio" class="form-control" rows="3" placeholder="Masukkan ringkasan bio...">Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).</textarea>
+                            </div>
+                        </div>
+
+                        <div class="editor-actions">
+                            <button type="submit" class="btn btn-primary btn-glow">
+                                <i class="fa-solid fa-floppy-disk"></i> Terapkan & Simpan perubahan
+                            </button>
+                            <button type="button" class="btn btn-outline" id="resetProfileBtn">
+                                <i class="fa-solid fa-rotate-left"></i> Reset ke Default
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section section-padding" id="contact">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-comments"></i> Mari Terhubung</span>
+                    <h2 class="section-title">Hubungi <span class="text-gradient">Shifan Shalih Adiluhung</span></h2>
+                    <p class="section-description">Kirimkan pesan, tawaran kolaborasi, atau sekadar menyapa.</p>
+                </div>
+
+                <div class="contact-wrapper">
+                    <!-- Contact Info Cards -->
+                    <div class="contact-info-side">
+                        <div class="info-card glass-card">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <h4>Email Resmi</h4>
+                                <p>shifan.adiluhung@example.com</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card glass-card">
+                            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h4>Lokasi Basis</h4>
+                                <p>Ciamis / Jawa Barat, Indonesia</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card glass-card">
+                            <div class="info-icon"><i class="fa-solid fa-award"></i></div>
+                            <div>
+                                <h4>Filosofi Karya</h4>
+                                <p>Nilai Luhur, Transparan, & Hasil Berkualitas Tinggi</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links-box">
+                            <h4>Media Sosial & Platform</h4>
+                            <div class="social-icons">
+                                <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="mailto:shifan.adiluhung@example.com" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-side glass-card">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName">Nama Anda</label>
+                                <input type="text" id="contactName" class="form-control" placeholder="Nama lengkap Anda..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactEmail">Alamat Email</label>
+                                <input type="email" id="contactEmail" class="form-control" placeholder="Email Anda..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactSubject">Subjek Pesan</label>
+                                <input type="text" id="contactSubject" class="form-control" placeholder="Subjek pesan..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contactMessage">Pesan</label>
+                                <textarea id="contactMessage" class="form-control" rows="4" placeholder="Tuliskan pesan Anda untuk Shifan..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block btn-glow" id="submitContactBtn">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Kirim Pesan Sekarang</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#hero" class="logo-brand">
+                    <div class="logo-badge">SSA</div>
+                    <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
+                </a>
+                <p>Memadukan Keagungan Nilai Tradisional dan Kemajuan Inovasi Teknologi Modern.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Navigasi Cepat</h4>
+                <ul>
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#about">Tentang Shifan</a></li>
+                    <li><a href="#values">4 Pilar Utama</a></li>
+                    <li><a href="#skills">Keahlian</a></li>
+                    <li><a href="#projects">Proyek Digital</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-note">
+                <h4>Filosofi "Adiluhung"</h4>
+                <p><em>"Luhur, Agung, & Bernilai Tinggi."</em> Pembuktian nyata dalam integritas keilmuan dan karya teknologi.</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 <strong>Shifan Shalih Adiluhung</strong>. All Rights Reserved. Crafted with Precision & Elegance.</p>
+        </div>
+    </footer>
+
+    <!-- Name Meaning Modal -->
+    <div class="modal" id="nameModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-card glass-card">
+            <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+            <div class="modal-header text-center">
+                <div class="modal-icon"><i class="fa-solid fa-gem"></i></div>
+                <h3>Etimologi & Makna Filosofis</h3>
+                <h4 class="text-gradient">Shifan Shalih Adiluhung</h4>
+            </div>
+            <div class="modal-body">
+                <div class="meaning-item">
+                    <strong><i class="fa-solid fa-circle-dot"></i> Shifan:</strong>
+                    <p>Berasal dari keilmuan dan keindahan karakter yang memiliki sifat positif, bersih, dan berpandangan jernih.</p>
+                </div>
+                <div class="meaning-item">
+                    <strong><i class="fa-solid fa-circle-dot"></i> Shalih:</strong>
+                    <p>Memiliki arti orang yang baik, jujur, bermanfaat bagi sesama, dan memegang teguh norma agama & moralitas.</p>
+                </div>
+                <div class="meaning-item">
+                    <strong><i class="fa-solid fa-circle-dot"></i> Adiluhung:</strong>
+                    <p>Kata dalam bahasa Indonesia/Jawa bernilai tinggi yang berarti <em>Luhur, Agung, dan Sangat Berharga</em>. Melambangkan standar karya tertinggi dan warisan budi pekerti yang tidak ternilai.</p>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn btn-primary" id="modalOkBtn">Saya Mengerti</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-overlay" id="projectModalOverlay"></div>
+        <div class="modal-card glass-card">
+            <button class="modal-close-btn" id="projectModalCloseBtn">&times;</button>
+            <div class="modal-header">
+                <span class="badge-pill" id="pModalCategory">Detail Proyek</span>
+                <h3 id="pModalTitle" class="mt-2">Judul Proyek</h3>
+            </div>
+            <div class="modal-body">
+                <p id="pModalDesc" class="p-modal-text"></p>
+                <div class="p-modal-tech-box mt-3">
+                    <strong>Teknologi Utama:</strong>
+                    <p id="pModalTech"></p>
+                </div>
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn btn-outline" id="projectModalOkBtn">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
