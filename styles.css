@@ -96,7 +96,7 @@ a {
     text-decoration: none;
 }
 
-button, input, textarea {
+button, input, textarea, select {
     font-family: inherit;
     outline: none;
     border: none;
@@ -127,13 +127,8 @@ img {
     background-color: var(--bg-secondary);
 }
 
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
 
 .text-gradient {
     background: var(--primary-gradient);
@@ -146,6 +141,8 @@ img {
 .mt-3 { margin-top: 1rem; }
 .mt-4 { margin-top: 1.5rem; }
 .mt-5 { margin-top: 2.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.my-4 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
 
 /* --- Custom Cursor --- */
 .cursor-dot {
@@ -275,6 +272,16 @@ img {
     width: 100%;
 }
 
+.danger-btn {
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #ef4444 !important;
+}
+
+.danger-btn:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: #ef4444 !important;
+}
+
 /* --- Section Headers --- */
 .section-header {
     max-width: 680px;
@@ -371,11 +378,11 @@ img {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1.5rem;
 }
 
 .nav-link {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: color var(--transition-fast);
@@ -386,6 +393,15 @@ img {
 
 .nav-link:hover, .nav-link.active {
     color: var(--primary-color);
+}
+
+.admin-nav-link {
+    color: var(--text-gold);
+    font-weight: 600;
+}
+
+.admin-nav-link:hover {
+    color: #f59e0b;
 }
 
 .header-actions {
@@ -593,7 +609,7 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     color: var(--text-muted);
 }
 
-/* --- Hero Visual & Tilt Card --- */
+/* --- Hero Visual & Portrait Card --- */
 .hero-visual {
     position: relative;
     perspective: 1000px;
@@ -618,16 +634,16 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 
 .hero-portrait {
     width: 100%;
-    height: auto;
-    max-height: 480px;
+    height: 480px;
     object-fit: cover;
+    object-position: center 20%;
     border-radius: calc(var(--radius-lg) - 6px);
 }
 
 .frame-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(11, 15, 25, 0.8) 100%);
+    background: linear-gradient(180deg, transparent 65%, rgba(11, 15, 25, 0.85) 100%);
     pointer-events: none;
 }
 
@@ -1077,6 +1093,7 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .project-tech span {
@@ -1086,54 +1103,6 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     border-radius: var(--radius-sm);
     font-size: 0.75rem;
     font-weight: 600;
-}
-
-/* --- Live Editor Section --- */
-.editor-box {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2.5rem;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.form-group.full-width {
-    grid-column: span 2;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.85rem 1.2rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    transition: border-color var(--transition-fast), background var(--transition-fast);
-}
-
-.form-control:focus {
-    border-color: var(--primary-color);
-    background: rgba(6, 182, 212, 0.05);
-}
-
-.editor-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
 }
 
 /* --- Contact Section --- */
@@ -1221,6 +1190,30 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     padding: 2.5rem;
 }
 
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    background: rgba(6, 182, 212, 0.05);
+}
+
 /* --- Footer --- */
 .site-footer {
     background: var(--bg-secondary);
@@ -1264,6 +1257,11 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     color: var(--primary-color);
 }
 
+.footer-admin-link {
+    color: var(--text-gold) !important;
+    font-weight: 600;
+}
+
 .footer-note p {
     color: var(--text-secondary);
     font-size: 0.9rem;
@@ -1298,8 +1296,8 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(11, 15, 25, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(10px);
 }
 
 .modal-card {
@@ -1333,25 +1331,218 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     color: var(--text-primary);
 }
 
-.modal-icon {
-    font-size: 2.5rem;
+/* --- ADMIN SYSTEM SPECIFIC STYLES --- */
+.admin-modal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(245, 158, 11, 0.15);
     color: var(--text-gold);
-    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.meaning-item {
-    margin-bottom: 1.25rem;
+.modal-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
 }
 
-.meaning-item strong {
+.pass-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-pass-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.toggle-pass-btn:hover {
     color: var(--primary-color);
-    font-size: 0.95rem;
 }
 
-.meaning-item p {
+.input-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    display: block;
+}
+
+.input-hint code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    color: var(--text-gold);
+}
+
+/* Fullscreen Admin Dashboard Modal */
+.admin-panel-modal .admin-panel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1080px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface-solid);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.admin-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(17, 24, 39, 0.95);
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-badge {
+    width: 44px;
+    height: 44px;
+    background: var(--gold-gradient);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.admin-brand h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+}
+
+.admin-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.admin-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-close-x {
+    position: static;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+/* Admin Tabs Nav */
+.admin-tabs {
+    display: flex;
+    background: rgba(11, 15, 25, 0.6);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+    padding: 0 1.5rem;
+}
+
+.admin-tab-btn {
+    padding: 1rem 1.25rem;
+    background: none;
     color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-top: 0.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+
+.admin-tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.admin-tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: rgba(6, 182, 212, 0.05);
+}
+
+/* Admin Body Content */
+.admin-body {
+    padding: 2rem;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.admin-tab-content {
+    display: none;
+}
+
+.admin-tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-skills-list, .admin-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-item-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.admin-item-info strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.admin-item-info span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.admin-item-actions {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .toast-container {
@@ -1403,14 +1594,6 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
         grid-template-columns: 1fr;
     }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .form-group.full-width {
-        grid-column: span 1;
-    }
-
     .footer-container {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1448,5 +1631,16 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     .info-banner {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .admin-panel-modal .admin-panel-container {
+        max-height: 95vh;
+        border-radius: 0;
+    }
+
+    .admin-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 }

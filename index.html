@@ -45,8 +45,8 @@
                 <a href="#skills" class="nav-link"><i class="fa-solid fa-code"></i> Keahlian</a>
                 <a href="#achievements" class="nav-link"><i class="fa-solid fa-award"></i> Rekam Jejak</a>
                 <a href="#projects" class="nav-link"><i class="fa-solid fa-layer-group"></i> Proyek</a>
-                <a href="#editor" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Live Editor</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Kontak</a>
+                <a href="#admin" class="nav-link admin-nav-link" id="openAdminBtn"><i class="fa-solid fa-lock"></i> Admin Portal</a>
             </nav>
 
             <div class="header-actions">
@@ -101,10 +101,10 @@
                             <i class="fa-solid fa-compass"></i>
                             <span>Jelajahi Profil</span>
                         </a>
-                        <a href="#editor" class="btn btn-glass btn-lg">
-                            <i class="fa-solid fa-sliders"></i>
-                            <span>Kustomisasi Profil</span>
-                        </a>
+                        <button class="btn btn-glass btn-lg" id="heroAdminPortalBtn">
+                            <i class="fa-solid fa-user-gear"></i>
+                            <span>Kelola Website (Admin)</span>
+                        </button>
                     </div>
 
                     <div class="hero-stats">
@@ -162,15 +162,15 @@
             <div class="container">
                 <div class="section-header text-center">
                     <span class="section-subtitle"><i class="fa-solid fa-user-check"></i> Mengenal Shifan</span>
-                    <h2 class="section-title">Profil & Latar Belakang <span class="text-gradient">Shifan Shalih Adiluhung</span></h2>
+                    <h2 class="section-title">Profil & Latar Belakang <span class="text-gradient" id="aboutNameDisplay">Shifan Shalih Adiluhung</span></h2>
                     <p class="section-description">Informasi komprehensif mengenai rekam jejak, asal-usul nama, serta perjalanan karakter Shifan.</p>
                 </div>
 
-                <div class="about-grid">
+                <div class="about-grid" id="aboutGridContainer">
                     <div class="about-card glass-card">
                         <div class="about-card-icon"><i class="fa-solid fa-crown"></i></div>
                         <h3>Makna Nama "Adiluhung"</h3>
-                        <p>
+                        <p id="aboutMeaningText">
                             Dalam bahasa Indonesia, kata <strong>"Adiluhung"</strong> memiliki arti mutlak yaitu <em>luhur, agung, atau bernilai tinggi</em>. Nama ini mencerminkan standar moral dan visi hidup yang tinggi untuk senantiasa memberikan hasil karya dan perilaku terbaik dalam setiap aspek kehidupan.
                         </p>
                     </div>
@@ -178,7 +178,7 @@
                     <div class="about-card glass-card">
                         <div class="about-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                         <h3>Rekam Jejak Pendidikan & Kedisiplinan</h3>
-                        <p>
+                        <p id="aboutEduText">
                             Nama <strong>Shifan Shalih Adiluhung</strong> tercatat secara publik dalam rekam prestasi pendidikan dan capaian santri (hafalan Al-Qur'an) serta data siswa di wilayah Ciamis, Jawa Barat. Hal ini membuktikan fondasi kedisiplinan dan daya ingat tinggi sejak usia muda.
                         </p>
                     </div>
@@ -186,7 +186,7 @@
                     <div class="about-card glass-card">
                         <div class="about-card-icon"><i class="fa-solid fa-laptop-code"></i></div>
                         <h3>Visi Pengembangan Masa Depan</h3>
-                        <p>
+                        <p id="aboutVisionText">
                             Menggabungkan karakter keilmuan yang kuat dengan keahlian dunia teknologi informasi modern. Shifan terus mengasah kemampuan analitis, pembuatan aplikasi web, dan pemecahan masalah (problem solving) untuk memberikan dampak nyata.
                         </p>
                     </div>
@@ -265,35 +265,8 @@
                             <i class="fa-solid fa-code"></i>
                             <h3>Teknologi & Pengembangan Web</h3>
                         </div>
-                        <div class="skill-items">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>HTML5 & CSS3 Architecture (Responsive Design)</span>
-                                    <span class="skill-pct">92%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>JavaScript (ES6+, DOM Manipulation, Interactive Logic)</span>
-                                    <span class="skill-pct">88%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>UI/UX Design & Aesthetic Styling (Vanilla CSS / Design Systems)</span>
-                                    <span class="skill-pct">90%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Web Performance & SEO Optimization</span>
-                                    <span class="skill-pct">85%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                            </div>
+                        <div class="skill-items" id="techSkillsContainer">
+                            <!-- Rendered dynamically -->
                         </div>
                     </div>
 
@@ -303,41 +276,14 @@
                             <i class="fa-solid fa-brain"></i>
                             <h3>Kapasitas Diri & Kedisiplinan</h3>
                         </div>
-                        <div class="skill-items">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Metode Daya Ingat & Hafalan (Memory & Memorization)</span>
-                                    <span class="skill-pct">95%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Berpikir Analitis & Pemecahan Masalah (Problem Solving)</span>
-                                    <span class="skill-pct">90%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Manajemen Waktu & Kedisiplinan Terstruktur</span>
-                                    <span class="skill-pct">93%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 93%;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Komunikasi & Kepemimpinan Beretika</span>
-                                    <span class="skill-pct">87%</span>
-                                </div>
-                                <div class="progress-bar"><div class="progress-fill" style="width: 87%;"></div></div>
-                            </div>
+                        <div class="skill-items" id="softSkillsContainer">
+                            <!-- Rendered dynamically -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Skill Badges Grid -->
-                <div class="skill-badges-grid mt-4">
+                <div class="skill-badges-grid mt-4" id="skillBadgesContainer">
                     <span class="badge-tag"><i class="fa-solid fa-check"></i> Web Development</span>
                     <span class="badge-tag"><i class="fa-solid fa-check"></i> Clean Code</span>
                     <span class="badge-tag"><i class="fa-solid fa-check"></i> Hafalan Al-Qur'an</span>
@@ -417,7 +363,7 @@
                 </div>
 
                 <!-- Filter Controls -->
-                <div class="filter-controls">
+                <div class="filter-controls" id="projectFilterControls">
                     <button class="filter-btn active" data-filter="all">Semua Proyek</button>
                     <button class="filter-btn" data-filter="web">Aplikasi Web</button>
                     <button class="filter-btn" data-filter="edu">Pendidikan & Keilmuan</button>
@@ -425,127 +371,8 @@
                 </div>
 
                 <!-- Projects Grid -->
-                <div class="projects-grid">
-                    <!-- Project Card 1 -->
-                    <div class="project-card glass-card" data-category="web">
-                        <div class="project-thumb">
-                            <div class="thumb-icon"><i class="fa-solid fa-globe"></i></div>
-                            <span class="project-category">Web App</span>
-                        </div>
-                        <div class="project-details">
-                            <h3>Shifan Adiluhung Portfolio Hub</h3>
-                            <p>Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, kustomisasi profil langsung, dan mode tema cerdas.</p>
-                            <div class="project-tech">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript ES6</span>
-                            </div>
-                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Shifan Adiluhung Portfolio Hub" data-desc="Platform personal ini dirancang menggunakan standar keagungan estetika web modern, menyajikan informasi biodata Shifan Shalih Adiluhung secara lengkap dan dapat diedit secara real-time." data-tech="HTML5, Modern CSS Variables, Vanilla JS, LocalStorage Engine">
-                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 2 -->
-                    <div class="project-card glass-card" data-category="edu">
-                        <div class="project-thumb">
-                            <div class="thumb-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-                            <span class="project-category">Pendidikan</span>
-                        </div>
-                        <div class="project-details">
-                            <h3>Al-Qur'an & Memorization Tracker</h3>
-                            <p>Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik sederhana.</p>
-                            <div class="project-tech">
-                                <span>JavaScript</span>
-                                <span>Web Storage</span>
-                                <span>UI Dashboard</span>
-                            </div>
-                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Al-Qur'an & Memorization Tracker" data-desc="Dirancang khusus untuk mendukung santri dan pelajar dalam menjaga hafalan dengan metode pengulangan terstruktur (Spaced Repetition) serta analitik grafik progres harian." data-tech="Interactive JS Charts, LocalStorage Data Persistence, Responsive Mobile View">
-                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 3 -->
-                    <div class="project-card glass-card" data-category="web">
-                        <div class="project-thumb">
-                            <div class="thumb-icon"><i class="fa-solid fa-box-archive"></i></div>
-                            <span class="project-category">Web App</span>
-                        </div>
-                        <div class="project-details">
-                            <h3>Arsip Digital Santri & Siswa Ciamis</h3>
-                            <p>Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.</p>
-                            <div class="project-tech">
-                                <span>Database Concept</span>
-                                <span>Search & Filter</span>
-                                <span>UI UX</span>
-                            </div>
-                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Arsip Digital Santri & Siswa Ciamis" data-desc="Platform arsip digital terpadu untuk mendokumentasikan data siswa, riwayat hafalan, dan prestasi akademis dengan sistem pencarian instan dan ekspor laporan PDF." data-tech="Search Engine UI, Data Table Pagination, Modern CSS Grids">
-                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 4 -->
-                    <div class="project-card glass-card" data-category="creative">
-                        <div class="project-thumb">
-                            <div class="thumb-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                            <span class="project-category">Kreatif</span>
-                        </div>
-                        <div class="project-details">
-                            <h3>Interactive Bio & CV Builder</h3>
-                            <p>Alat pembuat ringkasan profil pribadi interaktif yang memungkinkan pengguna mengubah biodata secara langsung dan mengunduh ringkasan tampilan.</p>
-                            <div class="project-tech">
-                                <span>DOM Engine</span>
-                                <span>Custom Theme</span>
-                                <span>Dynamic Export</span>
-                            </div>
-                            <button class="btn btn-sm btn-outline view-project-btn" data-title="Interactive Bio & CV Builder" data-desc="Fitur pembuat resume dinamis yang langsung terintegrasi di dalam website ini. Pengguna dapat mengubah nama, headline, dan bio lalu menyimpannya di browser." data-tech="Vanilla JavaScript, State Management, LocalStorage">
-                                Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Live Profile Customizer Section -->
-        <section class="editor-section section-padding bg-alt" id="editor">
-            <div class="container">
-                <div class="section-header text-center">
-                    <span class="section-subtitle"><i class="fa-solid fa-sliders"></i> Fitur Interaktif</span>
-                    <h2 class="section-title">Live Editor Profil <span class="text-gradient">Shifan</span></h2>
-                    <p class="section-description">Anda dapat memperbarui informasi hero & bio website ini secara langsung di browser!</p>
-                </div>
-
-                <div class="editor-box glass-card">
-                    <form id="profileEditorForm">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="editName"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
-                                <input type="text" id="editName" class="form-control" value="Shifan Shalih Adiluhung" placeholder="Masukkan nama...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="editSubheadline"><i class="fa-solid fa-tag"></i> Sub-Headline (Pisahkan dengan koma)</label>
-                                <input type="text" id="editSubheadline" class="form-control" value="Scholar & Santri Terpelajar, Tech Practitioner, Continuous Learner, Innovator" placeholder="Contoh: Web Developer, Designer...">
-                            </div>
-
-                            <div class="form-group full-width">
-                                <label for="editBio"><i class="fa-solid fa-paragraph"></i> Ringkasan Bio Hero</label>
-                                <textarea id="editBio" class="form-control" rows="3" placeholder="Masukkan ringkasan bio...">Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).</textarea>
-                            </div>
-                        </div>
-
-                        <div class="editor-actions">
-                            <button type="submit" class="btn btn-primary btn-glow">
-                                <i class="fa-solid fa-floppy-disk"></i> Terapkan & Simpan perubahan
-                            </button>
-                            <button type="button" class="btn btn-outline" id="resetProfileBtn">
-                                <i class="fa-solid fa-rotate-left"></i> Reset ke Default
-                            </button>
-                        </div>
-                    </form>
+                <div class="projects-grid" id="projectsGridContainer">
+                    <!-- Rendered dynamically -->
                 </div>
             </div>
         </section>
@@ -555,7 +382,7 @@
             <div class="container">
                 <div class="section-header text-center">
                     <span class="section-subtitle"><i class="fa-solid fa-comments"></i> Mari Terhubung</span>
-                    <h2 class="section-title">Hubungi <span class="text-gradient">Shifan Shalih Adiluhung</span></h2>
+                    <h2 class="section-title">Hubungi <span class="text-gradient" id="contactTitleName">Shifan Shalih Adiluhung</span></h2>
                     <p class="section-description">Kirimkan pesan, tawaran kolaborasi, atau sekadar menyapa.</p>
                 </div>
 
@@ -566,7 +393,7 @@
                             <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
                             <div>
                                 <h4>Email Resmi</h4>
-                                <p>shifan.adiluhung@example.com</p>
+                                <p id="contactEmailDisplay">shifan.adiluhung@example.com</p>
                             </div>
                         </div>
 
@@ -574,7 +401,7 @@
                             <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
                             <div>
                                 <h4>Lokasi Basis</h4>
-                                <p>Ciamis / Jawa Barat, Indonesia</p>
+                                <p id="contactLocationDisplay">Ciamis / Jawa Barat, Indonesia</p>
                             </div>
                         </div>
 
@@ -588,7 +415,7 @@
 
                         <div class="social-links-box">
                             <h4>Media Sosial & Platform</h4>
-                            <div class="social-icons">
+                            <div class="social-icons" id="socialLinksContainer">
                                 <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                                 <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
                                 <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -650,6 +477,7 @@
                     <li><a href="#values">4 Pilar Utama</a></li>
                     <li><a href="#skills">Keahlian</a></li>
                     <li><a href="#projects">Proyek Digital</a></li>
+                    <li><a href="#admin" class="footer-admin-link" id="footerAdminBtn"><i class="fa-solid fa-user-gear"></i> Admin Portal</a></li>
                 </ul>
             </div>
 
@@ -711,6 +539,197 @@
             </div>
             <div class="modal-footer text-right">
                 <button class="btn btn-outline" id="projectModalOkBtn">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN SYSTEM MODALS & DASHBOARD -->
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-overlay" id="adminLoginOverlay"></div>
+        <div class="modal-card glass-card admin-login-card">
+            <button class="modal-close-btn" id="adminLoginCloseBtn">&times;</button>
+            <div class="modal-header text-center">
+                <div class="admin-modal-badge"><i class="fa-solid fa-shield-halved"></i> Security Portal</div>
+                <h3 class="mt-2">Login Admin Website</h3>
+                <p class="modal-subtitle">Masukkan password keamanan untuk mengelola website Shifan</p>
+            </div>
+            <div class="modal-body mt-3">
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminPassInput"><i class="fa-solid fa-key"></i> Password Admin</label>
+                        <div class="pass-input-wrapper">
+                            <input type="password" id="adminPassInput" class="form-control" placeholder="Masukkan password admin..." required>
+                            <button type="button" class="toggle-pass-btn" id="togglePassBtn"><i class="fa-solid fa-eye"></i></button>
+                        </div>
+                        <span class="input-hint">Default password: <code>shifan123</code> (bisa diubah di pengaturan admin)</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-glow mt-3" id="adminLoginSubmitBtn">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Masuk ke Dashboard Admin</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Fullscreen Modal / Drawer -->
+    <div class="modal admin-panel-modal" id="adminPanelModal">
+        <div class="modal-overlay" id="adminPanelOverlay"></div>
+        <div class="admin-panel-container glass-card">
+            <!-- Sidebar Header -->
+            <div class="admin-panel-header">
+                <div class="admin-brand">
+                    <div class="admin-badge"><i class="fa-solid fa-user-shield"></i></div>
+                    <div>
+                        <h3>Admin Portal Shifan</h3>
+                        <span class="admin-status-pill"><span class="pulse-dot"></span> Logged In</span>
+                    </div>
+                </div>
+                <div class="admin-header-actions">
+                    <button class="btn btn-sm btn-outline" id="adminExportDataBtn"><i class="fa-solid fa-download"></i> Backup JSON</button>
+                    <button class="btn btn-sm btn-outline danger-btn" id="adminLogoutBtn"><i class="fa-solid fa-power-off"></i> Logout</button>
+                    <button class="modal-close-btn admin-close-x" id="adminPanelCloseBtn">&times;</button>
+                </div>
+            </div>
+
+            <!-- Admin Nav Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" data-tab="tabProfile"><i class="fa-solid fa-id-card"></i> Profil & Hero</button>
+                <button class="admin-tab-btn" data-tab="tabAbout"><i class="fa-solid fa-book-open"></i> Tentang & Narrative</button>
+                <button class="admin-tab-btn" data-tab="tabSkills"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Keahlian</button>
+                <button class="admin-tab-btn" data-tab="tabProjects"><i class="fa-solid fa-cubes"></i> Kelola Proyek</button>
+                <button class="admin-tab-btn" data-tab="tabContact"><i class="fa-solid fa-address-book"></i> Kontak & Sosial</button>
+                <button class="admin-tab-btn" data-tab="tabSecurity"><i class="fa-solid fa-key"></i> Ganti Password</button>
+            </div>
+
+            <!-- Admin Body Tab Contents -->
+            <div class="admin-body">
+                <!-- Tab 1: Profile & Hero -->
+                <div class="admin-tab-content active" id="tabProfile">
+                    <h4><i class="fa-solid fa-user"></i> Pengaturan Profil Utama & Hero</h4>
+                    <form id="adminProfileForm" class="mt-3">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="admName">Nama Lengkap</label>
+                                <input type="text" id="admName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admSubheadlines">Sub-Headlines (Pisahkan dengan koma)</label>
+                                <input type="text" id="admSubheadlines" class="form-control" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="admHeroBio">Deskripsi Ringkasan Bio (Hero)</label>
+                                <textarea id="admHeroBio" class="form-control" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow mt-2"><i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Profil</button>
+                    </form>
+                </div>
+
+                <!-- Tab 2: About & Narrative -->
+                <div class="admin-tab-content" id="tabAbout">
+                    <h4><i class="fa-solid fa-align-left"></i> Pengaturan Halaman Tentang Shifan</h4>
+                    <form id="adminAboutForm" class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="admAboutMeaning">Kartu 1: Makna Nama & Filosofi</label>
+                            <textarea id="admAboutMeaning" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="admAboutEdu">Kartu 2: Rekam Jejak Pendidikan & Hafalan</label>
+                            <textarea id="admAboutEdu" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="admAboutVision">Kartu 3: Visi Pengembangan Teknologi</label>
+                            <textarea id="admAboutVision" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow"><i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Tentang</button>
+                    </form>
+                </div>
+
+                <!-- Tab 3: Skills -->
+                <div class="admin-tab-content" id="tabSkills">
+                    <div class="admin-section-header">
+                        <h4><i class="fa-solid fa-bolt"></i> Manajemen Keahlian (Skills)</h4>
+                        <button class="btn btn-sm btn-primary" id="addNewSkillBtn"><i class="fa-solid fa-plus"></i> Tambah Keahlian</button>
+                    </div>
+
+                    <div class="admin-skills-list mt-3" id="adminSkillsList">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tab 4: Projects -->
+                <div class="admin-tab-content" id="tabProjects">
+                    <div class="admin-section-header">
+                        <h4><i class="fa-solid fa-layer-group"></i> Kelola Portofolio & Proyek</h4>
+                        <button class="btn btn-sm btn-primary" id="addNewProjectBtn"><i class="fa-solid fa-plus"></i> Tambah Proyek Baru</button>
+                    </div>
+
+                    <div class="admin-projects-list mt-3" id="adminProjectsList">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tab 5: Contact Info -->
+                <div class="admin-tab-content" id="tabContact">
+                    <h4><i class="fa-solid fa-paper-plane"></i> Informasi Kontak & Media Sosial</h4>
+                    <form id="adminContactForm" class="mt-3">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="admContactEmail">Email Resmi</label>
+                                <input type="email" id="admContactEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admContactLocation">Lokasi / Kota</label>
+                                <input type="text" id="admContactLocation" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admGithubUrl">Link GitHub</label>
+                                <input type="url" id="admGithubUrl" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="admLinkedinUrl">Link LinkedIn</label>
+                                <input type="url" id="admLinkedinUrl" class="form-control" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="admInstagramUrl">Link Instagram</label>
+                                <input type="url" id="admInstagramUrl" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow mt-2"><i class="fa-solid fa-floppy-disk"></i> Simpan Informasi Kontak</button>
+                    </form>
+                </div>
+
+                <!-- Tab 6: Security & Password -->
+                <div class="admin-tab-content" id="tabSecurity">
+                    <h4><i class="fa-solid fa-lock"></i> Ganti Password Keamanan Admin</h4>
+                    <form id="adminChangePassForm" class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="admCurrPass">Password Sekarang</label>
+                            <input type="password" id="admCurrPass" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="admNewPass">Password Baru</label>
+                            <input type="password" id="admNewPass" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="admConfirmPass">Konfirmasi Password Baru</label>
+                            <input type="password" id="admConfirmPass" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow"><i class="fa-solid fa-key"></i> Perbarui Password Admin</button>
+                    </form>
+
+                    <hr class="my-4" style="border-color: var(--border-color);">
+
+                    <div class="danger-zone">
+                        <h4 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Zona Riset & Reset</h4>
+                        <p class="text-muted">Kembalikan seluruh konten website ke data default pabrikan.</p>
+                        <button type="button" class="btn btn-outline danger-btn mt-2" id="adminResetAllBtn"><i class="fa-solid fa-rotate-left"></i> Reset Seluruh Data Website</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
