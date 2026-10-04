@@ -211,15 +211,45 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
+    // Migration Helper for Skills Data Structures
+    const migrateSkillsData = (data) => {
+        if (!data) return defaultSiteData;
+        ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
+            if (data[key] && Array.isArray(data[key]) && data[key].length > 0) {
+                if (data[key][0].pct !== undefined && !data[key][0].items) {
+                    data[key] = defaultSiteData[key];
+                }
+            }
+        });
+        return data;
+    };
+
     // Load State from LocalStorage or initialize
     let siteData = JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
     if (!siteData) {
         siteData = defaultSiteData;
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
-    } else if (siteData.adminPassword === "shifan123" || !siteData.adminPassword) {
-        siteData.adminPassword = FIXED_DEFAULT_PASS;
+    } else {
+        siteData = migrateSkillsData(siteData);
+        if (siteData.adminPassword === "shifan123" || !siteData.adminPassword) {
+            siteData.adminPassword = FIXED_DEFAULT_PASS;
+        }
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
+
+    // Real-time Storage Sync (Updates website live when Admin edits in another tab)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'ssa_site_data' && e.newValue) {
+            try {
+                siteData = migrateSkillsData(JSON.parse(e.newValue));
+                if (typeof renderFrontendContent === 'function') {
+                    renderFrontendContent();
+                }
+            } catch (err) {
+                console.error("Auto-sync error:", err);
+            }
+        }
+    });
 
     // === 1. Custom Cursor Follower ===
     const cursorDot = document.getElementById('cursorDot');
