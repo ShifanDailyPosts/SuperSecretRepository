@@ -167,105 +167,79 @@
                 <div class="section-header text-center">
                     <span class="section-subtitle"><i class="fa-solid fa-user-check"></i> Profile Overview</span>
                     <h2 class="section-title">About Me — <span class="text-gradient" id="aboutNameDisplay">Shifan Shalih Adiluhung</span></h2>
-                    <p class="section-description">Alur narasi profil pribadi, nilai hidup, dan perjalanan pengembangan diri.</p>
+                    <p class="section-description">7 dimensi profil pribadi, latar belakang, keahlian, dan arah tujuan.</p>
                 </div>
 
-                <!-- 7-Step Vertical Flow Structure -->
-                <div class="about-flow-container" id="aboutFlowContainer">
-                    <!-- Step 1: Siapa Saya -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">01</span>
-                            <i class="fa-solid fa-user"></i>
+                <!-- 7-Card Grid Layout (3 Columns, Not Stacked Vertically) -->
+                <div class="about-grid-7" id="aboutGridContainer">
+                    <!-- Card 1: Siapa Saya -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-user"></i></div>
+                            <span class="about-step-tag">01</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Siapa Saya</h3>
-                            <p id="aboutWhoText">Saya <strong>Shifan Shalih Adiluhung</strong> — seorang santri terpelajar dan pembelajar teknologi dari Ciamis, Jawa Barat. Nama &ldquo;Adiluhung&rdquo; mencerminkan cita-cita luhur dan standar tinggi dalam setiap aspek kehidupan.</p>
-                        </div>
+                        <h3>Siapa Saya</h3>
+                        <p id="aboutWhoText">Saya <strong>Shifan Shalih Adiluhung</strong> — seorang santri terpelajar dan pembelajar teknologi dari Ciamis, Jawa Barat. Nama &ldquo;Adiluhung&rdquo; mencerminkan cita-cita luhur dan standar tinggi dalam setiap aspek kehidupan.</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 2: Latar Belakang Saya -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">02</span>
-                            <i class="fa-solid fa-graduation-cap"></i>
+                    <!-- Card 2: Latar Belakang Saya -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <span class="about-step-tag">02</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Latar Belakang Saya</h3>
-                            <p id="aboutBackgroundText">Berasal dan tumbuh di Ciamis, Jawa Barat, dengan pendidikan berlandaskan kedisiplinan keilmuan dan hafalan Al-Qur'an di <strong>Hiraa Center</strong> (Rumah Qur'an &amp; Konsultasi). Pencapaian akademis formal: <em>On Progress</em>.</p>
-                        </div>
+                        <h3>Latar Belakang Saya</h3>
+                        <p id="aboutBackgroundText">Berasal dan tumbuh di Ciamis, Jawa Barat, dengan pendidikan berlandaskan kedisiplinan keilmuan dan hafalan Al-Qur'an di <strong>Hiraa Center</strong> (Rumah Qur'an &amp; Konsultasi). Pencapaian akademis formal: <em>On Progress</em>.</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 3: Apa Yang Saya Kerjakan -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">03</span>
-                            <i class="fa-solid fa-laptop-code"></i>
+                    <!-- Card 3: Apa Yang Saya Kerjakan -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+                            <span class="about-step-tag">03</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Apa Yang Saya Kerjakan</h3>
-                            <p id="aboutWorkText">Aktif mendalami hafalan Al-Qur'an dan muraja'ah harian di <strong>Hiraa Center</strong>, sembari mengasah keterampilan pemrograman web frontend &amp; backend modern. Bukti nyata: membangun portofolio interaktif ini dari nol.</p>
-                        </div>
+                        <h3>Apa Yang Saya Kerjakan</h3>
+                        <p id="aboutWorkText">Aktif mendalami hafalan Al-Qur'an dan muraja'ah harian di <strong>Hiraa Center</strong>, sembari mengasah keterampilan pemrograman web frontend &amp; backend modern. Bukti nyata: membangun portofolio interaktif ini dari nol.</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 4: Keahlian Utama -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">04</span>
-                            <i class="fa-solid fa-bolt"></i>
+                    <!-- Card 4: Keahlian Utama -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                            <span class="about-step-tag">04</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Keahlian Utama</h3>
-                            <p id="aboutSkillsText">Pengembangan web (HTML5, CSS3 Glassmorphism, JavaScript ES6+), pengelolaan state web storage, metode ketahanan hafalan Al-Qur'an (daya ingat tinggi), serta berpikir analitis dan pemecahan masalah (problem solving).</p>
-                        </div>
+                        <h3>Keahlian Utama</h3>
+                        <p id="aboutSkillsText">Pengembangan web (HTML5, CSS3 Glassmorphism, JavaScript ES6+), pengelolaan state web storage, metode ketahanan hafalan Al-Qur'an (daya ingat tinggi), serta berpikir analitis dan pemecahan masalah (problem solving).</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 5: Nilai / Prinsip Yang Saya Pegang -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">05</span>
-                            <i class="fa-solid fa-shield-halved"></i>
+                    <!-- Card 5: Nilai / Prinsip Yang Saya Pegang -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                            <span class="about-step-tag">05</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Nilai / Prinsip Yang Saya Pegang</h3>
-                            <p id="aboutValuesText">Integritas santri, etika kejujuran, konsep <strong>Adiluhung</strong> (berorientasi pada karya terbaik bernilai tinggi), kedisiplinan waktu, dan kebermanfaatan nyata bagi sesama.</p>
-                        </div>
+                        <h3>Nilai &amp; Prinsip</h3>
+                        <p id="aboutValuesText">Integritas santri, etika kejujuran, konsep <strong>Adiluhung</strong> (berorientasi pada karya terbaik bernilai tinggi), kedisiplinan waktu, dan kebermanfaatan nyata bagi sesama.</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 6: Apa Yang Membuat Saya Berbeda -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">06</span>
-                            <i class="fa-solid fa-star-of-life"></i>
+                    <!-- Card 6: Apa Yang Membuat Saya Berbeda -->
+                    <div class="about-card-step glass-card">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box"><i class="fa-solid fa-star-of-life"></i></div>
+                            <span class="about-step-tag">06</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Apa Yang Membuat Saya Berbeda</h3>
-                            <p id="aboutDifferentText">Kombinasi unik antara kedisiplinan spiritual santri (hafalan Al-Qur'an) dengan wawasan teknologi digital modern, menciptakan karakter terpelajar yang adaptif, fokus, dan beretika tinggi.</p>
-                        </div>
+                        <h3>Keunikan &amp; Pembeda</h3>
+                        <p id="aboutDifferentText">Kombinasi unik antara kedisiplinan spiritual santri (hafalan Al-Qur'an) dengan wawasan teknologi digital modern, menciptakan karakter terpelajar yang adaptif, fokus, dan beretika tinggi.</p>
                     </div>
 
-                    <div class="flow-connector"><i class="fa-solid fa-arrow-down"></i></div>
-
-                    <!-- Step 7: Arah & Tujuan Saya -->
-                    <div class="about-flow-card glass-card">
-                        <div class="about-flow-badge">
-                            <span class="step-num">07</span>
-                            <i class="fa-solid fa-compass"></i>
+                    <!-- Card 7: Arah & Tujuan Saya -->
+                    <div class="about-card-step glass-card featured-step">
+                        <div class="about-step-top">
+                            <div class="about-step-icon-box" style="background: var(--accent-gold);"><i class="fa-solid fa-compass"></i></div>
+                            <span class="about-step-tag" style="color: var(--text-gold); border-color: rgba(245, 158, 11, 0.3);">07</span>
                         </div>
-                        <div class="about-flow-content">
-                            <h3>Arah &amp; Tujuan Saya</h3>
-                            <p id="aboutGoalsText">Menjadi pengembang teknologi yang mampu menciptakan solusi digital inovatif dan bermanfaat bagi masyarakat luas tanpa kehilangan identitas dan nilai-nilai keislaman. Spesialisasi karir/teknologi lanjut: <em>On Progress</em>.</p>
-                        </div>
+                        <h3>Arah &amp; Tujuan Saya</h3>
+                        <p id="aboutGoalsText">Menjadi pengembang teknologi yang mampu menciptakan solusi digital inovatif dan bermanfaat bagi masyarakat luas tanpa kehilangan identitas dan nilai-nilai keislaman. Spesialisasi karir/teknologi lanjut: <em>On Progress</em>.</p>
                     </div>
                 </div>
 
