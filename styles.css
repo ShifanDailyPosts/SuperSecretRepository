@@ -491,7 +491,16 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 }
 
 .typing-text { color: var(--text-gold); font-weight: 700; }
-.typing-cursor { animation: blink 0.7s infinite; color: var(--primary-color); margin-left: 1px; font-weight: 700; }
+.typing-cursor {
+    display: inline-block;
+    width: 2.5px;
+    height: 1.2em;
+    background-color: var(--primary-color);
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    animation: blink 0.7s infinite;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.7);
+}
 
 @keyframes blink {
     0%, 100% { opacity: 1; }

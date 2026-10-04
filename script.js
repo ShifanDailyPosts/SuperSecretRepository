@@ -261,8 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === 4. Dynamic Typing Effect ===
-    const typingTextEl = document.getElementById('typingText');
-    let subheadlines = siteData.subheadlines || defaultSiteData.subheadlines;
+    const rawSubheadlines = siteData.subheadlines || defaultSiteData.subheadlines;
+    let subheadlines = (Array.isArray(rawSubheadlines) ? rawSubheadlines : defaultSiteData.subheadlines).map(s => String(s).trim());
 
     let currentTextIndex = 0;
     let charIndex = 0;
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aboutNameDisplay').textContent = siteData.name;
         document.getElementById('contactTitleName').textContent = siteData.name;
         document.getElementById('heroBioDisplay').textContent = siteData.bio;
-        subheadlines = siteData.subheadlines;
+        subheadlines = (Array.isArray(siteData.subheadlines) ? siteData.subheadlines : defaultSiteData.subheadlines).map(s => String(s).trim());
 
         // About Narrative
         if (document.getElementById('aboutMeaningText')) document.getElementById('aboutMeaningText').innerHTML = siteData.aboutMeaning || defaultSiteData.aboutMeaning;
