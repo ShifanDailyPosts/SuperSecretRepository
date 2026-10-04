@@ -260,7 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // === 4. Dynamic Typing Effect ===
+    // === 4. Interactive & Auto Typing Effect (Ngetik Asal) ===
+    const typingTextEl = document.getElementById('typingText');
     const rawSubheadlines = siteData.subheadlines || defaultSiteData.subheadlines;
     let subheadlines = (Array.isArray(rawSubheadlines) ? rawSubheadlines : defaultSiteData.subheadlines).map(s => String(s).trim());
 
@@ -268,35 +269,98 @@ document.addEventListener('DOMContentLoaded', () => {
     let charIndex = 0;
     let isDeleting = false;
     let typingSpeed = 100;
+    let idleTimer = null;
+    let autoTypingActive = false;
 
-    const typeEffect = () => {
+    const renderTypingText = () => {
+        if (!typingTextEl) return;
+        const currentPhrase = subheadlines[currentTextIndex] || subheadlines[0];
+        typingTextEl.textContent = currentPhrase.substring(0, charIndex);
+    };
+
+    const stepTyping = () => {
         if (!typingTextEl) return;
         const currentPhrase = subheadlines[currentTextIndex] || subheadlines[0];
 
         if (isDeleting) {
-            typingTextEl.textContent = currentPhrase.substring(0, charIndex - 1);
-            charIndex--;
-            typingSpeed = 50;
-        } else {
-            typingTextEl.textContent = currentPhrase.substring(0, charIndex + 1);
-            charIndex++;
-            typingSpeed = 100;
+            if (charIndex > 0) {
+                charIndex--;
+                renderTypingText();
+                typingSpeed = 45; // Fast deletion animation
+                setTimeout(stepTyping, typingSpeed);
+            } else {
+                isDeleting = false;
+                currentTextIndex = (currentTextIndex + 1) % subheadlines.length;
+                startIdleAutoTypeTimer();
+            }
+        } else if (autoTypingActive) {
+            if (charIndex < currentPhrase.length) {
+                charIndex++;
+                renderTypingText();
+                if (charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(stepTyping, 1800); // Pause 1.8s then auto delete
+                } else {
+                    typingSpeed = 100;
+                    setTimeout(stepTyping, typingSpeed);
+                }
+            } else {
+                isDeleting = true;
+                setTimeout(stepTyping, 1800);
+            }
         }
-
-        if (!isDeleting && charIndex === currentPhrase.length) {
-            isDeleting = true;
-            typingSpeed = 2000;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            currentTextIndex = (currentTextIndex + 1) % subheadlines.length;
-            typingSpeed = 500;
-        }
-
-        setTimeout(typeEffect, typingSpeed);
     };
 
+    const startIdleAutoTypeTimer = () => {
+        clearTimeout(idleTimer);
+        // If user hasn't typed in 2.5s, auto-type automatically
+        idleTimer = setTimeout(() => {
+            if (!isDeleting && !autoTypingActive) {
+                autoTypingActive = true;
+                stepTyping();
+            }
+        }, 2500);
+    };
+
+    // User Physical Keypress Listener ("Ngetik Asal")
+    window.addEventListener('keydown', (e) => {
+        // Ignore modifier keys, shortcut combos, navigation keys
+        if (e.ctrlKey || e.altKey || e.metaKey) return;
+        if (['Control', 'Shift', 'Alt', 'Meta', 'Tab', 'Escape', 'CapsLock', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'].includes(e.key)) return;
+
+        // Ignore keypresses if user is currently typing in an input or textarea (e.g. form fields, admin portal)
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        if (activeTag === 'input' || activeTag === 'textarea' || (document.activeElement && document.activeElement.isContentEditable)) return;
+
+        if (!typingTextEl) return;
+        const currentPhrase = subheadlines[currentTextIndex] || subheadlines[0];
+
+        // If currently auto-deleting, cancel deletion and start fresh on keypress
+        if (isDeleting) {
+            isDeleting = false;
+            charIndex = 0;
+            renderTypingText();
+        }
+
+        autoTypingActive = false; // User keypress takes control!
+        clearTimeout(idleTimer);
+
+        if (charIndex < currentPhrase.length) {
+            charIndex++;
+            renderTypingText();
+
+            if (charIndex === currentPhrase.length) {
+                // Completed! Pause 1.8s then auto-delete backspacing
+                isDeleting = true;
+                setTimeout(stepTyping, 1800);
+            } else {
+                startIdleAutoTypeTimer();
+            }
+        }
+    });
+
     if (typingTextEl) {
-        typeEffect();
+        startIdleAutoTypeTimer();
     }
 
     // === 5. Render All Frontend Content Dynamically ===
