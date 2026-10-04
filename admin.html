@@ -322,14 +322,22 @@
                     <span>8. Contact & Sosmed</span>
                 </button>
 
-                <button class="admin-nav-item" data-pane="paneSecurity">
-                    <i class="fa-solid fa-key"></i>
-                    <span>9. Ubah Kata Sandi</span>
+                <button class="admin-nav-item" data-pane="paneTestimonials">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>9. Testimonials</span>
                 </button>
 
-                <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                <button class="admin-nav-item" data-pane="paneSecurity">
+                    <i class="fa-solid fa-key"></i>
+                    <span>10. Ubah Kata Sandi</span>
+                </button>
+
+                <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem;">
+                    <button class="btn btn-primary btn-block btn-sm" id="copyDataForAIBtn" title="Salin seluruh data untuk dikirim ke Asisten AI agar di-publish ke publik">
+                        <i class="fa-solid fa-copy"></i> Salin Data untuk AI
+                    </button>
                     <button class="btn btn-outline btn-block btn-sm" id="exportBackupBtn">
-                        <i class="fa-solid fa-download"></i> Unduh Cadangan File
+                        <i class="fa-solid fa-download"></i> Unduh File JSON
                     </button>
                 </div>
             </aside>
@@ -418,14 +426,15 @@
 
                 <!-- PANE 4: PROJECTS ⭐⭐⭐ -->
                 <div class="content-panel" id="paneProjects">
-                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <h2><i class="fa-solid fa-star" style="color: var(--primary-color);"></i> 4. Projects ⭐⭐⭐</h2>
                             <p>Kelola portofolio karya dalam kategori Web Projects, Design Projects, dan Other Projects.</p>
                         </div>
-                        <button type="button" class="btn btn-primary btn-sm" id="addProjectBtn">
-                            <i class="fa-solid fa-plus"></i> Tambah Karya Baru
-                        </button>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetProjectsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke Default</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addProjectBtn"><i class="fa-solid fa-plus"></i> Tambah Karya Baru</button>
+                        </div>
                     </div>
 
                     <div id="projectsListContainer"></div>
@@ -433,10 +442,14 @@
 
                 <!-- PANE 5: EXPERIENCE -->
                 <div class="content-panel" id="paneExperience">
-                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <h2><i class="fa-solid fa-briefcase" style="color: var(--primary-color);"></i> 5. Experience</h2>
                             <p>Kelola riwayat kegiatan organisasi, volunteer, dan pengalaman kerja.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetExperienceBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addExperienceBtn"><i class="fa-solid fa-plus"></i> Tambah Pengalaman</button>
                         </div>
                     </div>
                     <div id="experienceListContainer"></div>
@@ -444,18 +457,30 @@
 
                 <!-- PANE 6: ACHIEVEMENTS -->
                 <div class="content-panel" id="paneAchievements">
-                    <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-trophy" style="color: var(--primary-color);"></i> 6. Achievements</h2>
-                        <p>Kelola capaian prestasi akademis, keilmuan, dan hafalan Al-Qur'an.</p>
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2><i class="fa-solid fa-trophy" style="color: var(--primary-color);"></i> 6. Achievements</h2>
+                            <p>Kelola capaian prestasi akademis, keilmuan, dan hafalan Al-Qur'an.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetAchievementsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addAchievementBtn"><i class="fa-solid fa-plus"></i> Tambah Capaian</button>
+                        </div>
                     </div>
                     <div id="achievementsListContainer"></div>
                 </div>
 
                 <!-- PANE 7: CERTIFICATES -->
                 <div class="content-panel" id="paneCertificates">
-                    <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-certificate" style="color: var(--primary-color);"></i> 7. Certificates</h2>
-                        <p>Kelola dokumen sertifikat pelatihan dan bukti kompetensi.</p>
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2><i class="fa-solid fa-certificate" style="color: var(--primary-color);"></i> 7. Certificates</h2>
+                            <p>Kelola dokumen sertifikat pelatihan dan bukti kompetensi resmi.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetCertificatesBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addCertificateBtn"><i class="fa-solid fa-plus"></i> Tambah Sertifikat</button>
+                        </div>
                     </div>
                     <div id="certificatesListContainer"></div>
                 </div>
@@ -503,10 +528,25 @@
                     </div>
                 </div>
 
-                <!-- PANE 9: UBAH KATA SANDI -->
+                <!-- PANE 9: TESTIMONIALS -->
+                <div class="content-panel" id="paneTestimonials">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2><i class="fa-solid fa-comments" style="color: var(--primary-color);"></i> 9. Testimonials</h2>
+                            <p>Kelola testimoni dan rekomendasi dari pembimbing, rekan sejawat, atau pengajar.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetTestimonialsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addTestimonialBtn"><i class="fa-solid fa-plus"></i> Tambah Testimoni</button>
+                        </div>
+                    </div>
+                    <div id="testimonialsListContainer"></div>
+                </div>
+
+                <!-- PANE 10: UBAH KATA SANDI -->
                 <div class="content-panel" id="paneSecurity">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 9. Ubah Kata Sandi Pengelola</h2>
+                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 10. Ubah Kata Sandi Pengelola</h2>
                         <p>Ganti kata sandi untuk masuk ke halaman pengelola ini demi keamanan website Anda.</p>
                     </div>
 
@@ -543,6 +583,26 @@
                 </div>
 
             </main>
+        </div>
+    </div>
+
+    <!-- Universal Edit Modal -->
+    <div class="modal" id="adminEditModal">
+        <div class="modal-overlay" id="adminEditModalOverlay"></div>
+        <div class="modal-card glass-card" style="max-width: 620px; width: 92%;">
+            <button type="button" class="modal-close-btn" id="adminEditModalCloseBtn">&times;</button>
+            <div class="modal-header mb-3" style="padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color);">
+                <h3 id="adminEditModalTitle" style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: var(--text-primary);">Edit Data</h3>
+            </div>
+            <form id="adminEditModalForm">
+                <div id="adminEditModalBody" class="modal-body" style="display: flex; flex-direction: column; gap: 1rem; max-height: 60vh; overflow-y: auto; padding-right: 0.5rem;">
+                    <!-- Dynamically populated fields -->
+                </div>
+                <div class="modal-footer mt-4" style="display: flex; justify-content: flex-end; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <button type="button" class="btn btn-outline" id="adminEditModalCancelBtn">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Simpan Perubahan</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -958,6 +1018,7 @@
                 renderExperienceList();
                 renderAchievementsList();
                 renderCertificatesList();
+                renderTestimonialsList();
             }
 
             document.getElementById('formIdentity').addEventListener('submit', (e) => {
@@ -1452,18 +1513,129 @@
                 });
             }
 
+            // === UNIVERSAL EDIT MODAL CONTROLLER ===
+            const adminEditModal = document.getElementById('adminEditModal');
+            const adminEditModalCloseBtn = document.getElementById('adminEditModalCloseBtn');
+            const adminEditModalOverlay = document.getElementById('adminEditModalOverlay');
+            const adminEditModalCancelBtn = document.getElementById('adminEditModalCancelBtn');
+            const adminEditModalTitle = document.getElementById('adminEditModalTitle');
+            const adminEditModalBody = document.getElementById('adminEditModalBody');
+            const adminEditModalForm = document.getElementById('adminEditModalForm');
+
+            const closeAdminEditModal = () => {
+                if (adminEditModal) adminEditModal.classList.remove('active');
+            };
+
+            if (adminEditModalCloseBtn) adminEditModalCloseBtn.addEventListener('click', closeAdminEditModal);
+            if (adminEditModalOverlay) adminEditModalOverlay.addEventListener('click', closeAdminEditModal);
+            if (adminEditModalCancelBtn) adminEditModalCancelBtn.addEventListener('click', closeAdminEditModal);
+
+            function showEditModal(title, fields, onSave) {
+                adminEditModalTitle.textContent = title;
+                adminEditModalBody.innerHTML = fields.map(f => {
+                    if (f.type === 'textarea') {
+                        return `
+                            <div class="form-group">
+                                <label for="m_${f.name}"><strong>${f.label}</strong></label>
+                                <textarea id="m_${f.name}" class="form-control" rows="${f.rows || 3}" ${f.required ? 'required' : ''}>${f.value || ''}</textarea>
+                            </div>
+                        `;
+                    } else if (f.type === 'select') {
+                        return `
+                            <div class="form-group">
+                                <label for="m_${f.name}"><strong>${f.label}</strong></label>
+                                <select id="m_${f.name}" class="form-control" ${f.required ? 'required' : ''}>
+                                    ${f.options.map(opt => `<option value="${opt.value}" ${opt.value === f.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                                </select>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="form-group">
+                                <label for="m_${f.name}"><strong>${f.label}</strong></label>
+                                <input type="${f.type || 'text'}" id="m_${f.name}" class="form-control" value="${(f.value || '').replace(/"/g, '&quot;')}" ${f.required ? 'required' : ''}>
+                            </div>
+                        `;
+                    }
+                }).join('');
+
+                adminEditModal.classList.add('active');
+
+                adminEditModalForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    const formData = {};
+                    fields.forEach(f => {
+                        formData[f.name] = document.getElementById(`m_${f.name}`).value;
+                    });
+                    onSave(formData);
+                    closeAdminEditModal();
+                };
+            }
+
+            // === 4. PROJECTS MANAGEMENT ===
             function renderProjectsList() {
                 const container = document.getElementById('projectsListContainer');
+                if (!container) return;
                 const projs = siteData.projects || defaultSiteData.projects;
-                container.innerHTML = projs.map(p => `
-                    <div class="item-row">
-                        <div>
-                            <strong>${p.title}</strong>
-                            <span>Kategori: ${p.category} | Teknologi: ${p.tech} ${p.isCurrentSite ? '<span style="color: #4ade80; background: rgba(34,197,94,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-globe"></i> Website Ini (Live)</span>' : '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>'}</span>
+                if (!projs || projs.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Belum ada proyek karya. Klik tombol di atas untuk menambah karya.</em>
                         </div>
-                        <button type="button" class="btn btn-sm btn-outline danger-btn del-proj-btn" data-id="${p.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
-                    </div>
-                `).join('');
+                    `;
+                } else {
+                    container.innerHTML = projs.map(p => `
+                        <div class="item-row">
+                            <div style="flex-grow: 1; padding-right: 1rem;">
+                                <strong>${p.title} ${p.isCurrentSite ? '<span style="color: #4ade80; background: rgba(34,197,94,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-globe"></i> Website Ini (Live)</span>' : (p.title.includes('On Progress') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : '')}</strong>
+                                <span>Kategori: ${p.category} | Teknologi: ${p.tech}</span>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${p.desc}</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-proj-btn" data-id="${p.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-proj-btn" data-id="${p.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-proj-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const p = siteData.projects.find(item => item.id === id);
+                        if (!p) return;
+
+                        let currentStatusType = 'normal';
+                        if (p.isCurrentSite || p.link === 'index.html') currentStatusType = 'live-current';
+                        else if (p.title && p.title.includes('On Progress')) currentStatusType = 'on-progress';
+
+                        showEditModal(`Edit Proyek: ${p.title}`, [
+                            { name: 'title', label: 'Judul Proyek', value: p.title, required: true },
+                            { name: 'category', label: 'Kategori', type: 'select', value: p.category, options: [
+                                { value: 'web-projects', label: 'Web Projects' },
+                                { value: 'design-projects', label: 'Design Projects' },
+                                { value: 'other-projects', label: 'Other Projects' }
+                            ]},
+                            { name: 'tech', label: 'Teknologi Utama (Pisahkan koma)', value: p.tech },
+                            { name: 'statusType', label: 'Status Proyek', type: 'select', value: currentStatusType, options: [
+                                { value: 'live-current', label: 'Website Ini (Masuk Ulang / Live)' },
+                                { value: 'on-progress', label: 'Sedang Dikerjakan (On Progress)' },
+                                { value: 'normal', label: 'Karya / Portofolio Selesai Lainnya' }
+                            ]},
+                            { name: 'desc', label: 'Deskripsi Singkat Karya', type: 'textarea', value: p.desc }
+                        ], (data) => {
+                            p.title = data.title.trim();
+                            p.category = data.category;
+                            p.tech = data.tech.trim() || 'Tech Stack';
+                            p.desc = data.desc.trim();
+                            p.isCurrentSite = (data.statusType === 'live-current');
+                            p.link = (data.statusType === 'live-current') ? 'index.html' : '#';
+                            saveState();
+                            renderProjectsList();
+                            showToast("Proyek berhasil diperbarui!", "success");
+                        });
+                    });
+                });
 
                 document.querySelectorAll('.del-proj-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
@@ -1476,20 +1648,54 @@
                 });
             }
 
-            document.getElementById('addProjectBtn').addEventListener('click', () => {
-                const title = prompt("Masukkan Judul Karya:");
-                if (!title) return;
-                const desc = prompt("Masukkan Penjelasan Singkat:");
-                const category = prompt("Kategori ('web-projects', 'design-projects', atau 'other-projects'):", "web-projects");
-                const tech = prompt("Teknologi yang digunakan (pisahkan koma):", "HTML5, CSS3, JavaScript");
+            const addProjectBtn = document.getElementById('addProjectBtn');
+            if (addProjectBtn) {
+                addProjectBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Karya / Proyek Baru", [
+                        { name: 'title', label: 'Judul Proyek', value: '', required: true },
+                        { name: 'category', label: 'Kategori', type: 'select', value: 'web-projects', options: [
+                            { value: 'web-projects', label: 'Web Projects' },
+                            { value: 'design-projects', label: 'Design Projects' },
+                            { value: 'other-projects', label: 'Other Projects' }
+                        ]},
+                        { name: 'tech', label: 'Teknologi Utama (Pisahkan koma)', value: 'HTML5, CSS3, JavaScript' },
+                        { name: 'statusType', label: 'Status Proyek', type: 'select', value: 'normal', options: [
+                            { value: 'live-current', label: 'Website Ini (Masuk Ulang / Live)' },
+                            { value: 'on-progress', label: 'Sedang Dikerjakan (On Progress)' },
+                            { value: 'normal', label: 'Karya / Portofolio Selesai Lainnya' }
+                        ]},
+                        { name: 'desc', label: 'Deskripsi Singkat Karya', type: 'textarea', value: '' }
+                    ], (data) => {
+                        const newProj = {
+                            id: Date.now(),
+                            title: data.title.trim(),
+                            category: data.category,
+                            tech: data.tech.trim() || 'Tech Stack',
+                            desc: data.desc.trim() || 'Deskripsi karya.',
+                            link: data.statusType === 'live-current' ? 'index.html' : '#',
+                            isCurrentSite: data.statusType === 'live-current'
+                        };
+                        (siteData.projects = siteData.projects || []).push(newProj);
+                        saveState();
+                        renderProjectsList();
+                        showToast("Proyek baru berhasil ditambahkan!", "success");
+                    });
+                });
+            }
 
-                const newProj = { id: Date.now(), title, desc: desc || "Penjelasan karya.", category: category || "web-projects", tech: tech || "HTML5, CSS3" };
-                (siteData.projects = siteData.projects || []).push(newProj);
-                saveState();
-                renderProjectsList();
-                showToast("Proyek karya baru berhasil ditambahkan!", "success");
-            });
+            const resetProjectsBtn = document.getElementById('resetProjectsBtn');
+            if (resetProjectsBtn) {
+                resetProjectsBtn.addEventListener('click', () => {
+                    if (confirm("Reset daftar proyek ke setelan default (Website Ini + 3 On Progress)?")) {
+                        siteData.projects = defaultSiteData.projects;
+                        saveState();
+                        renderProjectsList();
+                        showToast("Proyek dikembalikan ke setelan default.", "info");
+                    }
+                });
+            }
 
+            // === 5. EXPERIENCE MANAGEMENT ===
             function renderExperienceList() {
                 const container = document.getElementById('experienceListContainer');
                 if (!container) return;
@@ -1500,19 +1706,92 @@
                             <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data pengalaman dalam tahap pemutakhiran resmi).</em>
                         </div>
                     `;
-                    return;
-                }
-                container.innerHTML = exps.map(e => `
-                    <div class="item-row">
-                        <div>
-                            <strong>${e.role} — ${e.org}</strong>
-                            <span>Periode: ${e.period}</span>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${e.desc}</p>
+                } else {
+                    container.innerHTML = exps.map(e => `
+                        <div class="item-row">
+                            <div style="flex-grow: 1; padding-right: 1rem;">
+                                <strong>${e.role} — ${e.org} ${e.period === 'On Progress' ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <span>Periode: ${e.period}</span>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${e.desc}</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-exp-btn" data-id="${e.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-exp-btn" data-id="${e.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-exp-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const e = siteData.experiences.find(item => item.id === id);
+                        if (!e) return;
+                        showEditModal(`Edit Pengalaman: ${e.role}`, [
+                            { name: 'role', label: 'Peran / Posisi / Jabatan', value: e.role, required: true },
+                            { name: 'org', label: 'Organisasi / Instansi / Tempat', value: e.org, required: true },
+                            { name: 'period', label: 'Periode (contoh: 2024 - Sekarang atau On Progress)', value: e.period, required: true },
+                            { name: 'desc', label: 'Deskripsi Kegiatan / Tanggung Jawab', type: 'textarea', value: e.desc }
+                        ], (data) => {
+                            e.role = data.role.trim();
+                            e.org = data.org.trim();
+                            e.period = data.period.trim();
+                            e.desc = data.desc.trim();
+                            saveState();
+                            renderExperienceList();
+                            showToast("Pengalaman berhasil diperbarui!", "success");
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.del-exp-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        siteData.experiences = siteData.experiences.filter(item => item.id !== id);
+                        saveState();
+                        renderExperienceList();
+                        showToast("Pengalaman berhasil dihapus.", "info");
+                    });
+                });
             }
 
+            const addExperienceBtn = document.getElementById('addExperienceBtn');
+            if (addExperienceBtn) {
+                addExperienceBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Pengalaman Baru", [
+                        { name: 'role', label: 'Peran / Posisi / Jabatan', value: '', required: true },
+                        { name: 'org', label: 'Organisasi / Instansi / Tempat', value: '', required: true },
+                        { name: 'period', label: 'Periode (contoh: 2024 - Sekarang atau On Progress)', value: 'On Progress', required: true },
+                        { name: 'desc', label: 'Deskripsi Kegiatan / Tanggung Jawab', type: 'textarea', value: '' }
+                    ], (data) => {
+                        const newExp = {
+                            id: Date.now(),
+                            role: data.role.trim(),
+                            org: data.org.trim(),
+                            period: data.period.trim(),
+                            desc: data.desc.trim()
+                        };
+                        (siteData.experiences = siteData.experiences || []).push(newExp);
+                        saveState();
+                        renderExperienceList();
+                        showToast("Pengalaman baru berhasil ditambahkan!", "success");
+                    });
+                });
+            }
+
+            const resetExperienceBtn = document.getElementById('resetExperienceBtn');
+            if (resetExperienceBtn) {
+                resetExperienceBtn.addEventListener('click', () => {
+                    if (confirm("Reset pengalaman ke status On Progress?")) {
+                        siteData.experiences = defaultSiteData.experiences;
+                        saveState();
+                        renderExperienceList();
+                        showToast("Pengalaman di-reset ke On Progress.", "info");
+                    }
+                });
+            }
+
+            // === 6. ACHIEVEMENTS MANAGEMENT ===
             function renderAchievementsList() {
                 const container = document.getElementById('achievementsListContainer');
                 if (!container) return;
@@ -1523,18 +1802,83 @@
                             <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data pencapaian dalam tahap pemutakhiran resmi).</em>
                         </div>
                     `;
-                    return;
-                }
-                container.innerHTML = achs.map(a => `
-                    <div class="item-row">
-                        <div>
-                            <strong>${a.title} <span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span></strong>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${a.desc}</p>
+                } else {
+                    container.innerHTML = achs.map(a => `
+                        <div class="item-row">
+                            <div style="flex-grow: 1; padding-right: 1rem;">
+                                <strong>${a.title} ${a.title.includes('On Progress') || a.desc.includes('On Progress') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${a.desc}</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-ach-btn" data-id="${a.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-ach-btn" data-id="${a.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-ach-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const a = siteData.achievements.find(item => item.id === id);
+                        if (!a) return;
+                        showEditModal(`Edit Pencapaian: ${a.title}`, [
+                            { name: 'title', label: 'Judul Pencapaian / Prestasi', value: a.title, required: true },
+                            { name: 'desc', label: 'Keterangan / Deskripsi Prestasi', type: 'textarea', value: a.desc }
+                        ], (data) => {
+                            a.title = data.title.trim();
+                            a.desc = data.desc.trim();
+                            saveState();
+                            renderAchievementsList();
+                            showToast("Pencapaian berhasil diperbarui!", "success");
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.del-ach-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        siteData.achievements = siteData.achievements.filter(item => item.id !== id);
+                        saveState();
+                        renderAchievementsList();
+                        showToast("Pencapaian berhasil dihapus.", "info");
+                    });
+                });
             }
 
+            const addAchievementBtn = document.getElementById('addAchievementBtn');
+            if (addAchievementBtn) {
+                addAchievementBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Pencapaian Baru", [
+                        { name: 'title', label: 'Judul Pencapaian / Prestasi', value: '', required: true },
+                        { name: 'desc', label: 'Keterangan / Deskripsi Prestasi', type: 'textarea', value: '' }
+                    ], (data) => {
+                        const newAch = {
+                            id: Date.now(),
+                            title: data.title.trim(),
+                            desc: data.desc.trim()
+                        };
+                        (siteData.achievements = siteData.achievements || []).push(newAch);
+                        saveState();
+                        renderAchievementsList();
+                        showToast("Pencapaian baru berhasil ditambahkan!", "success");
+                    });
+                });
+            }
+
+            const resetAchievementsBtn = document.getElementById('resetAchievementsBtn');
+            if (resetAchievementsBtn) {
+                resetAchievementsBtn.addEventListener('click', () => {
+                    if (confirm("Reset pencapaian ke status On Progress?")) {
+                        siteData.achievements = defaultSiteData.achievements;
+                        saveState();
+                        renderAchievementsList();
+                        showToast("Pencapaian di-reset ke On Progress.", "info");
+                    }
+                });
+            }
+
+            // === 7. CERTIFICATES MANAGEMENT ===
             function renderCertificatesList() {
                 const container = document.getElementById('certificatesListContainer');
                 if (!container) return;
@@ -1545,16 +1889,200 @@
                             <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data sertifikat dalam tahap pemutakhiran resmi).</em>
                         </div>
                     `;
-                    return;
-                }
-                container.innerHTML = certs.map(c => `
-                    <div class="item-row">
-                        <div>
-                            <strong>${c.title} — ${c.issuer}</strong>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${c.desc}</p>
+                } else {
+                    container.innerHTML = certs.map(c => `
+                        <div class="item-row">
+                            <div style="flex-grow: 1; padding-right: 1rem;">
+                                <strong>${c.title} — ${c.issuer} ${c.desc.includes('On Progress') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${c.desc}</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-cert-btn" data-id="${c.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-cert-btn" data-id="${c.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-cert-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const c = siteData.certificates.find(item => item.id === id);
+                        if (!c) return;
+                        showEditModal(`Edit Sertifikat: ${c.title}`, [
+                            { name: 'title', label: 'Nama Sertifikat / Lisensi', value: c.title, required: true },
+                            { name: 'issuer', label: 'Lembaga Penerbit / Penyelenggara', value: c.issuer, required: true },
+                            { name: 'desc', label: 'Keterangan Tambahan / Bukti Dokumen', type: 'textarea', value: c.desc }
+                        ], (data) => {
+                            c.title = data.title.trim();
+                            c.issuer = data.issuer.trim();
+                            c.desc = data.desc.trim();
+                            saveState();
+                            renderCertificatesList();
+                            showToast("Sertifikat berhasil diperbarui!", "success");
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.del-cert-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        siteData.certificates = siteData.certificates.filter(item => item.id !== id);
+                        saveState();
+                        renderCertificatesList();
+                        showToast("Sertifikat berhasil dihapus.", "info");
+                    });
+                });
+            }
+
+            const addCertificateBtn = document.getElementById('addCertificateBtn');
+            if (addCertificateBtn) {
+                addCertificateBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Sertifikat Baru", [
+                        { name: 'title', label: 'Nama Sertifikat / Lisensi', value: '', required: true },
+                        { name: 'issuer', label: 'Lembaga Penerbit / Penyelenggara', value: '', required: true },
+                        { name: 'desc', label: 'Keterangan Tambahan / Bukti Dokumen', type: 'textarea', value: '' }
+                    ], (data) => {
+                        const newCert = {
+                            id: Date.now(),
+                            title: data.title.trim(),
+                            issuer: data.issuer.trim(),
+                            desc: data.desc.trim()
+                        };
+                        (siteData.certificates = siteData.certificates || []).push(newCert);
+                        saveState();
+                        renderCertificatesList();
+                        showToast("Sertifikat baru berhasil ditambahkan!", "success");
+                    });
+                });
+            }
+
+            const resetCertificatesBtn = document.getElementById('resetCertificatesBtn');
+            if (resetCertificatesBtn) {
+                resetCertificatesBtn.addEventListener('click', () => {
+                    if (confirm("Reset sertifikat ke status On Progress?")) {
+                        siteData.certificates = defaultSiteData.certificates;
+                        saveState();
+                        renderCertificatesList();
+                        showToast("Sertifikat di-reset ke On Progress.", "info");
+                    }
+                });
+            }
+
+            // === 9. TESTIMONIALS MANAGEMENT ===
+            function renderTestimonialsList() {
+                const container = document.getElementById('testimonialsListContainer');
+                if (!container) return;
+                const tests = siteData.testimonials || defaultSiteData.testimonials;
+                if (!tests || tests.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data testimoni dalam tahap pengumpulan resmi).</em>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = tests.map(t => `
+                        <div class="item-row">
+                            <div style="flex-grow: 1; padding-right: 1rem;">
+                                <strong>"${t.quote}" ${t.title === 'On Progress' || t.author.includes('Pemutakhiran') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <span>— ${t.author} (${t.title})</span>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-test-btn" data-id="${t.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-test-btn" data-id="${t.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-test-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const t = siteData.testimonials.find(item => item.id === id);
+                        if (!t) return;
+                        showEditModal(`Edit Testimoni: ${t.author}`, [
+                            { name: 'quote', label: 'Kutipan Testimoni / Ulasan', type: 'textarea', value: t.quote, required: true },
+                            { name: 'author', label: 'Nama Pemberi Testimoni', value: t.author, required: true },
+                            { name: 'title', label: 'Jabatan / Peran Pemberi Testimoni', value: t.title, required: true }
+                        ], (data) => {
+                            t.quote = data.quote.trim();
+                            t.author = data.author.trim();
+                            t.title = data.title.trim();
+                            saveState();
+                            renderTestimonialsList();
+                            showToast("Testimoni berhasil diperbarui!", "success");
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.del-test-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        siteData.testimonials = siteData.testimonials.filter(item => item.id !== id);
+                        saveState();
+                        renderTestimonialsList();
+                        showToast("Testimoni berhasil dihapus.", "info");
+                    });
+                });
+            }
+
+            const addTestimonialBtn = document.getElementById('addTestimonialBtn');
+            if (addTestimonialBtn) {
+                addTestimonialBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Testimoni Baru", [
+                        { name: 'quote', label: 'Kutipan Testimoni / Ulasan', type: 'textarea', value: '', required: true },
+                        { name: 'author', label: 'Nama Pemberi Testimoni', value: '', required: true },
+                        { name: 'title', label: 'Jabatan / Peran Pemberi Testimoni', value: '', required: true }
+                    ], (data) => {
+                        const newTest = {
+                            id: Date.now(),
+                            quote: data.quote.trim(),
+                            author: data.author.trim(),
+                            title: data.title.trim()
+                        };
+                        (siteData.testimonials = siteData.testimonials || []).push(newTest);
+                        saveState();
+                        renderTestimonialsList();
+                        showToast("Testimoni baru berhasil ditambahkan!", "success");
+                    });
+                });
+            }
+
+            const resetTestimonialsBtn = document.getElementById('resetTestimonialsBtn');
+            if (resetTestimonialsBtn) {
+                resetTestimonialsBtn.addEventListener('click', () => {
+                    if (confirm("Reset testimoni ke status On Progress?")) {
+                        siteData.testimonials = defaultSiteData.testimonials;
+                        saveState();
+                        renderTestimonialsList();
+                        showToast("Testimoni di-reset ke On Progress.", "info");
+                    }
+                });
+            }
+
+            // === COPY DATA FOR AI & BACKUP ===
+            const copyDataForAIBtn = document.getElementById('copyDataForAIBtn');
+            if (copyDataForAIBtn) {
+                copyDataForAIBtn.addEventListener('click', () => {
+                    const dataStr = JSON.stringify(siteData, null, 2);
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(dataStr).then(() => {
+                            showToast("Seluruh data website berhasil disalin! Tinggal tempel (paste) ke chat asisten AI.", "success");
+                        }).catch(() => fallbackCopy(dataStr));
+                    } else {
+                        fallbackCopy(dataStr);
+                    }
+                });
+            }
+
+            function fallbackCopy(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast("Seluruh data website berhasil disalin! Tinggal tempel (paste) ke chat asisten AI.", "success");
             }
 
             document.getElementById('exportBackupBtn').addEventListener('click', () => {
