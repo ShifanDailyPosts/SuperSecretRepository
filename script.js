@@ -130,22 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ],
 
-        // Achievements
+        // Achievements (On Progress)
         achievements: [
             {
                 id: 1,
-                title: "Capaian Hafalan Al-Qur'an & Character Excellence",
-                desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan dengan daya ingat dan akhlak luhur."
-            },
-            {
-                id: 2,
-                title: "Terdaftar Rekam Akademis Siswa Ciamis",
-                desc: "Tercatat dalam data siswa terpelajar wilayah Ciamis, Jawa Barat dengan dedikasi belajar tinggi."
-            },
-            {
-                id: 3,
-                title: "Penguasaan Modern Web Engineering & Live Deployment",
-                desc: "Berhasil mengintegrasikan website portofolio interaktif ke GitHub dan Hostinger FTP secara otomatis."
+                title: "Daftar Pencapaian & Prestasi Resmi",
+                desc: "Informasi rekam jejak pencapaian dan prestasi resmi sedang dalam tahap penyesuaian data (On Progress)."
             }
         ],
 
@@ -169,19 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: "VS Code", icon: "fa-solid fa-code" }
         ],
 
-        // Testimonials
+        // Testimonials (On Progress)
         testimonials: [
             {
                 id: 1,
-                quote: "Shifan memiliki ketekunan luar biasa baik dalam hafalan keilmuan maupun dalam menyelesaikan tugas-tugas teknologi dengan hasil bernilai adiluhung.",
-                author: "Pengajar Hiraa Center",
-                title: "Pembimbing Santri"
-            },
-            {
-                id: 2,
-                quote: "Kombinasi yang sangat inspiratif antara karakter terpelajar yang santun dan kecakapan membuat aplikasi web modern.",
-                author: "Rekan Kolaborator",
-                title: "Web Practitioner"
+                quote: "Bagian testimoni dan ulasan ini sedang dalam tahap pengumpulan serta verifikasi resmi (On Progress).",
+                author: "Tahap Pemutakhiran",
+                title: "On Progress"
             }
         ]
     };
@@ -269,6 +253,28 @@ document.addEventListener('DOMContentLoaded', () => {
             siteData.projects = defaultSiteData.projects;
             siteData.projectsVersion = 2;
         }
+
+        // Migrasi Achievements ke On Progress jika terdeteksi data lama
+        const needsAchievementsUpdate = !siteData.achievements || 
+            !Array.isArray(siteData.achievements) || 
+            siteData.achievements.length !== 1 || 
+            siteData.achievementsVersion !== 2;
+
+        if (needsAchievementsUpdate) {
+            siteData.achievements = defaultSiteData.achievements;
+            siteData.achievementsVersion = 2;
+        }
+
+        // Migrasi Testimonials ke On Progress jika terdeteksi data lama
+        const needsTestimonialsUpdate = !siteData.testimonials || 
+            !Array.isArray(siteData.testimonials) || 
+            siteData.testimonials.length !== 1 || 
+            siteData.testimonialsVersion !== 2;
+
+        if (needsTestimonialsUpdate) {
+            siteData.testimonials = defaultSiteData.testimonials;
+            siteData.testimonialsVersion = 2;
+        }
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -305,6 +311,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (needsProjectsUpdate) {
                     siteData.projects = defaultSiteData.projects;
                     siteData.projectsVersion = 2;
+                }
+                const needsAchievementsUpdate = !siteData.achievements || 
+                    !Array.isArray(siteData.achievements) || 
+                    siteData.achievements.length !== 1 || 
+                    siteData.achievementsVersion !== 2;
+
+                if (needsAchievementsUpdate) {
+                    siteData.achievements = defaultSiteData.achievements;
+                    siteData.achievementsVersion = 2;
+                }
+                const needsTestimonialsUpdate = !siteData.testimonials || 
+                    !Array.isArray(siteData.testimonials) || 
+                    siteData.testimonials.length !== 1 || 
+                    siteData.testimonialsVersion !== 2;
+
+                if (needsTestimonialsUpdate) {
+                    siteData.testimonials = defaultSiteData.testimonials;
+                    siteData.testimonialsVersion = 2;
                 }
                 if (typeof renderFrontendContent === 'function') {
                     renderFrontendContent();
@@ -670,13 +694,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const achContainer = document.getElementById('achievementsGridContainer');
         const achList = siteData.achievements || defaultSiteData.achievements;
         if (achContainer) {
-            achContainer.innerHTML = achList.map(a => `
-                <div class="achieve-card glass-card">
-                    <div class="achieve-icon"><i class="fa-solid fa-trophy"></i></div>
-                    <h3>${a.title}</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">${a.desc}</p>
-                </div>
-            `).join('');
+            const isOnProgress = !achList || achList.length === 0 || achList.some(a => (a.title && a.title.includes('On Progress')) || (a.desc && a.desc.includes('On Progress')));
+            if (isOnProgress) {
+                achContainer.innerHTML = `
+                    <div class="glass-card text-center p-4" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.75rem;"></i>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Pencapaian Sedang Diperbarui (On Progress)</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Data riwayat pencapaian dan prestasi resmi sedang dalam tahap penyesuaian serta verifikasi (On Progress).</p>
+                    </div>
+                `;
+            } else {
+                achContainer.innerHTML = achList.map(a => `
+                    <div class="achieve-card glass-card">
+                        <div class="achieve-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <h3>${a.title}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">${a.desc}</p>
+                    </div>
+                `).join('');
+            }
         }
 
         // Certificates
@@ -719,18 +754,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const testContainer = document.getElementById('testimonialsGridContainer');
         const testList = siteData.testimonials || defaultSiteData.testimonials;
         if (testContainer) {
-            testContainer.innerHTML = testList.map(t => `
-                <div class="testimonial-card glass-card">
-                    <p>"${t.quote}"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">${t.author.charAt(0)}</div>
-                        <div class="author-info">
-                            <strong>${t.author}</strong>
-                            <span>${t.title}</span>
+            const isOnProgress = !testList || testList.length === 0 || testList.some(t => (t.quote && t.quote.includes('On Progress')) || (t.title && t.title.includes('On Progress')) || (t.author && t.author.includes('Pemutakhiran')));
+            if (isOnProgress) {
+                testContainer.innerHTML = `
+                    <div class="glass-card text-center p-4" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.75rem;"></i>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Testimoni Sedang Dikumpulkan (On Progress)</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Ulasan, rekomendasi, dan pesan kesan resmi sedang dalam proses pengumpulan (On Progress).</p>
+                    </div>
+                `;
+            } else {
+                testContainer.innerHTML = testList.map(t => `
+                    <div class="testimonial-card glass-card">
+                        <p>"${t.quote}"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">${t.author.charAt(0)}</div>
+                            <div class="author-info">
+                                <strong>${t.author}</strong>
+                                <span>${t.title}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
 
         // Contact Info

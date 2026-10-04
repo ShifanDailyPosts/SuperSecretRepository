@@ -671,9 +671,9 @@
                         desc: "Bagian pengalaman dan rekam jejak ini sedang dalam tahap penyesuaian dan verifikasi data resmi (On Progress)."
                     }
                 ],
+                // Achievements (On Progress)
                 achievements: [
-                    { id: 1, title: "Capaian Hafalan Al-Qur'an & Character Excellence", desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan." },
-                    { id: 2, title: "Terdaftar Rekam Akademis Siswa Ciamis", desc: "Tercatat dalam data siswa terpelajar wilayah Ciamis, Jawa Barat." }
+                    { id: 1, title: "Daftar Pencapaian & Prestasi Resmi", desc: "Informasi rekam jejak pencapaian dan prestasi resmi sedang dalam tahap penyesuaian data (On Progress)." }
                 ],
                 // Certificates (On Progress)
                 certificates: [
@@ -692,8 +692,9 @@
                     { name: "Hostinger FTP", icon: "fa-solid fa-server" },
                     { name: "VS Code", icon: "fa-solid fa-code" }
                 ],
+                // Testimonials (On Progress)
                 testimonials: [
-                    { id: 1, quote: "Shifan memiliki ketekunan luar biasa baik dalam hafalan keilmuan maupun dalam menyelesaikan tugas-tugas teknologi.", author: "Pengajar Hiraa Center", title: "Pembimbing Santri" }
+                    { id: 1, quote: "Bagian testimoni dan ulasan ini sedang dalam tahap pengumpulan serta verifikasi resmi (On Progress).", author: "Tahap Pemutakhiran", title: "On Progress" }
                 ]
             };
 
@@ -832,6 +833,28 @@
                 if (needsProjectsUpdate) {
                     siteData.projects = defaultSiteData.projects;
                     siteData.projectsVersion = 2;
+                }
+
+                // Migrasi Achievements ke On Progress jika terdeteksi data lama
+                const needsAchievementsUpdate = !siteData.achievements || 
+                    !Array.isArray(siteData.achievements) || 
+                    siteData.achievements.length !== 1 || 
+                    siteData.achievementsVersion !== 2;
+
+                if (needsAchievementsUpdate) {
+                    siteData.achievements = defaultSiteData.achievements;
+                    siteData.achievementsVersion = 2;
+                }
+
+                // Migrasi Testimonials ke On Progress jika terdeteksi data lama
+                const needsTestimonialsUpdate = !siteData.testimonials || 
+                    !Array.isArray(siteData.testimonials) || 
+                    siteData.testimonials.length !== 1 || 
+                    siteData.testimonialsVersion !== 2;
+
+                if (needsTestimonialsUpdate) {
+                    siteData.testimonials = defaultSiteData.testimonials;
+                    siteData.testimonialsVersion = 2;
                 }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
@@ -1492,12 +1515,21 @@
 
             function renderAchievementsList() {
                 const container = document.getElementById('achievementsListContainer');
+                if (!container) return;
                 const achs = siteData.achievements || defaultSiteData.achievements;
+                if (!achs || achs.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data pencapaian dalam tahap pemutakhiran resmi).</em>
+                        </div>
+                    `;
+                    return;
+                }
                 container.innerHTML = achs.map(a => `
                     <div class="item-row">
                         <div>
-                            <strong>${a.title}</strong>
-                            <span>${a.desc}</span>
+                            <strong>${a.title} <span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span></strong>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${a.desc}</p>
                         </div>
                     </div>
                 `).join('');
