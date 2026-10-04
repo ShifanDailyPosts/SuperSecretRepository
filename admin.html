@@ -265,7 +265,10 @@
                 </button>
             </form>
 
-            <div style="margin-top: 1.75rem;">
+            <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+                <button type="button" id="resetPassLoginBtn" style="background: none; border: none; color: var(--primary-color); font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem;">
+                    <i class="fa-solid fa-rotate-left"></i> Set Ulang Kata Sandi ke Default
+                </button>
                 <a href="index.html" style="color: var(--text-muted); font-size: 0.88rem;"><i class="fa-solid fa-arrow-left"></i> Kembali ke Tampilan Website Utama</a>
             </div>
         </div>
@@ -792,9 +795,9 @@
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             } else {
                 siteData = migrateSkillsData(siteData);
-                if (!siteData.adminPassword) {
-                    siteData.adminPassword = FIXED_DEFAULT_PASS;
-                }
+                // Enforce reset password ke default
+                siteData.adminPassword = FIXED_DEFAULT_PASS;
+
                 // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
                 if (siteData.experiences && Array.isArray(siteData.experiences)) {
                     const hasOldInaccurateExp = siteData.experiences.some(e => 
@@ -804,6 +807,8 @@
                     if (hasOldInaccurateExp) {
                         siteData.experiences = defaultSiteData.experiences;
                     }
+                }
+
                 // Migrasi Sertifikat ke On Progress jika terdeteksi data lama yang tidak akurat
                 if (siteData.certificates && Array.isArray(siteData.certificates)) {
                     const hasOldInaccurateCerts = siteData.certificates.some(c => 
@@ -838,17 +843,31 @@
                 showDashboard();
             }
 
+            const resetPassLoginBtn = document.getElementById('resetPassLoginBtn');
+            if (resetPassLoginBtn) {
+                resetPassLoginBtn.addEventListener('click', () => {
+                    siteData.adminPassword = FIXED_DEFAULT_PASS;
+                    saveState();
+                    adminPasswordInput.value = FIXED_DEFAULT_PASS;
+                    adminPasswordInput.type = "text";
+                    togglePassBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+                    showToast(`Kata sandi telah di-set ulang ke: ${FIXED_DEFAULT_PASS}`, "success");
+                });
+            }
+
             adminLoginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const pass = adminPasswordInput.value;
+                const pass = adminPasswordInput.value.trim();
                 const correctPass = siteData.adminPassword || FIXED_DEFAULT_PASS;
 
-                if (pass === correctPass) {
+                if (pass === correctPass || pass === FIXED_DEFAULT_PASS) {
+                    siteData.adminPassword = FIXED_DEFAULT_PASS;
+                    saveState();
                     sessionStorage.setItem('ssa_admin_session', 'true');
                     showToast("Login Berhasil! Selamat datang Shifan.", "success");
                     showDashboard();
                 } else {
-                    showToast("Kata sandi salah! Silakan coba lagi.", "error");
+                    showToast("Kata sandi salah! Silakan coba lagi atau gunakan tombol 'Set Ulang Kata Sandi'.", "error");
                     adminPasswordInput.focus();
                 }
             });

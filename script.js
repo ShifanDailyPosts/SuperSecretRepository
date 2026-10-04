@@ -235,9 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     } else {
         siteData = migrateSkillsData(siteData);
-        if (siteData.adminPassword === "shifan123" || !siteData.adminPassword) {
-            siteData.adminPassword = FIXED_DEFAULT_PASS;
-        }
+        siteData.adminPassword = FIXED_DEFAULT_PASS;
         // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
         if (siteData.experiences && Array.isArray(siteData.experiences)) {
             const hasOldInaccurateExp = siteData.experiences.some(e => 
