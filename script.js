@@ -57,22 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: "fa-brands fa-js",
                 statusText: "Half-Baked",
                 items: [
-                    { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", stage: 4, done: false },
-                    { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 4, done: false },
+                    { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", stage: 5, done: true },
+                    { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 5, done: true },
                     { title: "Web Storage (LocalStorage & SessionState)", stage: 4, done: false },
-                    { title: "Event Listeners & Interactive Keyboard Logic", stage: 4, done: false }
+                    { title: "Event Listeners & Interactive Keyboard Logic", stage: 0, done: false }
                 ]
             },
             {
                 id: 4,
                 name: "Python",
                 icon: "fa-brands fa-python",
-                statusText: "Werving / On Radar",
+                statusText: "Grinding Hard",
                 items: [
-                    { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 4, done: false },
-                    { title: "Struktur Kontrol (If-Else & Looping)", stage: 3, done: false },
-                    { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 2, done: false },
-                    { title: "Pengembangan Backend / Framework Web", stage: 1, done: false }
+                    { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 2, done: false },
+                    { title: "Struktur Kontrol (If-Else & Looping)", stage: 0, done: false },
+                    { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 0, done: false },
+                    { title: "Pengembangan Backend / Framework Web", stage: 0, done: false }
                 ]
             }
         ],
@@ -222,21 +222,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!s.items || !Array.isArray(s.items)) {
                         s.items = [];
                     }
-                    s.items.forEach(itm => {
-                        if (!itm.stage) {
-                            itm.stage = itm.done ? 5 : 2;
+                    let prevMastered = true;
+                    s.items.forEach((itm, idx) => {
+                        if (itm.stage === undefined || itm.stage === null) {
+                            itm.stage = itm.done ? 5 : (prevMastered ? 1 : 0);
+                        } else {
+                            itm.stage = parseInt(itm.stage);
                         }
+                        if (!prevMastered && itm.stage > 0) {
+                            itm.stage = 0;
+                        }
+                        itm.done = (itm.stage === 5);
+                        prevMastered = (itm.stage === 5);
                     });
-                    if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive" || s.statusText === "Sangat Mahir") {
-                        s.statusText = "Mastered / Cleaned";
-                    } else if (s.statusText === "Mahir — State Engine & DOM" || s.statusText === "Mahir") {
-                        s.statusText = "Half-Baked";
-                    } else if (s.statusText === "Dasar & Logika (On Progress)" || s.statusText === "Cukup Mahir") {
-                        s.statusText = "Werving / On Radar";
-                    } else if (s.statusText === "Kurang Mahir") {
-                        s.statusText = "Grinding Hard";
-                    } else if (!s.statusText) {
-                        s.statusText = (s.pct && s.pct >= 90) ? "Mastered / Cleaned" : (s.pct && s.pct >= 70) ? "Half-Baked" : (s.pct && s.pct >= 50) ? "Werving / On Radar" : "Grinding Hard";
+
+                    const totalPoints = s.items.reduce((sum, itm) => sum + (itm.stage || 0), 0);
+                    const maxPoints = (s.items.length || 1) * 5;
+                    const avgPct = Math.round((totalPoints / maxPoints) * 100);
+
+                    if (!s.statusText || ['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(s.statusText)) {
+                        if (avgPct >= 90) s.statusText = "Mastered / Cleaned";
+                        else if (avgPct >= 70) s.statusText = "Half-Baked";
+                        else if (avgPct >= 50) s.statusText = "Werving / On Radar";
+                        else if (avgPct >= 30) s.statusText = "Grinding Hard";
+                        else if (avgPct > 0) s.statusText = "Newbie Grounding";
+                        else s.statusText = "Locked";
                     }
                 });
             }
@@ -473,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calculate percentage fill based on checklist items stages if available, or statusText / pct
             let progressPct = 50;
             if (totalCount > 0) {
-                const totalPoints = items.reduce((sum, itm) => sum + (itm.stage ? parseInt(itm.stage) : (itm.done ? 5 : 2)), 0);
+                const totalPoints = items.reduce((sum, itm) => sum + (itm.stage !== undefined ? parseInt(itm.stage) : (itm.done ? 5 : 0)), 0);
                 progressPct = Math.round((totalPoints / (totalCount * 5)) * 100);
             } else if (s.pct !== undefined) {
                 progressPct = s.pct;
@@ -484,6 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (txt.includes('werving') || txt.includes('radar') || txt.includes('cukup mahir') || txt.includes('menengah')) progressPct = 58;
                 else if (txt.includes('grinding') || txt.includes('kurang mahir')) progressPct = 38;
                 else if (txt.includes('newbie') || txt.includes('grounding') || txt.includes('pemula')) progressPct = 20;
+                else if (txt.includes('locked')) progressPct = 0;
             }
 
             // Icon fallback
@@ -500,9 +511,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (progressPct >= 70) statusText = "Half-Baked";
                 else if (progressPct >= 50) statusText = "Werving / On Radar";
                 else if (progressPct >= 30) statusText = "Grinding Hard";
-                else statusText = "Newbie Grounding";
+                else if (progressPct > 0) statusText = "Newbie Grounding";
+                else statusText = "Locked";
             }
             const isGold = progressPct >= 90 || statusText.toLowerCase().includes('mastered') || statusText.toLowerCase().includes('sangat mahir');
+            const isLocked = statusText.toLowerCase().includes('locked');
+            const badgeClass = isGold ? 'gold' : (isLocked ? 'locked' : '');
 
             return `
                 <div class="skill-item">
@@ -511,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <i class="${iconClass} skill-icon"></i>
                             <span class="skill-name">${s.name}</span>
                         </div>
-                        <span class="skill-status-badge ${isGold ? 'gold' : ''}">${statusText}</span>
+                        <span class="skill-status-badge ${badgeClass}">${statusText}</span>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill ${isGold ? 'gold-fill' : ''}" style="width: ${progressPct}%;"></div>

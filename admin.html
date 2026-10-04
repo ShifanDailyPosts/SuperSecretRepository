@@ -591,7 +591,7 @@
                             { title: "Layouting Flexbox & Responsive Grid System", stage: 5, done: true },
                             { title: "Desain UI Glassmorphism & Visual Dark Mode", stage: 5, done: true },
                             { title: "Keyframe Animations & Micro-Interactions", stage: 5, done: true },
-                            { title: "Custom CSS Variables & Responsive Breakpoints", stage: 4, done: true }
+                            { title: "Custom CSS Variables & Responsive Breakpoints", stage: 5, done: true }
                         ]
                     },
                     {
@@ -601,21 +601,21 @@
                         statusText: "Half-Baked",
                         items: [
                             { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", stage: 5, done: true },
-                            { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 4, done: true },
-                            { title: "Web Storage (LocalStorage & SessionState)", stage: 4, done: true },
-                            { title: "Event Listeners & Interactive Keyboard Logic", stage: 4, done: true }
+                            { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 5, done: true },
+                            { title: "Web Storage (LocalStorage & SessionState)", stage: 4, done: false },
+                            { title: "Event Listeners & Interactive Keyboard Logic", stage: 0, done: false }
                         ]
                     },
                     {
                         id: 4,
                         name: "Python",
                         icon: "fa-brands fa-python",
-                        statusText: "Werving / On Radar",
+                        statusText: "Grinding Hard",
                         items: [
-                            { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 4, done: true },
-                            { title: "Struktur Kontrol (If-Else & Looping)", stage: 3, done: true },
-                            { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 2, done: false },
-                            { title: "Pengembangan Backend / Framework Web", stage: 1, done: false }
+                            { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 2, done: false },
+                            { title: "Struktur Kontrol (If-Else & Looping)", stage: 0, done: false },
+                            { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 0, done: false },
+                            { title: "Pengembangan Backend / Framework Web", stage: 0, done: false }
                         ]
                     }
                 ],
@@ -685,11 +685,19 @@
 
             const SKILL_STAGES = [
                 {
+                    level: 0,
+                    title: "Locked",
+                    desc: "Terkunci & belum disentuh",
+                    color: "#94a3b8",
+                    bg: "rgba(148, 163, 184, 0.12)",
+                    icon: "fa-solid fa-lock"
+                },
+                {
                     level: 1,
                     title: "Newbie Grounding",
                     desc: "Lagi merangkak belajar dasar",
-                    color: "#94a3b8",
-                    bg: "rgba(148, 163, 184, 0.2)",
+                    color: "#cbd5e1",
+                    bg: "rgba(203, 213, 225, 0.15)",
                     icon: "fa-solid fa-seedling"
                 },
                 {
@@ -697,7 +705,7 @@
                     title: "Grinding Hard",
                     desc: "Lagi serius-seriusnya ngerjain materi itu",
                     color: "#38bdf8",
-                    bg: "rgba(56, 189, 248, 0.2)",
+                    bg: "rgba(56, 189, 248, 0.18)",
                     icon: "fa-solid fa-fire"
                 },
                 {
@@ -705,7 +713,7 @@
                     title: "Werving / On Radar",
                     desc: "Udah paham sikit-sikit, mau disikat berikutnya",
                     color: "#c084fc",
-                    bg: "rgba(192, 132, 252, 0.2)",
+                    bg: "rgba(192, 132, 252, 0.18)",
                     icon: "fa-solid fa-crosshairs"
                 },
                 {
@@ -713,7 +721,7 @@
                     title: "Half-Baked",
                     desc: "Udah ngerti konsep tapi belum lancar banget",
                     color: "#f59e0b",
-                    bg: "rgba(245, 158, 11, 0.2)",
+                    bg: "rgba(245, 158, 11, 0.18)",
                     icon: "fa-solid fa-bolt"
                 },
                 {
@@ -721,7 +729,7 @@
                     title: "Mastered / Cleaned",
                     desc: "Udah khatam dan di-tamatkan",
                     color: "#10b981",
-                    bg: "rgba(16, 185, 129, 0.25)",
+                    bg: "rgba(16, 185, 129, 0.22)",
                     icon: "fa-solid fa-circle-check"
                 }
             ];
@@ -736,17 +744,31 @@
                             if (!s.items || !Array.isArray(s.items)) {
                                 s.items = [];
                             }
-                            s.items.forEach(itm => {
-                                if (!itm.stage) {
-                                    itm.stage = itm.done ? 5 : 2;
+                            let prevMastered = true;
+                            s.items.forEach((itm, idx) => {
+                                if (itm.stage === undefined || itm.stage === null) {
+                                    itm.stage = itm.done ? 5 : (prevMastered ? 1 : 0);
+                                } else {
+                                    itm.stage = parseInt(itm.stage);
                                 }
+                                if (!prevMastered && itm.stage > 0) {
+                                    itm.stage = 0;
+                                }
+                                itm.done = (itm.stage === 5);
+                                prevMastered = (itm.stage === 5);
                             });
-                            if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive" || s.statusText === "Sangat Mahir") {
-                                s.statusText = "Mastered / Cleaned";
-                            } else if (s.statusText === "Mahir — State Engine & DOM" || s.statusText === "Mahir") {
-                                s.statusText = "Half-Baked";
-                            } else if (s.statusText === "Dasar & Logika (On Progress)" || s.statusText === "Cukup Mahir") {
-                                s.statusText = "Werving / On Radar";
+
+                            const totalPoints = s.items.reduce((sum, itm) => sum + (itm.stage || 0), 0);
+                            const maxPoints = (s.items.length || 1) * 5;
+                            const avgPct = Math.round((totalPoints / maxPoints) * 100);
+
+                            if (!s.statusText || ['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(s.statusText)) {
+                                if (avgPct >= 90) s.statusText = "Mastered / Cleaned";
+                                else if (avgPct >= 70) s.statusText = "Half-Baked";
+                                else if (avgPct >= 50) s.statusText = "Werving / On Radar";
+                                else if (avgPct >= 30) s.statusText = "Grinding Hard";
+                                else if (avgPct > 0) s.statusText = "Newbie Grounding";
+                                else s.statusText = "Locked";
                             }
                         });
                     }
@@ -907,6 +929,23 @@
                 showToast("Kata sandi pengelola berhasil diubah!", "success");
             });
 
+            function recalculateSkillProgress(cat, sIdx) {
+                const skill = siteData[cat][sIdx];
+                const items = skill.items || [];
+                if (items.length === 0) return;
+
+                const totalPoints = items.reduce((sum, itm) => sum + (parseInt(itm.stage) || 0), 0);
+                const maxPoints = items.length * 5;
+                const avgPct = Math.round((totalPoints / maxPoints) * 100);
+
+                if (avgPct >= 90) skill.statusText = "Mastered / Cleaned";
+                else if (avgPct >= 70) skill.statusText = "Half-Baked";
+                else if (avgPct >= 50) skill.statusText = "Werving / On Radar";
+                else if (avgPct >= 30) skill.statusText = "Grinding Hard";
+                else if (avgPct > 0) skill.statusText = "Newbie Grounding";
+                else skill.statusText = "Locked";
+            }
+
             function renderSkillsList() {
                 const container = document.getElementById('skillsListContainer');
                 if (!container) return;
@@ -922,6 +961,33 @@
                 ];
 
                 let html = '';
+
+                // 1. PANDUAN / LEGEND TAHAPAN LEVEL (Dijelaskan hanya di awal, tanpa pengulangan di tiap item)
+                html += `
+                    <div class="glass-card p-3 mb-4" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                            <h4 style="margin: 0; font-size: 0.98rem; color: var(--text-gold); display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fa-solid fa-layer-group"></i> Panduan Tahapan Level & Sistem Belajar Berurutan
+                            </h4>
+                            <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: var(--primary-color); border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;">
+                                <i class="fa-solid fa-arrow-down-short-wide"></i> Alur Satu per Satu dari Atas ke Bawah
+                            </span>
+                        </div>
+                        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 0.85rem; line-height: 1.5;">
+                            Sub-level yang belum disentuh berstatus <strong>Level 0: Locked</strong>. Pengerjaan materi harus berurutan dari atas ke bawah (tidak bisa di-skip). Tekan tombol <strong>Continue</strong> untuk memajukan tahapan dan <strong>Undo</strong> jika salah klik atau ingin mundur. Sub-level di bawahnya baru akan terbuka (unlocked) setelah sub-level di atasnya selesai mencapai <strong>Level 5 (Mastered / Cleaned)</strong>.
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 0.65rem;">
+                            ${SKILL_STAGES.map(stg => `
+                                <div style="background: ${stg.bg}; border: 1px solid ${stg.color}33; border-radius: 8px; padding: 0.6rem 0.75rem;">
+                                    <div style="font-size: 0.8rem; font-weight: 700; color: ${stg.color}; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.2rem;">
+                                        <i class="${stg.icon}"></i> Level ${stg.level}: ${stg.title}
+                                    </div>
+                                    <div style="font-size: 0.73rem; color: var(--text-muted); line-height: 1.35;">${stg.desc}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
 
                 categories.forEach(cat => {
                     html += `
@@ -943,49 +1009,78 @@
                     } else {
                         cat.items.forEach((skill, sIdx) => {
                             const checklistItems = skill.items || [];
+                            
+                            // Sequential check: item cIdx is locked if any item before it is not stage 5
+                            let prevDone = true;
                             const checklistHTML = checklistItems.map((cItem, cIdx) => {
-                                const curStageLevel = cItem.stage ? parseInt(cItem.stage) : (cItem.done ? 5 : 2);
+                                const isLocked = !prevDone;
+                                let curStageLevel = isLocked ? 0 : (cItem.stage !== undefined ? parseInt(cItem.stage) : (cItem.done ? 5 : 0));
+                                cItem.stage = curStageLevel;
+                                cItem.done = (curStageLevel === 5);
+                                prevDone = (curStageLevel === 5);
+
                                 const curStage = SKILL_STAGES.find(s => s.level === curStageLevel) || SKILL_STAGES[0];
+
                                 return `
-                                    <div class="admin-checklist-row mb-3" style="background: rgba(0,0,0,0.28); padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-                                        <!-- Baris 1: Edit Nama Skill Check & Hapus -->
-                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <div class="admin-checklist-row mb-3" style="background: ${isLocked ? 'rgba(0,0,0,0.18)' : 'rgba(0,0,0,0.32)'}; padding: 0.7rem 0.85rem; border-radius: 8px; border: 1px solid ${isLocked ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.08)'}; opacity: ${isLocked ? '0.7' : '1'}; transition: all 0.2s;">
+                                        <!-- Baris 1: Ikon Status, Input Nama Target, dan Tombol Hapus Target -->
+                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.45rem;">
                                             <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
-                                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: ${curStage.bg}; color: ${curStage.color}; font-size: 0.75rem; flex-shrink: 0;" title="${curStage.title}">
+                                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; background: ${curStage.bg}; color: ${curStage.color}; font-size: 0.78rem; flex-shrink: 0;" title="Level ${curStage.level}: ${curStage.title}">
                                                     <i class="${curStage.icon}"></i>
                                                 </span>
-                                                <input type="text" class="form-control form-control-sm edit-checklist-input" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" value="${cItem.title.replace(/"/g, '&quot;')}" placeholder="Edit target skill check..." style="flex: 1; border: 1px solid transparent; background: transparent; color: var(--text-primary); font-size: 0.88rem; font-weight: 600; padding: 0.2rem 0.4rem; border-radius: 4px;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.background='rgba(0,0,0,0.5)';" onblur="this.style.borderColor='transparent'; this.style.background='transparent';">
+                                                <input type="text" class="form-control form-control-sm edit-checklist-input" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" value="${cItem.title.replace(/"/g, '&quot;')}" placeholder="Edit target sub-level..." style="flex: 1; border: 1px solid transparent; background: transparent; color: ${isLocked ? 'var(--text-muted)' : 'var(--text-primary)'}; font-size: 0.88rem; font-weight: 600; padding: 0.2rem 0.4rem; border-radius: 4px;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.background='rgba(0,0,0,0.5)';" onblur="this.style.borderColor='transparent'; this.style.background='transparent';">
                                             </div>
                                             <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target checklist ini saja">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
                                         </div>
 
-                                        <!-- Baris 2: Interactive Progress Bar (Klik untuk ubah tahapan) -->
+                                        <!-- Baris 2: Mini Progress Bar 5 Segmen -->
                                         <div style="margin-bottom: 0.45rem;">
-                                            <div class="stage-progress-bar-interactive" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="display: flex; gap: 5px; height: 12px; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 2px;">
-                                                ${SKILL_STAGES.map(stg => {
-                                                    const isActive = curStageLevel >= stg.level;
-                                                    return `
-                                                        <div class="stage-bar-segment" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" data-level="${stg.level}" title="Klik tahap ${stg.level}: ${stg.title} (${stg.desc})" style="flex: 1; border-radius: 4px; background: ${isActive ? curStage.color : 'rgba(255,255,255,0.06)'}; cursor: pointer; transition: all 0.2s;"></div>
-                                                    `;
+                                            <div style="display: flex; gap: 4px; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; padding: 1px;">
+                                                ${[1, 2, 3, 4, 5].map(lvl => {
+                                                    const isActive = curStageLevel >= lvl;
+                                                    return `<div style="flex: 1; border-radius: 3px; background: ${isActive ? curStage.color : 'rgba(255,255,255,0.04)'}; transition: all 0.2s;"></div>`;
                                                 }).join('')}
                                             </div>
                                         </div>
 
-                                        <!-- Baris 3: Status Tahapan Aktif & Tombol Cepat 1-5 -->
-                                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
-                                            <div style="font-size: 0.78rem; font-weight: 600; color: ${curStage.color}; display: flex; align-items: center; gap: 0.35rem;">
-                                                <span>Tahap ${curStage.level}/5: <strong>${curStage.title}</strong></span>
-                                                <span style="color: var(--text-muted); font-size: 0.73rem; font-weight: normal;">— ${curStage.desc}</span>
+                                        <!-- Baris 3: Status Ringkas (Kiri) & Tombol Undo + Continue (Kanan) -->
+                                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.45rem;">
+                                            <!-- Status Ringkas: Level & Nama Saja (Tanpa repetisi kalimat deskripsi) -->
+                                            <div style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; font-weight: 700; color: ${curStage.color};">
+                                                <span style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.15rem 0.5rem; border-radius: 4px; background: ${curStage.bg}; border: 1px solid ${curStage.color}33;">
+                                                    <i class="${curStage.icon}"></i>
+                                                    <span>Level ${curStage.level}: ${curStage.title}</span>
+                                                </span>
                                             </div>
-                                            <div style="display: flex; gap: 4px; align-items: center;">
-                                                <span style="font-size: 0.7rem; color: var(--text-muted); margin-right: 2px;">Pilih level:</span>
-                                                ${SKILL_STAGES.map(stg => `
-                                                    <button type="button" class="stage-step-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" data-level="${stg.level}" style="border: 1px solid ${curStageLevel === stg.level ? curStage.color : 'rgba(255,255,255,0.1)'}; background: ${curStageLevel === stg.level ? curStage.bg : 'rgba(255,255,255,0.03)'}; color: ${curStageLevel === stg.level ? curStage.color : 'var(--text-muted)'}; font-size: 0.7rem; font-weight: 700; width: 22px; height: 20px; border-radius: 4px; padding: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Pilih Tahap ${stg.level}: ${stg.title}">
-                                                        ${stg.level}
+
+                                            <!-- Tombol Undo & Continue -->
+                                            <div style="display: flex; align-items: center; gap: 0.35rem;">
+                                                <!-- Tombol Undo -->
+                                                <button type="button" class="btn btn-sm btn-outline stage-undo-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" ${curStageLevel === 0 ? 'disabled style="opacity: 0.35; cursor: not-allowed;"' : 'style="cursor: pointer;"'} title="Mundur 1 level jika salah klik">
+                                                    <i class="fa-solid fa-rotate-left"></i> Undo
+                                                </button>
+
+                                                <!-- Tombol Continue / Status -->
+                                                ${isLocked ? `
+                                                    <button type="button" class="btn btn-sm btn-outline" disabled style="opacity: 0.45; cursor: not-allowed; border-color: rgba(255,255,255,0.15); color: var(--text-muted);" title="Selesaikan materi di atasnya terlebih dahulu">
+                                                        <i class="fa-solid fa-lock"></i> Terkunci
                                                     </button>
-                                                `).join('')}
+                                                ` : curStageLevel === 5 ? `
+                                                    <button type="button" class="btn btn-sm" disabled style="opacity: 0.95; cursor: default; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; font-weight: 700; padding: 0.22rem 0.65rem; border-radius: 4px;">
+                                                        <i class="fa-solid fa-circle-check"></i> Mastered
+                                                    </button>
+                                                ` : curStageLevel === 0 ? `
+                                                    <button type="button" class="btn btn-sm btn-primary stage-continue-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="cursor: pointer; font-weight: 600; padding: 0.22rem 0.65rem;">
+                                                        <i class="fa-solid fa-play"></i> Mulai Level 1
+                                                    </button>
+                                                ` : `
+                                                    <button type="button" class="btn btn-sm btn-primary stage-continue-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="cursor: pointer; font-weight: 600; padding: 0.22rem 0.65rem;">
+                                                        Continue <i class="fa-solid fa-arrow-right"></i>
+                                                    </button>
+                                                `}
                                             </div>
                                         </div>
                                     </div>
@@ -1008,13 +1103,14 @@
                                                     <option value="Werving / On Radar" ${skill.statusText === 'Werving / On Radar' ? 'selected' : ''}>Werving / On Radar</option>
                                                     <option value="Grinding Hard" ${skill.statusText === 'Grinding Hard' ? 'selected' : ''}>Grinding Hard</option>
                                                     <option value="Newbie Grounding" ${skill.statusText === 'Newbie Grounding' ? 'selected' : ''}>Newbie Grounding</option>
+                                                    <option value="Locked" ${skill.statusText === 'Locked' ? 'selected' : ''}>Locked</option>
                                                     <option value="Sangat Mahir" ${skill.statusText === 'Sangat Mahir' ? 'selected' : ''}>Sangat Mahir</option>
                                                     <option value="Mahir" ${skill.statusText === 'Mahir' ? 'selected' : ''}>Mahir</option>
                                                     <option value="Cukup Mahir" ${skill.statusText === 'Cukup Mahir' ? 'selected' : ''}>Cukup Mahir</option>
                                                     <option value="Kurang Mahir" ${skill.statusText === 'Kurang Mahir' ? 'selected' : ''}>Kurang Mahir</option>
-                                                    <option value="custom" ${!['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'selected' : ''}>Custom...</option>
+                                                    <option value="custom" ${!['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Locked','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'selected' : ''}>Custom...</option>
                                                 </select>
-                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="Status kata-kata..." style="width: 140px; font-size: 0.8rem; ${['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'display:none;' : ''}">
+                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="Status kata-kata..." style="width: 140px; font-size: 0.8rem; ${['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Locked','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'display:none;' : ''}">
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-cat="${cat.key}" data-sidx="${sIdx}">
@@ -1024,12 +1120,12 @@
 
                                     <div class="admin-checklist-box">
                                         <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-gold);" class="mb-2">
-                                            <i class="fa-solid fa-list-check"></i> Checklist Target & Tahapan Belajar:
+                                            <i class="fa-solid fa-list-check"></i> Checklist Target & Tahapan Belajar (Linear):
                                         </div>
                                         ${checklistHTML || '<div class="text-muted small mb-2">Belum ada target di checklist ini.</div>'}
                                         
                                         <div class="mt-2" style="display: flex; gap: 0.5rem;">
-                                            <input type="text" class="form-control form-control-sm new-citem-input" id="newCitemInput_${cat.key}_${sIdx}" placeholder="Tambah target skill check baru (contoh: Kuasai Fetch API)..." style="font-size: 0.85rem;">
+                                            <input type="text" class="form-control form-control-sm new-citem-input" id="newCitemInput_${cat.key}_${sIdx}" placeholder="Tambah target sub-level baru (contoh: Kuasai Fetch API)..." style="font-size: 0.85rem;">
                                             <button type="button" class="btn btn-sm btn-primary add-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" style="white-space: nowrap;">
                                                 <i class="fa-solid fa-plus"></i> Tambah Target
                                             </button>
@@ -1044,6 +1140,71 @@
                 });
 
                 container.innerHTML = html;
+
+                // Continue Button listener (memajukan tahap)
+                document.querySelectorAll('.stage-continue-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const cat = btn.getAttribute('data-cat');
+                        const sIdx = parseInt(btn.getAttribute('data-sidx'));
+                        const cIdx = parseInt(btn.getAttribute('data-cidx'));
+
+                        const items = siteData[cat][sIdx].items;
+                        if (cIdx > 0 && items[cIdx - 1].stage < 5) {
+                            showToast("Selesaikan sub-level di atasnya terlebih dahulu!", "error");
+                            return;
+                        }
+
+                        const targetItem = items[cIdx];
+                        const currentLevel = parseInt(targetItem.stage || 0);
+                        if (currentLevel >= 5) return;
+
+                        const nextLevel = currentLevel + 1;
+                        targetItem.stage = nextLevel;
+                        targetItem.done = (nextLevel === 5);
+
+                        recalculateSkillProgress(cat, sIdx);
+                        saveState();
+                        renderSkillsList();
+
+                        const stg = SKILL_STAGES.find(s => s.level === nextLevel);
+                        showToast(`Level maju ke: Level ${nextLevel} (${stg.title})`, "success");
+                    });
+                });
+
+                // Undo Button listener (mundur 1 tahap jika salah klik)
+                document.querySelectorAll('.stage-undo-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const cat = btn.getAttribute('data-cat');
+                        const sIdx = parseInt(btn.getAttribute('data-sidx'));
+                        const cIdx = parseInt(btn.getAttribute('data-cidx'));
+
+                        const items = siteData[cat][sIdx].items;
+                        const targetItem = items[cIdx];
+                        const currentLevel = parseInt(targetItem.stage || 0);
+                        if (currentLevel <= 0) return;
+
+                        const prevLevel = currentLevel - 1;
+                        targetItem.stage = prevLevel;
+                        targetItem.done = false;
+
+                        // Sequential integrity: jika item ini mundur di bawah 5, semua item di bawahnya di-lock kembali ke 0
+                        if (prevLevel < 5) {
+                            for (let j = cIdx + 1; j < items.length; j++) {
+                                items[j].stage = 0;
+                                items[j].done = false;
+                            }
+                        }
+
+                        recalculateSkillProgress(cat, sIdx);
+                        saveState();
+                        renderSkillsList();
+
+                        const stg = SKILL_STAGES.find(s => s.level === prevLevel);
+                        showToast(`Undo berhasil: Kembali ke Level ${prevLevel} (${stg.title})`, "info");
+                    });
+                });
 
                 // Skill Name change listener
                 document.querySelectorAll('.skill-name-input').forEach(inp => {
@@ -1084,43 +1245,6 @@
                     });
                 });
 
-                // Stage Change Listener (Interactive Progress Bar click & Step Buttons click)
-                const handleStageChange = (cat, sIdx, cIdx, newLevel) => {
-                    if (!siteData[cat] || !siteData[cat][sIdx] || !siteData[cat][sIdx].items[cIdx]) return;
-                    const targetItem = siteData[cat][sIdx].items[cIdx];
-                    targetItem.stage = newLevel;
-                    targetItem.done = (newLevel === 5);
-
-                    // Auto recalculate overall skill status and percentage based on stages
-                    const items = siteData[cat][sIdx].items;
-                    if (items.length > 0) {
-                        const totalPoints = items.reduce((sum, itm) => sum + (itm.stage || (itm.done ? 5 : 2)), 0);
-                        const avgPct = Math.round((totalPoints / (items.length * 5)) * 100);
-
-                        if (avgPct >= 90) siteData[cat][sIdx].statusText = "Mastered / Cleaned";
-                        else if (avgPct >= 70) siteData[cat][sIdx].statusText = "Half-Baked";
-                        else if (avgPct >= 50) siteData[cat][sIdx].statusText = "Werving / On Radar";
-                        else if (avgPct >= 30) siteData[cat][sIdx].statusText = "Grinding Hard";
-                        else siteData[cat][sIdx].statusText = "Newbie Grounding";
-                    }
-
-                    saveState();
-                    renderSkillsList();
-                    const stg = SKILL_STAGES.find(s => s.level === newLevel);
-                    showToast(`Tahap diubah ke: ${stg.title} (${stg.desc})`, "success");
-                };
-
-                document.querySelectorAll('.stage-bar-segment, .stage-step-btn').forEach(el => {
-                    el.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const cat = el.getAttribute('data-cat');
-                        const sIdx = parseInt(el.getAttribute('data-sidx'));
-                        const cIdx = parseInt(el.getAttribute('data-cidx'));
-                        const newLevel = parseInt(el.getAttribute('data-level'));
-                        handleStageChange(cat, sIdx, cIdx, newLevel);
-                    });
-                });
-
                 // Edit Checklist Target Title listener
                 document.querySelectorAll('.edit-checklist-input').forEach(inp => {
                     inp.addEventListener('change', () => {
@@ -1153,7 +1277,8 @@
                         }
 
                         if (!siteData[cat][sIdx].items) siteData[cat][sIdx].items = [];
-                        siteData[cat][sIdx].items.push({ title: title, done: false });
+                        siteData[cat][sIdx].items.push({ title: title, stage: 0, done: false });
+                        recalculateSkillProgress(cat, sIdx);
                         saveState();
                         renderSkillsList();
                         showToast("Target checklist berhasil ditambahkan!", "success");
@@ -1167,6 +1292,18 @@
                         const sIdx = parseInt(btn.getAttribute('data-sidx'));
                         const cIdx = parseInt(btn.getAttribute('data-cidx'));
                         siteData[cat][sIdx].items.splice(cIdx, 1);
+
+                        // Re-verify sequential integrity
+                        let prevDone = true;
+                        siteData[cat][sIdx].items.forEach(itm => {
+                            if (!prevDone) {
+                                itm.stage = 0;
+                                itm.done = false;
+                            }
+                            prevDone = (itm.stage === 5);
+                        });
+
+                        recalculateSkillProgress(cat, sIdx);
                         saveState();
                         renderSkillsList();
                         showToast("Item checklist dihapus.", "info");
