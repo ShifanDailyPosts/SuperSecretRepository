@@ -870,12 +870,12 @@
                         cat.items.forEach((skill, sIdx) => {
                             const checklistItems = skill.items || [];
                             const checklistHTML = checklistItems.map((cItem, cIdx) => `
-                                <div class="admin-checklist-row mb-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
-                                    <label style="display: flex; align-items: center; gap: 0.6rem; flex: 1; cursor: pointer; margin: 0; font-size: 0.88rem;">
-                                        <input type="checkbox" class="toggle-checklist-cb" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" ${cItem.done ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color);">
-                                        <span style="${cItem.done ? 'color: var(--text-primary); font-weight: 500;' : 'color: var(--text-muted);'}">${cItem.title}</span>
-                                    </label>
-                                    <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target ini">
+                                <div class="admin-checklist-row mb-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.65rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div style="display: flex; align-items: center; gap: 0.6rem; flex: 1;">
+                                        <input type="checkbox" class="toggle-checklist-cb" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" ${cItem.done ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;">
+                                        <input type="text" class="form-control form-control-sm edit-checklist-input" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" value="${cItem.title.replace(/"/g, '&quot;')}" placeholder="Edit target checklist..." style="flex: 1; border: 1px solid transparent; background: transparent; color: ${cItem.done ? 'var(--text-primary)' : 'var(--text-muted)'}; font-size: 0.88rem; padding: 0.2rem 0.4rem; border-radius: 4px;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.background='rgba(0,0,0,0.4)';" onblur="this.style.borderColor='transparent'; this.style.background='transparent';">
+                                    </div>
+                                    <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target checklist ini saja">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -991,6 +991,24 @@
                         saveState();
                         renderSkillsList();
                         showToast("Checklist berhasil diperbarui!", "success");
+                    });
+                });
+
+                // Edit Checklist Target Title listener
+                document.querySelectorAll('.edit-checklist-input').forEach(inp => {
+                    inp.addEventListener('change', () => {
+                        const cat = inp.getAttribute('data-cat');
+                        const sIdx = parseInt(inp.getAttribute('data-sidx'));
+                        const cIdx = parseInt(inp.getAttribute('data-cidx'));
+                        const newTitle = inp.value.trim();
+                        if (newTitle) {
+                            siteData[cat][sIdx].items[cIdx].title = newTitle;
+                            saveState();
+                            showToast("Target checklist berhasil diperbarui!", "success");
+                        } else {
+                            showToast("Nama target checklist tidak boleh kosong!", "error");
+                            renderSkillsList();
+                        }
                     });
                 });
 
