@@ -118,28 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ],
 
-        // Experience
+        // Experience (On Progress)
         experiences: [
             {
                 id: 1,
-                role: "Panitia & Volunteer Pesantren Liburan",
-                org: "Hiraa Center — Rumah Qur'an & Konsultasi",
-                period: "Kegiatan Berkala",
-                desc: "Aktif berpartisipasi dalam penyelenggaraan Pesantren Liburan Hiraa Center, mendampingi santri, serta membangun karakter kepemimpinan yang beretika."
-            },
-            {
-                id: 2,
-                role: "Rekam Jejak Akademis & Santri Terpelajar",
-                org: "Lembaga Pendidikan Ciamis, Jawa Barat",
-                period: "2009 — Sekarang",
-                desc: "Mencapai rekam jejak hafalan Al-Qur'an dan prestasi akademis yang konsisten serta terdaftar secara publik."
-            },
-            {
-                id: 3,
-                role: "Praktisi Web Development & Creator",
-                org: "Portofolio Digital Mandiri",
-                period: "2024 — Sekarang",
-                desc: "Mengembangkan aplikasi web modern, mengintegrasikan fitur pengelola admin, dan mempublikasikan karya ke server Hostinger."
+                role: "Riwayat & Rekam Jejak Pengalaman",
+                org: "Tahap Pemutakhiran Data",
+                period: "On Progress",
+                desc: "Bagian pengalaman dan rekam jejak ini sedang dalam tahap penyesuaian dan verifikasi data resmi (On Progress)."
             }
         ],
 
@@ -264,6 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (siteData.adminPassword === "shifan123" || !siteData.adminPassword) {
             siteData.adminPassword = FIXED_DEFAULT_PASS;
         }
+        // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
+        if (siteData.experiences && Array.isArray(siteData.experiences)) {
+            const hasOldInaccurateExp = siteData.experiences.some(e => 
+                (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
+                (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
+            );
+            if (hasOldInaccurateExp) {
+                siteData.experiences = defaultSiteData.experiences;
+            }
+        }
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -272,6 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ssa_site_data' && e.newValue) {
             try {
                 siteData = migrateSkillsData(JSON.parse(e.newValue));
+                if (siteData.experiences && Array.isArray(siteData.experiences)) {
+                    const hasOldInaccurateExp = siteData.experiences.some(e => 
+                        (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
+                        (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
+                    );
+                    if (hasOldInaccurateExp) {
+                        siteData.experiences = defaultSiteData.experiences;
+                    }
+                }
                 if (typeof renderFrontendContent === 'function') {
                     renderFrontendContent();
                 }
@@ -583,17 +588,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const expContainer = document.getElementById('experienceTimelineContainer');
         const expList = siteData.experiences || defaultSiteData.experiences;
         if (expContainer) {
-            expContainer.innerHTML = expList.map(e => `
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content glass-card">
-                        <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> ${e.period}</span>
-                        <h3>${e.role}</h3>
-                        <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.75rem;">${e.org}</h4>
-                        <p>${e.desc}</p>
+            if (!expList || expList.length === 0) {
+                expContainer.innerHTML = `
+                    <div class="glass-card text-center p-4" style="max-width: 600px; margin: 0 auto;">
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.75rem;"></i>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Pengalaman Sedang Diperbarui (On Progress)</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Data riwayat pengalaman dan rekam jejak resmi sedang dalam tahap pemutakhiran.</p>
                     </div>
-                </div>
-            `).join('');
+                `;
+            } else {
+                expContainer.innerHTML = expList.map(e => `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content glass-card">
+                            <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> ${e.period}</span>
+                            <h3>${e.role}</h3>
+                            <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.75rem;">${e.org}</h4>
+                            <p>${e.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
         }
 
         // Achievements

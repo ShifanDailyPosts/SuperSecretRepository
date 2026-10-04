@@ -659,8 +659,13 @@
                     }
                 ],
                 experiences: [
-                    { id: 1, role: "Panitia & Volunteer Pesantren Liburan", org: "Hiraa Center", period: "Kegiatan Berkala", desc: "Aktif berpartisipasi dalam penyelenggaraan Pesantren Liburan Hiraa Center." },
-                    { id: 2, role: "Rekam Jejak Akademis & Santri Terpelajar", org: "Lembaga Pendidikan Ciamis", period: "2009 — Sekarang", desc: "Mencapai rekam jejak hafalan Al-Qur'an dan prestasi akademis." }
+                    {
+                        id: 1,
+                        role: "Riwayat & Rekam Jejak Pengalaman",
+                        org: "Tahap Pemutakhiran Data",
+                        period: "On Progress",
+                        desc: "Bagian pengalaman dan rekam jejak ini sedang dalam tahap penyesuaian dan verifikasi data resmi (On Progress)."
+                    }
                 ],
                 achievements: [
                     { id: 1, title: "Capaian Hafalan Al-Qur'an & Character Excellence", desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan." },
@@ -784,6 +789,16 @@
                 siteData = migrateSkillsData(siteData);
                 if (!siteData.adminPassword) {
                     siteData.adminPassword = FIXED_DEFAULT_PASS;
+                }
+                // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
+                if (siteData.experiences && Array.isArray(siteData.experiences)) {
+                    const hasOldInaccurateExp = siteData.experiences.some(e => 
+                        (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
+                        (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
+                    );
+                    if (hasOldInaccurateExp) {
+                        siteData.experiences = defaultSiteData.experiences;
+                    }
                 }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
@@ -1407,12 +1422,22 @@
 
             function renderExperienceList() {
                 const container = document.getElementById('experienceListContainer');
+                if (!container) return;
                 const exps = siteData.experiences || defaultSiteData.experiences;
+                if (!exps || exps.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data pengalaman dalam tahap pemutakhiran resmi).</em>
+                        </div>
+                    `;
+                    return;
+                }
                 container.innerHTML = exps.map(e => `
                     <div class="item-row">
                         <div>
                             <strong>${e.role} — ${e.org}</strong>
                             <span>Periode: ${e.period}</span>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${e.desc}</p>
                         </div>
                     </div>
                 `).join('');
