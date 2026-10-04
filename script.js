@@ -16,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
         adminPassword: FIXED_DEFAULT_PASS,
-        aboutMeaning: "Saya Shifan Shalih Adiluhung — pelajar asal Ciamis, Jawa Barat, yang aktif sebagai santri di Hiraa Center (Rumah Qur'an & Konsultasi). Nama 'Adiluhung' bukan sekadar nama; ia adalah standar hidup — bermakna luhur dan agung dalam bahasa Jawa. Saya membawa nilai itu ke dalam setiap hal yang saya kerjakan, dari hafalan Al-Qur'an hingga baris kode yang saya tulis.",
-        aboutEdu: "Saat ini saya aktif menghafal Al-Qur'an di Hiraa Center dan sekaligus membangun keahlian di bidang teknologi web. Salah satu bukti nyata: portofolio yang sedang kamu baca ini — dibangun sendiri dari nol menggunakan HTML, CSS, dan JavaScript, lengkap dengan sistem admin terproteksi dan deployment ke hosting sungguhan. Pencapaian akademis formal: On Progress.",
-        aboutVision: "Saya percaya bahwa seorang santri dan seorang developer bisa berjalan beriringan. Tujuan saya adalah membangun karya digital yang tidak hanya fungsional, tapi juga bermakna — memberi manfaat nyata bagi orang di sekitar saya. Bidang spesifik yang ingin saya tekuni lebih dalam: On Progress.",
+        aboutWho: "Saya Shifan Shalih Adiluhung — seorang santri terpelajar dan pembelajar teknologi dari Ciamis, Jawa Barat. Nama 'Adiluhung' mencerminkan cita-cita luhur dan standar tinggi dalam setiap aspek kehidupan.",
+        aboutBackground: "Berasal dan tumbuh di Ciamis, Jawa Barat, dengan pendidikan berlandaskan kedisiplinan keilmuan dan hafalan Al-Qur'an di Hiraa Center (Rumah Qur'an & Konsultasi). Pencapaian akademis formal: On Progress.",
+        aboutWork: "Aktif mendalami hafalan Al-Qur'an dan muraja'ah harian di Hiraa Center, sembari mengasah keterampilan pemrograman web frontend & backend modern. Bukti nyata: membangun portofolio interaktif ini dari nol.",
+        aboutSkillsText: "Pengembangan web (HTML5, CSS3 Glassmorphism, JavaScript ES6+), pengelolaan state web storage, metode ketahanan hafalan Al-Qur'an (daya ingat tinggi), serta berpikir analitis dan pemecahan masalah (problem solving).",
+        aboutValues: "Integritas santri, etika kejujuran, konsep Adiluhung (berorientasi pada karya terbaik bernilai tinggi), kedisiplinan waktu, dan kebermanfaatan nyata bagi sesama.",
+        aboutDifferent: "Kombinasi unik antara kedisiplinan spiritual santri (hafalan Al-Qur'an) dengan wawasan teknologi digital modern, menciptakan karakter terpelajar yang adaptif, fokus, dan beretika tinggi.",
+        aboutGoals: "Menjadi pengembang teknologi yang mampu menciptakan solusi digital inovatif dan bermanfaat bagi masyarakat luas tanpa kehilangan identitas dan nilai-nilai keislaman. Spesialisasi karir/teknologi lanjut: On Progress.",
         contactEmail: "shifan.adiluhung@example.com",
         contactLocation: "Ciamis / Jawa Barat, Indonesia",
         githubUrl: "https://github.com",
@@ -310,10 +314,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('heroBioDisplay').textContent = siteData.bio;
         subheadlines = siteData.subheadlines;
 
-        // About Narrative
-        document.getElementById('aboutMeaningText').innerHTML = siteData.aboutMeaning;
-        document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu;
-        document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision;
+        // About Narrative (7-Step Structure)
+        if (document.getElementById('aboutWhoText')) document.getElementById('aboutWhoText').innerHTML = siteData.aboutWho || defaultSiteData.aboutWho;
+        if (document.getElementById('aboutBackgroundText')) document.getElementById('aboutBackgroundText').innerHTML = siteData.aboutBackground || defaultSiteData.aboutBackground;
+        if (document.getElementById('aboutWorkText')) document.getElementById('aboutWorkText').innerHTML = siteData.aboutWork || defaultSiteData.aboutWork;
+        if (document.getElementById('aboutSkillsText')) document.getElementById('aboutSkillsText').innerHTML = siteData.aboutSkillsText || defaultSiteData.aboutSkillsText;
+        if (document.getElementById('aboutValuesText')) document.getElementById('aboutValuesText').innerHTML = siteData.aboutValues || defaultSiteData.aboutValues;
+        if (document.getElementById('aboutDifferentText')) document.getElementById('aboutDifferentText').innerHTML = siteData.aboutDifferent || defaultSiteData.aboutDifferent;
+        if (document.getElementById('aboutGoalsText')) document.getElementById('aboutGoalsText').innerHTML = siteData.aboutGoals || defaultSiteData.aboutGoals;
 
         // Categorized Skills
         const webSkills = siteData.webDevSkills || defaultSiteData.webDevSkills;

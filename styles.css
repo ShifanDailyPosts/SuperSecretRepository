@@ -603,26 +603,98 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 .floating-badge strong { display: block; font-size: 0.85rem; color: var(--text-primary); }
 .floating-badge span { font-size: 0.75rem; color: var(--text-muted); }
 
-/* --- About Section --- */
-.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-.about-card { padding: 2.2rem; height: 100%; }
+/* --- About Section (7-Step Flow) --- */
+.about-flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 850px;
+    margin: 0 auto;
+}
 
-.about-card-icon {
-    width: 56px;
-    height: 56px;
+.about-flow-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.8rem 2rem;
+    width: 100%;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    border-left: 3px solid var(--primary-color);
+}
+
+.about-flow-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.about-flow-badge {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
     background: var(--primary-gradient);
     color: #ffffff;
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.35rem;
     box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
 }
 
-.about-card h3 { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.85rem; }
-.about-card p { color: var(--text-secondary); font-size: 0.95rem; }
+.about-flow-badge .step-num {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent-gold);
+    color: #0f172a;
+    font-size: 0.7rem;
+    font-weight: 800;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.about-flow-content {
+    flex: 1;
+}
+
+.about-flow-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.about-flow-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.flow-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    animation: flowPulse 2s infinite ease-in-out;
+}
+
+@keyframes flowPulse {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(5px); opacity: 1; }
+}
+
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.about-card { padding: 2.2rem; height: 100%; }
 
 .info-banner {
     display: flex;

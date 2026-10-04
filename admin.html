@@ -370,29 +370,49 @@
                 <!-- PANE 2: ABOUT ME -->
                 <div class="content-panel" id="paneNarrative">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-user" style="color: var(--primary-color);"></i> 2. About Me</h2>
-                        <p>Ubah 3 kartu cerita utama mengenai makna nama Adiluhung, pendidikan/hafalan, dan cita-cita.</p>
+                        <h2><i class="fa-solid fa-user" style="color: var(--primary-color);"></i> 2. About Me (7 Alur Struktur)</h2>
+                        <p>Kelola 7 poin alur profil: Siapa Saya, Latar Belakang, Apa yang Dikerjakan, Keahlian Utama, Nilai/Prinsip, Yang Membuat Berbeda, dan Arah & Tujuan.</p>
                     </div>
 
                     <div class="form-card-box">
                         <form id="formNarrative">
                             <div class="form-group mb-3">
-                                <label for="inputMeaning">Kartu 1: Penjelasan Makna Nama Adiluhung</label>
-                                <textarea id="inputMeaning" class="form-control" rows="3" required></textarea>
+                                <label for="inputWho">1. Siapa Saya</label>
+                                <textarea id="inputWho" class="form-control" rows="2" required></textarea>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="inputEdu">Kartu 2: Penjelasan Sekolah & Hafalan Al-Qur'an</label>
-                                <textarea id="inputEdu" class="form-control" rows="3" required></textarea>
+                                <label for="inputBackground">2. Latar Belakang Saya</label>
+                                <textarea id="inputBackground" class="form-control" rows="2" required></textarea>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="inputVision">Kartu 3: Visi Penguasaan Teknologi</label>
-                                <textarea id="inputVision" class="form-control" rows="3" required></textarea>
+                                <label for="inputWork">3. Apa Yang Saya Kerjakan</label>
+                                <textarea id="inputWork" class="form-control" rows="2" required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inputSkillsText">4. Keahlian Utama</label>
+                                <textarea id="inputSkillsText" class="form-control" rows="2" required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inputValues">5. Nilai / Prinsip Yang Saya Pegang</label>
+                                <textarea id="inputValues" class="form-control" rows="2" required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inputDifferent">6. Apa Yang Membuat Saya Berbeda</label>
+                                <textarea id="inputDifferent" class="form-control" rows="2" required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="inputGoals">7. Arah & Tujuan Saya</label>
+                                <textarea id="inputGoals" class="form-control" rows="2" required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1rem;">
-                                <i class="fa-solid fa-floppy-disk"></i> Simpan About Me
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan About Me (7 Alur)
                             </button>
                         </form>
                     </div>
@@ -561,9 +581,13 @@
                 ],
                 bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
                 adminPassword: FIXED_DEFAULT_PASS,
-                aboutMeaning: "Dalam bahasa Indonesia, kata Adiluhung memiliki arti mutlak yaitu luhur, agung, atau bernilai tinggi. Nama ini mencerminkan standar moral dan visi hidup yang tinggi untuk senantiasa memberikan hasil karya dan perilaku terbaik dalam setiap aspek kehidupan.",
-                aboutEdu: "Nama Shifan Shalih Adiluhung tercatat secara publik dalam rekam prestasi pendidikan dan capaian santri (hafalan Al-Qur'an) serta data siswa di wilayah Ciamis, Jawa Barat. Hal ini membuktikan fondasi kedisiplinan dan daya ingat tinggi sejak usia muda.",
-                aboutVision: "Menggabungkan karakter keilmuan yang kuat dengan keahlian dunia teknologi informasi modern. Shifan terus mengasah kemampuan analitis, pembuatan aplikasi web, dan pemecahan masalah (problem solving) untuk memberikan dampak nyata.",
+                aboutWho: "Saya Shifan Shalih Adiluhung — seorang santri terpelajar dan pembelajar teknologi dari Ciamis, Jawa Barat. Nama 'Adiluhung' mencerminkan cita-cita luhur dan standar tinggi dalam setiap aspek kehidupan.",
+                aboutBackground: "Berasal dan tumbuh di Ciamis, Jawa Barat, dengan pendidikan berlandaskan kedisiplinan keilmuan dan hafalan Al-Qur'an di Hiraa Center (Rumah Qur'an & Konsultasi). Pencapaian akademis formal: On Progress.",
+                aboutWork: "Aktif mendalami hafalan Al-Qur'an dan muraja'ah harian di Hiraa Center, sembari mengasah keterampilan pemrograman web frontend & backend modern. Bukti nyata: membangun portofolio interaktif ini dari nol.",
+                aboutSkillsText: "Pengembangan web (HTML5, CSS3 Glassmorphism, JavaScript ES6+), pengelolaan state web storage, metode ketahanan hafalan Al-Qur'an (daya ingat tinggi), serta berpikir analitis dan pemecahan masalah (problem solving).",
+                aboutValues: "Integritas santri, etika kejujuran, konsep Adiluhung (berorientasi pada karya terbaik bernilai tinggi), kedisiplinan waktu, dan kebermanfaatan nyata bagi sesama.",
+                aboutDifferent: "Kombinasi unik antara kedisiplinan spiritual santri (hafalan Al-Qur'an) dengan wawasan teknologi digital modern, menciptakan karakter terpelajar yang adaptif, fokus, dan beretika tinggi.",
+                aboutGoals: "Menjadi pengembang teknologi yang mampu menciptakan solusi digital inovatif dan bermanfaat bagi masyarakat luas tanpa kehilangan identitas dan nilai-nilai keislaman. Spesialisasi karir/teknologi lanjut: On Progress.",
                 contactEmail: "shifan.adiluhung@example.com",
                 contactLocation: "Ciamis / Jawa Barat, Indonesia",
                 githubUrl: "https://github.com",
@@ -726,9 +750,13 @@
                 document.getElementById('inputSubheadlines').value = siteData.subheadlines.join(', ');
                 document.getElementById('inputHeroBio').value = siteData.bio;
 
-                document.getElementById('inputMeaning').value = siteData.aboutMeaning;
-                document.getElementById('inputEdu').value = siteData.aboutEdu;
-                document.getElementById('inputVision').value = siteData.aboutVision;
+                document.getElementById('inputWho').value = siteData.aboutWho || defaultSiteData.aboutWho;
+                document.getElementById('inputBackground').value = siteData.aboutBackground || defaultSiteData.aboutBackground;
+                document.getElementById('inputWork').value = siteData.aboutWork || defaultSiteData.aboutWork;
+                document.getElementById('inputSkillsText').value = siteData.aboutSkillsText || defaultSiteData.aboutSkillsText;
+                document.getElementById('inputValues').value = siteData.aboutValues || defaultSiteData.aboutValues;
+                document.getElementById('inputDifferent').value = siteData.aboutDifferent || defaultSiteData.aboutDifferent;
+                document.getElementById('inputGoals').value = siteData.aboutGoals || defaultSiteData.aboutGoals;
 
                 document.getElementById('inputEmail').value = siteData.contactEmail;
                 document.getElementById('inputLocation').value = siteData.contactLocation;
@@ -754,11 +782,15 @@
 
             document.getElementById('formNarrative').addEventListener('submit', (e) => {
                 e.preventDefault();
-                siteData.aboutMeaning = document.getElementById('inputMeaning').value.trim();
-                siteData.aboutEdu = document.getElementById('inputEdu').value.trim();
-                siteData.aboutVision = document.getElementById('inputVision').value.trim();
+                siteData.aboutWho = document.getElementById('inputWho').value.trim();
+                siteData.aboutBackground = document.getElementById('inputBackground').value.trim();
+                siteData.aboutWork = document.getElementById('inputWork').value.trim();
+                siteData.aboutSkillsText = document.getElementById('inputSkillsText').value.trim();
+                siteData.aboutValues = document.getElementById('inputValues').value.trim();
+                siteData.aboutDifferent = document.getElementById('inputDifferent').value.trim();
+                siteData.aboutGoals = document.getElementById('inputGoals').value.trim();
                 saveState();
-                showToast("About Me berhasil disimpan!", "success");
+                showToast("About Me (7 Alur) berhasil disimpan!", "success");
             });
 
             document.getElementById('formContact').addEventListener('submit', (e) => {
