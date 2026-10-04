@@ -627,38 +627,39 @@
                 projects: [
                     {
                         id: 1,
-                        title: "Shifan Adiluhung Official Portfolio Hub",
-                        desc: "Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, halaman pengelola terproteksi password, dan hosting terintegrasi.",
+                        title: "Website Portofolio Shifan Shalih Adiluhung",
+                        desc: "Platform portofolio web interaktif resmi yang sedang kamu jelajahi saat ini. Dibangun dengan layout glassmorphism modern, dynamic typing, sistem admin terproteksi, dan hosting mandiri.",
                         category: "web-projects",
-                        tech: "HTML5, CSS3, JavaScript ES6, LocalStorage State, Halaman Admin"
+                        tech: "HTML5, CSS3, JavaScript ES6, LocalStorage, FTP Deployment",
+                        link: "index.html",
+                        isCurrentSite: true
                     },
                     {
                         id: 2,
-                        title: "Al-Qur'an & Memorization Tracker Web App",
-                        desc: "Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik.",
+                        title: "Proyek Web Baru (On Progress)",
+                        desc: "Pengembangan karya web interaktif berikutnya sedang dalam tahap perancangan arsitektur, riset konsep, dan pengerjaan (On Progress).",
                         category: "web-projects",
-                        tech: "JavaScript, Web Storage, Dashboard UI"
+                        tech: "Web App, On Progress",
+                        link: "#",
+                        isCurrentSite: false
                     },
                     {
                         id: 3,
-                        title: "Glassmorphism UI Design System Kit",
-                        desc: "Konsep tata letak UI glassmorphism modern dengan palet warna dark mode & aksen cyan emas bernilai tinggi.",
+                        title: "Eksplorasi Desain UI/UX (On Progress)",
+                        desc: "Koleksi perancangan antarmuka visual modern, sistem layout responsif, dan aset grafis kreatif dalam tahap pengerjaan (On Progress).",
                         category: "design-projects",
-                        tech: "UI Design, CSS System, Visual Aesthetics"
+                        tech: "UI/UX, Glassmorphism, On Progress",
+                        link: "#",
+                        isCurrentSite: false
                     },
                     {
                         id: 4,
-                        title: "Personal Brand & Bio Builder Concept",
-                        desc: "Desain antarmuka pembuat ringkasan profil pribadi interaktif yang dapat disesuaikan secara real-time.",
-                        category: "design-projects",
-                        tech: "UI Layout, Interactive Design"
-                    },
-                    {
-                        id: 5,
-                        title: "Arsip Digital Santri & Siswa Ciamis",
-                        desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
+                        title: "Inovasi & Riset Teknologi (On Progress)",
+                        desc: "Inisiatif teknologi terapan, sistem informasi digital, dan proyek eksplorasi lainnya sedang dalam tahap perencanaan (On Progress).",
                         category: "other-projects",
-                        tech: "Database Concept, Search UI"
+                        tech: "Research, Concept, On Progress",
+                        link: "#",
+                        isCurrentSite: false
                     }
                 ],
                 experiences: [
@@ -817,6 +818,16 @@
                     );
                     if (hasOldInaccurateCerts) {
                         siteData.certificates = defaultSiteData.certificates;
+                    }
+                }
+
+                // Migrasi Projects ke Website Portofolio & 3 On Progress
+                if (siteData.projects && Array.isArray(siteData.projects)) {
+                    const hasOldProjects = siteData.projects.some(p => 
+                        p.title && (p.title.includes("Tracker") || p.title.includes("Design System Kit") || p.title.includes("Brand & Bio") || p.title.includes("Arsip Digital"))
+                    ) || siteData.projects.length !== 4;
+                    if (hasOldProjects) {
+                        siteData.projects = defaultSiteData.projects;
                     }
                 }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
@@ -1422,7 +1433,7 @@
                     <div class="item-row">
                         <div>
                             <strong>${p.title}</strong>
-                            <span>Kategori: ${p.category} | Teknologi: ${p.tech}</span>
+                            <span>Kategori: ${p.category} | Teknologi: ${p.tech} ${p.isCurrentSite ? '<span style="color: #4ade80; background: rgba(34,197,94,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-globe"></i> Website Ini (Live)</span>' : '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>'}</span>
                         </div>
                         <button type="button" class="btn btn-sm btn-outline danger-btn del-proj-btn" data-id="${p.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
                     </div>

@@ -79,42 +79,43 @@ document.addEventListener('DOMContentLoaded', () => {
         designSkills: [],
         otherSkills: [],
 
-        // Categorized Projects
+        // Categorized Projects (Website Portofolio Ini & 3 On Progress)
         projects: [
             {
                 id: 1,
-                title: "Shifan Adiluhung Official Portfolio Hub",
-                desc: "Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, halaman pengelola terproteksi password, dan hosting terintegrasi.",
+                title: "Website Portofolio Shifan Shalih Adiluhung",
+                desc: "Platform portofolio web interaktif resmi yang sedang kamu jelajahi saat ini. Dibangun dengan layout glassmorphism modern, dynamic typing, sistem admin terproteksi, dan hosting mandiri.",
                 category: "web-projects",
-                tech: "HTML5, CSS3, JavaScript ES6, LocalStorage State, Halaman Admin"
+                tech: "HTML5, CSS3, JavaScript ES6, LocalStorage, FTP Deployment",
+                link: "index.html",
+                isCurrentSite: true
             },
             {
                 id: 2,
-                title: "Al-Qur'an & Memorization Tracker Web App",
-                desc: "Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik.",
+                title: "Proyek Web Baru (On Progress)",
+                desc: "Pengembangan karya web interaktif berikutnya sedang dalam tahap perancangan arsitektur, riset konsep, dan pengerjaan (On Progress).",
                 category: "web-projects",
-                tech: "JavaScript, Web Storage, Dashboard UI"
+                tech: "Web App, On Progress",
+                link: "#",
+                isCurrentSite: false
             },
             {
                 id: 3,
-                title: "Glassmorphism UI Design System Kit",
-                desc: "Konsep tata letak UI glassmorphism modern dengan palet warna dark mode & aksen cyan emas bernilai tinggi.",
+                title: "Eksplorasi Desain UI/UX (On Progress)",
+                desc: "Koleksi perancangan antarmuka visual modern, sistem layout responsif, dan aset grafis kreatif dalam tahap pengerjaan (On Progress).",
                 category: "design-projects",
-                tech: "UI Design, CSS System, Visual Aesthetics"
+                tech: "UI/UX, Glassmorphism, On Progress",
+                link: "#",
+                isCurrentSite: false
             },
             {
                 id: 4,
-                title: "Personal Brand & Bio Builder Concept",
-                desc: "Desain antarmuka pembuat ringkasan profil pribadi interaktif yang dapat disesuaikan secara real-time.",
-                category: "design-projects",
-                tech: "UI Layout, Interactive Design"
-            },
-            {
-                id: 5,
-                title: "Arsip Digital Santri & Siswa Ciamis",
-                desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
+                title: "Inovasi & Riset Teknologi (On Progress)",
+                desc: "Inisiatif teknologi terapan, sistem informasi digital, dan proyek eksplorasi lainnya sedang dalam tahap perencanaan (On Progress).",
                 category: "other-projects",
-                tech: "Database Concept, Search UI"
+                tech: "Research, Concept, On Progress",
+                link: "#",
+                isCurrentSite: false
             }
         ],
 
@@ -256,6 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 siteData.certificates = defaultSiteData.certificates;
             }
         }
+        // Migrasi Projects ke Website Portofolio & 3 On Progress
+        if (siteData.projects && Array.isArray(siteData.projects)) {
+            const hasOldProjects = siteData.projects.some(p => 
+                p.title && (p.title.includes("Tracker") || p.title.includes("Design System Kit") || p.title.includes("Brand & Bio") || p.title.includes("Arsip Digital"))
+            ) || siteData.projects.length !== 4;
+            if (hasOldProjects) {
+                siteData.projects = defaultSiteData.projects;
+            }
+        }
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -280,6 +290,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                     if (hasOldInaccurateCerts) {
                         siteData.certificates = defaultSiteData.certificates;
+                    }
+                }
+                if (siteData.projects && Array.isArray(siteData.projects)) {
+                    const hasOldProjects = siteData.projects.some(p => 
+                        p.title && (p.title.includes("Tracker") || p.title.includes("Design System Kit") || p.title.includes("Brand & Bio") || p.title.includes("Arsip Digital"))
+                    ) || siteData.projects.length !== 4;
+                    if (hasOldProjects) {
+                        siteData.projects = defaultSiteData.projects;
                     }
                 }
                 if (typeof renderFrontendContent === 'function') {
@@ -569,24 +587,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectsContainer = document.getElementById('projectsGridContainer');
         const projList = siteData.projects || defaultSiteData.projects;
         if (projectsContainer) {
-            projectsContainer.innerHTML = projList.map(p => `
-                <div class="project-card glass-card" data-category="${p.category}">
-                    <div class="project-thumb">
-                        <div class="thumb-icon"><i class="fa-solid fa-${p.category === 'web-projects' ? 'laptop-code' : p.category === 'design-projects' ? 'wand-magic-sparkles' : 'folder'}"></i></div>
-                        <span class="project-category">${p.category === 'web-projects' ? 'Web Project' : p.category === 'design-projects' ? 'Design Project' : 'Other Project'}</span>
-                    </div>
-                    <div class="project-details">
-                        <h3>${p.title}</h3>
-                        <p>${p.desc}</p>
-                        <div class="project-tech">
-                            ${p.tech.split(',').map(t => `<span>${t.trim()}</span>`).join('')}
+            projectsContainer.innerHTML = projList.map(p => {
+                const isCurrentWebsite = p.isCurrentSite || (p.link === "index.html") || (p.title && p.title.toLowerCase().includes("website portofolio"));
+                if (isCurrentWebsite) {
+                    return `
+                        <div class="project-card glass-card project-card-clickable" data-category="${p.category}" data-href="index.html" title="Klik untuk memuat ulang / masuk ke website ini">
+                            <div class="project-thumb">
+                                <div class="badge-live-site"><span class="badge-live-dot"></span> Website Ini (Aktif)</div>
+                                <div class="thumb-icon"><i class="fa-solid fa-globe"></i></div>
+                                <span class="project-category">Web Project</span>
+                            </div>
+                            <div class="project-details">
+                                <h3>${p.title}</h3>
+                                <p>${p.desc}</p>
+                                <div class="project-tech">
+                                    ${p.tech.split(',').map(t => `<span>${t.trim()}</span>`).join('')}
+                                </div>
+                                <a href="index.html" class="btn btn-sm btn-primary project-action-btn" style="width: fit-content; text-decoration: none;">
+                                    <i class="fa-solid fa-arrow-rotate-right"></i> Masuk Ulang ke Website Ini
+                                </a>
+                            </div>
                         </div>
-                        <button class="btn btn-sm btn-outline view-project-btn" data-title="${p.title}" data-desc="${p.desc}" data-tech="${p.tech}">
-                            Detail Proyek <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                    `;
+                } else {
+                    return `
+                        <div class="project-card glass-card project-card-onprogress" data-category="${p.category}" title="Proyek masih dalam tahap pengerjaan (On Progress)">
+                            <div class="project-thumb">
+                                <div class="badge-onprogress-site"><i class="fa-solid fa-hourglass-half"></i> On Progress</div>
+                                <div class="thumb-icon" style="opacity: 0.45;"><i class="fa-solid fa-${p.category === 'web-projects' ? 'laptop-code' : p.category === 'design-projects' ? 'wand-magic-sparkles' : 'folder'}"></i></div>
+                                <span class="project-category">${p.category === 'web-projects' ? 'Web Project' : p.category === 'design-projects' ? 'Design Project' : 'Other Project'}</span>
+                            </div>
+                            <div class="project-details">
+                                <h3>${p.title}</h3>
+                                <p>${p.desc}</p>
+                                <div class="project-tech">
+                                    ${p.tech.split(',').map(t => `<span style="background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25);">${t.trim()}</span>`).join('')}
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline onprogress-project-btn" style="width: fit-content; opacity: 0.85; cursor: pointer;">
+                                    <i class="fa-solid fa-hourglass-half"></i> On Progress
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
         }
 
         // Experience
@@ -791,6 +835,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('pModalDesc').textContent = btn.getAttribute('data-desc');
                 document.getElementById('pModalTech').textContent = btn.getAttribute('data-tech');
                 projectModal.classList.add('active');
+            });
+        });
+
+        // Click handler untuk Website Ini -> Masuk ulang ke website ini
+        document.querySelectorAll('.project-card-clickable').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a')) return;
+                window.location.href = card.getAttribute('data-href') || 'index.html';
+            });
+        });
+
+        // Click handler untuk On Progress cards & buttons
+        document.querySelectorAll('.project-card-onprogress, .onprogress-project-btn').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showToast('Proyek ini masih dalam tahap pengerjaan (On Progress).', 'info');
             });
         });
     }
