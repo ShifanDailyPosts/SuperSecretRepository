@@ -31,48 +31,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 1,
                 name: "HTML",
                 icon: "fa-brands fa-html5",
-                statusText: "Sangat Mahir",
+                statusText: "Mastered / Cleaned",
                 items: [
-                    { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
-                    { title: "Pengolahan Form, Input & Validasinya", done: true },
-                    { title: "Integrasi Metadata SEO & OpenGraph", done: true },
-                    { title: "Aksesibilitas & Clean Code Structure", done: true }
+                    { title: "Struktur Dokumen & Tag Semantik HTML5", stage: 5, done: true },
+                    { title: "Pengolahan Form, Input & Validasinya", stage: 5, done: true },
+                    { title: "Integrasi Metadata SEO & OpenGraph", stage: 5, done: true },
+                    { title: "Aksesibilitas & Clean Code Structure", stage: 5, done: true }
                 ]
             },
             {
                 id: 2,
                 name: "CSS",
                 icon: "fa-brands fa-css3-alt",
-                statusText: "Sangat Mahir",
+                statusText: "Mastered / Cleaned",
                 items: [
-                    { title: "Layouting Flexbox & Responsive Grid System", done: true },
-                    { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
-                    { title: "Keyframe Animations & Micro-Interactions", done: true },
-                    { title: "Custom CSS Variables & Responsive Breakpoints", done: true }
+                    { title: "Layouting Flexbox & Responsive Grid System", stage: 5, done: true },
+                    { title: "Desain UI Glassmorphism & Visual Dark Mode", stage: 5, done: true },
+                    { title: "Keyframe Animations & Micro-Interactions", stage: 5, done: true },
+                    { title: "Custom CSS Variables & Responsive Breakpoints", stage: 5, done: true }
                 ]
             },
             {
                 id: 3,
                 name: "JavaScript",
                 icon: "fa-brands fa-js",
-                statusText: "Mahir",
+                statusText: "Half-Baked",
                 items: [
-                    { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
-                    { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
-                    { title: "Web Storage (LocalStorage & SessionState)", done: true },
-                    { title: "Event Listeners & Interactive Keyboard Logic", done: true }
+                    { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", stage: 4, done: false },
+                    { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 4, done: false },
+                    { title: "Web Storage (LocalStorage & SessionState)", stage: 4, done: false },
+                    { title: "Event Listeners & Interactive Keyboard Logic", stage: 4, done: false }
                 ]
             },
             {
                 id: 4,
                 name: "Python",
                 icon: "fa-brands fa-python",
-                statusText: "Cukup Mahir",
+                statusText: "Werving / On Radar",
                 items: [
-                    { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
-                    { title: "Struktur Kontrol (If-Else & Looping)", done: true },
-                    { title: "Pemrosesan Fungsi & Scripting Sederhana", done: false },
-                    { title: "Pengembangan Backend / Framework Web", done: false }
+                    { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 4, done: false },
+                    { title: "Struktur Kontrol (If-Else & Looping)", stage: 3, done: false },
+                    { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 2, done: false },
+                    { title: "Pengembangan Backend / Framework Web", stage: 1, done: false }
                 ]
             }
         ],
@@ -222,14 +222,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!s.items || !Array.isArray(s.items)) {
                         s.items = [];
                     }
-                    if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive") {
-                        s.statusText = "Sangat Mahir";
-                    } else if (s.statusText === "Mahir — State Engine & DOM") {
-                        s.statusText = "Mahir";
-                    } else if (s.statusText === "Dasar & Logika (On Progress)") {
-                        s.statusText = "Cukup Mahir";
+                    s.items.forEach(itm => {
+                        if (!itm.stage) {
+                            itm.stage = itm.done ? 5 : 2;
+                        }
+                    });
+                    if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive" || s.statusText === "Sangat Mahir") {
+                        s.statusText = "Mastered / Cleaned";
+                    } else if (s.statusText === "Mahir — State Engine & DOM" || s.statusText === "Mahir") {
+                        s.statusText = "Half-Baked";
+                    } else if (s.statusText === "Dasar & Logika (On Progress)" || s.statusText === "Cukup Mahir") {
+                        s.statusText = "Werving / On Radar";
+                    } else if (s.statusText === "Kurang Mahir") {
+                        s.statusText = "Grinding Hard";
                     } else if (!s.statusText) {
-                        s.statusText = (s.pct && s.pct >= 90) ? "Sangat Mahir" : (s.pct && s.pct >= 75) ? "Mahir" : (s.pct && s.pct >= 50) ? "Cukup Mahir" : "Kurang Mahir";
+                        s.statusText = (s.pct && s.pct >= 90) ? "Mastered / Cleaned" : (s.pct && s.pct >= 70) ? "Half-Baked" : (s.pct && s.pct >= 50) ? "Werving / On Radar" : "Grinding Hard";
                     }
                 });
             }
@@ -461,21 +468,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // Categorized Skills (Clean Grid with Status Kata-Kata & Progress Fill)
         const createSkillItemHTML = (s) => {
             const items = s.items || [];
-            const doneCount = items.filter(i => i.done).length;
             const totalCount = items.length;
             
-            // Calculate percentage fill based on checklist items if available, or statusText / pct
+            // Calculate percentage fill based on checklist items stages if available, or statusText / pct
             let progressPct = 50;
             if (totalCount > 0) {
-                progressPct = Math.round((doneCount / totalCount) * 100);
+                const totalPoints = items.reduce((sum, itm) => sum + (itm.stage ? parseInt(itm.stage) : (itm.done ? 5 : 2)), 0);
+                progressPct = Math.round((totalPoints / (totalCount * 5)) * 100);
             } else if (s.pct !== undefined) {
                 progressPct = s.pct;
             } else {
                 const txt = (s.statusText || '').toLowerCase();
-                if (txt.includes('sangat mahir') || txt.includes('expert') || txt.includes('teruji')) progressPct = 95;
-                else if (txt.includes('mahir') || txt.includes('advanced')) progressPct = 85;
-                else if (txt.includes('cukup mahir') || txt.includes('menengah') || txt.includes('intermediate')) progressPct = 65;
-                else if (txt.includes('kurang mahir') || txt.includes('dasar') || txt.includes('progress') || txt.includes('pemula')) progressPct = 45;
+                if (txt.includes('mastered') || txt.includes('cleaned') || txt.includes('sangat mahir') || txt.includes('expert')) progressPct = 95;
+                else if (txt.includes('half-baked') || txt.includes('mahir') || txt.includes('advanced')) progressPct = 78;
+                else if (txt.includes('werving') || txt.includes('radar') || txt.includes('cukup mahir') || txt.includes('menengah')) progressPct = 58;
+                else if (txt.includes('grinding') || txt.includes('kurang mahir')) progressPct = 38;
+                else if (txt.includes('newbie') || txt.includes('grounding') || txt.includes('pemula')) progressPct = 20;
             }
 
             // Icon fallback
@@ -486,8 +494,15 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (sNameLower.includes('javascript') || sNameLower.includes('js')) iconClass = 'fa-brands fa-js';
             else if (sNameLower.includes('python')) iconClass = 'fa-brands fa-python';
 
-            const statusText = s.statusText || (progressPct >= 90 ? "Sangat Mahir" : progressPct >= 75 ? "Mahir" : progressPct >= 50 ? "Cukup Mahir" : "Kurang Mahir");
-            const isGold = progressPct >= 90 || statusText.toLowerCase().includes('sangat mahir');
+            let statusText = s.statusText;
+            if (!statusText) {
+                if (progressPct >= 90) statusText = "Mastered / Cleaned";
+                else if (progressPct >= 70) statusText = "Half-Baked";
+                else if (progressPct >= 50) statusText = "Werving / On Radar";
+                else if (progressPct >= 30) statusText = "Grinding Hard";
+                else statusText = "Newbie Grounding";
+            }
+            const isGold = progressPct >= 90 || statusText.toLowerCase().includes('mastered') || statusText.toLowerCase().includes('sangat mahir');
 
             return `
                 <div class="skill-item">

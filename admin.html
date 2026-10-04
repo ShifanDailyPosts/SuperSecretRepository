@@ -574,48 +574,48 @@
                         id: 1,
                         name: "HTML",
                         icon: "fa-brands fa-html5",
-                        statusText: "Sangat Mahir",
+                        statusText: "Mastered / Cleaned",
                         items: [
-                            { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
-                            { title: "Pengolahan Form, Input & Validasinya", done: true },
-                            { title: "Integrasi Metadata SEO & OpenGraph", done: true },
-                            { title: "Aksesibilitas & Clean Code Structure", done: true }
+                            { title: "Struktur Dokumen & Tag Semantik HTML5", stage: 5, done: true },
+                            { title: "Pengolahan Form, Input & Validasinya", stage: 5, done: true },
+                            { title: "Integrasi Metadata SEO & OpenGraph", stage: 5, done: true },
+                            { title: "Aksesibilitas & Clean Code Structure", stage: 5, done: true }
                         ]
                     },
                     {
                         id: 2,
                         name: "CSS",
                         icon: "fa-brands fa-css3-alt",
-                        statusText: "Sangat Mahir",
+                        statusText: "Mastered / Cleaned",
                         items: [
-                            { title: "Layouting Flexbox & Responsive Grid System", done: true },
-                            { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
-                            { title: "Keyframe Animations & Micro-Interactions", done: true },
-                            { title: "Custom CSS Variables & Responsive Breakpoints", done: true }
+                            { title: "Layouting Flexbox & Responsive Grid System", stage: 5, done: true },
+                            { title: "Desain UI Glassmorphism & Visual Dark Mode", stage: 5, done: true },
+                            { title: "Keyframe Animations & Micro-Interactions", stage: 5, done: true },
+                            { title: "Custom CSS Variables & Responsive Breakpoints", stage: 4, done: true }
                         ]
                     },
                     {
                         id: 3,
                         name: "JavaScript",
                         icon: "fa-brands fa-js",
-                        statusText: "Mahir",
+                        statusText: "Half-Baked",
                         items: [
-                            { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
-                            { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
-                            { title: "Web Storage (LocalStorage & SessionState)", done: true },
-                            { title: "Event Listeners & Interactive Keyboard Logic", done: true }
+                            { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", stage: 5, done: true },
+                            { title: "DOM Manipulation & Dynamic Rendering Engine", stage: 4, done: true },
+                            { title: "Web Storage (LocalStorage & SessionState)", stage: 4, done: true },
+                            { title: "Event Listeners & Interactive Keyboard Logic", stage: 4, done: true }
                         ]
                     },
                     {
                         id: 4,
                         name: "Python",
                         icon: "fa-brands fa-python",
-                        statusText: "Cukup Mahir",
+                        statusText: "Werving / On Radar",
                         items: [
-                            { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
-                            { title: "Struktur Kontrol (If-Else & Looping)", done: true },
-                            { title: "Pemrosesan Fungsi & Scripting Sederhana", done: false },
-                            { title: "Pengembangan Backend / Framework Web", done: false }
+                            { title: "Sintaksis Dasar, Variabel & Tipe Data", stage: 4, done: true },
+                            { title: "Struktur Kontrol (If-Else & Looping)", stage: 3, done: true },
+                            { title: "Pemrosesan Fungsi & Scripting Sederhana", stage: 2, done: false },
+                            { title: "Pengembangan Backend / Framework Web", stage: 1, done: false }
                         ]
                     }
                 ],
@@ -683,12 +683,86 @@
                 ]
             };
 
+            const SKILL_STAGES = [
+                {
+                    level: 1,
+                    title: "Newbie Grounding",
+                    desc: "Lagi merangkak belajar dasar",
+                    color: "#94a3b8",
+                    bg: "rgba(148, 163, 184, 0.2)",
+                    icon: "fa-solid fa-seedling"
+                },
+                {
+                    level: 2,
+                    title: "Grinding Hard",
+                    desc: "Lagi serius-seriusnya ngerjain materi itu",
+                    color: "#38bdf8",
+                    bg: "rgba(56, 189, 248, 0.2)",
+                    icon: "fa-solid fa-fire"
+                },
+                {
+                    level: 3,
+                    title: "Werving / On Radar",
+                    desc: "Udah paham sikit-sikit, mau disikat berikutnya",
+                    color: "#c084fc",
+                    bg: "rgba(192, 132, 252, 0.2)",
+                    icon: "fa-solid fa-crosshairs"
+                },
+                {
+                    level: 4,
+                    title: "Half-Baked",
+                    desc: "Udah ngerti konsep tapi belum lancar banget",
+                    color: "#f59e0b",
+                    bg: "rgba(245, 158, 11, 0.2)",
+                    icon: "fa-solid fa-bolt"
+                },
+                {
+                    level: 5,
+                    title: "Mastered / Cleaned",
+                    desc: "Udah khatam dan di-tamatkan",
+                    color: "#10b981",
+                    bg: "rgba(16, 185, 129, 0.25)",
+                    icon: "fa-solid fa-circle-check"
+                }
+            ];
+
+            const migrateSkillsData = (data) => {
+                if (!data) return defaultSiteData;
+                ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
+                    if (!data[key] || !Array.isArray(data[key])) {
+                        data[key] = defaultSiteData[key] || [];
+                    } else {
+                        data[key].forEach(s => {
+                            if (!s.items || !Array.isArray(s.items)) {
+                                s.items = [];
+                            }
+                            s.items.forEach(itm => {
+                                if (!itm.stage) {
+                                    itm.stage = itm.done ? 5 : 2;
+                                }
+                            });
+                            if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive" || s.statusText === "Sangat Mahir") {
+                                s.statusText = "Mastered / Cleaned";
+                            } else if (s.statusText === "Mahir — State Engine & DOM" || s.statusText === "Mahir") {
+                                s.statusText = "Half-Baked";
+                            } else if (s.statusText === "Dasar & Logika (On Progress)" || s.statusText === "Cukup Mahir") {
+                                s.statusText = "Werving / On Radar";
+                            }
+                        });
+                    }
+                });
+                return data;
+            };
+
             let siteData = JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
             if (!siteData) {
                 siteData = defaultSiteData;
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
-            } else if (!siteData.adminPassword) {
-                siteData.adminPassword = FIXED_DEFAULT_PASS;
+            } else {
+                siteData = migrateSkillsData(siteData);
+                if (!siteData.adminPassword) {
+                    siteData.adminPassword = FIXED_DEFAULT_PASS;
+                }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
 
@@ -869,17 +943,54 @@
                     } else {
                         cat.items.forEach((skill, sIdx) => {
                             const checklistItems = skill.items || [];
-                            const checklistHTML = checklistItems.map((cItem, cIdx) => `
-                                <div class="admin-checklist-row mb-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.65rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
-                                    <div style="display: flex; align-items: center; gap: 0.6rem; flex: 1;">
-                                        <input type="checkbox" class="toggle-checklist-cb" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" ${cItem.done ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;">
-                                        <input type="text" class="form-control form-control-sm edit-checklist-input" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" value="${cItem.title.replace(/"/g, '&quot;')}" placeholder="Edit target checklist..." style="flex: 1; border: 1px solid transparent; background: transparent; color: ${cItem.done ? 'var(--text-primary)' : 'var(--text-muted)'}; font-size: 0.88rem; padding: 0.2rem 0.4rem; border-radius: 4px;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.background='rgba(0,0,0,0.4)';" onblur="this.style.borderColor='transparent'; this.style.background='transparent';">
+                            const checklistHTML = checklistItems.map((cItem, cIdx) => {
+                                const curStageLevel = cItem.stage ? parseInt(cItem.stage) : (cItem.done ? 5 : 2);
+                                const curStage = SKILL_STAGES.find(s => s.level === curStageLevel) || SKILL_STAGES[0];
+                                return `
+                                    <div class="admin-checklist-row mb-3" style="background: rgba(0,0,0,0.28); padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                                        <!-- Baris 1: Edit Nama Skill Check & Hapus -->
+                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                            <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+                                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: ${curStage.bg}; color: ${curStage.color}; font-size: 0.75rem; flex-shrink: 0;" title="${curStage.title}">
+                                                    <i class="${curStage.icon}"></i>
+                                                </span>
+                                                <input type="text" class="form-control form-control-sm edit-checklist-input" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" value="${cItem.title.replace(/"/g, '&quot;')}" placeholder="Edit target skill check..." style="flex: 1; border: 1px solid transparent; background: transparent; color: var(--text-primary); font-size: 0.88rem; font-weight: 600; padding: 0.2rem 0.4rem; border-radius: 4px;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.background='rgba(0,0,0,0.5)';" onblur="this.style.borderColor='transparent'; this.style.background='transparent';">
+                                            </div>
+                                            <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target checklist ini saja">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Baris 2: Interactive Progress Bar (Klik untuk ubah tahapan) -->
+                                        <div style="margin-bottom: 0.45rem;">
+                                            <div class="stage-progress-bar-interactive" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="display: flex; gap: 5px; height: 12px; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 2px;">
+                                                ${SKILL_STAGES.map(stg => {
+                                                    const isActive = curStageLevel >= stg.level;
+                                                    return `
+                                                        <div class="stage-bar-segment" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" data-level="${stg.level}" title="Klik tahap ${stg.level}: ${stg.title} (${stg.desc})" style="flex: 1; border-radius: 4px; background: ${isActive ? curStage.color : 'rgba(255,255,255,0.06)'}; cursor: pointer; transition: all 0.2s;"></div>
+                                                    `;
+                                                }).join('')}
+                                            </div>
+                                        </div>
+
+                                        <!-- Baris 3: Status Tahapan Aktif & Tombol Cepat 1-5 -->
+                                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;">
+                                            <div style="font-size: 0.78rem; font-weight: 600; color: ${curStage.color}; display: flex; align-items: center; gap: 0.35rem;">
+                                                <span>Tahap ${curStage.level}/5: <strong>${curStage.title}</strong></span>
+                                                <span style="color: var(--text-muted); font-size: 0.73rem; font-weight: normal;">— ${curStage.desc}</span>
+                                            </div>
+                                            <div style="display: flex; gap: 4px; align-items: center;">
+                                                <span style="font-size: 0.7rem; color: var(--text-muted); margin-right: 2px;">Pilih level:</span>
+                                                ${SKILL_STAGES.map(stg => `
+                                                    <button type="button" class="stage-step-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" data-level="${stg.level}" style="border: 1px solid ${curStageLevel === stg.level ? curStage.color : 'rgba(255,255,255,0.1)'}; background: ${curStageLevel === stg.level ? curStage.bg : 'rgba(255,255,255,0.03)'}; color: ${curStageLevel === stg.level ? curStage.color : 'var(--text-muted)'}; font-size: 0.7rem; font-weight: 700; width: 22px; height: 20px; border-radius: 4px; padding: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;" title="Pilih Tahap ${stg.level}: ${stg.title}">
+                                                        ${stg.level}
+                                                    </button>
+                                                `).join('')}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target checklist ini saja">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            `).join('');
+                                `;
+                            }).join('');
 
                             html += `
                                 <div class="admin-skill-card glass-card p-3 mb-3" style="border-left: 3px solid var(--primary-color);">
@@ -891,14 +1002,19 @@
                                             </div>
                                             <div style="display: flex; align-items: center; gap: 0.4rem;">
                                                 <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Tingkat Keahlian:</span>
-                                                <select class="form-control form-control-sm skill-status-select" data-cat="${cat.key}" data-sidx="${sIdx}" style="width: 140px; font-size: 0.8rem;">
+                                                <select class="form-control form-control-sm skill-status-select" data-cat="${cat.key}" data-sidx="${sIdx}" style="width: 170px; font-size: 0.8rem;">
+                                                    <option value="Mastered / Cleaned" ${skill.statusText === 'Mastered / Cleaned' ? 'selected' : ''}>Mastered / Cleaned</option>
+                                                    <option value="Half-Baked" ${skill.statusText === 'Half-Baked' ? 'selected' : ''}>Half-Baked</option>
+                                                    <option value="Werving / On Radar" ${skill.statusText === 'Werving / On Radar' ? 'selected' : ''}>Werving / On Radar</option>
+                                                    <option value="Grinding Hard" ${skill.statusText === 'Grinding Hard' ? 'selected' : ''}>Grinding Hard</option>
+                                                    <option value="Newbie Grounding" ${skill.statusText === 'Newbie Grounding' ? 'selected' : ''}>Newbie Grounding</option>
                                                     <option value="Sangat Mahir" ${skill.statusText === 'Sangat Mahir' ? 'selected' : ''}>Sangat Mahir</option>
                                                     <option value="Mahir" ${skill.statusText === 'Mahir' ? 'selected' : ''}>Mahir</option>
                                                     <option value="Cukup Mahir" ${skill.statusText === 'Cukup Mahir' ? 'selected' : ''}>Cukup Mahir</option>
                                                     <option value="Kurang Mahir" ${skill.statusText === 'Kurang Mahir' ? 'selected' : ''}>Kurang Mahir</option>
-                                                    <option value="custom" ${!['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'selected' : ''}>Custom...</option>
+                                                    <option value="custom" ${!['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'selected' : ''}>Custom...</option>
                                                 </select>
-                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="Status kata-kata..." style="width: 140px; font-size: 0.8rem; ${['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'display:none;' : ''}">
+                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="Status kata-kata..." style="width: 140px; font-size: 0.8rem; ${['Mastered / Cleaned','Half-Baked','Werving / On Radar','Grinding Hard','Newbie Grounding','Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'display:none;' : ''}">
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-cat="${cat.key}" data-sidx="${sIdx}">
@@ -908,12 +1024,12 @@
 
                                     <div class="admin-checklist-box">
                                         <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-gold);" class="mb-2">
-                                            <i class="fa-solid fa-list-check"></i> Checklist Target & Pencapaian Skill:
+                                            <i class="fa-solid fa-list-check"></i> Checklist Target & Tahapan Belajar:
                                         </div>
                                         ${checklistHTML || '<div class="text-muted small mb-2">Belum ada target di checklist ini.</div>'}
                                         
                                         <div class="mt-2" style="display: flex; gap: 0.5rem;">
-                                            <input type="text" class="form-control form-control-sm new-citem-input" id="newCitemInput_${cat.key}_${sIdx}" placeholder="Tambah checklist target baru (contoh: Kuasai Fetch API)..." style="font-size: 0.85rem;">
+                                            <input type="text" class="form-control form-control-sm new-citem-input" id="newCitemInput_${cat.key}_${sIdx}" placeholder="Tambah target skill check baru (contoh: Kuasai Fetch API)..." style="font-size: 0.85rem;">
                                             <button type="button" class="btn btn-sm btn-primary add-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" style="white-space: nowrap;">
                                                 <i class="fa-solid fa-plus"></i> Tambah Target
                                             </button>
@@ -968,29 +1084,40 @@
                     });
                 });
 
-                // Event Listeners for Checkboxes
-                document.querySelectorAll('.toggle-checklist-cb').forEach(cb => {
-                    cb.addEventListener('change', () => {
-                        const cat = cb.getAttribute('data-cat');
-                        const sIdx = parseInt(cb.getAttribute('data-sidx'));
-                        const cIdx = parseInt(cb.getAttribute('data-cidx'));
-                        siteData[cat][sIdx].items[cIdx].done = cb.checked;
+                // Stage Change Listener (Interactive Progress Bar click & Step Buttons click)
+                const handleStageChange = (cat, sIdx, cIdx, newLevel) => {
+                    if (!siteData[cat] || !siteData[cat][sIdx] || !siteData[cat][sIdx].items[cIdx]) return;
+                    const targetItem = siteData[cat][sIdx].items[cIdx];
+                    targetItem.stage = newLevel;
+                    targetItem.done = (newLevel === 5);
 
-                        // Auto recalculate status text based on checklist completion
-                        const items = siteData[cat][sIdx].items;
-                        const doneCount = items.filter(i => i.done).length;
-                        const totalCount = items.length;
-                        if (totalCount > 0) {
-                            const ratio = doneCount / totalCount;
-                            if (ratio >= 0.9) siteData[cat][sIdx].statusText = "Sangat Mahir";
-                            else if (ratio >= 0.7) siteData[cat][sIdx].statusText = "Mahir";
-                            else if (ratio >= 0.4) siteData[cat][sIdx].statusText = "Cukup Mahir";
-                            else siteData[cat][sIdx].statusText = "Kurang Mahir";
-                        }
+                    // Auto recalculate overall skill status and percentage based on stages
+                    const items = siteData[cat][sIdx].items;
+                    if (items.length > 0) {
+                        const totalPoints = items.reduce((sum, itm) => sum + (itm.stage || (itm.done ? 5 : 2)), 0);
+                        const avgPct = Math.round((totalPoints / (items.length * 5)) * 100);
 
-                        saveState();
-                        renderSkillsList();
-                        showToast("Checklist berhasil diperbarui!", "success");
+                        if (avgPct >= 90) siteData[cat][sIdx].statusText = "Mastered / Cleaned";
+                        else if (avgPct >= 70) siteData[cat][sIdx].statusText = "Half-Baked";
+                        else if (avgPct >= 50) siteData[cat][sIdx].statusText = "Werving / On Radar";
+                        else if (avgPct >= 30) siteData[cat][sIdx].statusText = "Grinding Hard";
+                        else siteData[cat][sIdx].statusText = "Newbie Grounding";
+                    }
+
+                    saveState();
+                    renderSkillsList();
+                    const stg = SKILL_STAGES.find(s => s.level === newLevel);
+                    showToast(`Tahap diubah ke: ${stg.title} (${stg.desc})`, "success");
+                };
+
+                document.querySelectorAll('.stage-bar-segment, .stage-step-btn').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const cat = el.getAttribute('data-cat');
+                        const sIdx = parseInt(el.getAttribute('data-sidx'));
+                        const cIdx = parseInt(el.getAttribute('data-cidx'));
+                        const newLevel = parseInt(el.getAttribute('data-level'));
+                        handleStageChange(cat, sIdx, cIdx, newLevel);
                     });
                 });
 
