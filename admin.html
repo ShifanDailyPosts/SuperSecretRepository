@@ -822,13 +822,16 @@
                 }
 
                 // Migrasi Projects ke Website Portofolio & 3 On Progress
-                if (siteData.projects && Array.isArray(siteData.projects)) {
-                    const hasOldProjects = siteData.projects.some(p => 
-                        p.title && (p.title.includes("Tracker") || p.title.includes("Design System Kit") || p.title.includes("Brand & Bio") || p.title.includes("Arsip Digital"))
-                    ) || siteData.projects.length !== 4;
-                    if (hasOldProjects) {
-                        siteData.projects = defaultSiteData.projects;
-                    }
+                const needsProjectsUpdate = !siteData.projects || 
+                    !Array.isArray(siteData.projects) || 
+                    siteData.projects.length !== 4 || 
+                    !siteData.projects[0] || 
+                    !siteData.projects[0].isCurrentSite ||
+                    siteData.projectsVersion !== 2;
+
+                if (needsProjectsUpdate) {
+                    siteData.projects = defaultSiteData.projects;
+                    siteData.projectsVersion = 2;
                 }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
