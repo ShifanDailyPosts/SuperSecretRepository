@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 1,
                 name: "HTML",
                 icon: "fa-brands fa-html5",
-                statusText: "Sangat Mahir & Teruji",
+                statusText: "Sangat Mahir",
                 items: [
                     { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
                     { title: "Pengolahan Form, Input & Validasinya", done: true },
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 2,
                 name: "CSS",
                 icon: "fa-brands fa-css3-alt",
-                statusText: "Sangat Mahir & Responsive",
+                statusText: "Sangat Mahir",
                 items: [
                     { title: "Layouting Flexbox & Responsive Grid System", done: true },
                     { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 3,
                 name: "JavaScript",
                 icon: "fa-brands fa-js",
-                statusText: "Mahir — State Engine & DOM",
+                statusText: "Mahir",
                 items: [
                     { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
                     { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 4,
                 name: "Python",
                 icon: "fa-brands fa-python",
-                statusText: "Dasar & Logika (On Progress)",
+                statusText: "Cukup Mahir",
                 items: [
                     { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
                     { title: "Struktur Kontrol (If-Else & Looping)", done: true },
@@ -215,10 +215,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const migrateSkillsData = (data) => {
         if (!data) return defaultSiteData;
         ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
-            if (data[key] && Array.isArray(data[key]) && data[key].length > 0) {
-                if (data[key][0].pct !== undefined && !data[key][0].items) {
-                    data[key] = defaultSiteData[key];
-                }
+            if (data[key] && Array.isArray(data[key])) {
+                data[key].forEach(s => {
+                    if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive") {
+                        s.statusText = "Sangat Mahir";
+                    } else if (s.statusText === "Mahir — State Engine & DOM") {
+                        s.statusText = "Mahir";
+                    } else if (s.statusText === "Dasar & Logika (On Progress)") {
+                        s.statusText = "Cukup Mahir";
+                    }
+                });
             }
         });
         return data;

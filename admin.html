@@ -574,7 +574,7 @@
                         id: 1,
                         name: "HTML",
                         icon: "fa-brands fa-html5",
-                        statusText: "Sangat Mahir & Teruji",
+                        statusText: "Sangat Mahir",
                         items: [
                             { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
                             { title: "Pengolahan Form, Input & Validasinya", done: true },
@@ -586,7 +586,7 @@
                         id: 2,
                         name: "CSS",
                         icon: "fa-brands fa-css3-alt",
-                        statusText: "Sangat Mahir & Responsive",
+                        statusText: "Sangat Mahir",
                         items: [
                             { title: "Layouting Flexbox & Responsive Grid System", done: true },
                             { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
@@ -598,7 +598,7 @@
                         id: 3,
                         name: "JavaScript",
                         icon: "fa-brands fa-js",
-                        statusText: "Mahir — State Engine & DOM",
+                        statusText: "Mahir",
                         items: [
                             { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
                             { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
@@ -610,7 +610,7 @@
                         id: 4,
                         name: "Python",
                         icon: "fa-brands fa-python",
-                        statusText: "Dasar & Logika (On Progress)",
+                        statusText: "Cukup Mahir",
                         items: [
                             { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
                             { title: "Struktur Kontrol (If-Else & Looping)", done: true },
@@ -884,11 +884,21 @@
                             html += `
                                 <div class="admin-skill-card glass-card p-3 mb-3" style="border-left: 3px solid var(--primary-color);">
                                     <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;" class="mb-3 pb-2 border-bottom">
-                                        <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 280px;">
-                                            <strong style="font-size: 1.1rem; color: var(--text-primary);">${skill.name}</strong>
-                                            <div style="display: flex; align-items: center; gap: 0.3rem;">
-                                                <span style="font-size: 0.75rem; color: var(--text-muted);">Status Kata-kata:</span>
-                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="ex: Sangat Mahir & Teruji" style="width: 220px; font-size: 0.8rem;">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 320px; flex-wrap: wrap;">
+                                            <div style="display: flex; align-items: center; gap: 0.4rem;">
+                                                <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Nama Skill:</span>
+                                                <input type="text" class="form-control form-control-sm skill-name-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.name}" placeholder="Nama Skill..." style="width: 130px; font-weight: 700; font-size: 0.85rem;">
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 0.4rem;">
+                                                <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Tingkat Keahlian:</span>
+                                                <select class="form-control form-control-sm skill-status-select" data-cat="${cat.key}" data-sidx="${sIdx}" style="width: 140px; font-size: 0.8rem;">
+                                                    <option value="Sangat Mahir" ${skill.statusText === 'Sangat Mahir' ? 'selected' : ''}>Sangat Mahir</option>
+                                                    <option value="Mahir" ${skill.statusText === 'Mahir' ? 'selected' : ''}>Mahir</option>
+                                                    <option value="Cukup Mahir" ${skill.statusText === 'Cukup Mahir' ? 'selected' : ''}>Cukup Mahir</option>
+                                                    <option value="Kurang Mahir" ${skill.statusText === 'Kurang Mahir' ? 'selected' : ''}>Kurang Mahir</option>
+                                                    <option value="custom" ${!['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'selected' : ''}>Custom...</option>
+                                                </select>
+                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="Status kata-kata..." style="width: 140px; font-size: 0.8rem; ${['Sangat Mahir','Mahir','Cukup Mahir','Kurang Mahir'].includes(skill.statusText) ? 'display:none;' : ''}">
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-cat="${cat.key}" data-sidx="${sIdx}">
@@ -919,28 +929,31 @@
 
                 container.innerHTML = html;
 
-                // Event Listeners for Checkboxes
-                document.querySelectorAll('.toggle-checklist-cb').forEach(cb => {
-                    cb.addEventListener('change', () => {
-                        const cat = cb.getAttribute('data-cat');
-                        const sIdx = parseInt(cb.getAttribute('data-sidx'));
-                        const cIdx = parseInt(cb.getAttribute('data-cidx'));
-                        siteData[cat][sIdx].items[cIdx].done = cb.checked;
-
-                        // Auto recalculate status text if user hasn't set custom text
-                        const items = siteData[cat][sIdx].items;
-                        const doneCount = items.filter(i => i.done).length;
-                        if (doneCount === items.length && items.length > 0) {
-                            siteData[cat][sIdx].statusText = "Sangat Mahir & Teruji";
-                        } else if (doneCount > 0) {
-                            siteData[cat][sIdx].statusText = "Menengah (Dalam Pengembangan)";
-                        } else {
-                            siteData[cat][sIdx].statusText = "Baru Mempelajari (On Progress)";
-                        }
-
+                // Skill Name change listener
+                document.querySelectorAll('.skill-name-input').forEach(inp => {
+                    inp.addEventListener('change', () => {
+                        const cat = inp.getAttribute('data-cat');
+                        const sIdx = parseInt(inp.getAttribute('data-sidx'));
+                        siteData[cat][sIdx].name = inp.value.trim() || "Skill";
                         saveState();
-                        renderSkillsList();
-                        showToast("Checklist berhasil diperbarui!", "success");
+                        showToast("Nama skill berhasil diperbarui!", "success");
+                    });
+                });
+
+                // Skill Status Select listener
+                document.querySelectorAll('.skill-status-select').forEach(sel => {
+                    sel.addEventListener('change', () => {
+                        const cat = sel.getAttribute('data-cat');
+                        const sIdx = parseInt(sel.getAttribute('data-sidx'));
+                        const customInp = sel.nextElementSibling;
+                        if (sel.value === 'custom') {
+                            if (customInp) customInp.style.display = 'inline-block';
+                        } else {
+                            if (customInp) customInp.style.display = 'none';
+                            siteData[cat][sIdx].statusText = sel.value;
+                            saveState();
+                            showToast("Tingkat keahlian berhasil diperbarui!", "success");
+                        }
                     });
                 });
 
@@ -952,6 +965,32 @@
                         siteData[cat][sIdx].statusText = inp.value.trim();
                         saveState();
                         showToast("Status kata-kata berhasil disimpan!", "success");
+                    });
+                });
+
+                // Event Listeners for Checkboxes
+                document.querySelectorAll('.toggle-checklist-cb').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const cat = cb.getAttribute('data-cat');
+                        const sIdx = parseInt(cb.getAttribute('data-sidx'));
+                        const cIdx = parseInt(cb.getAttribute('data-cidx'));
+                        siteData[cat][sIdx].items[cIdx].done = cb.checked;
+
+                        // Auto recalculate status text based on checklist completion
+                        const items = siteData[cat][sIdx].items;
+                        const doneCount = items.filter(i => i.done).length;
+                        const totalCount = items.length;
+                        if (totalCount > 0) {
+                            const ratio = doneCount / totalCount;
+                            if (ratio >= 0.9) siteData[cat][sIdx].statusText = "Sangat Mahir";
+                            else if (ratio >= 0.7) siteData[cat][sIdx].statusText = "Mahir";
+                            else if (ratio >= 0.4) siteData[cat][sIdx].statusText = "Cukup Mahir";
+                            else siteData[cat][sIdx].statusText = "Kurang Mahir";
+                        }
+
+                        saveState();
+                        renderSkillsList();
+                        showToast("Checklist berhasil diperbarui!", "success");
                     });
                 });
 
@@ -1012,7 +1051,7 @@
                         siteData[cat].push({
                             id: Date.now(),
                             name: name.trim(),
-                            statusText: "Baru Mempelajari (On Progress)",
+                            statusText: "Cukup Mahir",
                             items: [
                                 { title: "Pemahaman Konsep Dasar & Sintaks", done: true },
                                 { title: "Penerapan Proyek & Latihan", done: false }
