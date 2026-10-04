@@ -603,102 +603,26 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 .floating-badge strong { display: block; font-size: 0.85rem; color: var(--text-primary); }
 .floating-badge span { font-size: 0.75rem; color: var(--text-muted); }
 
-/* --- About Section (7-Card Grid Layout) --- */
-.about-grid-7 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
+/* --- About Section --- */
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.about-card { padding: 2.2rem; height: 100%; }
 
-@media (max-width: 992px) {
-    .about-grid-7 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .about-grid-7 {
-        grid-template-columns: 1fr;
-    }
-}
-
-.about-card-step {
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-    border-top: 3px solid var(--primary-color);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.about-card-step:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
-}
-
-.about-card-step.featured-step {
-    grid-column: span 3;
-    border-top: 3px solid var(--accent-gold);
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9));
-}
-
-@media (max-width: 992px) {
-    .about-card-step.featured-step {
-        grid-column: span 2;
-    }
-}
-
-@media (max-width: 640px) {
-    .about-card-step.featured-step {
-        grid-column: span 1;
-    }
-}
-
-.about-step-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.about-step-icon-box {
-    width: 44px;
-    height: 44px;
+.about-card-icon {
+    width: 56px;
+    height: 56px;
     background: var(--primary-gradient);
     color: #ffffff;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
 }
 
-.about-step-tag {
-    background: rgba(6, 182, 212, 0.15);
-    color: var(--primary-color);
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.2rem 0.65rem;
-    border-radius: 20px;
-    border: 1px solid rgba(6, 182, 212, 0.3);
-}
-
-.about-card-step h3 {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.6rem;
-}
-
-.about-card-step p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
+.about-card h3 { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.85rem; }
+.about-card p { color: var(--text-secondary); font-size: 0.95rem; }
 
 .info-banner {
     display: flex;
