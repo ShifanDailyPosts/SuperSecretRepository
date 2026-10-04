@@ -148,25 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ],
 
-        // Certificates
+        // Certificates (On Progress)
         certificates: [
             {
                 id: 1,
-                title: "Sertifikat Panitia/Volunteer Pesantren Liburan",
-                issuer: "Hiraa Center",
-                desc: "Bukti dedikasi dalam mendampingi dan mengelola kegiatan santri di Rumah Qur'an Hiraa Center."
-            },
-            {
-                id: 2,
-                title: "Sertifikat Capaian Hafalan Al-Qur'an",
-                issuer: "Lembaga Pendidikan Santri",
-                desc: "Penghargaan atas ketekunan dan pencapaian target hafalan Al-Qur'an."
-            },
-            {
-                id: 3,
-                title: "Sertifikat Web Development & Frontend Architecture",
-                issuer: "Digital Competency Hub",
-                desc: "Kelulusan pelatihan pembuatan aplikasi web responsif dan modern."
+                title: "Arsip Sertifikasi & Kredensial Resmi",
+                issuer: "Tahap Pemutakhiran Data",
+                desc: "Dokumen dan bukti sertifikat resmi sedang dalam tahap pendataan serta verifikasi (On Progress)."
             }
         ],
 
@@ -260,6 +248,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 siteData.experiences = defaultSiteData.experiences;
             }
         }
+        // Migrasi Sertifikat ke On Progress jika terdeteksi data lama yang tidak akurat
+        if (siteData.certificates && Array.isArray(siteData.certificates)) {
+            const hasOldInaccurateCerts = siteData.certificates.some(c => 
+                (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
+                (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
+            );
+            if (hasOldInaccurateCerts) {
+                siteData.certificates = defaultSiteData.certificates;
+            }
+        }
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -275,6 +273,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
                     if (hasOldInaccurateExp) {
                         siteData.experiences = defaultSiteData.experiences;
+                    }
+                }
+                if (siteData.certificates && Array.isArray(siteData.certificates)) {
+                    const hasOldInaccurateCerts = siteData.certificates.some(c => 
+                        (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
+                        (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
+                    );
+                    if (hasOldInaccurateCerts) {
+                        siteData.certificates = defaultSiteData.certificates;
                     }
                 }
                 if (typeof renderFrontendContent === 'function') {
@@ -628,14 +635,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const certContainer = document.getElementById('certificatesGridContainer');
         const certList = siteData.certificates || defaultSiteData.certificates;
         if (certContainer) {
-            certContainer.innerHTML = certList.map(c => `
-                <div class="cert-card glass-card">
-                    <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
-                    <div class="cert-issuer">${c.issuer}</div>
-                    <h3>${c.title}</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${c.desc}</p>
-                </div>
-            `).join('');
+            if (!certList || certList.length === 0) {
+                certContainer.innerHTML = `
+                    <div class="glass-card text-center p-4" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 2rem; color: var(--text-gold); margin-bottom: 0.75rem;"></i>
+                        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Sertifikat Sedang Diverifikasi (On Progress)</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">Dokumen dan bukti sertifikat resmi sedang dalam tahap pendataan serta pemutakhiran.</p>
+                    </div>
+                `;
+            } else {
+                certContainer.innerHTML = certList.map(c => `
+                    <div class="cert-card glass-card">
+                        <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+                        <div class="cert-issuer">${c.issuer}</div>
+                        <h3>${c.title}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${c.desc}</p>
+                    </div>
+                `).join('');
+            }
         }
 
         // Tools & Tech

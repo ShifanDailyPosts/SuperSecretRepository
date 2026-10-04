@@ -671,9 +671,14 @@
                     { id: 1, title: "Capaian Hafalan Al-Qur'an & Character Excellence", desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan." },
                     { id: 2, title: "Terdaftar Rekam Akademis Siswa Ciamis", desc: "Tercatat dalam data siswa terpelajar wilayah Ciamis, Jawa Barat." }
                 ],
+                // Certificates (On Progress)
                 certificates: [
-                    { id: 1, title: "Sertifikat Panitia/Volunteer Pesantren Liburan", issuer: "Hiraa Center", desc: "Bukti dedikasi dalam mendampingi kegiatan santri." },
-                    { id: 2, title: "Sertifikat Capaian Hafalan Al-Qur'an", issuer: "Lembaga Pendidikan Santri", desc: "Penghargaan atas pencapaian target hafalan." }
+                    {
+                        id: 1,
+                        title: "Arsip Sertifikasi & Kredensial Resmi",
+                        issuer: "Tahap Pemutakhiran Data",
+                        desc: "Dokumen dan bukti sertifikat resmi sedang dalam tahap pendataan serta verifikasi (On Progress)."
+                    }
                 ],
                 tools: [
                     { name: "HTML5", icon: "fa-brands fa-html5" },
@@ -798,6 +803,15 @@
                     );
                     if (hasOldInaccurateExp) {
                         siteData.experiences = defaultSiteData.experiences;
+                    }
+                // Migrasi Sertifikat ke On Progress jika terdeteksi data lama yang tidak akurat
+                if (siteData.certificates && Array.isArray(siteData.certificates)) {
+                    const hasOldInaccurateCerts = siteData.certificates.some(c => 
+                        (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
+                        (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
+                    );
+                    if (hasOldInaccurateCerts) {
+                        siteData.certificates = defaultSiteData.certificates;
                     }
                 }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
@@ -1458,12 +1472,21 @@
 
             function renderCertificatesList() {
                 const container = document.getElementById('certificatesListContainer');
+                if (!container) return;
                 const certs = siteData.certificates || defaultSiteData.certificates;
+                if (!certs || certs.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data sertifikat dalam tahap pemutakhiran resmi).</em>
+                        </div>
+                    `;
+                    return;
+                }
                 container.innerHTML = certs.map(c => `
                     <div class="item-row">
                         <div>
                             <strong>${c.title} — ${c.issuer}</strong>
-                            <span>${c.desc}</span>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${c.desc}</p>
                         </div>
                     </div>
                 `).join('');
