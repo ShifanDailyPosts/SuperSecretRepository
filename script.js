@@ -215,14 +215,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const migrateSkillsData = (data) => {
         if (!data) return defaultSiteData;
         ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
-            if (data[key] && Array.isArray(data[key])) {
+            if (!data[key] || !Array.isArray(data[key])) {
+                data[key] = defaultSiteData[key] || [];
+            } else {
                 data[key].forEach(s => {
+                    if (!s.items || !Array.isArray(s.items)) {
+                        s.items = [];
+                    }
                     if (s.statusText === "Sangat Mahir & Teruji" || s.statusText === "Sangat Mahir & Responsive") {
                         s.statusText = "Sangat Mahir";
                     } else if (s.statusText === "Mahir — State Engine & DOM") {
                         s.statusText = "Mahir";
                     } else if (s.statusText === "Dasar & Logika (On Progress)") {
                         s.statusText = "Cukup Mahir";
+                    } else if (!s.statusText) {
+                        s.statusText = (s.pct && s.pct >= 90) ? "Sangat Mahir" : (s.pct && s.pct >= 75) ? "Mahir" : (s.pct && s.pct >= 50) ? "Cukup Mahir" : "Kurang Mahir";
                     }
                 });
             }
