@@ -1,5 +1,5 @@
 /**
- * Shifan Shalih Adiluhung - Interactive Portfolio Engine
+ * Shifan Shalih Adiluhung - Interactive Portfolio Engine (v3.0)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,46 +24,153 @@ document.addEventListener('DOMContentLoaded', () => {
         githubUrl: "https://github.com",
         linkedinUrl: "https://linkedin.com",
         instagramUrl: "https://instagram.com",
-        techSkills: [
-            { id: 1, name: "HTML5 & CSS3 Architecture (Responsive Design)", pct: 92 },
-            { id: 2, name: "JavaScript (ES6+, DOM Manipulation, Dynamic State)", pct: 88 },
-            { id: 3, name: "UI/UX Design & Aesthetic Glassmorphism", pct: 90 },
-            { id: 4, name: "Web Performance & Hostinger FTP Deployment", pct: 85 }
+        
+        // Categorized Skills
+        webDevSkills: [
+            { id: 1, name: "HTML5 & Semantic Architecture", pct: 95 },
+            { id: 2, name: "CSS3 Glassmorphism & Responsive Grids", pct: 92 },
+            { id: 3, name: "JavaScript ES6+ & Dynamic State Engine", pct: 88 },
+            { id: 4, name: "Hostinger FTP & Automated Deployment", pct: 85 }
         ],
-        softSkills: [
-            { id: 1, name: "Metode Daya Ingat & Hafalan (Memory & Memorization)", pct: 95 },
-            { id: 2, name: "Berpikir Analitis & Pemecahan Masalah (Problem Solving)", pct: 90 },
-            { id: 3, name: "Manajemen Waktu & Kedisiplinan Terstruktur", pct: 93 },
-            { id: 4, name: "Komunikasi & Kepemimpinan Beretika", pct: 87 }
+        designSkills: [
+            { id: 1, name: "UI/UX Layout Design & Wireframing", pct: 90 },
+            { id: 2, name: "Color Palette & Visual Design System", pct: 88 },
+            { id: 3, name: "Typography & Micro-Animation Details", pct: 87 }
         ],
+        otherSkills: [
+            { id: 1, name: "Metode Hafalan & Daya Ingat (Memory Technique)", pct: 96 },
+            { id: 2, name: "Berpikir Analitis & Pemecahan Masalah", pct: 92 },
+            { id: 3, name: "Kedisiplinan & Etika Terpelajar", pct: 94 }
+        ],
+
+        // Categorized Projects
         projects: [
             {
                 id: 1,
                 title: "Shifan Adiluhung Official Portfolio Hub",
                 desc: "Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, halaman pengelola terproteksi password, dan hosting terintegrasi.",
-                category: "web",
+                category: "web-projects",
                 tech: "HTML5, CSS3, JavaScript ES6, LocalStorage State, Halaman Admin"
             },
             {
                 id: 2,
-                title: "Al-Qur'an & Memorization Tracker",
+                title: "Al-Qur'an & Memorization Tracker Web App",
                 desc: "Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik.",
-                category: "edu",
+                category: "web-projects",
                 tech: "JavaScript, Web Storage, Dashboard UI"
             },
             {
                 id: 3,
-                title: "Arsip Digital Santri & Siswa Ciamis",
-                desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
-                category: "web",
-                tech: "Database Concept, Search & Filter UI"
+                title: "Glassmorphism UI Design System Kit",
+                desc: "Konsep tata letak UI glassmorphism modern dengan palet warna dark mode & aksen cyan emas bernilai tinggi.",
+                category: "design-projects",
+                tech: "UI Design, CSS System, Visual Aesthetics"
             },
             {
                 id: 4,
-                title: "Interactive Bio & Admin Portal Builder",
-                desc: "Alat pembuat ringkasan profil pribadi interaktif dengan portal admin langsung untuk mengelola seluruh halaman website.",
-                category: "creative",
-                tech: "DOM Engine, Custom Theme, State Management"
+                title: "Personal Brand & Bio Builder Concept",
+                desc: "Desain antarmuka pembuat ringkasan profil pribadi interaktif yang dapat disesuaikan secara real-time.",
+                category: "design-projects",
+                tech: "UI Layout, Interactive Design"
+            },
+            {
+                id: 5,
+                title: "Arsip Digital Santri & Siswa Ciamis",
+                desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
+                category: "other-projects",
+                tech: "Database Concept, Search UI"
+            }
+        ],
+
+        // Experience
+        experiences: [
+            {
+                id: 1,
+                role: "Panitia & Volunteer Pesantren Liburan",
+                org: "Hiraa Center — Rumah Qur'an & Konsultasi",
+                period: "Kegiatan Berkala",
+                desc: "Aktif berpartisipasi dalam penyelenggaraan Pesantren Liburan Hiraa Center, mendampingi santri, serta membangun karakter kepemimpinan yang beretika."
+            },
+            {
+                id: 2,
+                role: "Rekam Jejak Akademis & Santri Terpelajar",
+                org: "Lembaga Pendidikan Ciamis, Jawa Barat",
+                period: "2009 — Sekarang",
+                desc: "Mencapai rekam jejak hafalan Al-Qur'an dan prestasi akademis yang konsisten serta terdaftar secara publik."
+            },
+            {
+                id: 3,
+                role: "Praktisi Web Development & Creator",
+                org: "Portofolio Digital Mandiri",
+                period: "2024 — Sekarang",
+                desc: "Mengembangkan aplikasi web modern, mengintegrasikan fitur pengelola admin, dan mempublikasikan karya ke server Hostinger."
+            }
+        ],
+
+        // Achievements
+        achievements: [
+            {
+                id: 1,
+                title: "Capaian Hafalan Al-Qur'an & Character Excellence",
+                desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan dengan daya ingat dan akhlak luhur."
+            },
+            {
+                id: 2,
+                title: "Terdaftar Rekam Akademis Siswa Ciamis",
+                desc: "Tercatat dalam data siswa terpelajar wilayah Ciamis, Jawa Barat dengan dedikasi belajar tinggi."
+            },
+            {
+                id: 3,
+                title: "Penguasaan Modern Web Engineering & Live Deployment",
+                desc: "Berhasil mengintegrasikan website portofolio interaktif ke GitHub dan Hostinger FTP secara otomatis."
+            }
+        ],
+
+        // Certificates
+        certificates: [
+            {
+                id: 1,
+                title: "Sertifikat Panitia/Volunteer Pesantren Liburan",
+                issuer: "Hiraa Center",
+                desc: "Bukti dedikasi dalam mendampingi dan mengelola kegiatan santri di Rumah Qur'an Hiraa Center."
+            },
+            {
+                id: 2,
+                title: "Sertifikat Capaian Hafalan Al-Qur'an",
+                issuer: "Lembaga Pendidikan Santri",
+                desc: "Penghargaan atas ketekunan dan pencapaian target hafalan Al-Qur'an."
+            },
+            {
+                id: 3,
+                title: "Sertifikat Web Development & Frontend Architecture",
+                issuer: "Digital Competency Hub",
+                desc: "Kelulusan pelatihan pembuatan aplikasi web responsif dan modern."
+            }
+        ],
+
+        // Tools & Tech
+        tools: [
+            { name: "HTML5", icon: "fa-brands fa-html5" },
+            { name: "CSS3", icon: "fa-brands fa-css3-alt" },
+            { name: "JavaScript", icon: "fa-brands fa-js" },
+            { name: "Git & GitHub", icon: "fa-brands fa-github" },
+            { name: "Hostinger FTP", icon: "fa-solid fa-server" },
+            { name: "VS Code", icon: "fa-solid fa-code" }
+        ],
+
+        // Testimonials
+        testimonials: [
+            {
+                id: 1,
+                quote: "Shifan memiliki ketekunan luar biasa baik dalam hafalan keilmuan maupun dalam menyelesaikan tugas-tugas teknologi dengan hasil bernilai adiluhung.",
+                author: "Pengajar Hiraa Center",
+                title: "Pembimbing Santri"
+            },
+            {
+                id: 2,
+                quote: "Kombinasi yang sangat inspiratif antara karakter terpelajar yang santun dan kecakapan membuat aplikasi web modern.",
+                author: "Rekan Kolaborator",
+                title: "Web Practitioner"
             }
         ]
     };
@@ -101,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateCursor();
     }
 
-    // === 2. Theme Switcher (Dark / Light) ===
+    // === 2. Theme Switcher ===
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const savedTheme = localStorage.getItem('ssa_theme') || 'dark';
 
@@ -208,57 +315,50 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu;
         document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision;
 
-        // Contact Info
-        document.getElementById('contactEmailDisplay').textContent = siteData.contactEmail;
-        document.getElementById('contactLocationDisplay').textContent = siteData.contactLocation;
+        // Categorized Skills
+        const webSkills = siteData.webDevSkills || defaultSiteData.webDevSkills;
+        const desSkills = siteData.designSkills || defaultSiteData.designSkills;
+        const othSkills = siteData.otherSkills || defaultSiteData.otherSkills;
 
-        // Social Links
-        const socialContainer = document.getElementById('socialLinksContainer');
-        if (socialContainer) {
-            socialContainer.innerHTML = `
-                <a href="${siteData.githubUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="${siteData.linkedinUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="${siteData.instagramUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:${siteData.contactEmail}" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-            `;
-        }
-
-        // Tech Skills
-        const techSkillsContainer = document.getElementById('techSkillsContainer');
-        if (techSkillsContainer) {
-            techSkillsContainer.innerHTML = siteData.techSkills.map(s => `
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span>${s.name}</span>
-                        <span class="skill-pct">${s.pct}%</span>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
+        document.getElementById('webDevSkillsContainer').innerHTML = webSkills.map(s => `
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>${s.name}</span>
+                    <span class="skill-pct">${s.pct}%</span>
                 </div>
-            `).join('');
-        }
+                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
+            </div>
+        `).join('');
 
-        // Soft Skills
-        const softSkillsContainer = document.getElementById('softSkillsContainer');
-        if (softSkillsContainer) {
-            softSkillsContainer.innerHTML = siteData.softSkills.map(s => `
-                <div class="skill-item">
-                    <div class="skill-info">
-                        <span>${s.name}</span>
-                        <span class="skill-pct">${s.pct}%</span>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
+        document.getElementById('designSkillsContainer').innerHTML = desSkills.map(s => `
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>${s.name}</span>
+                    <span class="skill-pct">${s.pct}%</span>
                 </div>
-            `).join('');
-        }
+                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
+            </div>
+        `).join('');
 
-        // Projects
+        document.getElementById('otherSkillsContainer').innerHTML = othSkills.map(s => `
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>${s.name}</span>
+                    <span class="skill-pct">${s.pct}%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
+            </div>
+        `).join('');
+
+        // Projects ⭐⭐⭐
         const projectsContainer = document.getElementById('projectsGridContainer');
+        const projList = siteData.projects || defaultSiteData.projects;
         if (projectsContainer) {
-            projectsContainer.innerHTML = siteData.projects.map(p => `
+            projectsContainer.innerHTML = projList.map(p => `
                 <div class="project-card glass-card" data-category="${p.category}">
                     <div class="project-thumb">
-                        <div class="thumb-icon"><i class="fa-solid fa-${p.category === 'edu' ? 'book-bookmark' : p.category === 'creative' ? 'wand-magic-sparkles' : 'globe'}"></i></div>
-                        <span class="project-category">${p.category === 'edu' ? 'Pendidikan' : p.category === 'creative' ? 'Kreatif' : 'Web App'}</span>
+                        <div class="thumb-icon"><i class="fa-solid fa-${p.category === 'web-projects' ? 'laptop-code' : p.category === 'design-projects' ? 'wand-magic-sparkles' : 'folder'}"></i></div>
+                        <span class="project-category">${p.category === 'web-projects' ? 'Web Project' : p.category === 'design-projects' ? 'Design Project' : 'Other Project'}</span>
                     </div>
                     <div class="project-details">
                         <h3>${p.title}</h3>
@@ -274,13 +374,139 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // Re-attach project modal listeners
+        // Experience
+        const expContainer = document.getElementById('experienceTimelineContainer');
+        const expList = siteData.experiences || defaultSiteData.experiences;
+        if (expContainer) {
+            expContainer.innerHTML = expList.map(e => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> ${e.period}</span>
+                        <h3>${e.role}</h3>
+                        <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.75rem;">${e.org}</h4>
+                        <p>${e.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Achievements
+        const achContainer = document.getElementById('achievementsGridContainer');
+        const achList = siteData.achievements || defaultSiteData.achievements;
+        if (achContainer) {
+            achContainer.innerHTML = achList.map(a => `
+                <div class="achieve-card glass-card">
+                    <div class="achieve-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3>${a.title}</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">${a.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Certificates
+        const certContainer = document.getElementById('certificatesGridContainer');
+        const certList = siteData.certificates || defaultSiteData.certificates;
+        if (certContainer) {
+            certContainer.innerHTML = certList.map(c => `
+                <div class="cert-card glass-card">
+                    <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="cert-issuer">${c.issuer}</div>
+                    <h3>${c.title}</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${c.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Tools & Tech
+        const toolContainer = document.getElementById('toolsGridContainer');
+        const toolList = siteData.tools || defaultSiteData.tools;
+        if (toolContainer) {
+            toolContainer.innerHTML = toolList.map(t => `
+                <div class="tool-card glass-card">
+                    <div class="tool-icon"><i class="${t.icon}"></i></div>
+                    <div class="tool-name">${t.name}</div>
+                </div>
+            `).join('');
+        }
+
+        // Testimonials
+        const testContainer = document.getElementById('testimonialsGridContainer');
+        const testList = siteData.testimonials || defaultSiteData.testimonials;
+        if (testContainer) {
+            testContainer.innerHTML = testList.map(t => `
+                <div class="testimonial-card glass-card">
+                    <p>"${t.quote}"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">${t.author.charAt(0)}</div>
+                        <div class="author-info">
+                            <strong>${t.author}</strong>
+                            <span>${t.title}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Contact Info
+        document.getElementById('contactEmailDisplay').textContent = siteData.contactEmail;
+        document.getElementById('contactLocationDisplay').textContent = siteData.contactLocation;
+
+        // Social Links
+        const socialContainer = document.getElementById('socialLinksContainer');
+        if (socialContainer) {
+            socialContainer.innerHTML = `
+                <a href="${siteData.githubUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="${siteData.linkedinUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="${siteData.instagramUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="mailto:${siteData.contactEmail}" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            `;
+        }
+
         attachProjectModalListeners();
     };
 
     renderFrontendContent();
 
-    // === 6. Interactive 3D Tilt Effect on Hero Card ===
+    // === 6. Skills Sub-Category Tabs Listener ===
+    const skillTabBtns = document.querySelectorAll('#skillsTabGroup .filter-btn');
+    skillTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            skillTabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const targetTab = btn.getAttribute('data-skill-tab');
+            document.querySelectorAll('.skills-pane').forEach(pane => pane.classList.remove('active'));
+
+            if (targetTab === 'web-dev') document.getElementById('paneSkillWebDev').classList.add('active');
+            if (targetTab === 'design') document.getElementById('paneSkillDesign').classList.add('active');
+            if (targetTab === 'other-skills') document.getElementById('paneSkillOther').classList.add('active');
+        });
+    });
+
+    // === 7. Project Category Filters ===
+    const projFilterBtns = document.querySelectorAll('[data-proj-filter]');
+    projFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            projFilterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-proj-filter');
+            document.querySelectorAll('.project-card').forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (filterValue === 'all' || filterValue === category) {
+                    card.style.display = 'flex';
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => { card.style.display = 'none'; }, 300);
+                }
+            });
+        });
+    });
+
+    // === 8. 3D Tilt Effect on Hero Card ===
     const heroCardTilt = document.getElementById('heroCardTilt');
     if (heroCardTilt && window.innerWidth > 992) {
         heroCardTilt.addEventListener('mousemove', (e) => {
@@ -298,29 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // === 7. Project Gallery Filter ===
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-            document.querySelectorAll('.project-card').forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || filterValue === category) {
-                    card.style.display = 'flex';
-                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => { card.style.display = 'none'; }, 300);
-                }
-            });
-        });
-    });
-
-    // === 8. Modals (Name Meaning & Project Detail) ===
+    // === 9. Modals (Name Meaning & Project Detail) ===
     const nameModal = document.getElementById('nameModal');
     const openNameModalBtn = document.getElementById('openNameModalBtn');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -361,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectModalOverlay) projectModalOverlay.addEventListener('click', closeProjectModal);
     if (projectModalOkBtn) projectModalOkBtn.addEventListener('click', closeProjectModal);
 
-    // === 9. Contact Form Submission & Toast System ===
+    // === 10. Contact Form Submission & Toast System ===
     const contactForm = document.getElementById('contactForm');
     const submitContactBtn = document.getElementById('submitContactBtn');
 
@@ -390,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Helper Toast Function
+    // Toast Helper
     function showToast(message, type = 'info') {
         const container = document.getElementById('toastContainer');
         if (!container) return;

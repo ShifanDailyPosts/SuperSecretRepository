@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link rel="stylesheet" href="styles.css?v=3.0">
     
     <style>
-        /* FULL-PAGE STANDALONE ADMIN LAYOUT (NO POPUP / MODAL BOX LOOK) */
         body.admin-full-page {
             background-color: var(--bg-primary);
             min-height: 100vh;
@@ -28,7 +27,6 @@
             padding: 0;
         }
 
-        /* Top Header Bar */
         .admin-top-bar {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
@@ -53,7 +51,6 @@
             gap: 1rem;
         }
 
-        /* LOGIN PAGE FULL LAYOUT */
         .admin-login-fullscreen {
             flex-grow: 1;
             display: flex;
@@ -88,10 +85,9 @@
             box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3);
         }
 
-        /* DASHBOARD FULL PAGE SPLIT LAYOUT */
         .admin-dashboard-full {
             flex-grow: 1;
-            display: none; /* Shown after login */
+            display: none;
             width: 100%;
         }
 
@@ -101,7 +97,6 @@
             min-height: calc(100vh - 72px);
         }
 
-        /* Left Sidebar Menu */
         .admin-sidebar {
             background: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
@@ -125,10 +120,10 @@
             display: flex;
             align-items: center;
             gap: 0.85rem;
-            padding: 0.9rem 1.1rem;
+            padding: 0.85rem 1rem;
             background: transparent;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
             border-radius: var(--radius-md);
             cursor: pointer;
@@ -148,7 +143,6 @@
             box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
         }
 
-        /* Right Main Content Area */
         .admin-content-area {
             padding: 3rem;
             background: var(--bg-primary);
@@ -216,22 +210,10 @@
             color: var(--text-muted);
         }
 
-        /* Responsive Layout */
         @media (max-width: 992px) {
-            .admin-layout-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-sidebar {
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                flex-direction: row;
-                overflow-x: auto;
-            }
-
-            .admin-content-area {
-                padding: 1.5rem;
-            }
+            .admin-layout-grid { grid-template-columns: 1fr; }
+            .admin-sidebar { border-right: none; border-bottom: 1px solid var(--border-color); flex-direction: row; overflow-x: auto; }
+            .admin-content-area { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -244,7 +226,7 @@
                 <div class="logo-badge">SSA</div>
                 <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
             </a>
-            <span style="font-size: 0.85rem; color: var(--text-muted); padding-left: 0.5rem; border-left: 1px solid var(--border-color);">Pengelola Website</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted); padding-left: 0.5rem; border-left: 1px solid var(--border-color);">Pengelola Website (10 Struktur Utama)</span>
         </div>
 
         <div class="admin-top-actions">
@@ -259,14 +241,14 @@
         </div>
     </header>
 
-    <!-- STATE 1: HALAMAN LOGIN PENGELOLA (FULLPAGE) -->
+    <!-- STATE 1: LOGIN PENGELOLA -->
     <div class="admin-login-fullscreen" id="loginScreen">
         <div class="admin-login-box">
             <div class="login-badge-icon">
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800;">Masuk ke Pengelola</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Masukkan kata sandi pengelola untuk mengedit isi website Anda.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Masukkan kata sandi pengelola untuk mengedit 10 struktur utama website Anda.</p>
 
             <form id="adminLoginForm" style="margin-top: 2rem; text-align: left;">
                 <div class="form-group">
@@ -289,7 +271,7 @@
         </div>
     </div>
 
-    <!-- STATE 2: DASHBOARD FULL-PAGE PENGELOLA -->
+    <!-- STATE 2: DASHBOARD PENGELOLA 10 STRUKTUR -->
     <div class="admin-dashboard-full" id="dashboardScreen">
         <div class="admin-layout-grid">
             
@@ -298,33 +280,48 @@
                 <div class="sidebar-title">Menu Pengelola</div>
                 
                 <button class="admin-nav-item active" data-pane="paneIdentity">
-                    <i class="fa-solid fa-id-card"></i>
-                    <span>1. Identitas & Sambutan</span>
+                    <i class="fa-solid fa-house"></i>
+                    <span>1. Home (Hero)</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneNarrative">
-                    <i class="fa-solid fa-book-open"></i>
-                    <span>2. Penjelasan & Cerita</span>
+                    <i class="fa-solid fa-user"></i>
+                    <span>2. About Me</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneSkills">
                     <i class="fa-solid fa-bolt"></i>
-                    <span>3. Daftar Keahlian</span>
+                    <span>3. Skills</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneProjects">
-                    <i class="fa-solid fa-cubes"></i>
-                    <span>4. Karya & Proyek</span>
+                    <i class="fa-solid fa-star"></i>
+                    <span>4. Projects ⭐⭐⭐</span>
+                </button>
+
+                <button class="admin-nav-item" data-pane="paneExperience">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>5. Experience</span>
+                </button>
+
+                <button class="admin-nav-item" data-pane="paneAchievements">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>6. Achievements</span>
+                </button>
+
+                <button class="admin-nav-item" data-pane="paneCertificates">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>7. Certificates</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneContact">
                     <i class="fa-solid fa-address-book"></i>
-                    <span>5. Kontak & Sosmed</span>
+                    <span>8. Contact & Sosmed</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneSecurity">
                     <i class="fa-solid fa-key"></i>
-                    <span>6. Ubah Kata Sandi</span>
+                    <span>9. Ubah Kata Sandi</span>
                 </button>
 
                 <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
@@ -334,14 +331,14 @@
                 </div>
             </aside>
 
-            <!-- Right Main Panel Content -->
+            <!-- Right Main Content Area -->
             <main class="admin-content-area">
                 
-                <!-- PANE 1: IDENTITAS & SAMBUTAN -->
+                <!-- PANE 1: HOME (HERO) -->
                 <div class="content-panel active" id="paneIdentity">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-user" style="color: var(--primary-color);"></i> Identitas & Teks Sambutan Utama</h2>
-                        <p>Ubah nama lengkap, kata-kata bergerak, dan kalimat sambutan pertama yang muncul saat website dibuka.</p>
+                        <h2><i class="fa-solid fa-house" style="color: var(--primary-color);"></i> 1. Home (Hero Section)</h2>
+                        <p>Ubah nama lengkap, kata-kata bergerak, dan kalimat sambutan pertama pada halaman utama.</p>
                     </div>
 
                     <div class="form-card-box">
@@ -353,28 +350,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputSubheadlines">Kata-kata Bergerak (Pisahkan dengan tanda koma)</label>
-                                    <input type="text" id="inputSubheadlines" class="form-control" placeholder="Contoh: Santri Terpelajar, Pembuat Web, Pembelajar Tekun" required>
+                                    <label for="inputSubheadlines">Kata-kata Bergerak (Pisahkan koma)</label>
+                                    <input type="text" id="inputSubheadlines" class="form-control" required>
                                 </div>
 
                                 <div class="form-group full-width">
                                     <label for="inputHeroBio">Kalimat Sambutan Ringkas</label>
-                                    <textarea id="inputHeroBio" class="form-control" rows="4" placeholder="Tuliskan kalimat sambutan Anda..." required></textarea>
+                                    <textarea id="inputHeroBio" class="form-control" rows="4" required></textarea>
                                 </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1.25rem;">
-                                <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Identitas
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Home
                             </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- PANE 2: PENJELASAN & CERITA DIRI -->
+                <!-- PANE 2: ABOUT ME -->
                 <div class="content-panel" id="paneNarrative">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-book-open" style="color: var(--primary-color);"></i> Penjelasan & Cerita Diri</h2>
-                        <p>Ubah teks 3 kartu utama pada bagian "Tentang Shifan" mengenai makna nama, rekam pendidikan/hafalan, dan cita-cita.</p>
+                        <h2><i class="fa-solid fa-user" style="color: var(--primary-color);"></i> 2. About Me</h2>
+                        <p>Ubah 3 kartu cerita utama mengenai makna nama Adiluhung, pendidikan/hafalan, dan cita-cita.</p>
                     </div>
 
                     <div class="form-card-box">
@@ -385,61 +382,86 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="inputEdu">Kartu 2: Penjelasan Sekolah, Hafalan Al-Qur'an, & Kedisiplinan</label>
+                                <label for="inputEdu">Kartu 2: Penjelasan Sekolah & Hafalan Al-Qur'an</label>
                                 <textarea id="inputEdu" class="form-control" rows="3" required></textarea>
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="inputVision">Kartu 3: Cita-cita & Visi Penguasaan Teknologi</label>
+                                <label for="inputVision">Kartu 3: Visi Penguasaan Teknologi</label>
                                 <textarea id="inputVision" class="form-control" rows="3" required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1rem;">
-                                <i class="fa-solid fa-floppy-disk"></i> Simpan Penjelasan Diri
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan About Me
                             </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- PANE 3: DAFTAR KEAHLIAN -->
+                <!-- PANE 3: SKILLS -->
                 <div class="content-panel" id="paneSkills">
                     <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
                         <div>
-                            <h2><i class="fa-solid fa-bolt" style="color: var(--primary-color);"></i> Daftar Keahlian & Kemampuan</h2>
-                            <p>Tambah, ubah, atau hapus keahlian teknis maupun kapasitas diri Anda.</p>
+                            <h2><i class="fa-solid fa-bolt" style="color: var(--primary-color);"></i> 3. Skills (Web Dev, Design, Other)</h2>
+                            <p>Kelola daftar kemampuan terbagi dalam sub-kategori Web Development, Design, dan Other Skills.</p>
                         </div>
                         <button type="button" class="btn btn-primary btn-sm" id="addSkillBtn">
                             <i class="fa-solid fa-plus"></i> Tambah Keahlian Baru
                         </button>
                     </div>
 
-                    <div id="skillsListContainer">
-                        <!-- Rendered dynamically -->
-                    </div>
+                    <div id="skillsListContainer"></div>
                 </div>
 
-                <!-- PANE 4: KARYA & PROYEK -->
+                <!-- PANE 4: PROJECTS ⭐⭐⭐ -->
                 <div class="content-panel" id="paneProjects">
                     <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
                         <div>
-                            <h2><i class="fa-solid fa-cubes" style="color: var(--primary-color);"></i> Portofolio Karya & Proyek</h2>
-                            <p>Kelola daftar hasil karya proyek web atau kegiatan yang ditampilkan pada website.</p>
+                            <h2><i class="fa-solid fa-star" style="color: var(--primary-color);"></i> 4. Projects ⭐⭐⭐</h2>
+                            <p>Kelola portofolio karya dalam kategori Web Projects, Design Projects, dan Other Projects.</p>
                         </div>
                         <button type="button" class="btn btn-primary btn-sm" id="addProjectBtn">
                             <i class="fa-solid fa-plus"></i> Tambah Karya Baru
                         </button>
                     </div>
 
-                    <div id="projectsListContainer">
-                        <!-- Rendered dynamically -->
-                    </div>
+                    <div id="projectsListContainer"></div>
                 </div>
 
-                <!-- PANE 5: KONTAK & MEDIA SOSIAL -->
+                <!-- PANE 5: EXPERIENCE -->
+                <div class="content-panel" id="paneExperience">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <h2><i class="fa-solid fa-briefcase" style="color: var(--primary-color);"></i> 5. Experience</h2>
+                            <p>Kelola riwayat kegiatan organisasi, volunteer, dan pengalaman kerja.</p>
+                        </div>
+                    </div>
+                    <div id="experienceListContainer"></div>
+                </div>
+
+                <!-- PANE 6: ACHIEVEMENTS -->
+                <div class="content-panel" id="paneAchievements">
+                    <div class="panel-header-box">
+                        <h2><i class="fa-solid fa-trophy" style="color: var(--primary-color);"></i> 6. Achievements</h2>
+                        <p>Kelola capaian prestasi akademis, keilmuan, dan hafalan Al-Qur'an.</p>
+                    </div>
+                    <div id="achievementsListContainer"></div>
+                </div>
+
+                <!-- PANE 7: CERTIFICATES -->
+                <div class="content-panel" id="paneCertificates">
+                    <div class="panel-header-box">
+                        <h2><i class="fa-solid fa-certificate" style="color: var(--primary-color);"></i> 7. Certificates</h2>
+                        <p>Kelola dokumen sertifikat pelatihan dan bukti kompetensi.</p>
+                    </div>
+                    <div id="certificatesListContainer"></div>
+                </div>
+
+                <!-- PANE 8: CONTACT & SOSMED -->
                 <div class="content-panel" id="paneContact">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-address-book" style="color: var(--primary-color);"></i> Informasi Kontak & Media Sosial</h2>
-                        <p>Perbarui alamat email resmi, kota tempat tinggal, dan tautan akun media sosial Anda.</p>
+                        <h2><i class="fa-solid fa-address-book" style="color: var(--primary-color);"></i> 8. Contact & Media Sosial</h2>
+                        <p>Perbarui alamat email resmi, tempat tinggal, dan tautan akun media sosial Anda.</p>
                     </div>
 
                     <div class="form-card-box">
@@ -451,38 +473,38 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputLocation">Kota / Tempat Tinggal</label>
+                                    <label for="inputLocation">Kota Tempat Tinggal</label>
                                     <input type="text" id="inputLocation" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputGithub">Link Profil GitHub</label>
+                                    <label for="inputGithub">Link GitHub</label>
                                     <input type="url" id="inputGithub" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputLinkedin">Link Profil LinkedIn</label>
+                                    <label for="inputLinkedin">Link LinkedIn</label>
                                     <input type="url" id="inputLinkedin" class="form-control" required>
                                 </div>
 
                                 <div class="form-group full-width">
-                                    <label for="inputInstagram">Link Profil Instagram</label>
+                                    <label for="inputInstagram">Link Instagram</label>
                                     <input type="url" id="inputInstagram" class="form-control" required>
                                 </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1.25rem;">
-                                <i class="fa-solid fa-floppy-disk"></i> Simpan Informasi Kontak
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Kontak & Sosmed
                             </button>
                         </form>
                     </div>
                 </div>
 
-                <!-- PANE 6: KEAMANAN & KATA SANDI -->
+                <!-- PANE 9: UBAH KATA SANDI -->
                 <div class="content-panel" id="paneSecurity">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> Pengaturan Kata Sandi Pengelola</h2>
-                        <p>Ubah kata sandi untuk masuk ke halaman pengelola ini demi keamanan website Anda.</p>
+                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 9. Ubah Kata Sandi Pengelola</h2>
+                        <p>Ganti kata sandi untuk masuk ke halaman pengelola ini demi keamanan website Anda.</p>
                     </div>
 
                     <div class="form-card-box">
@@ -510,7 +532,7 @@
 
                     <div class="form-card-box" style="border-color: rgba(239, 68, 68, 0.3);">
                         <h4 style="color: #ef4444; font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Kembalikan ke Pengaturan Awal</h4>
-                        <p style="color: var(--text-muted); font-size: 0.88rem;">Tindakan ini akan mengembalikan seluruh isi teks dan daftar karya ke setelan awal pabrikan.</p>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Tindakan ini akan mengembalikan seluruh isi teks ke setelan awal pabrikan.</p>
                         <button type="button" class="btn btn-outline danger-btn" id="resetAllDataBtn" style="margin-top: 1rem;">
                             <i class="fa-solid fa-rotate-left"></i> Reset Seluruh Data Website
                         </button>
@@ -529,7 +551,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const FIXED_DEFAULT_PASS = "adiluhung33";
 
-            // Default Data Template
             const defaultSiteData = {
                 name: "Shifan Shalih Adiluhung",
                 subheadlines: [
@@ -548,51 +569,84 @@
                 githubUrl: "https://github.com",
                 linkedinUrl: "https://linkedin.com",
                 instagramUrl: "https://instagram.com",
-                techSkills: [
-                    { id: 1, name: "HTML5 & CSS3 Architecture (Responsive Design)", pct: 92 },
-                    { id: 2, name: "JavaScript (ES6+, DOM Manipulation, Dynamic State)", pct: 88 },
-                    { id: 3, name: "UI/UX Design & Aesthetic Glassmorphism", pct: 90 },
-                    { id: 4, name: "Web Performance & Hostinger FTP Deployment", pct: 85 }
+                webDevSkills: [
+                    { id: 1, name: "HTML5 & Semantic Architecture", pct: 95 },
+                    { id: 2, name: "CSS3 Glassmorphism & Responsive Grids", pct: 92 },
+                    { id: 3, name: "JavaScript ES6+ & Dynamic State Engine", pct: 88 },
+                    { id: 4, name: "Hostinger FTP & Automated Deployment", pct: 85 }
                 ],
-                softSkills: [
-                    { id: 1, name: "Metode Daya Ingat & Hafalan (Memory & Memorization)", pct: 95 },
-                    { id: 2, name: "Berpikir Analitis & Pemecahan Masalah (Problem Solving)", pct: 90 },
-                    { id: 3, name: "Manajemen Waktu & Kedisiplinan Terstruktur", pct: 93 },
-                    { id: 4, name: "Komunikasi & Kepemimpinan Beretika", pct: 87 }
+                designSkills: [
+                    { id: 1, name: "UI/UX Layout Design & Wireframing", pct: 90 },
+                    { id: 2, name: "Color Palette & Visual Design System", pct: 88 },
+                    { id: 3, name: "Typography & Micro-Animation Details", pct: 87 }
+                ],
+                otherSkills: [
+                    { id: 1, name: "Metode Hafalan & Daya Ingat (Memory Technique)", pct: 96 },
+                    { id: 2, name: "Berpikir Analitis & Pemecahan Masalah", pct: 92 },
+                    { id: 3, name: "Kedisiplinan & Etika Terpelajar", pct: 94 }
                 ],
                 projects: [
                     {
                         id: 1,
                         title: "Shifan Adiluhung Official Portfolio Hub",
                         desc: "Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, halaman pengelola terproteksi password, dan hosting terintegrasi.",
-                        category: "web",
+                        category: "web-projects",
                         tech: "HTML5, CSS3, JavaScript ES6, LocalStorage State, Halaman Admin"
                     },
                     {
                         id: 2,
-                        title: "Al-Qur'an & Memorization Tracker",
+                        title: "Al-Qur'an & Memorization Tracker Web App",
                         desc: "Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik.",
-                        category: "edu",
+                        category: "web-projects",
                         tech: "JavaScript, Web Storage, Dashboard UI"
                     },
                     {
                         id: 3,
-                        title: "Arsip Digital Santri & Siswa Ciamis",
-                        desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
-                        category: "web",
-                        tech: "Database Concept, Search & Filter UI"
+                        title: "Glassmorphism UI Design System Kit",
+                        desc: "Konsep tata letak UI glassmorphism modern dengan palet warna dark mode & aksen cyan emas bernilai tinggi.",
+                        category: "design-projects",
+                        tech: "UI Design, CSS System, Visual Aesthetics"
                     },
                     {
                         id: 4,
-                        title: "Interactive Bio & Admin Portal Builder",
-                        desc: "Alat pembuat ringkasan profil pribadi interaktif dengan portal admin langsung untuk mengelola seluruh halaman website.",
-                        category: "creative",
-                        tech: "DOM Engine, Custom Theme, State Management"
+                        title: "Personal Brand & Bio Builder Concept",
+                        desc: "Desain antarmuka pembuat ringkasan profil pribadi interaktif yang dapat disesuaikan secara real-time.",
+                        category: "design-projects",
+                        tech: "UI Layout, Interactive Design"
+                    },
+                    {
+                        id: 5,
+                        title: "Arsip Digital Santri & Siswa Ciamis",
+                        desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
+                        category: "other-projects",
+                        tech: "Database Concept, Search UI"
                     }
+                ],
+                experiences: [
+                    { id: 1, role: "Panitia & Volunteer Pesantren Liburan", org: "Hiraa Center", period: "Kegiatan Berkala", desc: "Aktif berpartisipasi dalam penyelenggaraan Pesantren Liburan Hiraa Center." },
+                    { id: 2, role: "Rekam Jejak Akademis & Santri Terpelajar", org: "Lembaga Pendidikan Ciamis", period: "2009 — Sekarang", desc: "Mencapai rekam jejak hafalan Al-Qur'an dan prestasi akademis." }
+                ],
+                achievements: [
+                    { id: 1, title: "Capaian Hafalan Al-Qur'an & Character Excellence", desc: "Tercatat resmi dalam arsip capaian hafalan santri lembaga pendidikan." },
+                    { id: 2, title: "Terdaftar Rekam Akademis Siswa Ciamis", desc: "Tercatat dalam data siswa terpelajar wilayah Ciamis, Jawa Barat." }
+                ],
+                certificates: [
+                    { id: 1, title: "Sertifikat Panitia/Volunteer Pesantren Liburan", issuer: "Hiraa Center", desc: "Bukti dedikasi dalam mendampingi kegiatan santri." },
+                    { id: 2, title: "Sertifikat Capaian Hafalan Al-Qur'an", issuer: "Lembaga Pendidikan Santri", desc: "Penghargaan atas pencapaian target hafalan." }
+                ],
+                tools: [
+                    { name: "HTML5", icon: "fa-brands fa-html5" },
+                    { name: "CSS3", icon: "fa-brands fa-css3-alt" },
+                    { name: "JavaScript", icon: "fa-brands fa-js" },
+                    { name: "Git & GitHub", icon: "fa-brands fa-github" },
+                    { name: "Hostinger FTP", icon: "fa-solid fa-server" },
+                    { name: "VS Code", icon: "fa-solid fa-code" }
+                ],
+                testimonials: [
+                    { id: 1, quote: "Shifan memiliki ketekunan luar biasa baik dalam hafalan keilmuan maupun dalam menyelesaikan tugas-tugas teknologi.", author: "Pengajar Hiraa Center", title: "Pembimbing Santri" }
                 ]
             };
 
-            // Load State
             let siteData = JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
             if (!siteData) {
                 siteData = defaultSiteData;
@@ -606,7 +660,6 @@
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             };
 
-            // UI Screen Elements
             const loginScreen = document.getElementById('loginScreen');
             const dashboardScreen = document.getElementById('dashboardScreen');
             const adminLoginForm = document.getElementById('adminLoginForm');
@@ -614,19 +667,16 @@
             const togglePassBtn = document.getElementById('togglePassBtn');
             const logoutBtn = document.getElementById('logoutBtn');
 
-            // Password Eye Toggle
             togglePassBtn.addEventListener('click', () => {
                 const isPass = adminPasswordInput.type === 'password';
                 adminPasswordInput.type = isPass ? 'text' : 'password';
                 togglePassBtn.innerHTML = isPass ? `<i class="fa-solid fa-eye-slash"></i>` : `<i class="fa-solid fa-eye"></i>`;
             });
 
-            // Check Session
             if (sessionStorage.getItem('ssa_admin_session') === 'true') {
                 showDashboard();
             }
 
-            // Handle Login Form
             adminLoginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const pass = adminPasswordInput.value;
@@ -642,7 +692,6 @@
                 }
             });
 
-            // Handle Logout
             logoutBtn.addEventListener('click', () => {
                 sessionStorage.removeItem('ssa_admin_session');
                 dashboardScreen.style.display = 'none';
@@ -651,7 +700,6 @@
                 showToast("Anda telah keluar dari Halaman Pengelola.", "info");
             });
 
-            // Switch Screen
             function showDashboard() {
                 loginScreen.style.display = 'none';
                 dashboardScreen.style.display = 'block';
@@ -659,7 +707,6 @@
                 populateDashboardForms();
             }
 
-            // Sidebar Nav Switcher
             const navItems = document.querySelectorAll('.admin-nav-item');
             const panels = document.querySelectorAll('.content-panel');
 
@@ -674,53 +721,46 @@
                 });
             });
 
-            // Populate Form Fields
             function populateDashboardForms() {
-                // Identity
                 document.getElementById('inputName').value = siteData.name;
                 document.getElementById('inputSubheadlines').value = siteData.subheadlines.join(', ');
                 document.getElementById('inputHeroBio').value = siteData.bio;
 
-                // Narrative
                 document.getElementById('inputMeaning').value = siteData.aboutMeaning;
                 document.getElementById('inputEdu').value = siteData.aboutEdu;
                 document.getElementById('inputVision').value = siteData.aboutVision;
 
-                // Contact
                 document.getElementById('inputEmail').value = siteData.contactEmail;
                 document.getElementById('inputLocation').value = siteData.contactLocation;
                 document.getElementById('inputGithub').value = siteData.githubUrl;
                 document.getElementById('inputLinkedin').value = siteData.linkedinUrl;
                 document.getElementById('inputInstagram').value = siteData.instagramUrl;
 
-                // Skills & Projects
                 renderSkillsList();
                 renderProjectsList();
+                renderExperienceList();
+                renderAchievementsList();
+                renderCertificatesList();
             }
 
-            // Save Identity Form
             document.getElementById('formIdentity').addEventListener('submit', (e) => {
                 e.preventDefault();
                 siteData.name = document.getElementById('inputName').value.trim();
                 siteData.subheadlines = document.getElementById('inputSubheadlines').value.split(',').map(s => s.trim()).filter(Boolean);
                 siteData.bio = document.getElementById('inputHeroBio').value.trim();
-
                 saveState();
-                showToast("Identitas & Teks Sambutan berhasil disimpan!", "success");
+                showToast("Identitas & Home berhasil disimpan!", "success");
             });
 
-            // Save Narrative Form
             document.getElementById('formNarrative').addEventListener('submit', (e) => {
                 e.preventDefault();
                 siteData.aboutMeaning = document.getElementById('inputMeaning').value.trim();
                 siteData.aboutEdu = document.getElementById('inputEdu').value.trim();
                 siteData.aboutVision = document.getElementById('inputVision').value.trim();
-
                 saveState();
-                showToast("Penjelasan & Cerita Diri berhasil disimpan!", "success");
+                showToast("About Me berhasil disimpan!", "success");
             });
 
-            // Save Contact Form
             document.getElementById('formContact').addEventListener('submit', (e) => {
                 e.preventDefault();
                 siteData.contactEmail = document.getElementById('inputEmail').value.trim();
@@ -728,12 +768,10 @@
                 siteData.githubUrl = document.getElementById('inputGithub').value.trim();
                 siteData.linkedinUrl = document.getElementById('inputLinkedin').value.trim();
                 siteData.instagramUrl = document.getElementById('inputInstagram').value.trim();
-
                 saveState();
-                showToast("Informasi Kontak & Media Sosial berhasil disimpan!", "success");
+                showToast("Informasi Kontak & Sosmed berhasil disimpan!", "success");
             });
 
-            // Change Password Form
             document.getElementById('formChangePassword').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const currPass = document.getElementById('currPassword').value;
@@ -744,14 +782,12 @@
                     showToast("Kata sandi saat ini salah!", "error");
                     return;
                 }
-
                 if (newPass !== confirmPass) {
                     showToast("Ketik ulang kata sandi baru tidak cocok!", "error");
                     return;
                 }
-
                 if (newPass.length < 4) {
-                    showToast("Kata sandi terlalu pendek (minimal 4 karakter).", "error");
+                    showToast("Kata sandi terlalu pendek.", "error");
                     return;
                 }
 
@@ -761,33 +797,35 @@
                 showToast("Kata sandi pengelola berhasil diubah!", "success");
             });
 
-            // Render Skills List
             function renderSkillsList() {
                 const container = document.getElementById('skillsListContainer');
+                const webSkills = siteData.webDevSkills || defaultSiteData.webDevSkills;
+                const desSkills = siteData.designSkills || defaultSiteData.designSkills;
+                const othSkills = siteData.otherSkills || defaultSiteData.otherSkills;
+
                 const allSkills = [
-                    ...siteData.techSkills.map(s => ({ ...s, type: 'tech' })),
-                    ...siteData.softSkills.map(s => ({ ...s, type: 'soft' }))
+                    ...webSkills.map(s => ({ ...s, cat: 'Web Dev' })),
+                    ...desSkills.map(s => ({ ...s, cat: 'Design' })),
+                    ...othSkills.map(s => ({ ...s, cat: 'Other Skills' }))
                 ];
 
                 container.innerHTML = allSkills.map(s => `
                     <div class="item-row">
                         <div>
                             <strong>${s.name}</strong>
-                            <span>Jenis: ${s.type === 'tech' ? 'Keahlian Teknis' : 'Kapasitas Diri'} | Tingkat: ${s.pct}%</span>
+                            <span>Kategori: ${s.cat} | Tingkat: ${s.pct}%</span>
                         </div>
-                        <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-id="${s.id}" data-type="${s.type}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-id="${s.id}" data-cat="${s.cat}"><i class="fa-solid fa-trash"></i> Hapus</button>
                     </div>
                 `).join('');
 
                 document.querySelectorAll('.del-skill-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const id = parseInt(btn.getAttribute('data-id'));
-                        const type = btn.getAttribute('data-type');
-                        if (type === 'tech') {
-                            siteData.techSkills = siteData.techSkills.filter(s => s.id !== id);
-                        } else {
-                            siteData.softSkills = siteData.softSkills.filter(s => s.id !== id);
-                        }
+                        const cat = btn.getAttribute('data-cat');
+                        if (cat === 'Web Dev') siteData.webDevSkills = siteData.webDevSkills.filter(s => s.id !== id);
+                        else if (cat === 'Design') siteData.designSkills = siteData.designSkills.filter(s => s.id !== id);
+                        else siteData.otherSkills = siteData.otherSkills.filter(s => s.id !== id);
                         saveState();
                         renderSkillsList();
                         showToast("Keahlian berhasil dihapus.", "info");
@@ -795,30 +833,26 @@
                 });
             }
 
-            // Add Skill
             document.getElementById('addSkillBtn').addEventListener('click', () => {
                 const name = prompt("Masukkan nama keahlian baru:");
                 if (!name) return;
-                const pctStr = prompt("Masukkan tingkat persentase (1-100):", "90");
-                const pct = parseInt(pctStr) || 90;
-                const typeChoice = prompt("Pilih Jenis: Ketik 'tech' untuk Teknis, atau 'soft' untuk Kapasitas Diri:", "tech");
+                const pct = parseInt(prompt("Tingkat persentase (1-100):", "90")) || 90;
+                const cat = prompt("Pilih Kategori ('web' untuk Web Dev, 'design' untuk Design, 'other' untuk Other Skills):", "web");
 
                 const newSkill = { id: Date.now(), name, pct };
-                if (typeChoice === 'soft') {
-                    siteData.softSkills.push(newSkill);
-                } else {
-                    siteData.techSkills.push(newSkill);
-                }
+                if (cat === 'design') (siteData.designSkills = siteData.designSkills || []).push(newSkill);
+                else if (cat === 'other') (siteData.otherSkills = siteData.otherSkills || []).push(newSkill);
+                else (siteData.webDevSkills = siteData.webDevSkills || []).push(newSkill);
 
                 saveState();
                 renderSkillsList();
                 showToast("Keahlian baru berhasil ditambahkan!", "success");
             });
 
-            // Render Projects List
             function renderProjectsList() {
                 const container = document.getElementById('projectsListContainer');
-                container.innerHTML = siteData.projects.map(p => `
+                const projs = siteData.projects || defaultSiteData.projects;
+                container.innerHTML = projs.map(p => `
                     <div class="item-row">
                         <div>
                             <strong>${p.title}</strong>
@@ -839,29 +873,59 @@
                 });
             }
 
-            // Add Project
             document.getElementById('addProjectBtn').addEventListener('click', () => {
-                const title = prompt("Masukkan Judul Karya/Proyek:");
+                const title = prompt("Masukkan Judul Karya:");
                 if (!title) return;
-                const desc = prompt("Masukkan Penjelasan Singkat Proyek:");
-                const category = prompt("Kategori ('web', 'edu', atau 'creative'):", "web");
+                const desc = prompt("Masukkan Penjelasan Singkat:");
+                const category = prompt("Kategori ('web-projects', 'design-projects', atau 'other-projects'):", "web-projects");
                 const tech = prompt("Teknologi yang digunakan (pisahkan koma):", "HTML5, CSS3, JavaScript");
 
-                const newProj = {
-                    id: Date.now(),
-                    title,
-                    desc: desc || "Penjelasan karya proyek Shifan.",
-                    category: category || "web",
-                    tech: tech || "HTML5, CSS3"
-                };
-
-                siteData.projects.push(newProj);
+                const newProj = { id: Date.now(), title, desc: desc || "Penjelasan karya.", category: category || "web-projects", tech: tech || "HTML5, CSS3" };
+                (siteData.projects = siteData.projects || []).push(newProj);
                 saveState();
                 renderProjectsList();
                 showToast("Proyek karya baru berhasil ditambahkan!", "success");
             });
 
-            // Backup JSON File
+            function renderExperienceList() {
+                const container = document.getElementById('experienceListContainer');
+                const exps = siteData.experiences || defaultSiteData.experiences;
+                container.innerHTML = exps.map(e => `
+                    <div class="item-row">
+                        <div>
+                            <strong>${e.role} — ${e.org}</strong>
+                            <span>Periode: ${e.period}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderAchievementsList() {
+                const container = document.getElementById('achievementsListContainer');
+                const achs = siteData.achievements || defaultSiteData.achievements;
+                container.innerHTML = achs.map(a => `
+                    <div class="item-row">
+                        <div>
+                            <strong>${a.title}</strong>
+                            <span>${a.desc}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderCertificatesList() {
+                const container = document.getElementById('certificatesListContainer');
+                const certs = siteData.certificates || defaultSiteData.certificates;
+                container.innerHTML = certs.map(c => `
+                    <div class="item-row">
+                        <div>
+                            <strong>${c.title} — ${c.issuer}</strong>
+                            <span>${c.desc}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById('exportBackupBtn').addEventListener('click', () => {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(siteData, null, 2));
                 const anchor = document.createElement('a');
@@ -873,7 +937,6 @@
                 showToast("File cadangan berhasil diunduh.", "success");
             });
 
-            // Reset Data
             document.getElementById('resetAllDataBtn').addEventListener('click', () => {
                 if (confirm("Apakah Anda yakin ingin mengembalikan seluruh isi website ke setelan awal pabrikan?")) {
                     localStorage.removeItem('ssa_site_data');
@@ -885,20 +948,16 @@
                 }
             });
 
-            // Toast Notification Helper
             function showToast(message, type = 'info') {
                 const container = document.getElementById('toastContainer');
                 if (!container) return;
                 const toast = document.createElement('div');
                 toast.className = `toast toast-${type}`;
-
                 let iconClass = 'fa-circle-info';
                 if (type === 'success') iconClass = 'fa-circle-check';
                 if (type === 'error') iconClass = 'fa-triangle-exclamation';
-
                 toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
                 container.appendChild(toast);
-
                 setTimeout(() => {
                     toast.style.animation = 'slideIn 0.3s ease-out reverse forwards';
                     setTimeout(() => toast.remove(), 300);
