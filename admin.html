@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Halaman Pengelola (Admin) Website Shifan Shalih Adiluhung">
+    <title>Halaman Pengelola (Admin) | Shifan Shalih Adiluhung</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    
+    <style>
+        /* Dedicated Admin Page Custom Styling */
+        body.admin-body-page {
+            background-color: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-page-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Login Screen Card */
+        .admin-login-wrapper {
+            max-width: 460px;
+            margin: 5rem auto;
+            padding: 3rem 2.5rem;
+            background: var(--bg-surface-solid);
+            border: 1px solid var(--border-hover);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .admin-login-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gold-gradient);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Admin Dashboard UI */
+        .admin-dashboard-card {
+            background: var(--bg-surface-solid);
+            border: 1px solid var(--border-hover);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: none; /* Shown upon login */
+        }
+
+        .admin-dash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            background: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-dash-nav {
+            display: flex;
+            background: rgba(11, 15, 25, 0.6);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            padding: 0 1rem;
+        }
+
+        .admin-dash-tab {
+            padding: 1rem 1.25rem;
+            background: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+        }
+
+        .admin-dash-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .admin-dash-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .admin-dash-body {
+            padding: 2.5rem;
+        }
+
+        .admin-pane {
+            display: none;
+        }
+
+        .admin-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .pane-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pane-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .item-list-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .item-card-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        .item-card-row strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .item-card-row span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body class="dark-theme admin-body-page">
+
+    <!-- Top Simple Bar -->
+    <header class="site-header scrolled">
+        <div class="container header-container">
+            <a href="index.html" class="logo-brand">
+                <div class="logo-badge">SSA</div>
+                <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
+            </a>
+            
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-outline btn-sm">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Kembali ke Website Utama</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-page-container mt-5">
+        
+        <!-- STATE 1: FORM LOGIN ADMIN -->
+        <div class="admin-login-wrapper" id="loginScreen">
+            <div class="admin-login-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2 class="font-heading">Halaman Pengelola</h2>
+            <p class="text-muted mt-2">Masukkan kata sandi pengelola untuk mengubah isi website Anda.</p>
+
+            <form id="adminLoginForm" class="mt-4 text-left">
+                <div class="form-group">
+                    <label for="adminPasswordInput"><i class="fa-solid fa-key"></i> Kata Sandi (Password)</label>
+                    <div class="pass-input-wrapper">
+                        <input type="password" id="adminPasswordInput" class="form-control" placeholder="Masukkan kata sandi..." required>
+                        <button type="button" class="toggle-pass-btn" id="togglePassBtn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-glow mt-4">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Masuk ke Pengelola</span>
+                </button>
+            </form>
+
+            <div class="mt-4">
+                <a href="index.html" class="text-muted" style="font-size: 0.88rem;"><i class="fa-solid fa-arrow-left"></i> Lihat Tampilan Website Utama</a>
+            </div>
+        </div>
+
+        <!-- STATE 2: DASHBOARD PENGELOLA WEBSITE (ADMIN) -->
+        <div class="admin-dashboard-card" id="dashboardScreen">
+            
+            <!-- Dashboard Header -->
+            <div class="admin-dash-header">
+                <div class="admin-brand">
+                    <div class="admin-badge"><i class="fa-solid fa-user-gear"></i></div>
+                    <div>
+                        <h3 style="font-size: 1.25rem;">Pengelola Website Shifan</h3>
+                        <span class="admin-status-pill"><span class="pulse-dot"></span> Status: Terhubung</span>
+                    </div>
+                </div>
+
+                <div class="admin-header-actions">
+                    <button class="btn btn-sm btn-outline" id="exportBackupBtn"><i class="fa-solid fa-download"></i> Unduh Cadangan File</button>
+                    <a href="index.html" class="btn btn-sm btn-glass"><i class="fa-solid fa-globe"></i> Lihat Hasil Website</a>
+                    <button class="btn btn-sm btn-outline danger-btn" id="logoutBtn"><i class="fa-solid fa-power-off"></i> Keluar</button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs (Bahasa Sederhana) -->
+            <div class="admin-dash-nav">
+                <button class="admin-dash-tab active" data-pane="paneIdentity"><i class="fa-solid fa-id-card"></i> 1. Identitas & Sambutan</button>
+                <button class="admin-dash-tab" data-pane="paneNarrative"><i class="fa-solid fa-book-open"></i> 2. Penjelasan & Cerita</button>
+                <button class="admin-dash-tab" data-pane="paneSkills"><i class="fa-solid fa-bolt"></i> 3. Daftar Keahlian</button>
+                <button class="admin-dash-tab" data-pane="paneProjects"><i class="fa-solid fa-cubes"></i> 4. Karya & Proyek</button>
+                <button class="admin-dash-tab" data-pane="paneContact"><i class="fa-solid fa-address-book"></i> 5. Kontak & Sosmed</button>
+                <button class="admin-dash-tab" data-pane="paneSecurity"><i class="fa-solid fa-key"></i> 6. Ubah Kata Sandi</button>
+            </div>
+
+            <!-- Dashboard Content Panes -->
+            <div class="admin-dash-body">
+                
+                <!-- TAB 1: IDENTITAS & SAMBUTAN UTAMA -->
+                <div class="admin-pane active" id="paneIdentity">
+                    <h3 class="pane-title"><i class="fa-solid fa-user"></i> Identitas & Teks Sambutan Utama</h3>
+                    <p class="pane-subtitle">Ubah nama, kalimat bergerak, dan deskripsi singkat yang muncul pertama kali saat website dibuka.</p>
+
+                    <form id="formIdentity">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="inputName">Nama Lengkap</label>
+                                <input type="text" id="inputName" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputSubheadlines">Kata-kata Bergerak (Pisahkan dengan tanda koma)</label>
+                                <input type="text" id="inputSubheadlines" class="form-control" placeholder="Contoh: Santri Terpelajar, Pembuat Web, Pembelajar Tekun" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="inputHeroBio">Kalimat Sambutan / Ringkasan Diri</label>
+                                <textarea id="inputHeroBio" class="form-control" rows="3" placeholder="Tuliskan kalimat singkat mengenai diri Anda..." required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-glow mt-3">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Identitas
+                        </button>
+                    </form>
+                </div>
+
+                <!-- TAB 2: PENJELASAN & CERITA -->
+                <div class="admin-pane" id="paneNarrative">
+                    <h3 class="pane-title"><i class="fa-solid fa-book-open"></i> Penjelasan Penulis & Cerita Diri</h3>
+                    <p class="pane-subtitle">Ubah teks kartu pada bagian "Tentang Shifan" agar pembaca lebih mengenal latar belakang Anda.</p>
+
+                    <form id="formNarrative">
+                        <div class="form-group mb-3">
+                            <label for="inputMeaning">Kartu 1: Penjelasan Makna Nama Adiluhung</label>
+                            <textarea id="inputMeaning" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="inputEdu">Kartu 2: Penjelasan Sekolah, Hafalan Al-Qur'an, & Kedisiplinan</label>
+                            <textarea id="inputEdu" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="inputVision">Kartu 3: Cita-cita & Visi Penguasaan Teknologi</label>
+                            <textarea id="inputVision" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-glow">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Penjelasan Diri
+                        </button>
+                    </form>
+                </div>
+
+                <!-- TAB 3: DAFTAR KEAHLIAN -->
+                <div class="admin-pane" id="paneSkills">
+                    <div class="admin-section-header">
+                        <div>
+                            <h3 class="pane-title"><i class="fa-solid fa-bolt"></i> Daftar Keahlian & Kemampuan</h3>
+                            <p class="pane-subtitle">Tambah, ubah, atau hapus keahlian teknis maupun kemampuan diri Anda.</p>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary" id="addSkillBtn">
+                            <i class="fa-solid fa-plus"></i> Tambah Keahlian Baru
+                        </button>
+                    </div>
+
+                    <div class="item-list-box mt-3" id="skillsListContainer">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: KARYA & PROYEK -->
+                <div class="admin-pane" id="paneProjects">
+                    <div class="admin-section-header">
+                        <div>
+                            <h3 class="pane-title"><i class="fa-solid fa-cubes"></i> Portofolio Karya & Proyek</h3>
+                            <p class="pane-subtitle">Kelola hasil karya proyek web atau kegiatan yang ingin dipamerkan di website.</p>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary" id="addProjectBtn">
+                            <i class="fa-solid fa-plus"></i> Tambah Karya Baru
+                        </button>
+                    </div>
+
+                    <div class="item-list-box mt-3" id="projectsListContainer">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 5: KONTAK & MEDIA SOSIAL -->
+                <div class="admin-pane" id="paneContact">
+                    <h3 class="pane-title"><i class="fa-solid fa-address-book"></i> Informasi Kontak & Media Sosial</h3>
+                    <p class="pane-subtitle">Perbarui email, kota domisili, dan alamat akun media sosial yang dapat dihubungi pengunjung.</p>
+
+                    <form id="formContact">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="inputEmail">Alamat Email Resmi</label>
+                                <input type="email" id="inputEmail" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputLocation">Kota / Wilayah Tempat Tinggal</label>
+                                <input type="text" id="inputLocation" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputGithub">Link Profil GitHub</label>
+                                <input type="url" id="inputGithub" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputLinkedin">Link Profil LinkedIn</label>
+                                <input type="url" id="inputLinkedin" class="form-control" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="inputInstagram">Link Profil Instagram</label>
+                                <input type="url" id="inputInstagram" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-glow mt-3">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Informasi Kontak
+                        </button>
+                    </form>
+                </div>
+
+                <!-- TAB 6: KEAMANAN & PASSWORD -->
+                <div class="admin-pane" id="paneSecurity">
+                    <h3 class="pane-title"><i class="fa-solid fa-key"></i> Pengaturan Kata Sandi Pengelola</h3>
+                    <p class="pane-subtitle">Ubah kata sandi untuk masuk ke halaman ini demi menjaga keamanan website Anda.</p>
+
+                    <form id="formChangePassword">
+                        <div class="form-group mb-3">
+                            <label for="currPassword">Kata Sandi Saat Ini</label>
+                            <input type="password" id="currPassword" class="form-control" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="newPassword">Kata Sandi Baru</label>
+                            <input type="password" id="newPassword" class="form-control" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="confirmPassword">Ketik Ulang Kata Sandi Baru</label>
+                            <input type="password" id="confirmPassword" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-glow">
+                            <i class="fa-solid fa-key"></i> Simpan Kata Sandi Baru
+                        </button>
+                    </form>
+
+                    <hr class="my-4" style="border-color: var(--border-color);">
+
+                    <div class="danger-zone">
+                        <h4 style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Kembalikan ke Pengaturan Awal</h4>
+                        <p class="text-muted" style="font-size: 0.88rem;">Tindakan ini akan mengembalikan seluruh teks dan daftar karya ke setelan awal pabrikan.</p>
+                        <button type="button" class="btn btn-outline danger-btn mt-2" id="resetAllDataBtn">
+                            <i class="fa-solid fa-rotate-left"></i> Reset Seluruh Data Website
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Admin Script Engine -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const FIXED_DEFAULT_PASS = "adiluhung33";
+
+            // Default Data Template
+            const defaultSiteData = {
+                name: "Shifan Shalih Adiluhung",
+                subheadlines: [
+                    "Scholar & Santri Terpelajar",
+                    "Tech & Web Developer",
+                    "Continuous Learner",
+                    "Innovator Nilai Adiluhung"
+                ],
+                bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
+                adminPassword: FIXED_DEFAULT_PASS,
+                aboutMeaning: "Dalam bahasa Indonesia, kata Adiluhung memiliki arti mutlak yaitu luhur, agung, atau bernilai tinggi. Nama ini mencerminkan standar moral dan visi hidup yang tinggi untuk senantiasa memberikan hasil karya dan perilaku terbaik dalam setiap aspek kehidupan.",
+                aboutEdu: "Nama Shifan Shalih Adiluhung tercatat secara publik dalam rekam prestasi pendidikan dan capaian santri (hafalan Al-Qur'an) serta data siswa di wilayah Ciamis, Jawa Barat. Hal ini membuktikan fondasi kedisiplinan dan daya ingat tinggi sejak usia muda.",
+                aboutVision: "Menggabungkan karakter keilmuan yang kuat dengan keahlian dunia teknologi informasi modern. Shifan terus mengasah kemampuan analitis, pembuatan aplikasi web, dan pemecahan masalah (problem solving) untuk memberikan dampak nyata.",
+                contactEmail: "shifan.adiluhung@example.com",
+                contactLocation: "Ciamis / Jawa Barat, Indonesia",
+                githubUrl: "https://github.com",
+                linkedinUrl: "https://linkedin.com",
+                instagramUrl: "https://instagram.com",
+                techSkills: [
+                    { id: 1, name: "HTML5 & CSS3 Architecture (Responsive Design)", pct: 92 },
+                    { id: 2, name: "JavaScript (ES6+, DOM Manipulation, Dynamic State)", pct: 88 },
+                    { id: 3, name: "UI/UX Design & Aesthetic Glassmorphism", pct: 90 },
+                    { id: 4, name: "Web Performance & Hostinger FTP Deployment", pct: 85 }
+                ],
+                softSkills: [
+                    { id: 1, name: "Metode Daya Ingat & Hafalan (Memory & Memorization)", pct: 95 },
+                    { id: 2, name: "Berpikir Analitis & Pemecahan Masalah (Problem Solving)", pct: 90 },
+                    { id: 3, name: "Manajemen Waktu & Kedisiplinan Terstruktur", pct: 93 },
+                    { id: 4, name: "Komunikasi & Kepemimpinan Beretika", pct: 87 }
+                ],
+                projects: [
+                    {
+                        id: 1,
+                        title: "Shifan Adiluhung Official Portfolio Hub",
+                        desc: "Platform portofolio web interaktif dengan desain glassmorphism premium, live dynamic typing, admin portal terproteksi password, dan hosting terintegrasi.",
+                        category: "web",
+                        tech: "HTML5, CSS3, JavaScript ES6, LocalStorage State, Admin Portal"
+                    },
+                    {
+                        id: 2,
+                        title: "Al-Qur'an & Memorization Tracker",
+                        desc: "Aplikasi web interaktif untuk pemantauan hafalan harian, target muraja'ah, dan catatan evaluasi tajwid berbasis analitik.",
+                        category: "edu",
+                        tech: "JavaScript, Web Storage, Dashboard UI"
+                    },
+                    {
+                        id: 3,
+                        title: "Arsip Digital Santri & Siswa Ciamis",
+                        desc: "Konsep sistem informasi manajemen data prestasi akademis dan capaian santri yang responsif dan mudah diakses.",
+                        category: "web",
+                        tech: "Database Concept, Search & Filter UI"
+                    },
+                    {
+                        id: 4,
+                        title: "Interactive Bio & Admin Portal Builder",
+                        desc: "Alat pembuat ringkasan profil pribadi interaktif dengan portal admin langsung untuk mengelola seluruh halaman website.",
+                        category: "creative",
+                        tech: "DOM Engine, Custom Theme, State Management"
+                    }
+                ]
+            };
+
+            // Load State
+            let siteData = JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
+            if (!siteData) {
+                siteData = defaultSiteData;
+                localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
+            } else if (!siteData.adminPassword) {
+                siteData.adminPassword = FIXED_DEFAULT_PASS;
+                localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
+            }
+
+            const saveState = () => {
+                localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
+            };
+
+            // UI Screen Elements
+            const loginScreen = document.getElementById('loginScreen');
+            const dashboardScreen = document.getElementById('dashboardScreen');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const adminPasswordInput = document.getElementById('adminPasswordInput');
+            const togglePassBtn = document.getElementById('togglePassBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            // Password Eye Toggle
+            togglePassBtn.addEventListener('click', () => {
+                const isPass = adminPasswordInput.type === 'password';
+                adminPasswordInput.type = isPass ? 'text' : 'password';
+                togglePassBtn.innerHTML = isPass ? `<i class="fa-solid fa-eye-slash"></i>` : `<i class="fa-solid fa-eye"></i>`;
+            });
+
+            // Check Session
+            if (sessionStorage.getItem('ssa_admin_session') === 'true') {
+                showDashboard();
+            }
+
+            // Handle Login Form
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const pass = adminPasswordInput.value;
+                const correctPass = siteData.adminPassword || FIXED_DEFAULT_PASS;
+
+                if (pass === correctPass) {
+                    sessionStorage.setItem('ssa_admin_session', 'true');
+                    showToast("Login Pengelola Berhasil! Selamat datang Shifan.", "success");
+                    showDashboard();
+                } else {
+                    showToast("Kata sandi salah! Silakan coba lagi.", "error");
+                    adminPasswordInput.focus();
+                }
+            });
+
+            // Handle Logout
+            logoutBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('ssa_admin_session');
+                dashboardScreen.style.display = 'none';
+                loginScreen.style.display = 'block';
+                showToast("Anda telah keluar dari Halaman Pengelola.", "info");
+            });
+
+            // Switch Screen
+            function showDashboard() {
+                loginScreen.style.display = 'none';
+                dashboardScreen.style.display = 'block';
+                populateDashboardForms();
+            }
+
+            // Tab Navigation Switcher
+            const tabs = document.querySelectorAll('.admin-dash-tab');
+            const panes = document.querySelectorAll('.admin-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panes.forEach(p => p.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const paneId = tab.getAttribute('data-pane');
+                    document.getElementById(paneId).classList.add('active');
+                });
+            });
+
+            // Populate Form Fields
+            function populateDashboardForms() {
+                // Identity
+                document.getElementById('inputName').value = siteData.name;
+                document.getElementById('inputSubheadlines').value = siteData.subheadlines.join(', ');
+                document.getElementById('inputHeroBio').value = siteData.bio;
+
+                // Narrative
+                document.getElementById('inputMeaning').value = siteData.aboutMeaning;
+                document.getElementById('inputEdu').value = siteData.aboutEdu;
+                document.getElementById('inputVision').value = siteData.aboutVision;
+
+                // Contact
+                document.getElementById('inputEmail').value = siteData.contactEmail;
+                document.getElementById('inputLocation').value = siteData.contactLocation;
+                document.getElementById('inputGithub').value = siteData.githubUrl;
+                document.getElementById('inputLinkedin').value = siteData.linkedinUrl;
+                document.getElementById('inputInstagram').value = siteData.instagramUrl;
+
+                // Skills & Projects
+                renderSkillsList();
+                renderProjectsList();
+            }
+
+            // Save Identity Form
+            document.getElementById('formIdentity').addEventListener('submit', (e) => {
+                e.preventDefault();
+                siteData.name = document.getElementById('inputName').value.trim();
+                siteData.subheadlines = document.getElementById('inputSubheadlines').value.split(',').map(s => s.trim()).filter(Boolean);
+                siteData.bio = document.getElementById('inputHeroBio').value.trim();
+
+                saveState();
+                showToast("Identitas & Teks Sambutan berhasil disimpan!", "success");
+            });
+
+            // Save Narrative Form
+            document.getElementById('formNarrative').addEventListener('submit', (e) => {
+                e.preventDefault();
+                siteData.aboutMeaning = document.getElementById('inputMeaning').value.trim();
+                siteData.aboutEdu = document.getElementById('inputEdu').value.trim();
+                siteData.aboutVision = document.getElementById('inputVision').value.trim();
+
+                saveState();
+                showToast("Penjelasan & Cerita Diri berhasil disimpan!", "success");
+            });
+
+            // Save Contact Form
+            document.getElementById('formContact').addEventListener('submit', (e) => {
+                e.preventDefault();
+                siteData.contactEmail = document.getElementById('inputEmail').value.trim();
+                siteData.contactLocation = document.getElementById('inputLocation').value.trim();
+                siteData.githubUrl = document.getElementById('inputGithub').value.trim();
+                siteData.linkedinUrl = document.getElementById('inputLinkedin').value.trim();
+                siteData.instagramUrl = document.getElementById('inputInstagram').value.trim();
+
+                saveState();
+                showToast("Informasi Kontak & Media Sosial berhasil disimpan!", "success");
+            });
+
+            // Change Password Form
+            document.getElementById('formChangePassword').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const currPass = document.getElementById('currPassword').value;
+                const newPass = document.getElementById('newPassword').value;
+                const confirmPass = document.getElementById('confirmPassword').value;
+
+                if (currPass !== siteData.adminPassword) {
+                    showToast("Kata sandi saat ini salah!", "error");
+                    return;
+                }
+
+                if (newPass !== confirmPass) {
+                    showToast("Ketik ulang kata sandi baru tidak cocok!", "error");
+                    return;
+                }
+
+                if (newPass.length < 4) {
+                    showToast("Kata sandi terlalu pendek (minimal 4 karakter).", "error");
+                    return;
+                }
+
+                siteData.adminPassword = newPass;
+                saveState();
+                document.getElementById('formChangePassword').reset();
+                showToast("Kata sandi pengelola berhasil diubah!", "success");
+            });
+
+            // Render Skills List
+            function renderSkillsList() {
+                const container = document.getElementById('skillsListContainer');
+                const allSkills = [
+                    ...siteData.techSkills.map(s => ({ ...s, type: 'tech' })),
+                    ...siteData.softSkills.map(s => ({ ...s, type: 'soft' }))
+                ];
+
+                container.innerHTML = allSkills.map(s => `
+                    <div class="item-card-row">
+                        <div>
+                            <strong>${s.name}</strong>
+                            <span>Kategori: ${s.type === 'tech' ? 'Keahlian Teknis' : 'Kapasitas Diri'} | Tingkat: ${s.pct}%</span>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-id="${s.id}" data-type="${s.type}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.del-skill-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const type = btn.getAttribute('data-type');
+                        if (type === 'tech') {
+                            siteData.techSkills = siteData.techSkills.filter(s => s.id !== id);
+                        } else {
+                            siteData.softSkills = siteData.softSkills.filter(s => s.id !== id);
+                        }
+                        saveState();
+                        renderSkillsList();
+                        showToast("Keahlian berhasil dihapus.", "info");
+                    });
+                });
+            }
+
+            // Add Skill
+            document.getElementById('addSkillBtn').addEventListener('click', () => {
+                const name = prompt("Masukkan nama keahlian baru:");
+                if (!name) return;
+                const pctStr = prompt("Masukkan tingkat persentase (1-100):", "90");
+                const pct = parseInt(pctStr) || 90;
+                const typeChoice = prompt("Pilih Jenis: Ketik 'tech' untuk Teknis, atau 'soft' untuk Kapasitas Diri:", "tech");
+
+                const newSkill = { id: Date.now(), name, pct };
+                if (typeChoice === 'soft') {
+                    siteData.softSkills.push(newSkill);
+                } else {
+                    siteData.techSkills.push(newSkill);
+                }
+
+                saveState();
+                renderSkillsList();
+                showToast("Keahlian baru berhasil ditambahkan!", "success");
+            });
+
+            // Render Projects List
+            function renderProjectsList() {
+                const container = document.getElementById('projectsListContainer');
+                container.innerHTML = siteData.projects.map(p => `
+                    <div class="item-card-row">
+                        <div>
+                            <strong>${p.title}</strong>
+                            <span>Kategori: ${p.category} | Teknologi: ${p.tech}</span>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline danger-btn del-proj-btn" data-id="${p.id}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.del-proj-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        siteData.projects = siteData.projects.filter(p => p.id !== id);
+                        saveState();
+                        renderProjectsList();
+                        showToast("Proyek karya berhasil dihapus.", "info");
+                    });
+                });
+            }
+
+            // Add Project
+            document.getElementById('addProjectBtn').addEventListener('click', () => {
+                const title = prompt("Masukkan Judul Karya/Proyek:");
+                if (!title) return;
+                const desc = prompt("Masukkan Penjelasan Singkat Proyek:");
+                const category = prompt("Kategori ('web', 'edu', atau 'creative'):", "web");
+                const tech = prompt("Teknologi yang digunakan (pisahkan koma):", "HTML5, CSS3, JavaScript");
+
+                const newProj = {
+                    id: Date.now(),
+                    title,
+                    desc: desc || "Penjelasan karya proyek Shifan.",
+                    category: category || "web",
+                    tech: tech || "HTML5, CSS3"
+                };
+
+                siteData.projects.push(newProj);
+                saveState();
+                renderProjectsList();
+                showToast("Proyek karya baru berhasil ditambahkan!", "success");
+            });
+
+            // Backup JSON File
+            document.getElementById('exportBackupBtn').addEventListener('click', () => {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(siteData, null, 2));
+                const anchor = document.createElement('a');
+                anchor.setAttribute("href", dataStr);
+                anchor.setAttribute("download", `cadangan_website_shifan_${Date.now()}.json`);
+                document.body.appendChild(anchor);
+                anchor.click();
+                anchor.remove();
+                showToast("File cadangan berhasil diunduh.", "success");
+            });
+
+            // Reset Data
+            document.getElementById('resetAllDataBtn').addEventListener('click', () => {
+                if (confirm("Apakah Anda yakin ingin mengembalikan seluruh isi website ke setelan awal pabrikan?")) {
+                    localStorage.removeItem('ssa_site_data');
+                    siteData = defaultSiteData;
+                    siteData.adminPassword = FIXED_DEFAULT_PASS;
+                    saveState();
+                    populateDashboardForms();
+                    showToast("Seluruh data telah dikembalikan ke setelan awal.", "info");
+                }
+            });
+
+            // Toast Notification Helper
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+
+                let iconClass = 'fa-circle-info';
+                if (type === 'success') iconClass = 'fa-circle-check';
+                if (type === 'error') iconClass = 'fa-triangle-exclamation';
+
+                toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.animation = 'slideIn 0.3s ease-out reverse forwards';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3500);
+            }
+        });
+    </script>
+</body>
+</html>

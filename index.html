@@ -46,7 +46,7 @@
                 <a href="#achievements" class="nav-link"><i class="fa-solid fa-award"></i> Rekam Jejak</a>
                 <a href="#projects" class="nav-link"><i class="fa-solid fa-layer-group"></i> Proyek</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Kontak</a>
-                <a href="#admin" class="nav-link admin-nav-link" id="openAdminBtn"><i class="fa-solid fa-lock"></i> Admin Portal</a>
+                <a href="admin.html" class="nav-link admin-nav-link"><i class="fa-solid fa-lock"></i> Halaman Admin</a>
             </nav>
 
             <div class="header-actions">
@@ -101,10 +101,10 @@
                             <i class="fa-solid fa-compass"></i>
                             <span>Jelajahi Profil</span>
                         </a>
-                        <button class="btn btn-glass btn-lg" id="heroAdminPortalBtn">
+                        <a href="admin.html" class="btn btn-glass btn-lg">
                             <i class="fa-solid fa-user-gear"></i>
                             <span>Kelola Website (Admin)</span>
-                        </button>
+                        </a>
                     </div>
 
                     <div class="hero-stats">
@@ -477,7 +477,7 @@
                     <li><a href="#values">4 Pilar Utama</a></li>
                     <li><a href="#skills">Keahlian</a></li>
                     <li><a href="#projects">Proyek Digital</a></li>
-                    <li><a href="#admin" class="footer-admin-link" id="footerAdminBtn"><i class="fa-solid fa-user-gear"></i> Admin Portal</a></li>
+                    <li><a href="admin.html" class="footer-admin-link"><i class="fa-solid fa-user-gear"></i> Halaman Admin</a></li>
                 </ul>
             </div>
 
@@ -539,197 +539,6 @@
             </div>
             <div class="modal-footer text-right">
                 <button class="btn btn-outline" id="projectModalOkBtn">Tutup</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ADMIN SYSTEM MODALS & DASHBOARD -->
-
-    <!-- Admin Login Modal -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-overlay" id="adminLoginOverlay"></div>
-        <div class="modal-card glass-card admin-login-card">
-            <button class="modal-close-btn" id="adminLoginCloseBtn">&times;</button>
-            <div class="modal-header text-center">
-                <div class="admin-modal-badge"><i class="fa-solid fa-shield-halved"></i> Security Portal</div>
-                <h3 class="mt-2">Login Admin Website</h3>
-                <p class="modal-subtitle">Masukkan password keamanan untuk mengelola website Shifan</p>
-            </div>
-            <div class="modal-body mt-3">
-                <form id="adminLoginForm">
-                    <div class="form-group">
-                        <label for="adminPassInput"><i class="fa-solid fa-key"></i> Password Admin</label>
-                        <div class="pass-input-wrapper">
-                            <input type="password" id="adminPassInput" class="form-control" placeholder="Masukkan password admin..." required>
-                            <button type="button" class="toggle-pass-btn" id="togglePassBtn"><i class="fa-solid fa-eye"></i></button>
-                        </div>
-                        <span class="input-hint">Default password: <code>shifan123</code> (bisa diubah di pengaturan admin)</span>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block btn-glow mt-3" id="adminLoginSubmitBtn">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Masuk ke Dashboard Admin</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel Fullscreen Modal / Drawer -->
-    <div class="modal admin-panel-modal" id="adminPanelModal">
-        <div class="modal-overlay" id="adminPanelOverlay"></div>
-        <div class="admin-panel-container glass-card">
-            <!-- Sidebar Header -->
-            <div class="admin-panel-header">
-                <div class="admin-brand">
-                    <div class="admin-badge"><i class="fa-solid fa-user-shield"></i></div>
-                    <div>
-                        <h3>Admin Portal Shifan</h3>
-                        <span class="admin-status-pill"><span class="pulse-dot"></span> Logged In</span>
-                    </div>
-                </div>
-                <div class="admin-header-actions">
-                    <button class="btn btn-sm btn-outline" id="adminExportDataBtn"><i class="fa-solid fa-download"></i> Backup JSON</button>
-                    <button class="btn btn-sm btn-outline danger-btn" id="adminLogoutBtn"><i class="fa-solid fa-power-off"></i> Logout</button>
-                    <button class="modal-close-btn admin-close-x" id="adminPanelCloseBtn">&times;</button>
-                </div>
-            </div>
-
-            <!-- Admin Nav Tabs -->
-            <div class="admin-tabs">
-                <button class="admin-tab-btn active" data-tab="tabProfile"><i class="fa-solid fa-id-card"></i> Profil & Hero</button>
-                <button class="admin-tab-btn" data-tab="tabAbout"><i class="fa-solid fa-book-open"></i> Tentang & Narrative</button>
-                <button class="admin-tab-btn" data-tab="tabSkills"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Keahlian</button>
-                <button class="admin-tab-btn" data-tab="tabProjects"><i class="fa-solid fa-cubes"></i> Kelola Proyek</button>
-                <button class="admin-tab-btn" data-tab="tabContact"><i class="fa-solid fa-address-book"></i> Kontak & Sosial</button>
-                <button class="admin-tab-btn" data-tab="tabSecurity"><i class="fa-solid fa-key"></i> Ganti Password</button>
-            </div>
-
-            <!-- Admin Body Tab Contents -->
-            <div class="admin-body">
-                <!-- Tab 1: Profile & Hero -->
-                <div class="admin-tab-content active" id="tabProfile">
-                    <h4><i class="fa-solid fa-user"></i> Pengaturan Profil Utama & Hero</h4>
-                    <form id="adminProfileForm" class="mt-3">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="admName">Nama Lengkap</label>
-                                <input type="text" id="admName" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admSubheadlines">Sub-Headlines (Pisahkan dengan koma)</label>
-                                <input type="text" id="admSubheadlines" class="form-control" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label for="admHeroBio">Deskripsi Ringkasan Bio (Hero)</label>
-                                <textarea id="admHeroBio" class="form-control" rows="3" required></textarea>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-glow mt-2"><i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Profil</button>
-                    </form>
-                </div>
-
-                <!-- Tab 2: About & Narrative -->
-                <div class="admin-tab-content" id="tabAbout">
-                    <h4><i class="fa-solid fa-align-left"></i> Pengaturan Halaman Tentang Shifan</h4>
-                    <form id="adminAboutForm" class="mt-3">
-                        <div class="form-group mb-3">
-                            <label for="admAboutMeaning">Kartu 1: Makna Nama & Filosofi</label>
-                            <textarea id="admAboutMeaning" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="admAboutEdu">Kartu 2: Rekam Jejak Pendidikan & Hafalan</label>
-                            <textarea id="admAboutEdu" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="admAboutVision">Kartu 3: Visi Pengembangan Teknologi</label>
-                            <textarea id="admAboutVision" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-glow"><i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan Tentang</button>
-                    </form>
-                </div>
-
-                <!-- Tab 3: Skills -->
-                <div class="admin-tab-content" id="tabSkills">
-                    <div class="admin-section-header">
-                        <h4><i class="fa-solid fa-bolt"></i> Manajemen Keahlian (Skills)</h4>
-                        <button class="btn btn-sm btn-primary" id="addNewSkillBtn"><i class="fa-solid fa-plus"></i> Tambah Keahlian</button>
-                    </div>
-
-                    <div class="admin-skills-list mt-3" id="adminSkillsList">
-                        <!-- Rendered dynamically -->
-                    </div>
-                </div>
-
-                <!-- Tab 4: Projects -->
-                <div class="admin-tab-content" id="tabProjects">
-                    <div class="admin-section-header">
-                        <h4><i class="fa-solid fa-layer-group"></i> Kelola Portofolio & Proyek</h4>
-                        <button class="btn btn-sm btn-primary" id="addNewProjectBtn"><i class="fa-solid fa-plus"></i> Tambah Proyek Baru</button>
-                    </div>
-
-                    <div class="admin-projects-list mt-3" id="adminProjectsList">
-                        <!-- Rendered dynamically -->
-                    </div>
-                </div>
-
-                <!-- Tab 5: Contact Info -->
-                <div class="admin-tab-content" id="tabContact">
-                    <h4><i class="fa-solid fa-paper-plane"></i> Informasi Kontak & Media Sosial</h4>
-                    <form id="adminContactForm" class="mt-3">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="admContactEmail">Email Resmi</label>
-                                <input type="email" id="admContactEmail" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admContactLocation">Lokasi / Kota</label>
-                                <input type="text" id="admContactLocation" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admGithubUrl">Link GitHub</label>
-                                <input type="url" id="admGithubUrl" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="admLinkedinUrl">Link LinkedIn</label>
-                                <input type="url" id="admLinkedinUrl" class="form-control" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label for="admInstagramUrl">Link Instagram</label>
-                                <input type="url" id="admInstagramUrl" class="form-control" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-glow mt-2"><i class="fa-solid fa-floppy-disk"></i> Simpan Informasi Kontak</button>
-                    </form>
-                </div>
-
-                <!-- Tab 6: Security & Password -->
-                <div class="admin-tab-content" id="tabSecurity">
-                    <h4><i class="fa-solid fa-lock"></i> Ganti Password Keamanan Admin</h4>
-                    <form id="adminChangePassForm" class="mt-3">
-                        <div class="form-group mb-3">
-                            <label for="admCurrPass">Password Sekarang</label>
-                            <input type="password" id="admCurrPass" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="admNewPass">Password Baru</label>
-                            <input type="password" id="admNewPass" class="form-control" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="admConfirmPass">Konfirmasi Password Baru</label>
-                            <input type="password" id="admConfirmPass" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-glow"><i class="fa-solid fa-key"></i> Perbarui Password Admin</button>
-                    </form>
-
-                    <hr class="my-4" style="border-color: var(--border-color);">
-
-                    <div class="danger-zone">
-                        <h4 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Zona Riset & Reset</h4>
-                        <p class="text-muted">Kembalikan seluruh konten website ke data default pabrikan.</p>
-                        <button type="button" class="btn btn-outline danger-btn mt-2" id="adminResetAllBtn"><i class="fa-solid fa-rotate-left"></i> Reset Seluruh Data Website</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
