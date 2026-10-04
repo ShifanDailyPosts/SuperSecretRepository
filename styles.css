@@ -659,35 +659,142 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 .info-banner h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 0.5rem; }
 .info-banner p { color: var(--text-secondary); max-width: 700px; }
 
-/* --- Skills Categorized Section --- */
+/* --- Skills Categorized Section (Checklist & Word Status) --- */
 .skills-pane { display: none; }
 .skills-pane.active { display: block; animation: fadeIn 0.3s ease-out; }
 
-.skill-items { display: flex; flex-direction: column; gap: 1.5rem; }
+.skills-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
 
-.skill-info {
+@media (max-width: 768px) {
+    .skills-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.skill-card {
+    padding: 1.75rem;
+    border-top: 3px solid var(--primary-color);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
 }
 
-.skill-pct { color: var(--primary-color); }
-
-.progress-bar {
-    width: 100%;
-    height: 9px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-full);
-    overflow: hidden;
+.skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
 }
 
-.progress-fill {
-    height: 100%;
-    background: var(--primary-gradient);
-    border-radius: var(--radius-full);
-    transition: width 1.2s cubic-bezier(0.1, 0.5, 0.5, 1);
+.skill-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.skill-card-title-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.skill-card-icon {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.skill-card-title-box h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.skill-status-badge {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--primary-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 20px;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.skill-status-badge.gold {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--text-gold);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.skill-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.skill-checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.skill-checklist-item i {
+    font-size: 1.05rem;
+    margin-top: 1px;
+}
+
+.skill-checklist-item.done {
+    color: var(--text-primary);
+}
+
+.skill-checklist-item.done i {
+    color: var(--primary-color);
+}
+
+.skill-checklist-item.pending {
+    color: var(--text-muted);
+}
+
+.skill-checklist-item.pending i {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.skill-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.empty-skills-placeholder {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.empty-skills-placeholder i {
+    font-size: 2.2rem;
+    color: var(--text-gold);
+    margin-bottom: 0.75rem;
+    display: block;
 }
 
 /* --- Projects Gallery --- */

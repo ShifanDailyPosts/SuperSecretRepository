@@ -25,23 +25,59 @@ document.addEventListener('DOMContentLoaded', () => {
         linkedinUrl: "https://linkedin.com",
         instagramUrl: "https://instagram.com",
         
-        // Categorized Skills
+        // Categorized Skills (Checklist & Status Kata-Kata)
         webDevSkills: [
-            { id: 1, name: "HTML5 & Semantic Architecture", pct: 95 },
-            { id: 2, name: "CSS3 Glassmorphism & Responsive Grids", pct: 92 },
-            { id: 3, name: "JavaScript ES6+ & Dynamic State Engine", pct: 88 },
-            { id: 4, name: "Hostinger FTP & Automated Deployment", pct: 85 }
+            {
+                id: 1,
+                name: "HTML",
+                icon: "fa-brands fa-html5",
+                statusText: "Sangat Mahir & Teruji",
+                items: [
+                    { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
+                    { title: "Pengolahan Form, Input & Validasinya", done: true },
+                    { title: "Integrasi Metadata SEO & OpenGraph", done: true },
+                    { title: "Aksesibilitas & Clean Code Structure", done: true }
+                ]
+            },
+            {
+                id: 2,
+                name: "CSS",
+                icon: "fa-brands fa-css3-alt",
+                statusText: "Sangat Mahir & Responsive",
+                items: [
+                    { title: "Layouting Flexbox & Responsive Grid System", done: true },
+                    { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
+                    { title: "Keyframe Animations & Micro-Interactions", done: true },
+                    { title: "Custom CSS Variables & Responsive Breakpoints", done: true }
+                ]
+            },
+            {
+                id: 3,
+                name: "JavaScript",
+                icon: "fa-brands fa-js",
+                statusText: "Mahir — State Engine & DOM",
+                items: [
+                    { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
+                    { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
+                    { title: "Web Storage (LocalStorage & SessionState)", done: true },
+                    { title: "Event Listeners & Interactive Keyboard Logic", done: true }
+                ]
+            },
+            {
+                id: 4,
+                name: "Python",
+                icon: "fa-brands fa-python",
+                statusText: "Dasar & Logika (On Progress)",
+                items: [
+                    { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
+                    { title: "Struktur Kontrol (If-Else & Looping)", done: true },
+                    { title: "Pemrosesan Fungsi & Scripting Sederhana", done: false },
+                    { title: "Pengembangan Backend / Framework Web", done: false }
+                ]
+            }
         ],
-        designSkills: [
-            { id: 1, name: "UI/UX Layout Design & Wireframing", pct: 90 },
-            { id: 2, name: "Color Palette & Visual Design System", pct: 88 },
-            { id: 3, name: "Typography & Micro-Animation Details", pct: 87 }
-        ],
-        otherSkills: [
-            { id: 1, name: "Metode Hafalan & Daya Ingat (Memory Technique)", pct: 96 },
-            { id: 2, name: "Berpikir Analitis & Pemecahan Masalah", pct: 92 },
-            { id: 3, name: "Kedisiplinan & Etika Terpelajar", pct: 94 }
-        ],
+        designSkills: [],
+        otherSkills: [],
 
         // Categorized Projects
         projects: [
@@ -379,40 +415,70 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('aboutEduText')) document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu || defaultSiteData.aboutEdu;
         if (document.getElementById('aboutVisionText')) document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision || defaultSiteData.aboutVision;
 
-        // Categorized Skills
-        const webSkills = siteData.webDevSkills || defaultSiteData.webDevSkills;
-        const desSkills = siteData.designSkills || defaultSiteData.designSkills;
-        const othSkills = siteData.otherSkills || defaultSiteData.otherSkills;
+        // Categorized Skills (Checklist & Word Status)
+        const createSkillCardHTML = (s) => {
+            const items = s.items || [];
+            const doneCount = items.filter(i => i.done).length;
+            const totalCount = items.length;
+            
+            // Icon fallback
+            let iconClass = s.icon || 'fa-solid fa-code';
+            const sNameLower = s.name ? s.name.toLowerCase() : '';
+            if (sNameLower.includes('html')) iconClass = 'fa-brands fa-html5';
+            else if (sNameLower.includes('css')) iconClass = 'fa-brands fa-css3-alt';
+            else if (sNameLower.includes('javascript') || sNameLower.includes('js')) iconClass = 'fa-brands fa-js';
+            else if (sNameLower.includes('python')) iconClass = 'fa-brands fa-python';
 
-        document.getElementById('webDevSkillsContainer').innerHTML = webSkills.map(s => `
-            <div class="skill-item">
-                <div class="skill-info">
-                    <span>${s.name}</span>
-                    <span class="skill-pct">${s.pct}%</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
-            </div>
-        `).join('');
+            const statusText = s.statusText || (doneCount === totalCount && totalCount > 0 ? "Sangat Mahir & Teruji" : doneCount > 0 ? "Menengah (Dalam Pengembangan)" : "Baru Mempelajari (On Progress)");
+            const isGold = doneCount === totalCount && totalCount > 0;
 
-        document.getElementById('designSkillsContainer').innerHTML = desSkills.map(s => `
-            <div class="skill-item">
-                <div class="skill-info">
-                    <span>${s.name}</span>
-                    <span class="skill-pct">${s.pct}%</span>
-                </div>
-                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
-            </div>
-        `).join('');
+            const checklistHTML = items.map(item => `
+                <li class="skill-checklist-item ${item.done ? 'done' : 'pending'}">
+                    <i class="${item.done ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"></i>
+                    <span>${item.title}</span>
+                </li>
+            `).join('');
 
-        document.getElementById('otherSkillsContainer').innerHTML = othSkills.map(s => `
-            <div class="skill-item">
-                <div class="skill-info">
-                    <span>${s.name}</span>
-                    <span class="skill-pct">${s.pct}%</span>
+            return `
+                <div class="skill-card glass-card">
+                    <div class="skill-card-header">
+                        <div class="skill-card-title-box">
+                            <i class="${iconClass} skill-card-icon"></i>
+                            <h3>${s.name}</h3>
+                        </div>
+                        <span class="skill-status-badge ${isGold ? 'gold' : ''}">${statusText}</span>
+                    </div>
+                    <ul class="skill-checklist">
+                        ${checklistHTML || '<li class="skill-checklist-item pending"><span>Belum ada target spesifik.</span></li>'}
+                    </ul>
+                    <div class="skill-card-footer">
+                        <span><i class="fa-solid fa-list-check"></i> Target Pencapaian</span>
+                        <strong>${doneCount} dari ${totalCount} Target Selesai</strong>
+                    </div>
                 </div>
-                <div class="progress-bar"><div class="progress-fill" style="width: ${s.pct}%;"></div></div>
-            </div>
-        `).join('');
+            `;
+        };
+
+        const renderSkillsCategory = (containerId, skillsList) => {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (!skillsList || skillsList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-skills-placeholder glass-card">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                        <h4>Keahlian Belum Diisi (On Progress)</h4>
+                        <p>Kategori keahlian ini disiapkan untuk tahap perkembangan selanjutnya.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = skillsList.map(s => createSkillCardHTML(s)).join('');
+            }
+        };
+
+        renderSkillsCategory('webDevSkillsContainer', siteData.webDevSkills || defaultSiteData.webDevSkills);
+        renderSkillsCategory('designSkillsContainer', siteData.designSkills || defaultSiteData.designSkills);
+        renderSkillsCategory('otherSkillsContainer', siteData.otherSkills || defaultSiteData.otherSkills);
 
         // Projects ⭐⭐⭐
         const projectsContainer = document.getElementById('projectsGridContainer');

@@ -570,21 +570,57 @@
                 linkedinUrl: "https://linkedin.com",
                 instagramUrl: "https://instagram.com",
                 webDevSkills: [
-                    { id: 1, name: "HTML5 & Semantic Architecture", pct: 95 },
-                    { id: 2, name: "CSS3 Glassmorphism & Responsive Grids", pct: 92 },
-                    { id: 3, name: "JavaScript ES6+ & Dynamic State Engine", pct: 88 },
-                    { id: 4, name: "Hostinger FTP & Automated Deployment", pct: 85 }
+                    {
+                        id: 1,
+                        name: "HTML",
+                        icon: "fa-brands fa-html5",
+                        statusText: "Sangat Mahir & Teruji",
+                        items: [
+                            { title: "Struktur Dokumen & Tag Semantik HTML5", done: true },
+                            { title: "Pengolahan Form, Input & Validasinya", done: true },
+                            { title: "Integrasi Metadata SEO & OpenGraph", done: true },
+                            { title: "Aksesibilitas & Clean Code Structure", done: true }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: "CSS",
+                        icon: "fa-brands fa-css3-alt",
+                        statusText: "Sangat Mahir & Responsive",
+                        items: [
+                            { title: "Layouting Flexbox & Responsive Grid System", done: true },
+                            { title: "Desain UI Glassmorphism & Visual Dark Mode", done: true },
+                            { title: "Keyframe Animations & Micro-Interactions", done: true },
+                            { title: "Custom CSS Variables & Responsive Breakpoints", done: true }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: "JavaScript",
+                        icon: "fa-brands fa-js",
+                        statusText: "Mahir — State Engine & DOM",
+                        items: [
+                            { title: "Sintaksis ES6+, Arrow Functions & Logic Flow", done: true },
+                            { title: "DOM Manipulation & Dynamic Rendering Engine", done: true },
+                            { title: "Web Storage (LocalStorage & SessionState)", done: true },
+                            { title: "Event Listeners & Interactive Keyboard Logic", done: true }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: "Python",
+                        icon: "fa-brands fa-python",
+                        statusText: "Dasar & Logika (On Progress)",
+                        items: [
+                            { title: "Sintaksis Dasar, Variabel & Tipe Data", done: true },
+                            { title: "Struktur Kontrol (If-Else & Looping)", done: true },
+                            { title: "Pemrosesan Fungsi & Scripting Sederhana", done: false },
+                            { title: "Pengembangan Backend / Framework Web", done: false }
+                        ]
+                    }
                 ],
-                designSkills: [
-                    { id: 1, name: "UI/UX Layout Design & Wireframing", pct: 90 },
-                    { id: 2, name: "Color Palette & Visual Design System", pct: 88 },
-                    { id: 3, name: "Typography & Micro-Animation Details", pct: 87 }
-                ],
-                otherSkills: [
-                    { id: 1, name: "Metode Hafalan & Daya Ingat (Memory Technique)", pct: 96 },
-                    { id: 2, name: "Berpikir Analitis & Pemecahan Masalah", pct: 92 },
-                    { id: 3, name: "Kedisiplinan & Etika Terpelajar", pct: 94 }
-                ],
+                designSkills: [],
+                otherSkills: [],
                 projects: [
                     {
                         id: 1,
@@ -799,55 +835,216 @@
 
             function renderSkillsList() {
                 const container = document.getElementById('skillsListContainer');
-                const webSkills = siteData.webDevSkills || defaultSiteData.webDevSkills;
-                const desSkills = siteData.designSkills || defaultSiteData.designSkills;
-                const othSkills = siteData.otherSkills || defaultSiteData.otherSkills;
+                if (!container) return;
 
-                const allSkills = [
-                    ...webSkills.map(s => ({ ...s, cat: 'Web Dev' })),
-                    ...desSkills.map(s => ({ ...s, cat: 'Design' })),
-                    ...othSkills.map(s => ({ ...s, cat: 'Other Skills' }))
+                const webSkills = siteData.webDevSkills || [];
+                const desSkills = siteData.designSkills || [];
+                const othSkills = siteData.otherSkills || [];
+
+                const categories = [
+                    { title: 'Web Development', key: 'webDevSkills', items: webSkills },
+                    { title: 'Design', key: 'designSkills', items: desSkills },
+                    { title: 'Other Skills', key: 'otherSkills', items: othSkills }
                 ];
 
-                container.innerHTML = allSkills.map(s => `
-                    <div class="item-row">
-                        <div>
-                            <strong>${s.name}</strong>
-                            <span>Kategori: ${s.cat} | Tingkat: ${s.pct}%</span>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-id="${s.id}" data-cat="${s.cat}"><i class="fa-solid fa-trash"></i> Hapus</button>
-                    </div>
-                `).join('');
+                let html = '';
 
-                document.querySelectorAll('.del-skill-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const id = parseInt(btn.getAttribute('data-id'));
-                        const cat = btn.getAttribute('data-cat');
-                        if (cat === 'Web Dev') siteData.webDevSkills = siteData.webDevSkills.filter(s => s.id !== id);
-                        else if (cat === 'Design') siteData.designSkills = siteData.designSkills.filter(s => s.id !== id);
-                        else siteData.otherSkills = siteData.otherSkills.filter(s => s.id !== id);
+                categories.forEach(cat => {
+                    html += `
+                        <div class="skills-cat-group mb-4">
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 0.75rem 1rem; border-radius: 8px;" class="mb-3">
+                                <h3 style="margin: 0; font-size: 1.05rem;"><i class="fa-solid fa-folder" style="color: var(--primary-color);"></i> Kategori: ${cat.title}</h3>
+                                <button type="button" class="btn btn-sm btn-outline add-skill-cat-btn" data-cat="${cat.key}">
+                                    <i class="fa-solid fa-plus"></i> Tambah Skill ke ${cat.title}
+                                </button>
+                            </div>
+                    `;
+
+                    if (cat.items.length === 0) {
+                        html += `
+                            <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                                <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — belum ada data keahlian di kategori ${cat.title}).</em>
+                            </div>
+                        `;
+                    } else {
+                        cat.items.forEach((skill, sIdx) => {
+                            const checklistItems = skill.items || [];
+                            const checklistHTML = checklistItems.map((cItem, cIdx) => `
+                                <div class="admin-checklist-row mb-2" style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background: rgba(0,0,0,0.2); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <label style="display: flex; align-items: center; gap: 0.6rem; flex: 1; cursor: pointer; margin: 0; font-size: 0.88rem;">
+                                        <input type="checkbox" class="toggle-checklist-cb" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" ${cItem.done ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color);">
+                                        <span style="${cItem.done ? 'color: var(--text-primary); font-weight: 500;' : 'color: var(--text-muted);'}">${cItem.title}</span>
+                                    </label>
+                                    <button type="button" class="btn btn-sm text-danger del-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" data-cidx="${cIdx}" style="background: none; border: none; padding: 0.2rem 0.4rem; cursor: pointer;" title="Hapus target ini">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            `).join('');
+
+                            html += `
+                                <div class="admin-skill-card glass-card p-3 mb-3" style="border-left: 3px solid var(--primary-color);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;" class="mb-3 pb-2 border-bottom">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 280px;">
+                                            <strong style="font-size: 1.1rem; color: var(--text-primary);">${skill.name}</strong>
+                                            <div style="display: flex; align-items: center; gap: 0.3rem;">
+                                                <span style="font-size: 0.75rem; color: var(--text-muted);">Status Kata-kata:</span>
+                                                <input type="text" class="form-control form-control-sm skill-status-input" data-cat="${cat.key}" data-sidx="${sIdx}" value="${skill.statusText || ''}" placeholder="ex: Sangat Mahir & Teruji" style="width: 220px; font-size: 0.8rem;">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline danger-btn del-skill-btn" data-cat="${cat.key}" data-sidx="${sIdx}">
+                                            <i class="fa-solid fa-trash"></i> Hapus Skill
+                                        </button>
+                                    </div>
+
+                                    <div class="admin-checklist-box">
+                                        <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-gold);" class="mb-2">
+                                            <i class="fa-solid fa-list-check"></i> Checklist Target & Pencapaian Skill:
+                                        </div>
+                                        ${checklistHTML || '<div class="text-muted small mb-2">Belum ada target di checklist ini.</div>'}
+                                        
+                                        <div class="mt-2" style="display: flex; gap: 0.5rem;">
+                                            <input type="text" class="form-control form-control-sm new-citem-input" id="newCitemInput_${cat.key}_${sIdx}" placeholder="Tambah checklist target baru (contoh: Kuasai Fetch API)..." style="font-size: 0.85rem;">
+                                            <button type="button" class="btn btn-sm btn-primary add-citem-btn" data-cat="${cat.key}" data-sidx="${sIdx}" style="white-space: nowrap;">
+                                                <i class="fa-solid fa-plus"></i> Tambah Target
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    html += `</div>`;
+                });
+
+                container.innerHTML = html;
+
+                // Event Listeners for Checkboxes
+                document.querySelectorAll('.toggle-checklist-cb').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const cat = cb.getAttribute('data-cat');
+                        const sIdx = parseInt(cb.getAttribute('data-sidx'));
+                        const cIdx = parseInt(cb.getAttribute('data-cidx'));
+                        siteData[cat][sIdx].items[cIdx].done = cb.checked;
+
+                        // Auto recalculate status text if user hasn't set custom text
+                        const items = siteData[cat][sIdx].items;
+                        const doneCount = items.filter(i => i.done).length;
+                        if (doneCount === items.length && items.length > 0) {
+                            siteData[cat][sIdx].statusText = "Sangat Mahir & Teruji";
+                        } else if (doneCount > 0) {
+                            siteData[cat][sIdx].statusText = "Menengah (Dalam Pengembangan)";
+                        } else {
+                            siteData[cat][sIdx].statusText = "Baru Mempelajari (On Progress)";
+                        }
+
                         saveState();
                         renderSkillsList();
-                        showToast("Keahlian berhasil dihapus.", "info");
+                        showToast("Checklist berhasil diperbarui!", "success");
+                    });
+                });
+
+                // Status text change listener
+                document.querySelectorAll('.skill-status-input').forEach(inp => {
+                    inp.addEventListener('change', () => {
+                        const cat = inp.getAttribute('data-cat');
+                        const sIdx = parseInt(inp.getAttribute('data-sidx'));
+                        siteData[cat][sIdx].statusText = inp.value.trim();
+                        saveState();
+                        showToast("Status kata-kata berhasil disimpan!", "success");
+                    });
+                });
+
+                // Add new checklist item listener
+                document.querySelectorAll('.add-citem-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const cat = btn.getAttribute('data-cat');
+                        const sIdx = parseInt(btn.getAttribute('data-sidx'));
+                        const inputEl = document.getElementById(`newCitemInput_${cat}_${sIdx}`);
+                        const title = inputEl ? inputEl.value.trim() : '';
+
+                        if (!title) {
+                            showToast("Ketikkan nama target/checklist terlebih dahulu!", "error");
+                            return;
+                        }
+
+                        if (!siteData[cat][sIdx].items) siteData[cat][sIdx].items = [];
+                        siteData[cat][sIdx].items.push({ title: title, done: false });
+                        saveState();
+                        renderSkillsList();
+                        showToast("Target checklist berhasil ditambahkan!", "success");
+                    });
+                });
+
+                // Delete checklist item listener
+                document.querySelectorAll('.del-citem-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const cat = btn.getAttribute('data-cat');
+                        const sIdx = parseInt(btn.getAttribute('data-sidx'));
+                        const cIdx = parseInt(btn.getAttribute('data-cidx'));
+                        siteData[cat][sIdx].items.splice(cIdx, 1);
+                        saveState();
+                        renderSkillsList();
+                        showToast("Item checklist dihapus.", "info");
+                    });
+                });
+
+                // Delete skill listener
+                document.querySelectorAll('.del-skill-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const cat = btn.getAttribute('data-cat');
+                        const sIdx = parseInt(btn.getAttribute('data-sidx'));
+                        siteData[cat].splice(sIdx, 1);
+                        saveState();
+                        renderSkillsList();
+                        showToast("Skill berhasil dihapus!", "success");
+                    });
+                });
+
+                // Add skill to category listener
+                document.querySelectorAll('.add-skill-cat-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const cat = btn.getAttribute('data-cat');
+                        const name = prompt("Masukkan nama Keahlian/Skill baru (contoh: Python, Tailwind, React):");
+                        if (!name || !name.trim()) return;
+
+                        if (!siteData[cat]) siteData[cat] = [];
+                        siteData[cat].push({
+                            id: Date.now(),
+                            name: name.trim(),
+                            statusText: "Baru Mempelajari (On Progress)",
+                            items: [
+                                { title: "Pemahaman Konsep Dasar & Sintaks", done: true },
+                                { title: "Penerapan Proyek & Latihan", done: false }
+                            ]
+                        });
+                        saveState();
+                        renderSkillsList();
+                        showToast("Skill baru berhasil ditambahkan!", "success");
                     });
                 });
             }
 
-            document.getElementById('addSkillBtn').addEventListener('click', () => {
-                const name = prompt("Masukkan nama keahlian baru:");
-                if (!name) return;
-                const pct = parseInt(prompt("Tingkat persentase (1-100):", "90")) || 90;
-                const cat = prompt("Pilih Kategori ('web' untuk Web Dev, 'design' untuk Design, 'other' untuk Other Skills):", "web");
+            const mainAddSkillBtn = document.getElementById('addSkillBtn');
+            if (mainAddSkillBtn) {
+                mainAddSkillBtn.addEventListener('click', () => {
+                    const name = prompt("Masukkan nama Keahlian/Skill baru (contoh: Python, Tailwind, React):");
+                    if (!name || !name.trim()) return;
 
-                const newSkill = { id: Date.now(), name, pct };
-                if (cat === 'design') (siteData.designSkills = siteData.designSkills || []).push(newSkill);
-                else if (cat === 'other') (siteData.otherSkills = siteData.otherSkills || []).push(newSkill);
-                else (siteData.webDevSkills = siteData.webDevSkills || []).push(newSkill);
-
-                saveState();
-                renderSkillsList();
-                showToast("Keahlian baru berhasil ditambahkan!", "success");
-            });
+                    (siteData.webDevSkills = siteData.webDevSkills || []).push({
+                        id: Date.now(),
+                        name: name.trim(),
+                        statusText: "Baru Mempelajari (On Progress)",
+                        items: [
+                            { title: "Pemahaman Konsep Dasar & Sintaks", done: true },
+                            { title: "Penerapan Proyek & Latihan", done: false }
+                        ]
+                    });
+                    saveState();
+                    renderSkillsList();
+                    showToast("Skill baru berhasil ditambahkan ke Web Dev!", "success");
+                });
+            }
 
             function renderProjectsList() {
                 const container = document.getElementById('projectsListContainer');
