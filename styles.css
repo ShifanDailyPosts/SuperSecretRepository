@@ -483,12 +483,15 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     min-height: 2rem;
 }
 
+.typing-prefix {
+    margin-right: 0.5rem;
+}
+
 .typing-text { color: var(--text-gold); font-weight: 700; }
-.typing-cursor { animation: blink 0.7s infinite; color: var(--primary-color); }
+.typing-cursor { animation: blink 0.7s infinite; color: var(--primary-color); margin-left: 1px; font-weight: 700; }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
