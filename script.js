@@ -445,12 +445,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('aboutEduText')) document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu || defaultSiteData.aboutEdu;
         if (document.getElementById('aboutVisionText')) document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision || defaultSiteData.aboutVision;
 
-        // Categorized Skills (Checklist & Word Status)
-        const createSkillCardHTML = (s) => {
+        // Categorized Skills (Clean Grid with Status Kata-Kata & Progress Fill)
+        const createSkillItemHTML = (s) => {
             const items = s.items || [];
             const doneCount = items.filter(i => i.done).length;
             const totalCount = items.length;
             
+            // Calculate percentage fill based on checklist items if available, or statusText / pct
+            let progressPct = 50;
+            if (totalCount > 0) {
+                progressPct = Math.round((doneCount / totalCount) * 100);
+            } else if (s.pct !== undefined) {
+                progressPct = s.pct;
+            } else {
+                const txt = (s.statusText || '').toLowerCase();
+                if (txt.includes('sangat mahir') || txt.includes('expert') || txt.includes('teruji')) progressPct = 95;
+                else if (txt.includes('mahir') || txt.includes('advanced')) progressPct = 85;
+                else if (txt.includes('cukup mahir') || txt.includes('menengah') || txt.includes('intermediate')) progressPct = 65;
+                else if (txt.includes('kurang mahir') || txt.includes('dasar') || txt.includes('progress') || txt.includes('pemula')) progressPct = 45;
+            }
+
             // Icon fallback
             let iconClass = s.icon || 'fa-solid fa-code';
             const sNameLower = s.name ? s.name.toLowerCase() : '';
@@ -459,31 +473,20 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (sNameLower.includes('javascript') || sNameLower.includes('js')) iconClass = 'fa-brands fa-js';
             else if (sNameLower.includes('python')) iconClass = 'fa-brands fa-python';
 
-            const statusText = s.statusText || (doneCount === totalCount && totalCount > 0 ? "Sangat Mahir & Teruji" : doneCount > 0 ? "Menengah (Dalam Pengembangan)" : "Baru Mempelajari (On Progress)");
-            const isGold = doneCount === totalCount && totalCount > 0;
-
-            const checklistHTML = items.map(item => `
-                <li class="skill-checklist-item ${item.done ? 'done' : 'pending'}">
-                    <i class="${item.done ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"></i>
-                    <span>${item.title}</span>
-                </li>
-            `).join('');
+            const statusText = s.statusText || (progressPct >= 90 ? "Sangat Mahir" : progressPct >= 75 ? "Mahir" : progressPct >= 50 ? "Cukup Mahir" : "Kurang Mahir");
+            const isGold = progressPct >= 90 || statusText.toLowerCase().includes('sangat mahir');
 
             return `
-                <div class="skill-card glass-card">
-                    <div class="skill-card-header">
-                        <div class="skill-card-title-box">
-                            <i class="${iconClass} skill-card-icon"></i>
-                            <h3>${s.name}</h3>
+                <div class="skill-item">
+                    <div class="skill-info">
+                        <div class="skill-name-box">
+                            <i class="${iconClass} skill-icon"></i>
+                            <span class="skill-name">${s.name}</span>
                         </div>
                         <span class="skill-status-badge ${isGold ? 'gold' : ''}">${statusText}</span>
                     </div>
-                    <ul class="skill-checklist">
-                        ${checklistHTML || '<li class="skill-checklist-item pending"><span>Belum ada target spesifik.</span></li>'}
-                    </ul>
-                    <div class="skill-card-footer">
-                        <span><i class="fa-solid fa-list-check"></i> Target Pencapaian</span>
-                        <strong>${doneCount} dari ${totalCount} Target Selesai</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${isGold ? 'gold-fill' : ''}" style="width: ${progressPct}%;"></div>
                     </div>
                 </div>
             `;
@@ -495,14 +498,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!skillsList || skillsList.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-skills-placeholder glass-card">
+                    <div class="empty-skills-placeholder text-center p-3">
                         <i class="fa-solid fa-hourglass-half"></i>
-                        <h4>Keahlian Belum Diisi (On Progress)</h4>
-                        <p>Kategori keahlian ini disiapkan untuk tahap perkembangan selanjutnya.</p>
+                        <h4 style="font-size: 1.05rem; margin-top: 0.5rem; margin-bottom: 0.25rem;">Keahlian Belum Diisi (On Progress)</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Kategori keahlian ini disiapkan untuk tahap perkembangan selanjutnya.</p>
                     </div>
                 `;
             } else {
-                container.innerHTML = skillsList.map(s => createSkillCardHTML(s)).join('');
+                container.innerHTML = skillsList.map(s => createSkillItemHTML(s)).join('');
             }
         };
 
