@@ -3,8 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const FIXED_DEFAULT_PASS = "adiluhung33";
-
     // === DEFAULT SITE STATE DATA ===
     const defaultSiteData = {
         name: "Shifan Shalih Adiluhung",
@@ -15,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "Innovator Nilai Adiluhung"
         ],
         bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
-        adminPassword: FIXED_DEFAULT_PASS,
         aboutMeaning: "Saya Shifan Shalih Adiluhung — pelajar asal Ciamis, Jawa Barat, yang aktif sebagai santri di Hiraa Center (Rumah Qur'an & Konsultasi). Nama 'Adiluhung' bukan sekadar nama; ia adalah standar hidup — bermakna luhur dan agung dalam bahasa Jawa. Saya membawa nilai itu ke dalam setiap hal yang saya kerjakan, dari hafalan Al-Qur'an hingga baris kode yang saya tulis.",
         aboutEdu: "Saat ini saya aktif menghafal Al-Qur'an di Hiraa Center dan sekaligus membangun keahlian di bidang teknologi web. Salah satu bukti nyata: portofolio yang sedang kamu baca ini — dibangun sendiri dari nol menggunakan HTML, CSS, dan JavaScript, lengkap dengan sistem admin terproteksi dan deployment ke hosting sungguhan. Pencapaian akademis formal: On Progress.",
         aboutVision: "Saya percaya bahwa seorang santri dan seorang developer bisa berjalan beriringan. Tujuan saya adalah membangun karya digital yang tidak hanya fungsional, tapi juga bermakna — memberi manfaat nyata bagi orang di sekitar saya. Bidang spesifik yang ingin saya tekuni lebih dalam: On Progress.",
@@ -220,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     } else {
         siteData = migrateSkillsData(siteData);
-        siteData.adminPassword = FIXED_DEFAULT_PASS;
         // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
         if (siteData.experiences && Array.isArray(siteData.experiences)) {
             const hasOldInaccurateExp = siteData.experiences.some(e => 
@@ -476,8 +472,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     };
 
-    // User Physical Keypress Listener ("Ngetik Asal")
+    // User Physical Keypress Listener ("Ngetik Asal") & Secret Admin Shortcut
     window.addEventListener('keydown', (e) => {
+        // Secret Shortcut to Admin: Ctrl + Shift + A (Windows/Linux) or Cmd + Shift + A (Mac)
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+            e.preventDefault();
+            window.location.href = 'admin.html';
+            return;
+        }
+
         // Ignore modifier keys, shortcut combos, navigation keys
         if (e.ctrlKey || e.altKey || e.metaKey) return;
         if (['Control', 'Shift', 'Alt', 'Meta', 'Tab', 'Escape', 'CapsLock', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'].includes(e.key)) return;
@@ -960,4 +963,31 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => toast.remove(), 300);
         }, 3500);
     }
+
+    // === Discreet Admin Triggers ===
+    // 1. Triple-click on logo brand (Ideal for mobile / touch devices)
+    const brandEl = document.querySelector('.nav-brand');
+    if (brandEl) {
+        let brandClickCount = 0;
+        let brandClickTimer = null;
+        brandEl.addEventListener('click', () => {
+            brandClickCount++;
+            if (brandClickCount === 3) {
+                window.location.href = 'admin.html';
+                brandClickCount = 0;
+                return;
+            }
+            clearTimeout(brandClickTimer);
+            brandClickTimer = setTimeout(() => {
+                brandClickCount = 0;
+            }, 1000);
+        });
+    }
+
+    // 2. Secret URL Query Trigger (e.g. ?panel=1 or ?admin=1)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === '1' || urlParams.get('panel') === '1') {
+        window.location.href = 'admin.html';
+    }
 });
+
