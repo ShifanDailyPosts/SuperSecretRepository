@@ -215,7 +215,30 @@
             .admin-sidebar { border-right: none; border-bottom: 1px solid var(--border-color); flex-direction: row; overflow-x: auto; }
             .admin-content-area { padding: 1.5rem; }
         }
+
+        /* Anti-flicker classes based on authentication */
+        html.is-authenticated #loginScreen { display: none !important; }
+        html.is-authenticated #dashboardScreen { display: block !important; }
+        html.is-authenticated #logoutBtn { display: inline-flex !important; }
+
+        html.is-unauthenticated #loginScreen { display: flex !important; }
+        html.is-unauthenticated #dashboardScreen { display: none !important; }
+        html.is-unauthenticated #logoutBtn { display: none !important; }
     </style>
+    <script>
+        // Anti-Flicker: Check session immediately before DOM renders
+        (function() {
+            try {
+                var isAuth = sessionStorage.getItem('ssa_admin_session') === 'true' || localStorage.getItem('ssa_admin_session') === 'true';
+                if (isAuth) {
+                    document.documentElement.classList.add('is-authenticated');
+                    sessionStorage.setItem('ssa_admin_session', 'true');
+                } else {
+                    document.documentElement.classList.add('is-unauthenticated');
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body class="admin-full-page">
 
@@ -951,8 +974,46 @@
                 togglePassBtn.innerHTML = isPass ? `<i class="fa-solid fa-eye-slash"></i>` : `<i class="fa-solid fa-eye"></i>`;
             });
 
-            if (sessionStorage.getItem('ssa_admin_session') === 'true') {
+            // Setup Navigation Listeners immediately
+            const navItems = document.querySelectorAll('.admin-nav-item');
+            const panels = document.querySelectorAll('.content-panel');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+
+                    item.classList.add('active');
+                    const paneId = item.getAttribute('data-pane');
+                    const targetPane = document.getElementById(paneId);
+                    if (targetPane) targetPane.classList.add('active');
+                });
+            });
+
+            function showDashboard() {
+                document.documentElement.classList.add('is-authenticated');
+                document.documentElement.classList.remove('is-unauthenticated');
+                loginScreen.style.display = 'none';
+                dashboardScreen.style.display = 'block';
+                logoutBtn.style.display = 'inline-flex';
+                try {
+                    populateDashboardForms();
+                } catch (err) {
+                    console.error("Gagal memuat form dashboard:", err);
+                }
+            }
+
+            // Check persistent session immediately
+            const isAuth = sessionStorage.getItem('ssa_admin_session') === 'true' || localStorage.getItem('ssa_admin_session') === 'true';
+            if (isAuth) {
+                sessionStorage.setItem('ssa_admin_session', 'true');
                 showDashboard();
+            } else {
+                document.documentElement.classList.add('is-unauthenticated');
+                document.documentElement.classList.remove('is-authenticated');
+                loginScreen.style.display = 'flex';
+                dashboardScreen.style.display = 'none';
+                logoutBtn.style.display = 'none';
             }
 
             const resetPassLoginBtn = document.getElementById('resetPassLoginBtn');
@@ -976,6 +1037,7 @@
                     siteData.adminPassword = FIXED_DEFAULT_PASS;
                     saveState();
                     sessionStorage.setItem('ssa_admin_session', 'true');
+                    localStorage.setItem('ssa_admin_session', 'true');
                     showToast("Login Berhasil! Selamat datang Shifan.", "success");
                     showDashboard();
                 } else {
@@ -986,31 +1048,13 @@
 
             logoutBtn.addEventListener('click', () => {
                 sessionStorage.removeItem('ssa_admin_session');
+                localStorage.removeItem('ssa_admin_session');
+                document.documentElement.classList.remove('is-authenticated');
+                document.documentElement.classList.add('is-unauthenticated');
                 dashboardScreen.style.display = 'none';
                 loginScreen.style.display = 'flex';
                 logoutBtn.style.display = 'none';
                 showToast("Anda telah keluar dari Halaman Pengelola.", "info");
-            });
-
-            function showDashboard() {
-                loginScreen.style.display = 'none';
-                dashboardScreen.style.display = 'block';
-                logoutBtn.style.display = 'inline-flex';
-                populateDashboardForms();
-            }
-
-            const navItems = document.querySelectorAll('.admin-nav-item');
-            const panels = document.querySelectorAll('.content-panel');
-
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    navItems.forEach(i => i.classList.remove('active'));
-                    panels.forEach(p => p.classList.remove('active'));
-
-                    item.classList.add('active');
-                    const paneId = item.getAttribute('data-pane');
-                    document.getElementById(paneId).classList.add('active');
-                });
             });
 
             function populateDashboardForms() {
