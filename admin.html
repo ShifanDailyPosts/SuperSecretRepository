@@ -355,9 +355,14 @@
                     <span>10. Contact & Sosmed</span>
                 </button>
 
+                <button class="admin-nav-item" data-pane="paneFinance">
+                    <i class="fa-solid fa-vault"></i>
+                    <span>11. Keuangan & Tabungan</span>
+                </button>
+
                 <button class="admin-nav-item" data-pane="paneSecurity">
                     <i class="fa-solid fa-key"></i>
-                    <span>11. Ubah Kata Sandi</span>
+                    <span>12. Ubah Kata Sandi</span>
                 </button>
 
                 <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem;">
@@ -667,10 +672,55 @@
                     </div>
                 </div>
 
-                <!-- PANE 11: UBAH KATA SANDI -->
+                <!-- PANE 11: KEUANGAN & TABUNGAN -->
+                <div class="content-panel" id="paneFinance">
+                    <div class="panel-header-box">
+                        <h2><i class="fa-solid fa-vault" style="color: var(--primary-color);"></i> 11. Pengelolaan Keuangan & Tabungan</h2>
+                        <p>Atur nominal uang yang sedang ditabung, target tabungan, alokasi tujuan, dan catatan transparansi keuangan Anda.</p>
+                    </div>
+
+                    <div class="form-card-box">
+                        <form id="formFinance">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="inputSavingsCurrent"><i class="fa-solid fa-coins"></i> Uang Terkumpul Saat Ini (Rp)</label>
+                                    <input type="number" id="inputSavingsCurrent" class="form-control" placeholder="Contoh: 1500000" min="0" step="1000" required>
+                                    <small style="color: var(--text-gold); font-size: 0.8rem; margin-top: 0.35rem; display: block; font-weight: 600;" id="previewCurrentRupiah">Rp 0</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputSavingsTarget"><i class="fa-solid fa-bullseye"></i> Target Tabungan (Rp)</label>
+                                    <input type="number" id="inputSavingsTarget" class="form-control" placeholder="Contoh: 5000000" min="0" step="1000" required>
+                                    <small style="color: var(--primary-color); font-size: 0.8rem; margin-top: 0.35rem; display: block; font-weight: 600;" id="previewTargetRupiah">Rp 0</small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="inputSavingsGoal"><i class="fa-solid fa-tag"></i> Judul / Tujuan Tabungan</label>
+                                    <input type="text" id="inputSavingsGoal" class="form-control" placeholder="Contoh: Tabungan Mandiri, Pendidikan & Alat Belajar" required>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="inputSavingsNotes"><i class="fa-solid fa-note-sticky"></i> Catatan & Filosofi Keuangan</label>
+                                    <textarea id="inputSavingsNotes" class="form-control" rows="3" placeholder="Tuliskan catatan mengenai alokasi dan prinsip tabungan Anda..."></textarea>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="inputSavingsUpdated"><i class="fa-solid fa-calendar-check"></i> Status / Keterangan Pembaruan</label>
+                                    <input type="text" id="inputSavingsUpdated" class="form-control" placeholder="Contoh: Oktober 2026 / Terpantau Disiplin">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1.25rem;">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Data Keuangan & Tabungan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- PANE 12: UBAH KATA SANDI -->
                 <div class="content-panel" id="paneSecurity">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 11. Ubah Kata Sandi Pengelola</h2>
+                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 12. Ubah Kata Sandi Pengelola</h2>
                         <p>Ganti kata sandi untuk masuk ke halaman pengelola ini demi keamanan website Anda.</p>
                     </div>
 
@@ -891,7 +941,14 @@
                 // Testimonials (On Progress)
                 testimonials: [
                     { id: 1, quote: "Bagian testimoni dan ulasan ini sedang dalam tahap pengumpulan serta verifikasi resmi (On Progress).", author: "Tahap Pemutakhiran", title: "On Progress" }
-                ]
+                ],
+                finance: {
+                    current: 1500000,
+                    target: 5000000,
+                    goal: "Tabungan Mandiri, Pendidikan & Alat Belajar",
+                    notes: "Pengelolaan dana mandiri yang dialokasikan secara disiplin dan terencana untuk menunjang kebutuhan pendidikan, keilmuan, serta perangkat teknologi masa depan.",
+                    lastUpdated: "Oktober 2026"
+                }
             };
 
             const SKILL_STAGES = [
@@ -1020,6 +1077,7 @@
                 if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
                 if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
                 if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
+                if (!siteData.finance) siteData.finance = defaultSiteData.finance;
 
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
@@ -1163,6 +1221,20 @@
                 document.getElementById('inputLinkedin').value = siteData.linkedinUrl;
                 document.getElementById('inputInstagram').value = siteData.instagramUrl;
 
+                // Populate Finance / Keuangan & Tabungan
+                const fin = siteData.finance || defaultSiteData.finance;
+                if (document.getElementById('inputSavingsCurrent')) {
+                    document.getElementById('inputSavingsCurrent').value = fin.current !== undefined ? fin.current : 1500000;
+                    updateRupiahPreview('inputSavingsCurrent', 'previewCurrentRupiah');
+                }
+                if (document.getElementById('inputSavingsTarget')) {
+                    document.getElementById('inputSavingsTarget').value = fin.target !== undefined ? fin.target : 5000000;
+                    updateRupiahPreview('inputSavingsTarget', 'previewTargetRupiah');
+                }
+                if (document.getElementById('inputSavingsGoal')) document.getElementById('inputSavingsGoal').value = fin.goal || '';
+                if (document.getElementById('inputSavingsNotes')) document.getElementById('inputSavingsNotes').value = fin.notes || '';
+                if (document.getElementById('inputSavingsUpdated')) document.getElementById('inputSavingsUpdated').value = fin.lastUpdated || '';
+
                 renderSkillsList();
                 renderProjectsList();
                 renderExperienceList();
@@ -1170,6 +1242,28 @@
                 renderCertificatesList();
                 renderToolsList();
                 renderTestimonialsList();
+            }
+
+            // Live Rupiah Format Helper for Admin
+            function formatRupiahPreview(num) {
+                const val = parseFloat(num) || 0;
+                return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(val);
+            }
+            function updateRupiahPreview(inputId, previewId) {
+                const el = document.getElementById(inputId);
+                const prev = document.getElementById(previewId);
+                if (el && prev) {
+                    prev.textContent = formatRupiahPreview(el.value);
+                }
+            }
+
+            const inputSavingsCurrent = document.getElementById('inputSavingsCurrent');
+            if (inputSavingsCurrent) {
+                inputSavingsCurrent.addEventListener('input', () => updateRupiahPreview('inputSavingsCurrent', 'previewCurrentRupiah'));
+            }
+            const inputSavingsTarget = document.getElementById('inputSavingsTarget');
+            if (inputSavingsTarget) {
+                inputSavingsTarget.addEventListener('input', () => updateRupiahPreview('inputSavingsTarget', 'previewTargetRupiah'));
             }
 
             document.getElementById('formIdentity').addEventListener('submit', (e) => {
@@ -1221,6 +1315,22 @@
                 saveState();
                 showToast("Informasi Kontak & Sosmed berhasil disimpan!", "success");
             });
+
+            const formFinance = document.getElementById('formFinance');
+            if (formFinance) {
+                formFinance.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    siteData.finance = {
+                        current: parseFloat(document.getElementById('inputSavingsCurrent').value) || 0,
+                        target: parseFloat(document.getElementById('inputSavingsTarget').value) || 1,
+                        goal: document.getElementById('inputSavingsGoal').value.trim(),
+                        notes: document.getElementById('inputSavingsNotes').value.trim(),
+                        lastUpdated: document.getElementById('inputSavingsUpdated').value.trim()
+                    };
+                    saveState();
+                    showToast("Data Keuangan & Tabungan berhasil disimpan!", "success");
+                });
+            }
 
             document.getElementById('formChangePassword').addEventListener('submit', (e) => {
                 e.preventDefault();

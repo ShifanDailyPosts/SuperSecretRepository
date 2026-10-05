@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css?v=12.0">
+    <link rel="stylesheet" href="styles.css?v=13.0">
 </head>
 <body class="dark-theme">
     <!-- Custom Glowing Cursor Follower -->
@@ -50,6 +50,7 @@
                 <a href="#tools" class="nav-link"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</a>
                 <a href="#testimonials" class="nav-link"><i class="fa-solid fa-comments"></i> Testimonials</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a>
+                <a href="#finance" class="nav-link"><i class="fa-solid fa-vault"></i> Tabungan</a>
             </nav>
 
             <div class="header-actions">
@@ -578,6 +579,66 @@
                 </div>
             </div>
         </section>
+
+        <!-- 11. FINANCIAL MANAGEMENT / PENGELOLAAN KEUANGAN & TABUNGAN -->
+        <section class="finance-section section-padding bg-alt" id="finance">
+            <div class="container finance-container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-vault"></i> Financial Management</span>
+                    <h2 class="section-title">Pengelolaan Keuangan & <span class="text-gradient">Tabungan</span></h2>
+                    <p class="section-description">Transparansi kedisiplinan alokasi dana mandiri untuk pengembangan diri, pendidikan, dan proyek masa depan.</p>
+                </div>
+
+                <div class="finance-card glass-card">
+                    <div class="text-center">
+                        <div class="finance-top-badge">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                            <span id="savingsGoalDisplay">Tabungan Mandiri &amp; Pendidikan</span>
+                        </div>
+                    </div>
+
+                    <div class="finance-main-box">
+                        <div class="finance-main-label"><i class="fa-solid fa-coins"></i> Total Uang yang Sedang Ditabung</div>
+                        <div class="finance-main-amount text-gradient" id="savingsAmountDisplay">Rp 0</div>
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.82rem; padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 600;">
+                            <i class="fa-solid fa-shield-halved"></i> Dana Terproteksi &amp; Terkelola
+                        </span>
+                    </div>
+
+                    <div class="finance-grid-stats">
+                        <div class="finance-stat-item">
+                            <span class="stat-meta-label"><i class="fa-solid fa-bullseye" style="color: var(--primary-color);"></i> Target Tabungan</span>
+                            <span class="stat-meta-val" id="savingsTargetDisplay">Rp 0</span>
+                        </div>
+                        <div class="finance-stat-item">
+                            <span class="stat-meta-label"><i class="fa-solid fa-chart-pie" style="color: #fbbf24;"></i> Persentase Capaian</span>
+                            <span class="stat-meta-val" id="savingsPercentDisplay">0%</span>
+                        </div>
+                        <div class="finance-stat-item">
+                            <span class="stat-meta-label"><i class="fa-solid fa-clock-rotate-left" style="color: #38bdf8;"></i> Pembaruan Terakhir</span>
+                            <span class="stat-meta-val" id="savingsLastUpdatedDisplay">-</span>
+                        </div>
+                    </div>
+
+                    <div class="finance-progress-wrap">
+                        <div class="finance-progress-header">
+                            <span style="color: var(--text-secondary);"><i class="fa-solid fa-bars-progress"></i> Progres Menuju Target</span>
+                            <span style="color: var(--text-gold);" id="savingsPercentText">0% Tercapai</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill gold-fill" id="savingsProgressFill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="finance-notes-box">
+                        <i class="fa-solid fa-quote-left" style="color: var(--primary-color); font-size: 1.1rem; margin-top: 0.2rem; flex-shrink: 0;"></i>
+                        <p id="savingsNotesDisplay" style="margin: 0;">
+                            Pengelolaan dana mandiri yang dialokasikan secara disiplin dan terencana untuk menunjang kebutuhan pendidikan, keilmuan, serta perangkat teknologi masa depan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -604,6 +665,7 @@
                     <li><a href="#tools">Tools & Tech</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="#finance">Keuangan &amp; Tabungan</a></li>
                 </ul>
             </div>
 
@@ -673,6 +735,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Scripts -->
-    <script src="script.js?v=14.0"></script>
+    <script src="script.js?v=15.0"></script>
 </body>
 </html>

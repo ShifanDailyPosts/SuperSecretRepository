@@ -176,7 +176,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 author: "Tahap Pemutakhiran",
                 title: "On Progress"
             }
-        ]
+        ],
+
+        // Finance & Savings (Pengelolaan Keuangan & Tabungan)
+        finance: {
+            current: 1500000,
+            target: 5000000,
+            goal: "Tabungan Mandiri, Pendidikan & Alat Belajar",
+            notes: "Pengelolaan dana mandiri yang dialokasikan secara disiplin dan terencana untuk menunjang kebutuhan pendidikan, keilmuan, serta perangkat teknologi masa depan.",
+            lastUpdated: "Oktober 2026"
+        }
     };
 
     // Migration Helper for Skills Data Structures
@@ -252,6 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
         if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
         if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
+        if (!siteData.finance) siteData.finance = defaultSiteData.finance;
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -275,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
                 if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
                 if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
+                if (!siteData.finance) siteData.finance = defaultSiteData.finance;
 
                 if (typeof renderFrontendContent === 'function') {
                     renderFrontendContent();
@@ -816,6 +827,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${siteData.instagramUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="mailto:${siteData.contactEmail}" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             `;
+        }
+
+        // 11. Finance & Savings (Pengelolaan Keuangan & Tabungan)
+        const finData = siteData.finance || defaultSiteData.finance;
+        if (finData) {
+            const formatRp = (val) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(val || 0);
+            const currentVal = parseFloat(finData.current) || 0;
+            const targetVal = parseFloat(finData.target) || 1;
+            const pct = Math.min(100, Math.round((currentVal / targetVal) * 100));
+
+            const goalEl = document.getElementById('savingsGoalDisplay');
+            if (goalEl) goalEl.textContent = finData.goal || 'Tabungan Mandiri & Pendidikan';
+
+            const amountEl = document.getElementById('savingsAmountDisplay');
+            if (amountEl) amountEl.textContent = formatRp(currentVal);
+
+            const targetEl = document.getElementById('savingsTargetDisplay');
+            if (targetEl) targetEl.textContent = formatRp(targetVal);
+
+            const pctEl = document.getElementById('savingsPercentDisplay');
+            if (pctEl) pctEl.textContent = `${pct}%`;
+
+            const lastUpdatedEl = document.getElementById('savingsLastUpdatedDisplay');
+            if (lastUpdatedEl) lastUpdatedEl.textContent = finData.lastUpdated || '-';
+
+            const pctTextEl = document.getElementById('savingsPercentText');
+            if (pctTextEl) pctTextEl.textContent = `${pct}% Tercapai`;
+
+            const fillEl = document.getElementById('savingsProgressFill');
+            if (fillEl) fillEl.style.width = `${pct}%`;
+
+            const notesEl = document.getElementById('savingsNotesDisplay');
+            if (notesEl) notesEl.textContent = finData.notes || 'Pengelolaan dana mandiri yang dialokasikan secara disiplin dan terencana.';
         }
 
         attachProjectModalListeners();
