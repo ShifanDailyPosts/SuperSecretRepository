@@ -13,9 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
             "Innovator Nilai Adiluhung"
         ],
         bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
+        heroStats: [
+            { icon: "fa-solid fa-graduation-cap", num: "100%", label: "Integritas Keilmuan" },
+            { icon: "fa-solid fa-microchip", num: "Modern", label: "Tech & Development" },
+            { icon: "fa-solid fa-star", num: "Adiluhung", label: "Nilai Luhur & Agung" }
+        ],
         aboutMeaning: "Saya Shifan Shalih Adiluhung — pelajar asal Ciamis, Jawa Barat, yang aktif sebagai santri di Hiraa Center (Rumah Qur'an & Konsultasi). Nama 'Adiluhung' bukan sekadar nama; ia adalah standar hidup — bermakna luhur dan agung dalam bahasa Jawa. Saya membawa nilai itu ke dalam setiap hal yang saya kerjakan, dari hafalan Al-Qur'an hingga baris kode yang saya tulis.",
         aboutEdu: "Saat ini saya aktif menghafal Al-Qur'an di Hiraa Center dan sekaligus membangun keahlian di bidang teknologi web. Salah satu bukti nyata: portofolio yang sedang kamu baca ini — dibangun sendiri dari nol menggunakan HTML, CSS, dan JavaScript, lengkap dengan sistem admin terproteksi dan deployment ke hosting sungguhan. Pencapaian akademis formal: On Progress.",
         aboutVision: "Saya percaya bahwa seorang santri dan seorang developer bisa berjalan beriringan. Tujuan saya adalah membangun karya digital yang tidak hanya fungsional, tapi juga bermakna — memberi manfaat nyata bagi orang di sekitar saya. Bidang spesifik yang ingin saya tekuni lebih dalam: On Progress.",
+        aboutFactTitle: "Perpaduan Nilai Tradisi & Inovasi Teknologi",
+        aboutFactDesc: "Shifan Shalih Adiluhung mewakili generasi yang memegang teguh etika dan integritas spiritual santri, sembari adaptif dan unggul dalam menguasai ekosistem teknologi digital era modern.",
         contactEmail: "shifan.adiluhung@example.com",
         contactLocation: "Ciamis / Jawa Barat, Indonesia",
         githubUrl: "https://github.com",
@@ -230,60 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     } else {
         siteData = migrateSkillsData(siteData);
-        // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
-        if (siteData.experiences && Array.isArray(siteData.experiences)) {
-            const hasOldInaccurateExp = siteData.experiences.some(e => 
-                (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
-                (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
-            );
-            if (hasOldInaccurateExp) {
-                siteData.experiences = defaultSiteData.experiences;
-            }
-        }
-        // Migrasi Sertifikat ke On Progress jika terdeteksi data lama yang tidak akurat
-        if (siteData.certificates && Array.isArray(siteData.certificates)) {
-            const hasOldInaccurateCerts = siteData.certificates.some(c => 
-                (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
-                (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
-            );
-            if (hasOldInaccurateCerts) {
-                siteData.certificates = defaultSiteData.certificates;
-            }
-        }
-        // Migrasi Projects ke Website Portofolio & 3 On Progress
-        const needsProjectsUpdate = !siteData.projects || 
-            !Array.isArray(siteData.projects) || 
-            siteData.projects.length !== 4 || 
-            !siteData.projects[0] || 
-            !siteData.projects[0].isCurrentSite ||
-            siteData.projectsVersion !== 2;
-
-        if (needsProjectsUpdate) {
-            siteData.projects = defaultSiteData.projects;
-            siteData.projectsVersion = 2;
-        }
-
-        // Migrasi Achievements ke On Progress jika terdeteksi data lama
-        const needsAchievementsUpdate = !siteData.achievements || 
-            !Array.isArray(siteData.achievements) || 
-            siteData.achievements.length !== 1 || 
-            siteData.achievementsVersion !== 2;
-
-        if (needsAchievementsUpdate) {
-            siteData.achievements = defaultSiteData.achievements;
-            siteData.achievementsVersion = 2;
-        }
-
-        // Migrasi Testimonials ke On Progress jika terdeteksi data lama
-        const needsTestimonialsUpdate = !siteData.testimonials || 
-            !Array.isArray(siteData.testimonials) || 
-            siteData.testimonials.length !== 1 || 
-            siteData.testimonialsVersion !== 2;
-
-        if (needsTestimonialsUpdate) {
-            siteData.testimonials = defaultSiteData.testimonials;
-            siteData.testimonialsVersion = 2;
-        }
+        if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
+        if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+        if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+        if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
+        if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
+        if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
+        if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
+        if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
+        if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     }
 
@@ -292,53 +254,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ssa_site_data' && e.newValue) {
             try {
                 siteData = migrateSkillsData(JSON.parse(e.newValue));
-                if (siteData.experiences && Array.isArray(siteData.experiences)) {
-                    const hasOldInaccurateExp = siteData.experiences.some(e => 
-                        (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
-                        (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
-                    );
-                    if (hasOldInaccurateExp) {
-                        siteData.experiences = defaultSiteData.experiences;
-                    }
-                }
-                if (siteData.certificates && Array.isArray(siteData.certificates)) {
-                    const hasOldInaccurateCerts = siteData.certificates.some(c => 
-                        (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
-                        (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
-                    );
-                    if (hasOldInaccurateCerts) {
-                        siteData.certificates = defaultSiteData.certificates;
-                    }
-                }
-                const needsProjectsUpdate = !siteData.projects || 
-                    !Array.isArray(siteData.projects) || 
-                    siteData.projects.length !== 4 || 
-                    !siteData.projects[0] || 
-                    !siteData.projects[0].isCurrentSite ||
-                    siteData.projectsVersion !== 2;
+                if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
+                if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+                if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+                if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
+                if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
+                if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
+                if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
+                if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
+                if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
 
-                if (needsProjectsUpdate) {
-                    siteData.projects = defaultSiteData.projects;
-                    siteData.projectsVersion = 2;
-                }
-                const needsAchievementsUpdate = !siteData.achievements || 
-                    !Array.isArray(siteData.achievements) || 
-                    siteData.achievements.length !== 1 || 
-                    siteData.achievementsVersion !== 2;
-
-                if (needsAchievementsUpdate) {
-                    siteData.achievements = defaultSiteData.achievements;
-                    siteData.achievementsVersion = 2;
-                }
-                const needsTestimonialsUpdate = !siteData.testimonials || 
-                    !Array.isArray(siteData.testimonials) || 
-                    siteData.testimonials.length !== 1 || 
-                    siteData.testimonialsVersion !== 2;
-
-                if (needsTestimonialsUpdate) {
-                    siteData.testimonials = defaultSiteData.testimonials;
-                    siteData.testimonialsVersion = 2;
-                }
                 if (typeof renderFrontendContent === 'function') {
                     renderFrontendContent();
                 }
@@ -544,10 +469,46 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('heroBioDisplay').textContent = siteData.bio;
         subheadlines = (Array.isArray(siteData.subheadlines) ? siteData.subheadlines : defaultSiteData.subheadlines).map(s => String(s).trim());
 
+        // Hero Stats
+        const stats = siteData.heroStats || defaultSiteData.heroStats;
+        if (stats && Array.isArray(stats)) {
+            if (stats[0]) {
+                const elNum = document.getElementById('heroStat1Num');
+                const elLabel = document.getElementById('heroStat1Label');
+                const elIcon = document.getElementById('heroStat1Icon');
+                if (elNum) elNum.textContent = stats[0].num;
+                if (elLabel) elLabel.textContent = stats[0].label;
+                if (elIcon && stats[0].icon) elIcon.className = stats[0].icon;
+            }
+            if (stats[1]) {
+                const elNum = document.getElementById('heroStat2Num');
+                const elLabel = document.getElementById('heroStat2Label');
+                const elIcon = document.getElementById('heroStat2Icon');
+                if (elNum) elNum.textContent = stats[1].num;
+                if (elLabel) elLabel.textContent = stats[1].label;
+                if (elIcon && stats[1].icon) elIcon.className = stats[1].icon;
+            }
+            if (stats[2]) {
+                const elNum = document.getElementById('heroStat3Num');
+                const elLabel = document.getElementById('heroStat3Label');
+                const elIcon = document.getElementById('heroStat3Icon');
+                if (elNum) elNum.textContent = stats[2].num;
+                if (elLabel) elLabel.textContent = stats[2].label;
+                if (elIcon && stats[2].icon) elIcon.className = stats[2].icon;
+            }
+        }
+
         // About Narrative
         if (document.getElementById('aboutMeaningText')) document.getElementById('aboutMeaningText').innerHTML = siteData.aboutMeaning || defaultSiteData.aboutMeaning;
         if (document.getElementById('aboutEduText')) document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu || defaultSiteData.aboutEdu;
         if (document.getElementById('aboutVisionText')) document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision || defaultSiteData.aboutVision;
+
+        // About Fact Banner
+        if (document.getElementById('aboutFactTitle')) document.getElementById('aboutFactTitle').innerHTML = siteData.aboutFactTitle || defaultSiteData.aboutFactTitle;
+        if (document.getElementById('aboutFactDesc')) document.getElementById('aboutFactDesc').innerHTML = siteData.aboutFactDesc || defaultSiteData.aboutFactDesc;
+
+        // Footer Name
+        if (document.getElementById('footerCopyrightName')) document.getElementById('footerCopyrightName').textContent = siteData.name;
 
         // Categorized Skills (Clean Grid with Status Kata-Kata & Progress Fill)
         const createSkillItemHTML = (s) => {

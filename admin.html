@@ -249,7 +249,7 @@
                 <div class="logo-badge">SSA</div>
                 <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
             </a>
-            <span style="font-size: 0.85rem; color: var(--text-muted); padding-left: 0.5rem; border-left: 1px solid var(--border-color);">Pengelola Website (10 Struktur Utama)</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted); padding-left: 0.5rem; border-left: 1px solid var(--border-color);">Pengelola Website Portofolio (Semua Bagian Lengkap)</span>
         </div>
 
         <div class="admin-top-actions">
@@ -271,7 +271,7 @@
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800;">Masuk ke Pengelola</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Masukkan kata sandi pengelola untuk mengedit 10 struktur utama website Anda.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Masukkan kata sandi pengelola untuk mengedit seluruh konten website portofolio Anda.</p>
 
             <form id="adminLoginForm" style="margin-top: 2rem; text-align: left;">
                 <div class="form-group">
@@ -297,7 +297,7 @@
         </div>
     </div>
 
-    <!-- STATE 2: DASHBOARD PENGELOLA 10 STRUKTUR -->
+    <!-- STATE 2: DASHBOARD PENGELOLA -->
     <div class="admin-dashboard-full" id="dashboardScreen">
         <div class="admin-layout-grid">
             
@@ -340,9 +340,9 @@
                     <span>7. Certificates</span>
                 </button>
 
-                <button class="admin-nav-item" data-pane="paneContact">
-                    <i class="fa-solid fa-address-book"></i>
-                    <span>8. Contact & Sosmed</span>
+                <button class="admin-nav-item" data-pane="paneTools">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>8. Tools & Tech</span>
                 </button>
 
                 <button class="admin-nav-item" data-pane="paneTestimonials">
@@ -350,9 +350,14 @@
                     <span>9. Testimonials</span>
                 </button>
 
+                <button class="admin-nav-item" data-pane="paneContact">
+                    <i class="fa-solid fa-address-book"></i>
+                    <span>10. Contact & Sosmed</span>
+                </button>
+
                 <button class="admin-nav-item" data-pane="paneSecurity">
                     <i class="fa-solid fa-key"></i>
-                    <span>10. Ubah Kata Sandi</span>
+                    <span>11. Ubah Kata Sandi</span>
                 </button>
 
                 <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 0.5rem;">
@@ -392,6 +397,70 @@
                                     <label for="inputHeroBio">Kalimat Sambutan Ringkas</label>
                                     <textarea id="inputHeroBio" class="form-control" rows="4" required></textarea>
                                 </div>
+
+                                <div class="form-group full-width" style="margin-top: 0.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+                                    <h4 style="font-size: 1rem; margin-bottom: 0.35rem; color: var(--text-gold);"><i class="fa-solid fa-chart-simple"></i> Kartu Highlight Statistik Hero (3 Kartu Ringkas)</h4>
+                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Ubah teks angka/status dan label pada 3 kartu highlight di bawah sambutan.</p>
+                                    
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                                        <!-- Stat 1 -->
+                                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                                            <strong style="display: block; font-size: 0.88rem; margin-bottom: 0.5rem; color: var(--text-primary);">Kartu 1 (Kiri)</strong>
+                                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Ikon FontAwesome</label>
+                                                    <input type="text" id="inputStat1Icon" class="form-control" style="font-size: 0.85rem;" placeholder="fa-solid fa-graduation-cap">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Nilai / Angka</label>
+                                                    <input type="text" id="inputStat1Num" class="form-control" style="font-size: 0.85rem;" placeholder="100%">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Label / Keterangan</label>
+                                                    <input type="text" id="inputStat1Label" class="form-control" style="font-size: 0.85rem;" placeholder="Integritas Keilmuan">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Stat 2 -->
+                                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                                            <strong style="display: block; font-size: 0.88rem; margin-bottom: 0.5rem; color: var(--text-primary);">Kartu 2 (Tengah)</strong>
+                                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Ikon FontAwesome</label>
+                                                    <input type="text" id="inputStat2Icon" class="form-control" style="font-size: 0.85rem;" placeholder="fa-solid fa-microchip">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Nilai / Angka</label>
+                                                    <input type="text" id="inputStat2Num" class="form-control" style="font-size: 0.85rem;" placeholder="Modern">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Label / Keterangan</label>
+                                                    <input type="text" id="inputStat2Label" class="form-control" style="font-size: 0.85rem;" placeholder="Tech & Development">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Stat 3 -->
+                                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                                            <strong style="display: block; font-size: 0.88rem; margin-bottom: 0.5rem; color: var(--text-primary);">Kartu 3 (Kanan)</strong>
+                                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Ikon FontAwesome</label>
+                                                    <input type="text" id="inputStat3Icon" class="form-control" style="font-size: 0.85rem;" placeholder="fa-solid fa-star">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Nilai / Angka</label>
+                                                    <input type="text" id="inputStat3Num" class="form-control" style="font-size: 0.85rem;" placeholder="Adiluhung">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 0.78rem; color: var(--text-muted);">Label / Keterangan</label>
+                                                    <input type="text" id="inputStat3Label" class="form-control" style="font-size: 0.85rem;" placeholder="Nilai Luhur & Agung">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1.25rem;">
@@ -423,6 +492,21 @@
                             <div class="form-group mb-3">
                                 <label for="inputVision">Kartu 3: Visi & Prinsip Saya</label>
                                 <textarea id="inputVision" class="form-control" rows="3" required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.35rem; color: var(--text-gold);"><i class="fa-solid fa-circle-info"></i> Banner Fakta Singkat (Info Banner Bawah)</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.85rem;">Ubah judul dan isi teks banner highlight yang berada di bawah 3 kartu cerita About Me.</p>
+                                
+                                <div style="margin-bottom: 0.75rem;">
+                                    <label for="inputFactTitle">Judul Fakta Singkat</label>
+                                    <input type="text" id="inputFactTitle" class="form-control" placeholder="Perpaduan Nilai Tradisi & Inovasi Teknologi" required>
+                                </div>
+
+                                <div>
+                                    <label for="inputFactDesc">Uraian / Deskripsi Fakta Singkat</label>
+                                    <textarea id="inputFactDesc" class="form-control" rows="3" placeholder="Shifan Shalih Adiluhung mewakili generasi..." required></textarea>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-glow" style="margin-top: 1rem;">
@@ -510,10 +594,40 @@
                     <div id="certificatesListContainer"></div>
                 </div>
 
-                <!-- PANE 8: CONTACT & SOSMED -->
+                <!-- PANE 8: TOOLS & TECHNOLOGIES -->
+                <div class="content-panel" id="paneTools">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2><i class="fa-solid fa-screwdriver-wrench" style="color: var(--primary-color);"></i> 8. Tools & Technologies</h2>
+                            <p>Kelola daftar perangkat lunak, teknologi, bahasa pemrograman, dan ekosistem harian Anda.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetToolsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke Default</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addToolBtn"><i class="fa-solid fa-plus"></i> Tambah Tool Baru</button>
+                        </div>
+                    </div>
+                    <div id="toolsListContainer"></div>
+                </div>
+
+                <!-- PANE 9: TESTIMONIALS -->
+                <div class="content-panel" id="paneTestimonials">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2><i class="fa-solid fa-comments" style="color: var(--primary-color);"></i> 9. Testimonials</h2>
+                            <p>Kelola testimoni dan rekomendasi dari pembimbing, rekan sejawat, atau pengajar.</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetTestimonialsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addTestimonialBtn"><i class="fa-solid fa-plus"></i> Tambah Testimoni</button>
+                        </div>
+                    </div>
+                    <div id="testimonialsListContainer"></div>
+                </div>
+
+                <!-- PANE 10: CONTACT & SOSMED -->
                 <div class="content-panel" id="paneContact">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-address-book" style="color: var(--primary-color);"></i> 8. Contact & Media Sosial</h2>
+                        <h2><i class="fa-solid fa-address-book" style="color: var(--primary-color);"></i> 10. Contact & Media Sosial</h2>
                         <p>Perbarui alamat email resmi, tempat tinggal, dan tautan akun media sosial Anda.</p>
                     </div>
 
@@ -553,25 +667,10 @@
                     </div>
                 </div>
 
-                <!-- PANE 9: TESTIMONIALS -->
-                <div class="content-panel" id="paneTestimonials">
-                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                        <div>
-                            <h2><i class="fa-solid fa-comments" style="color: var(--primary-color);"></i> 9. Testimonials</h2>
-                            <p>Kelola testimoni dan rekomendasi dari pembimbing, rekan sejawat, atau pengajar.</p>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-outline btn-sm" id="resetTestimonialsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
-                            <button type="button" class="btn btn-primary btn-sm" id="addTestimonialBtn"><i class="fa-solid fa-plus"></i> Tambah Testimoni</button>
-                        </div>
-                    </div>
-                    <div id="testimonialsListContainer"></div>
-                </div>
-
-                <!-- PANE 10: UBAH KATA SANDI -->
+                <!-- PANE 11: UBAH KATA SANDI -->
                 <div class="content-panel" id="paneSecurity">
                     <div class="panel-header-box">
-                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 10. Ubah Kata Sandi Pengelola</h2>
+                        <h2><i class="fa-solid fa-key" style="color: var(--primary-color);"></i> 11. Ubah Kata Sandi Pengelola</h2>
                         <p>Ganti kata sandi untuk masuk ke halaman pengelola ini demi keamanan website Anda.</p>
                     </div>
 
@@ -649,9 +748,16 @@
                 ],
                 bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
                 adminPassword: FIXED_DEFAULT_PASS,
+                heroStats: [
+                    { icon: "fa-solid fa-graduation-cap", num: "100%", label: "Integritas Keilmuan" },
+                    { icon: "fa-solid fa-microchip", num: "Modern", label: "Tech & Development" },
+                    { icon: "fa-solid fa-star", num: "Adiluhung", label: "Nilai Luhur & Agung" }
+                ],
                 aboutMeaning: "Saya Shifan Shalih Adiluhung — pelajar asal Ciamis, Jawa Barat, yang aktif sebagai santri di Hiraa Center (Rumah Qur'an & Konsultasi). Nama 'Adiluhung' bukan sekadar nama; ia adalah standar hidup — bermakna luhur dan agung dalam bahasa Jawa. Saya membawa nilai itu ke dalam setiap hal yang saya kerjakan, dari hafalan Al-Qur'an hingga baris kode yang saya tulis.",
                 aboutEdu: "Saat ini saya aktif menghafal Al-Qur'an di Hiraa Center dan sekaligus membangun keahlian di bidang teknologi web. Salah satu bukti nyata: portofolio yang sedang kamu baca ini — dibangun sendiri dari nol menggunakan HTML, CSS, dan JavaScript, lengkap dengan sistem admin terproteksi dan deployment ke hosting sungguhan. Pencapaian akademis formal: On Progress.",
                 aboutVision: "Saya percaya bahwa seorang santri dan seorang developer bisa berjalan beriringan. Tujuan saya adalah membangun karya digital yang tidak hanya fungsional, tapi juga bermakna — memberi manfaat nyata bagi orang di sekitar saya. Bidang spesifik yang ingin saya tekuni lebih dalam: On Progress.",
+                aboutFactTitle: "Perpaduan Nilai Tradisi & Inovasi Teknologi",
+                aboutFactDesc: "Shifan Shalih Adiluhung mewakili generasi yang memegang teguh etika dan integritas spiritual santri, sembari adaptif dan unggul dalam menguasai ekosistem teknologi digital era modern.",
                 contactEmail: "shifan.adiluhung@example.com",
                 contactLocation: "Ciamis / Jawa Barat, Indonesia",
                 githubUrl: "https://github.com",
@@ -894,66 +1000,20 @@
                 siteData = defaultSiteData;
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             } else {
-                siteData = migrateSkillsData(siteData);
-                // Enforce reset password ke default
-                siteData.adminPassword = FIXED_DEFAULT_PASS;
+                // Enforce reset password ke default jika kosong
+                if (!siteData.adminPassword) siteData.adminPassword = FIXED_DEFAULT_PASS;
 
-                // Migrasi Pengalaman ke On Progress jika terdeteksi data lama yang tidak akurat
-                if (siteData.experiences && Array.isArray(siteData.experiences)) {
-                    const hasOldInaccurateExp = siteData.experiences.some(e => 
-                        (e.org && (e.org.includes('Hiraa') || e.org.includes('Ciamis') || e.org.includes('Mandiri'))) ||
-                        (e.role && (e.role.includes('Pesantren Liburan') || e.role.includes('Rekam Jejak') || e.role.includes('Praktisi Web')))
-                    );
-                    if (hasOldInaccurateExp) {
-                        siteData.experiences = defaultSiteData.experiences;
-                    }
-                }
+                // Non-destructive initialization: pastikan semua bagian data tersedia tanpa menghapus editan pengguna
+                if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
+                if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+                if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+                if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
+                if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
+                if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
+                if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
+                if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
+                if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
 
-                // Migrasi Sertifikat ke On Progress jika terdeteksi data lama yang tidak akurat
-                if (siteData.certificates && Array.isArray(siteData.certificates)) {
-                    const hasOldInaccurateCerts = siteData.certificates.some(c => 
-                        (c.issuer && (c.issuer.includes('Hiraa') || c.issuer.includes('Santri') || c.issuer.includes('Digital Competency'))) ||
-                        (c.title && (c.title.includes('Pesantren Liburan') || c.title.includes('Hafalan') || c.title.includes('Frontend Architecture')))
-                    );
-                    if (hasOldInaccurateCerts) {
-                        siteData.certificates = defaultSiteData.certificates;
-                    }
-                }
-
-                // Migrasi Projects ke Website Portofolio & 3 On Progress
-                const needsProjectsUpdate = !siteData.projects || 
-                    !Array.isArray(siteData.projects) || 
-                    siteData.projects.length !== 4 || 
-                    !siteData.projects[0] || 
-                    !siteData.projects[0].isCurrentSite ||
-                    siteData.projectsVersion !== 2;
-
-                if (needsProjectsUpdate) {
-                    siteData.projects = defaultSiteData.projects;
-                    siteData.projectsVersion = 2;
-                }
-
-                // Migrasi Achievements ke On Progress jika terdeteksi data lama
-                const needsAchievementsUpdate = !siteData.achievements || 
-                    !Array.isArray(siteData.achievements) || 
-                    siteData.achievements.length !== 1 || 
-                    siteData.achievementsVersion !== 2;
-
-                if (needsAchievementsUpdate) {
-                    siteData.achievements = defaultSiteData.achievements;
-                    siteData.achievementsVersion = 2;
-                }
-
-                // Migrasi Testimonials ke On Progress jika terdeteksi data lama
-                const needsTestimonialsUpdate = !siteData.testimonials || 
-                    !Array.isArray(siteData.testimonials) || 
-                    siteData.testimonials.length !== 1 || 
-                    siteData.testimonialsVersion !== 2;
-
-                if (needsTestimonialsUpdate) {
-                    siteData.testimonials = defaultSiteData.testimonials;
-                    siteData.testimonialsVersion = 2;
-                }
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             }
 
@@ -1062,9 +1122,33 @@
                 document.getElementById('inputSubheadlines').value = siteData.subheadlines.join(', ');
                 document.getElementById('inputHeroBio').value = siteData.bio;
 
+                // Populate Hero Stats
+                const stats = siteData.heroStats || defaultSiteData.heroStats;
+                if (stats && Array.isArray(stats)) {
+                    if (stats[0]) {
+                        if (document.getElementById('inputStat1Icon')) document.getElementById('inputStat1Icon').value = stats[0].icon || 'fa-solid fa-graduation-cap';
+                        if (document.getElementById('inputStat1Num')) document.getElementById('inputStat1Num').value = stats[0].num || '100%';
+                        if (document.getElementById('inputStat1Label')) document.getElementById('inputStat1Label').value = stats[0].label || 'Integritas Keilmuan';
+                    }
+                    if (stats[1]) {
+                        if (document.getElementById('inputStat2Icon')) document.getElementById('inputStat2Icon').value = stats[1].icon || 'fa-solid fa-microchip';
+                        if (document.getElementById('inputStat2Num')) document.getElementById('inputStat2Num').value = stats[1].num || 'Modern';
+                        if (document.getElementById('inputStat2Label')) document.getElementById('inputStat2Label').value = stats[1].label || 'Tech & Development';
+                    }
+                    if (stats[2]) {
+                        if (document.getElementById('inputStat3Icon')) document.getElementById('inputStat3Icon').value = stats[2].icon || 'fa-solid fa-star';
+                        if (document.getElementById('inputStat3Num')) document.getElementById('inputStat3Num').value = stats[2].num || 'Adiluhung';
+                        if (document.getElementById('inputStat3Label')) document.getElementById('inputStat3Label').value = stats[2].label || 'Nilai Luhur & Agung';
+                    }
+                }
+
                 document.getElementById('inputMeaning').value = siteData.aboutMeaning || defaultSiteData.aboutMeaning;
                 document.getElementById('inputEdu').value = siteData.aboutEdu || defaultSiteData.aboutEdu;
                 document.getElementById('inputVision').value = siteData.aboutVision || defaultSiteData.aboutVision;
+
+                // Populate Fact Banner
+                if (document.getElementById('inputFactTitle')) document.getElementById('inputFactTitle').value = siteData.aboutFactTitle || defaultSiteData.aboutFactTitle;
+                if (document.getElementById('inputFactDesc')) document.getElementById('inputFactDesc').value = siteData.aboutFactDesc || defaultSiteData.aboutFactDesc;
 
                 document.getElementById('inputEmail').value = siteData.contactEmail;
                 document.getElementById('inputLocation').value = siteData.contactLocation;
@@ -1077,6 +1161,7 @@
                 renderExperienceList();
                 renderAchievementsList();
                 renderCertificatesList();
+                renderToolsList();
                 renderTestimonialsList();
             }
 
@@ -1085,6 +1170,25 @@
                 siteData.name = document.getElementById('inputName').value.trim();
                 siteData.subheadlines = document.getElementById('inputSubheadlines').value.split(',').map(s => s.trim()).filter(Boolean);
                 siteData.bio = document.getElementById('inputHeroBio').value.trim();
+
+                siteData.heroStats = [
+                    {
+                        icon: document.getElementById('inputStat1Icon').value.trim() || 'fa-solid fa-graduation-cap',
+                        num: document.getElementById('inputStat1Num').value.trim() || '100%',
+                        label: document.getElementById('inputStat1Label').value.trim() || 'Integritas Keilmuan'
+                    },
+                    {
+                        icon: document.getElementById('inputStat2Icon').value.trim() || 'fa-solid fa-microchip',
+                        num: document.getElementById('inputStat2Num').value.trim() || 'Modern',
+                        label: document.getElementById('inputStat2Label').value.trim() || 'Tech & Development'
+                    },
+                    {
+                        icon: document.getElementById('inputStat3Icon').value.trim() || 'fa-solid fa-star',
+                        num: document.getElementById('inputStat3Num').value.trim() || 'Adiluhung',
+                        label: document.getElementById('inputStat3Label').value.trim() || 'Nilai Luhur & Agung'
+                    }
+                ];
+
                 saveState();
                 showToast("Identitas & Home berhasil disimpan!", "success");
             });
@@ -1094,8 +1198,10 @@
                 siteData.aboutMeaning = document.getElementById('inputMeaning').value.trim();
                 siteData.aboutEdu = document.getElementById('inputEdu').value.trim();
                 siteData.aboutVision = document.getElementById('inputVision').value.trim();
+                siteData.aboutFactTitle = document.getElementById('inputFactTitle').value.trim();
+                siteData.aboutFactDesc = document.getElementById('inputFactDesc').value.trim();
                 saveState();
-                showToast("About Me berhasil disimpan!", "success");
+                showToast("About Me & Fakta Singkat berhasil disimpan!", "success");
             });
 
             document.getElementById('formContact').addEventListener('submit', (e) => {
@@ -2171,6 +2277,98 @@
                         saveState();
                         renderCertificatesList();
                         showToast("Sertifikat di-reset ke On Progress.", "info");
+                    }
+                });
+            }
+
+            // === 8. TOOLS & TECHNOLOGIES MANAGEMENT ===
+            function renderToolsList() {
+                const container = document.getElementById('toolsListContainer');
+                if (!container) return;
+                const toolList = siteData.tools || defaultSiteData.tools;
+                if (!toolList || toolList.length === 0) {
+                    container.innerHTML = `
+                        <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
+                            <i class="fa-solid fa-screwdriver-wrench"></i> <em>Belum ada tools atau teknologi yang ditambahkan.</em>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = toolList.map((t, idx) => `
+                        <div class="item-row">
+                            <div style="display: flex; align-items: center; gap: 0.85rem; flex-grow: 1; padding-right: 1rem;">
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(6,182,212,0.12); display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 1.25rem;">
+                                    <i class="${t.icon || 'fa-solid fa-code'}"></i>
+                                </div>
+                                <div>
+                                    <strong>${t.name}</strong>
+                                    <span>Ikon: <code>${t.icon || 'fa-solid fa-code'}</code></span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                                <button type="button" class="btn btn-sm btn-outline edit-tool-btn" data-idx="${idx}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline danger-btn del-tool-btn" data-idx="${idx}"><i class="fa-solid fa-trash"></i> Hapus</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                document.querySelectorAll('.edit-tool-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.getAttribute('data-idx'));
+                        const t = siteData.tools[idx];
+                        if (!t) return;
+                        showEditModal(`Edit Tool: ${t.name}`, [
+                            { name: 'name', label: 'Nama Tool / Stack (contoh: Next.js, Docker, Figma)', value: t.name, required: true },
+                            { name: 'icon', label: 'Class Ikon FontAwesome (contoh: fa-brands fa-github, fa-solid fa-server)', value: t.icon || 'fa-solid fa-code', required: true }
+                        ], (data) => {
+                            t.name = data.name.trim();
+                            t.icon = data.icon.trim() || 'fa-solid fa-code';
+                            saveState();
+                            renderToolsList();
+                            showToast("Tool berhasil diperbarui!", "success");
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.del-tool-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.getAttribute('data-idx'));
+                        const toolName = siteData.tools[idx] ? siteData.tools[idx].name : 'Tool';
+                        siteData.tools.splice(idx, 1);
+                        saveState();
+                        renderToolsList();
+                        showToast(`Tool "${toolName}" berhasil dihapus.`, "info");
+                    });
+                });
+            }
+
+            const addToolBtn = document.getElementById('addToolBtn');
+            if (addToolBtn) {
+                addToolBtn.addEventListener('click', () => {
+                    showEditModal("Tambah Tool / Teknologi Baru", [
+                        { name: 'name', label: 'Nama Tool / Stack (contoh: Node.js, Linux, MySQL, Figma)', value: '', required: true },
+                        { name: 'icon', label: 'Class Ikon FontAwesome (contoh: fa-brands fa-node, fa-brands fa-linux, fa-solid fa-database)', value: 'fa-solid fa-screwdriver-wrench', required: true }
+                    ], (data) => {
+                        const newTool = {
+                            name: data.name.trim(),
+                            icon: data.icon.trim() || 'fa-solid fa-screwdriver-wrench'
+                        };
+                        (siteData.tools = siteData.tools || []).push(newTool);
+                        saveState();
+                        renderToolsList();
+                        showToast(`Tool "${newTool.name}" berhasil ditambahkan!`, "success");
+                    });
+                });
+            }
+
+            const resetToolsBtn = document.getElementById('resetToolsBtn');
+            if (resetToolsBtn) {
+                resetToolsBtn.addEventListener('click', () => {
+                    if (confirm("Reset daftar Tools & Technologies ke setelan awal default?")) {
+                        siteData.tools = defaultSiteData.tools;
+                        saveState();
+                        renderToolsList();
+                        showToast("Tools dikembalikan ke setelan default.", "info");
                     }
                 });
             }
