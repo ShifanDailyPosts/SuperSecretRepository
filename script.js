@@ -237,6 +237,12 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
     } else {
         siteData = migrateSkillsData(siteData);
+        if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
+            siteData.skillCategories = defaultSiteData.skillCategories;
+        }
+        if (!siteData.webDevSkills || !Array.isArray(siteData.webDevSkills) || siteData.webDevSkills.length === 0) {
+            siteData.webDevSkills = defaultSiteData.webDevSkills;
+        }
         if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
         if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
         if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
@@ -254,6 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ssa_site_data' && e.newValue) {
             try {
                 siteData = migrateSkillsData(JSON.parse(e.newValue));
+                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
+                    siteData.skillCategories = defaultSiteData.skillCategories;
+                }
+                if (!siteData.webDevSkills || !Array.isArray(siteData.webDevSkills) || siteData.webDevSkills.length === 0) {
+                    siteData.webDevSkills = defaultSiteData.webDevSkills;
+                }
                 if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
                 if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;

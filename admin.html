@@ -1000,10 +1000,17 @@
                 siteData = defaultSiteData;
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             } else {
+                siteData = migrateSkillsData(siteData);
                 // Enforce reset password ke default jika kosong
                 if (!siteData.adminPassword) siteData.adminPassword = FIXED_DEFAULT_PASS;
 
                 // Non-destructive initialization: pastikan semua bagian data tersedia tanpa menghapus editan pengguna
+                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
+                    siteData.skillCategories = defaultSiteData.skillCategories;
+                }
+                if (!siteData.webDevSkills || !Array.isArray(siteData.webDevSkills) || siteData.webDevSkills.length === 0) {
+                    siteData.webDevSkills = defaultSiteData.webDevSkills;
+                }
                 if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
                 if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
@@ -1261,7 +1268,7 @@
                 const container = document.getElementById('skillsListContainer');
                 if (!container) return;
 
-                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories)) {
+                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
                     siteData.skillCategories = [
                         { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
                         { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
@@ -1334,14 +1341,14 @@
                             </div>
                     `;
 
-                    if (cat.items.length === 0) {
+                    if (catItems.length === 0) {
                         html += `
                             <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
                                 <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — belum ada data keahlian di kategori ${cat.title}).</em>
                             </div>
                         `;
                     } else {
-                        cat.items.forEach((skill, sIdx) => {
+                        catItems.forEach((skill, sIdx) => {
                             const checklistItems = skill.items || [];
                             
                             // Sequential check: item cIdx is locked if any item before it is not stage 5
