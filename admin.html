@@ -411,14 +411,16 @@
 
                 <!-- PANE 3: SKILLS -->
                 <div class="content-panel" id="paneSkills">
-                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                         <div>
-                            <h2><i class="fa-solid fa-bolt" style="color: var(--primary-color);"></i> 3. Skills (Web Dev, Design, Other)</h2>
-                            <p>Kelola daftar kemampuan terbagi dalam sub-kategori Web Development, Design, dan Other Skills.</p>
+                            <h2><i class="fa-solid fa-bolt" style="color: var(--primary-color);"></i> 3. Skills (Kelola Kategori & Keahlian)</h2>
+                            <p>Kelola kategori kemampuan, tahapan belajar, dan daftar keahlian terstruktur.</p>
                         </div>
-                        <button type="button" class="btn btn-primary btn-sm" id="addSkillBtn">
-                            <i class="fa-solid fa-plus"></i> Tambah Keahlian Baru
-                        </button>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline btn-sm" id="resetCategoriesBtn"><i class="fa-solid fa-rotate-left"></i> Reset Kategori ke Awal</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="addNewCategoryBtn"><i class="fa-solid fa-folder-plus"></i> Tambah Kategori Baru</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="addSkillBtn"><i class="fa-solid fa-plus"></i> Tambah Keahlian Baru</button>
+                        </div>
                     </div>
 
                     <div id="skillsListContainer"></div>
@@ -632,6 +634,11 @@
                 githubUrl: "https://github.com",
                 linkedinUrl: "https://linkedin.com",
                 instagramUrl: "https://instagram.com",
+                skillCategories: [
+                    { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                    { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                    { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+                ],
                 webDevSkills: [
                     {
                         id: 1,
@@ -811,9 +818,17 @@
 
             const migrateSkillsData = (data) => {
                 if (!data) return defaultSiteData;
-                ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
+                if (!data.skillCategories || !Array.isArray(data.skillCategories)) {
+                    data.skillCategories = [
+                        { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                        { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                        { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+                    ];
+                }
+                data.skillCategories.forEach(cat => {
+                    const key = cat.key;
                     if (!data[key] || !Array.isArray(data[key])) {
-                        data[key] = defaultSiteData[key] || [];
+                        data[key] = (defaultSiteData[key] && Array.isArray(defaultSiteData[key])) ? defaultSiteData[key] : [];
                     } else {
                         data[key].forEach(s => {
                             if (!s.items || !Array.isArray(s.items)) {
@@ -1096,15 +1111,15 @@
                 const container = document.getElementById('skillsListContainer');
                 if (!container) return;
 
-                const webSkills = siteData.webDevSkills || [];
-                const desSkills = siteData.designSkills || [];
-                const othSkills = siteData.otherSkills || [];
+                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories)) {
+                    siteData.skillCategories = [
+                        { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                        { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                        { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+                    ];
+                }
 
-                const categories = [
-                    { title: 'Web Development', key: 'webDevSkills', items: webSkills },
-                    { title: 'Design', key: 'designSkills', items: desSkills },
-                    { title: 'Other Skills', key: 'otherSkills', items: othSkills }
-                ];
+                const categories = siteData.skillCategories;
 
                 let html = '';
 
@@ -1135,14 +1150,37 @@
                     </div>
                 `;
 
-                categories.forEach(cat => {
+                if (categories.length === 0) {
                     html += `
-                        <div class="skills-cat-group mb-4">
-                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 0.75rem 1rem; border-radius: 8px;" class="mb-3">
-                                <h3 style="margin: 0; font-size: 1.05rem;"><i class="fa-solid fa-folder" style="color: var(--primary-color);"></i> Kategori: ${cat.title}</h3>
-                                <button type="button" class="btn btn-sm btn-outline add-skill-cat-btn" data-cat="${cat.key}">
-                                    <i class="fa-solid fa-plus"></i> Tambah Skill ke ${cat.title}
-                                </button>
+                        <div class="glass-card p-4 text-center text-muted mb-4" style="border: 1px dashed rgba(255,255,255,0.2);">
+                            <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; margin-bottom: 0.75rem; color: var(--text-gold);"></i>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Belum Ada Kategori Keahlian</h4>
+                            <p style="font-size: 0.9rem; max-width: 500px; margin: 0 auto 1.25rem;">Seluruh kategori keahlian telah dihapus. Anda dapat membuat kategori kustom baru atau mengembalikan setelan bawaan.</p>
+                            <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+                                <button type="button" class="btn btn-outline btn-sm" id="emptyResetCatBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke Setelan Default</button>
+                                <button type="button" class="btn btn-primary btn-sm" id="emptyAddCatBtn"><i class="fa-solid fa-folder-plus"></i> Buat Kategori Pertama</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                categories.forEach(cat => {
+                    const catItems = siteData[cat.key] || [];
+                    html += `
+                        <div class="skills-cat-group mb-4" style="border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.1rem; background: rgba(255,255,255,0.015);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 0.75rem 1rem; border-radius: 8px; flex-wrap: wrap; gap: 0.6rem;" class="mb-3">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.05rem;"><i class="${cat.icon || 'fa-solid fa-folder'}" style="color: var(--primary-color);"></i> Kategori: ${cat.title}</h3>
+                                    <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="fa-solid fa-list"></i> ${catItems.length} Keahlian terdaftar</span>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <button type="button" class="btn btn-sm btn-outline add-skill-cat-btn" data-cat="${cat.key}" data-title="${cat.title}">
+                                        <i class="fa-solid fa-plus"></i> Tambah Skill ke ${cat.title}
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline danger-btn del-category-btn" data-cat="${cat.key}" data-title="${cat.title}">
+                                        <i class="fa-solid fa-trash"></i> Hapus Kategori
+                                    </button>
+                                </div>
                             </div>
                     `;
 
@@ -1456,60 +1494,184 @@
                     });
                 });
 
+                // Delete Category listener
+                document.querySelectorAll('.del-category-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const catKey = btn.getAttribute('data-cat');
+                        const catTitle = btn.getAttribute('data-title');
+                        const count = (siteData[catKey] || []).length;
+                        const confirmMsg = count > 0 
+                            ? `Apakah Anda yakin ingin menghapus kategori "${catTitle}" beserta seluruh ${count} keahlian di dalamnya?`
+                            : `Apakah Anda yakin ingin menghapus kategori "${catTitle}"?`;
+
+                        if (confirm(confirmMsg)) {
+                            siteData.skillCategories = siteData.skillCategories.filter(c => c.key !== catKey);
+                            delete siteData[catKey];
+                            saveState();
+                            renderSkillsList();
+                            showToast(`Kategori "${catTitle}" berhasil dihapus.`, "info");
+                        }
+                    });
+                });
+
                 // Delete skill listener
                 document.querySelectorAll('.del-skill-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const cat = btn.getAttribute('data-cat');
                         const sIdx = parseInt(btn.getAttribute('data-sidx'));
-                        siteData[cat].splice(sIdx, 1);
-                        saveState();
-                        renderSkillsList();
-                        showToast("Skill berhasil dihapus!", "success");
+                        if (siteData[cat]) {
+                            siteData[cat].splice(sIdx, 1);
+                            saveState();
+                            renderSkillsList();
+                            showToast("Skill berhasil dihapus!", "success");
+                        }
                     });
                 });
+
+                // Empty state buttons
+                const emptyResetCatBtn = document.getElementById('emptyResetCatBtn');
+                if (emptyResetCatBtn) {
+                    emptyResetCatBtn.addEventListener('click', resetCategoriesHandler);
+                }
+                const emptyAddCatBtn = document.getElementById('emptyAddCatBtn');
+                if (emptyAddCatBtn) {
+                    emptyAddCatBtn.addEventListener('click', addNewCategoryHandler);
+                }
 
                 // Add skill to category listener
                 document.querySelectorAll('.add-skill-cat-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const cat = btn.getAttribute('data-cat');
-                        const name = prompt("Masukkan nama Keahlian/Skill baru (contoh: Python, Tailwind, React):");
-                        if (!name || !name.trim()) return;
-
-                        if (!siteData[cat]) siteData[cat] = [];
-                        siteData[cat].push({
-                            id: Date.now(),
-                            name: name.trim(),
-                            statusText: "Cukup Mahir",
-                            items: [
-                                { title: "Pemahaman Konsep Dasar & Sintaks", done: true },
-                                { title: "Penerapan Proyek & Latihan", done: false }
-                            ]
+                        const catTitle = btn.getAttribute('data-title') || 'Kategori';
+                        showEditModal(`Tambah Keahlian ke ${catTitle}`, [
+                            { name: 'name', label: 'Nama Keahlian/Skill (contoh: Python, Tailwind, React, Figma)', value: '', required: true },
+                            { name: 'statusText', label: 'Tingkat Kemahiran Awal', type: 'select', value: 'Newbie Grounding', options: [
+                                { value: 'Mastered / Cleaned', label: 'Level 5: Mastered / Cleaned' },
+                                { value: 'Half-Baked', label: 'Level 4: Half-Baked' },
+                                { value: 'Werving / On Radar', label: 'Level 3: Werving / On Radar' },
+                                { value: 'Grinding Hard', label: 'Level 2: Grinding Hard' },
+                                { value: 'Newbie Grounding', label: 'Level 1: Newbie Grounding' },
+                                { value: 'Locked', label: 'Level 0: Locked' }
+                            ], required: true },
+                            { name: 'target1', label: 'Target / Sub-Level 1', value: 'Pemahaman Konsep Dasar & Sintaks' },
+                            { name: 'target2', label: 'Target / Sub-Level 2', value: 'Penerapan Proyek & Latihan Mandiri' }
+                        ], (data) => {
+                            if (!siteData[cat]) siteData[cat] = [];
+                            const isMastered = data.statusText === 'Mastered / Cleaned';
+                            siteData[cat].push({
+                                id: Date.now(),
+                                name: data.name.trim(),
+                                statusText: data.statusText,
+                                items: [
+                                    { title: data.target1.trim() || 'Pemahaman Dasar', stage: isMastered ? 5 : 1, done: isMastered },
+                                    { title: data.target2.trim() || 'Penerapan Praktik', stage: isMastered ? 5 : 0, done: isMastered }
+                                ]
+                            });
+                            saveState();
+                            renderSkillsList();
+                            showToast(`Keahlian "${data.name}" berhasil ditambahkan ke ${catTitle}!`, "success");
                         });
-                        saveState();
-                        renderSkillsList();
-                        showToast("Skill baru berhasil ditambahkan!", "success");
                     });
                 });
+            }
+
+            function addNewCategoryHandler() {
+                showEditModal("Tambah Kategori Keahlian Baru", [
+                    { name: 'title', label: 'Nama Kategori (contoh: Backend Development, DevOps & Cloud, Soft Skills)', value: '', required: true },
+                    { name: 'icon', label: 'Ikon FontAwesome', type: 'select', value: 'fa-solid fa-code', options: [
+                        { value: 'fa-solid fa-code', label: 'Kode / Programming (fa-code)' },
+                        { value: 'fa-solid fa-server', label: 'Server / Backend (fa-server)' },
+                        { value: 'fa-solid fa-database', label: 'Database (fa-database)' },
+                        { value: 'fa-solid fa-palette', label: 'Desain / Seni (fa-palette)' },
+                        { value: 'fa-solid fa-cloud', label: 'Cloud / Jaringan (fa-cloud)' },
+                        { value: 'fa-solid fa-mobile-screen', label: 'Mobile App (fa-mobile-screen)' },
+                        { value: 'fa-solid fa-brain', label: 'Kapasitas Diri / Soft Skill (fa-brain)' },
+                        { value: 'fa-solid fa-folder', label: 'Folder / Umum (fa-folder)' }
+                    ], required: true }
+                ], (data) => {
+                    const title = data.title.trim();
+                    if (!title) return;
+                    const catId = title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+                    const catKey = 'cat_' + Date.now();
+                    if (!siteData.skillCategories) siteData.skillCategories = [];
+                    siteData.skillCategories.push({
+                        id: catId,
+                        key: catKey,
+                        title: title,
+                        icon: data.icon
+                    });
+                    siteData[catKey] = [];
+                    saveState();
+                    renderSkillsList();
+                    showToast(`Kategori "${title}" berhasil ditambahkan!`, "success");
+                });
+            }
+
+            function resetCategoriesHandler() {
+                if (confirm("Kembalikan seluruh kategori keahlian ke setelan awal (Web Development, Design, Other Skills)?")) {
+                    siteData.skillCategories = [
+                        { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                        { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                        { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+                    ];
+                    if (!siteData.webDevSkills || siteData.webDevSkills.length === 0) siteData.webDevSkills = defaultSiteData.webDevSkills;
+                    if (!siteData.designSkills || siteData.designSkills.length === 0) siteData.designSkills = defaultSiteData.designSkills;
+                    if (!siteData.otherSkills || siteData.otherSkills.length === 0) siteData.otherSkills = defaultSiteData.otherSkills;
+                    saveState();
+                    renderSkillsList();
+                    showToast("Kategori keahlian dikembalikan ke default.", "info");
+                }
+            }
+
+            const addNewCategoryBtn = document.getElementById('addNewCategoryBtn');
+            if (addNewCategoryBtn) {
+                addNewCategoryBtn.addEventListener('click', addNewCategoryHandler);
+            }
+
+            const resetCategoriesBtn = document.getElementById('resetCategoriesBtn');
+            if (resetCategoriesBtn) {
+                resetCategoriesBtn.addEventListener('click', resetCategoriesHandler);
             }
 
             const mainAddSkillBtn = document.getElementById('addSkillBtn');
             if (mainAddSkillBtn) {
                 mainAddSkillBtn.addEventListener('click', () => {
-                    const name = prompt("Masukkan nama Keahlian/Skill baru (contoh: Python, Tailwind, React):");
-                    if (!name || !name.trim()) return;
-
-                    (siteData.webDevSkills = siteData.webDevSkills || []).push({
-                        id: Date.now(),
-                        name: name.trim(),
-                        statusText: "Baru Mempelajari (On Progress)",
-                        items: [
-                            { title: "Pemahaman Konsep Dasar & Sintaks", done: true },
-                            { title: "Penerapan Proyek & Latihan", done: false }
-                        ]
+                    const cats = siteData.skillCategories || [];
+                    if (cats.length === 0) {
+                        showToast("Buat kategori keahlian terlebih dahulu!", "error");
+                        return;
+                    }
+                    const catOptions = cats.map(c => ({ value: c.key, label: c.title }));
+                    showEditModal("Tambah Keahlian Baru", [
+                        { name: 'category', label: 'Pilih Kategori', type: 'select', value: cats[0].key, options: catOptions, required: true },
+                        { name: 'name', label: 'Nama Keahlian/Skill (contoh: Python, Tailwind, React, Node.js)', value: '', required: true },
+                        { name: 'statusText', label: 'Status / Tingkat Kemahiran', type: 'select', value: 'Newbie Grounding', options: [
+                            { value: 'Mastered / Cleaned', label: 'Level 5: Mastered / Cleaned' },
+                            { value: 'Half-Baked', label: 'Level 4: Half-Baked' },
+                            { value: 'Werving / On Radar', label: 'Level 3: Werving / On Radar' },
+                            { value: 'Grinding Hard', label: 'Level 2: Grinding Hard' },
+                            { value: 'Newbie Grounding', label: 'Level 1: Newbie Grounding' },
+                            { value: 'Locked', label: 'Level 0: Locked' }
+                        ], required: true },
+                        { name: 'target1', label: 'Target / Sub-Level 1', value: 'Pemahaman Konsep Dasar & Sintaks' },
+                        { name: 'target2', label: 'Target / Sub-Level 2', value: 'Penerapan Praktik & Studi Kasus' }
+                    ], (data) => {
+                        const targetCatKey = data.category;
+                        if (!siteData[targetCatKey]) siteData[targetCatKey] = [];
+                        const isMastered = data.statusText === 'Mastered / Cleaned';
+                        siteData[targetCatKey].push({
+                            id: Date.now(),
+                            name: data.name.trim(),
+                            statusText: data.statusText,
+                            items: [
+                                { title: data.target1.trim() || 'Dasar Keahlian', stage: isMastered ? 5 : 1, done: isMastered },
+                                { title: data.target2.trim() || 'Implementasi Praktis', stage: isMastered ? 5 : 0, done: isMastered }
+                            ]
+                        });
+                        saveState();
+                        renderSkillsList();
+                        showToast(`Keahlian "${data.name}" berhasil ditambahkan!`, "success");
                     });
-                    saveState();
-                    renderSkillsList();
-                    showToast("Skill baru berhasil ditambahkan ke Web Dev!", "success");
                 });
             }
 

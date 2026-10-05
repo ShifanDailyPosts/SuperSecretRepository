@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         instagramUrl: "https://instagram.com",
         
         // Categorized Skills (Checklist & Status Kata-Kata)
+        skillCategories: [
+            { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+            { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+            { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+        ],
         webDevSkills: [
             {
                 id: 1,
@@ -170,9 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Migration Helper for Skills Data Structures
     const migrateSkillsData = (data) => {
         if (!data) return defaultSiteData;
-        ['webDevSkills', 'designSkills', 'otherSkills'].forEach(key => {
+        if (!data.skillCategories || !Array.isArray(data.skillCategories)) {
+            data.skillCategories = [
+                { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+            ];
+        }
+        data.skillCategories.forEach(cat => {
+            const key = cat.key;
             if (!data[key] || !Array.isArray(data[key])) {
-                data[key] = defaultSiteData[key] || [];
+                data[key] = (defaultSiteData[key] && Array.isArray(defaultSiteData[key])) ? defaultSiteData[key] : [];
             } else {
                 data[key].forEach(s => {
                     if (!s.items || !Array.isArray(s.items)) {
@@ -595,26 +608,61 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         };
 
-        const renderSkillsCategory = (containerId, skillsList) => {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+        // 3. Render Categorized Skills
+        const skillsTabGroup = document.getElementById('skillsTabGroup');
+        const skillsWrapper = document.querySelector('.skills-categorized-wrapper');
+        const categories = (siteData.skillCategories && Array.isArray(siteData.skillCategories))
+            ? siteData.skillCategories
+            : [
+                { id: 'web-dev', key: 'webDevSkills', title: 'Web Development', icon: 'fa-solid fa-code' },
+                { id: 'design', key: 'designSkills', title: 'Design', icon: 'fa-solid fa-palette' },
+                { id: 'other-skills', key: 'otherSkills', title: 'Other Skills', icon: 'fa-solid fa-brain' }
+            ];
 
-            if (!skillsList || skillsList.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-skills-placeholder text-center p-3">
-                        <i class="fa-solid fa-hourglass-half"></i>
-                        <h4 style="font-size: 1.05rem; margin-top: 0.5rem; margin-bottom: 0.25rem;">Keahlian Belum Diisi (On Progress)</h4>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Kategori keahlian ini disiapkan untuk tahap perkembangan selanjutnya.</p>
+        if (skillsTabGroup && skillsWrapper) {
+            if (categories.length === 0) {
+                skillsTabGroup.innerHTML = '';
+                skillsWrapper.innerHTML = `
+                    <div class="glass-card text-center p-4 text-muted" style="border: 1px dashed rgba(255,255,255,0.15);">
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 2rem; margin-bottom: 0.75rem; color: var(--text-gold);"></i>
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Keahlian Belum Diisi (On Progress)</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Kategori keahlian sedang dalam tahap penyesuaian kurikulum dan materi.</p>
                     </div>
                 `;
             } else {
-                container.innerHTML = skillsList.map(s => createSkillItemHTML(s)).join('');
-            }
-        };
+                skillsTabGroup.innerHTML = categories.map((cat, idx) => `
+                    <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-skill-tab="${cat.id}">
+                        <i class="${cat.icon || 'fa-solid fa-folder'}"></i> ${cat.title}
+                    </button>
+                `).join('');
 
-        renderSkillsCategory('webDevSkillsContainer', siteData.webDevSkills || defaultSiteData.webDevSkills);
-        renderSkillsCategory('designSkillsContainer', siteData.designSkills || defaultSiteData.designSkills);
-        renderSkillsCategory('otherSkillsContainer', siteData.otherSkills || defaultSiteData.otherSkills);
+                skillsWrapper.innerHTML = categories.map((cat, idx) => {
+                    const skillsList = siteData[cat.key] || [];
+                    let itemsHtml = '';
+                    if (!skillsList || skillsList.length === 0) {
+                        itemsHtml = `
+                            <div class="empty-skills-placeholder text-center p-3">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                                <h4 style="font-size: 1.05rem; margin-top: 0.5rem; margin-bottom: 0.25rem;">Keahlian Belum Diisi (On Progress)</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Kategori keahlian ini disiapkan untuk tahap perkembangan selanjutnya.</p>
+                            </div>
+                        `;
+                    } else {
+                        itemsHtml = skillsList.map(s => createSkillItemHTML(s)).join('');
+                    }
+
+                    return `
+                        <div class="skills-pane ${idx === 0 ? 'active' : ''}" id="paneSkill_${cat.id}">
+                            <div class="skills-grid glass-card p-4">
+                                <div class="skill-items">
+                                    ${itemsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
 
         // Projects ⭐⭐⭐
         const projectsContainer = document.getElementById('projectsGridContainer');
@@ -802,21 +850,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderFrontendContent();
 
-    // === 6. Skills Sub-Category Tabs Listener ===
-    const skillTabBtns = document.querySelectorAll('#skillsTabGroup .filter-btn');
-    skillTabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            skillTabBtns.forEach(b => b.classList.remove('active'));
+    // === 6. Skills Sub-Category Tabs Listener (Event Delegation) ===
+    const skillsTabGroupEl = document.getElementById('skillsTabGroup');
+    if (skillsTabGroupEl) {
+        skillsTabGroupEl.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            skillsTabGroupEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const targetTab = btn.getAttribute('data-skill-tab');
             document.querySelectorAll('.skills-pane').forEach(pane => pane.classList.remove('active'));
-
-            if (targetTab === 'web-dev') document.getElementById('paneSkillWebDev').classList.add('active');
-            if (targetTab === 'design') document.getElementById('paneSkillDesign').classList.add('active');
-            if (targetTab === 'other-skills') document.getElementById('paneSkillOther').classList.add('active');
+            const targetPane = document.getElementById(`paneSkill_${targetTab}`) || document.getElementById(`paneSkill${targetTab.replace(/-([a-z])/g, (g) => g[1].toUpperCase())}`);
+            if (targetPane) targetPane.classList.add('active');
         });
-    });
+    }
 
     // === 7. Project Category Filters ===
     const projFilterBtns = document.querySelectorAll('[data-proj-filter]');
