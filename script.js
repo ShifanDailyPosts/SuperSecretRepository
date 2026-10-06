@@ -1104,5 +1104,303 @@ document.addEventListener('DOMContentLoaded', () => {
     if (urlParams.get('admin') === '1' || urlParams.get('panel') === '1') {
         window.location.href = 'admin.html';
     }
+
+    // === 11. ASISFAN: AI ASSISTANT CHAT ENGINE ===
+    const asisfanWidget = document.getElementById('asisfanWidget');
+    const asisfanTriggerBtn = document.getElementById('asisfanTriggerBtn');
+    const asisfanChatWindow = document.getElementById('asisfanChatWindow');
+    const asisfanCloseBtn = document.getElementById('asisfanCloseBtn');
+    const asisfanClearBtn = document.getElementById('asisfanClearBtn');
+    const asisfanForm = document.getElementById('asisfanForm');
+    const asisfanInput = document.getElementById('asisfanInput');
+    const asisfanMessages = document.getElementById('asisfanMessages');
+    const asisfanSuggestions = document.getElementById('asisfanSuggestions');
+
+    if (asisfanWidget && asisfanTriggerBtn && asisfanChatWindow) {
+        // Toggle Chat Window
+        const toggleChatWindow = (open) => {
+            const shouldOpen = (open !== undefined) ? open : !asisfanChatWindow.classList.contains('active');
+            if (shouldOpen) {
+                asisfanChatWindow.classList.add('active');
+                setTimeout(() => { if (asisfanInput) asisfanInput.focus(); }, 200);
+            } else {
+                asisfanChatWindow.classList.remove('active');
+            }
+        };
+
+        asisfanTriggerBtn.addEventListener('click', () => toggleChatWindow());
+        if (asisfanCloseBtn) asisfanCloseBtn.addEventListener('click', () => toggleChatWindow(false));
+
+        // Format Rupiah Helper
+        const formatRupiah = (val) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(val || 0);
+
+        // Escape HTML for user input
+        const escapeHtml = (str) => {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        };
+
+        const getCurrentTime = () => {
+            const now = new Date();
+            return now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        };
+
+        // Scroll to bottom
+        const scrollToBottom = () => {
+            if (asisfanMessages) {
+                asisfanMessages.scrollTop = asisfanMessages.scrollHeight;
+            }
+        };
+
+        // Add message to chat stream
+        const appendMessage = (sender, contentHtml) => {
+            const msgEl = document.createElement('div');
+            msgEl.className = `asisfan-msg asisfan-msg-${sender}`;
+
+            const timeStr = getCurrentTime();
+
+            if (sender === 'bot') {
+                msgEl.innerHTML = `
+                    <div class="asisfan-header-avatar" style="width: 30px; height: 30px; font-size: 0.95rem; flex-shrink: 0;">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="asisfan-msg-bubble">${contentHtml}</div>
+                        <span class="asisfan-msg-time">${timeStr}</span>
+                    </div>
+                `;
+            } else {
+                msgEl.innerHTML = `
+                    <div>
+                        <div class="asisfan-msg-bubble">${contentHtml}</div>
+                        <span class="asisfan-msg-time">${timeStr}</span>
+                    </div>
+                `;
+            }
+
+            asisfanMessages.appendChild(msgEl);
+            scrollToBottom();
+            return msgEl;
+        };
+
+        // Show Typing Indicator
+        const showTypingIndicator = () => {
+            const typingEl = document.createElement('div');
+            typingEl.className = 'asisfan-msg asisfan-msg-bot asisfan-typing-row';
+            typingEl.id = 'asisfanTypingIndicator';
+            typingEl.innerHTML = `
+                <div class="asisfan-header-avatar" style="width: 30px; height: 30px; font-size: 0.95rem; flex-shrink: 0;">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="asisfan-typing">
+                    <span class="asisfan-dot"></span>
+                    <span class="asisfan-dot"></span>
+                    <span class="asisfan-dot"></span>
+                </div>
+            `;
+            asisfanMessages.appendChild(typingEl);
+            scrollToBottom();
+        };
+
+        const hideTypingIndicator = () => {
+            const typingEl = document.getElementById('asisfanTypingIndicator');
+            if (typingEl) typingEl.remove();
+        };
+
+        // AI Answer Generator based on live siteData
+        const generateAsisFanAnswer = (query) => {
+            const q = query.toLowerCase().trim();
+            const data = siteData || defaultSiteData;
+
+            // 1. Sapaan / Greetings
+            if (/^(halo|hai|assalamu|assalam|hei|hey|pagi|siang|sore|malam|tes|test|ping)/.test(q)) {
+                return `Wa'alaikumsalam warahmatullahi wabarakatuh! 👋<br><br>Halo! Senang sekali bisa berbincang denganmu. Saya <strong>AsisFan</strong>, asisten AI pribadi Shifan Shalih Adiluhung. Ada hal seputar profil, keahlian coding, rekam jejak OSIS/volunteer, atau proyek Shifan yang ingin kamu tanyakan? 😊`;
+            }
+
+            // 2. Siapa Shifan / Profil / Tentang / Biodata
+            if (q.includes('siapa') || q.includes('tentang') || q.includes('profil') || q.includes('biodata') || q.includes('nama') || q.includes('adiluhung') || q.includes('asal') || q.includes('ciamis') || q.includes('arti nama')) {
+                return `<strong>${data.name}</strong> adalah seorang pelajar asal <strong>Ciamis, Jawa Barat</strong> yang saat ini aktif sebagai santri penghafal Al-Qur'an di <strong>Hiraa Center (Rumah Qur'an & Konsultasi)</strong> sekaligus berdedikasi membangun keahlian teknologi web modern. 🌟<br><br>
+                Makna nama <em>'Adiluhung'</em> diambil dari bahasa Jawa/Indonesia yang berarti <strong>Luhur, Agung, dan Bernilai Tinggi</strong>. Nama ini menjadi pedoman Shifan dalam menjaga integritas moral santri dan menghasilkan karya berkualitas tinggi di ranah teknologi.`;
+            }
+
+            // 3. OSIS / Sekolah / SMP / Al-Kautsar 561
+            if (q.includes('osis') || q.includes('sekbid') || q.includes('al-kautsar') || q.includes('561') || q.includes('smp') || q.includes('sekolah') || q.includes('bahasa')) {
+                const osisExp = data.experiences ? data.experiences.find(e => e.role.toLowerCase().includes('osis') || e.org.toLowerCase().includes('kautsar')) : null;
+                const role = osisExp ? osisExp.role : "Pengurus OSIS (Sekbid 8 - Komunikasi dalam Bahasa)";
+                const org = osisExp ? osisExp.org : "SMP Quranic Science Boarding School Al-Kautsar 561";
+                const period = osisExp ? osisExp.period : "2026 - 2027";
+                const desc = osisExp ? osisExp.desc : "Mengkoordinasikan program kebahasaan dan literasi santri.";
+
+                return `🏫 <strong>Aktivitas Kepengurusan Sekolah:</strong><br><br>
+                Shifan dipercaya menjadi <strong>${role}</strong> untuk masa bakti <strong>${period}</strong> di <strong>${org}</strong>.<br><br>
+                📌 <em>Peran utama</em>: ${desc}`;
+            }
+
+            // 4. Volunteer / HiraaCenter / Pesantren Liburan
+            if (q.includes('volunteer') || q.includes('relawan') || q.includes('hiraa') || q.includes('pesantren liburan') || q.includes('batch 3')) {
+                const volExp = data.experiences ? data.experiences.find(e => e.role.toLowerCase().includes('volunteer') || e.org.toLowerCase().includes('hiraa')) : null;
+                const org = volExp ? volExp.org : "HiraaCenter";
+                const cat = volExp && volExp.category ? volExp.category : "Pesantren Liburan Batch 3";
+                const desc = volExp ? volExp.desc : "Berkontribusi mendukung kelancaran kegiatan santri liburan.";
+
+                return `🤝 <strong>Pengalaman Relawan (Volunteer):</strong><br><br>
+                Shifan aktif menjadi relawan (volunteer) pada program <strong>${cat}</strong> di <strong>${org}</strong>.<br><br>
+                📌 <em>Kontribusi</em>: ${desc}`;
+            }
+
+            // 5. Seluruh Pengalaman / Experience / Karir
+            if (q.includes('pengalaman') || q.includes('experience') || q.includes('organisasi') || q.includes('karir') || q.includes('kegiatan')) {
+                const exps = data.experiences || [];
+                if (exps.length === 0) {
+                    return `Data pengalaman Shifan saat ini sedang dalam proses pemutakhiran resmi (On Progress).`;
+                }
+                let listHtml = exps.map(e => `• <strong>${e.role}</strong> di <em>${e.org}</em> (${e.period})<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${e.desc}</small>`).join('<br><br>');
+                return `📋 <strong>Rekam Jejak Pengalaman Shifan:</strong><br><br>${listHtml}`;
+            }
+
+            // 6. Skill / Kemampuan / Bahasa Pemrograman / Tech Stack
+            if (q.includes('skill') || q.includes('kemampuan') || q.includes('keahlian') || q.includes('coding') || q.includes('program') || q.includes('bahasa pemrograman') || q.includes('html') || q.includes('css') || q.includes('javascript') || q.includes('python')) {
+                const webSkills = data.webDevSkills || [];
+                let skillList = webSkills.map(s => `• <strong>${s.name}</strong> — status: <span style="color:var(--text-gold); font-weight:600;">${s.statusText || 'Aktif Dipelajari'}</span>`).join('<br>');
+                return `⚡ <strong>Keahlian & Penguasaan Teknologi Shifan:</strong><br><br>
+                Shifan berfokus pada teknologi web modern dan pemrograman:<br>${skillList || '• HTML5, CSS3, JavaScript ES6+, Python'}<br><br>
+                Teknologi pendukung harian: Git & GitHub, VS Code, LocalStorage API, Responsive Grid/Flexbox, dan FTP Hosting Deployment.`;
+            }
+
+            // 7. Proyek / Project / Karya / Portofolio
+            if (q.includes('proyek') || q.includes('project') || q.includes('karya') || q.includes('portofolio') || q.includes('bikin apa') || q.includes('buat apa')) {
+                const projs = data.projects || [];
+                let projList = projs.slice(0, 3).map(p => `• <strong>${p.title}</strong> (${p.category})<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${p.desc}</small>`).join('<br><br>');
+                return `🚀 <strong>Proyek & Portofolio Karya Shifan:</strong><br><br>
+                ${projList}<br><br>
+                Website portofolio yang sedang kamu buka ini adalah bukti nyata karya Shifan yang dibangun dari nol!`;
+            }
+
+            // 8. Tabungan / Keuangan / Duit / Finansial
+            if (q.includes('tabung') || q.includes('uang') || q.includes('duit') || q.includes('keuangan') || q.includes('finansial') || q.includes('biaya') || q.includes('target tabung') || q.includes('terkumpul')) {
+                const fin = data.finance || { current: 1500000, target: 5000000, goal: "Tabungan Mandiri & Pendidikan", notes: "Pengelolaan terencana.", lastUpdated: "Oktober 2026" };
+                const pct = Math.min(100, Math.round(((fin.current || 0) / (fin.target || 1)) * 100));
+                return `💰 <strong>Status Pengelolaan Keuangan & Tabungan Shifan:</strong><br><br>
+                • <strong>Uang Terkumpul</strong>: <span style="color:#10b981; font-weight:700;">${formatRupiah(fin.current)}</span><br>
+                • <strong>Target Tabungan</strong>: ${formatRupiah(fin.target)} (${pct}% tercapai)<br>
+                • <strong>Tujuan Alokasi</strong>: ${fin.goal}<br>
+                • <strong>Pembaruan Terakhir</strong>: ${fin.lastUpdated}<br><br>
+                💬 <em>Catatan</em>: "${fin.notes}"`;
+            }
+
+            // 9. Prestasi / Pencapaian / Sertifikat
+            if (q.includes('prestasi') || q.includes('pencapaian') || q.includes('achievement') || q.includes('sertifikat') || q.includes('certificate')) {
+                return `🏆 <strong>Prestasi & Sertifikasi:</strong><br><br>
+                Informasi sertifikat resmi dan capaian formal Shifan sedang dalam tahap kurasi dan verifikasi data (<em>On Progress</em>). Shifan terus berfokus menguatkan hafalan Al-Qur'an di Hiraa Center dan mengasah keahlian coding secara konsisten.`;
+            }
+
+            // 10. Kontak / Hubungi / Email / Medsos / Sosmed
+            if (q.includes('kontak') || q.includes('hubungi') || q.includes('email') || q.includes('instagram') || q.includes('github') || q.includes('linkedin') || q.includes('sosmed') || q.includes('medsos') || q.includes('wa') || q.includes('telepon')) {
+                return `📬 <strong>Informasi Kontak & Media Sosial Shifan:</strong><br><br>
+                • 📧 <strong>Email Resmi</strong>: <a href="mailto:${data.contactEmail}">${data.contactEmail}</a><br>
+                • 📍 <strong>Domisili</strong>: ${data.contactLocation}<br>
+                • 🐙 <strong>GitHub</strong>: <a href="${data.githubUrl}" target="_blank" rel="noopener">Kunjungi GitHub</a><br>
+                • 💼 <strong>LinkedIn</strong>: <a href="${data.linkedinUrl}" target="_blank" rel="noopener">Profil LinkedIn</a><br>
+                • 📸 <strong>Instagram</strong>: <a href="${data.instagramUrl}" target="_blank" rel="noopener">Kunjungi Instagram</a><br><br>
+                Kamu juga bisa mengirim pesan langsung melalui formulir kontak di bagian bawah website!`;
+            }
+
+            // 11. Pujian / Ucapan Terima Kasih
+            if (q.includes('terima kasih') || q.includes('makasih') || q.includes('thanks') || q.includes('keren') || q.includes('mantap') || q.includes('hebat') || q.includes('bagus') || q.includes('alhamdulillah')) {
+                return `Alhamdulillah, terima kasih banyak atas apresiasi dan doa baiknya! 🙏✨ Semoga keberkahan dan kesuksesan selalu menyertaimu. Jika ada hal lain yang ingin kamu tanyakan seputar Shifan, silakan beri tahu saya ya!`;
+            }
+
+            // 12. Identitas AsisFan
+            if (q.includes('kamu siapa') || q.includes('asisfan') || q.includes('siapa kamu') || q.includes('asisten')) {
+                return `Saya adalah <strong>AsisFan</strong>, asisten virtual berbasis kecerdasan buatan (AI) yang dirancang khusus untuk memandu dan menjawab pertanyaan pengunjung portofolio Shifan Shalih Adiluhung secara interaktif dan informatif! 🤖✨`;
+            }
+
+            // 13. Default Smart Fallback
+            return `Terima kasih atas pertanyaannya! 🤔<br><br>
+            Sebagai asisten AI, saya siap membantu menjawab seputar Shifan Shalih Adiluhung, antara lain:<br>
+            • 💡 <strong>Profil & Makna Filosofis Nama Adiluhung</strong><br>
+            • ⚡ <strong>Skill & Penguasaan Bahasa Pemrograman</strong><br>
+            • 🏫 <strong>Pengalaman OSIS Sekbid 8 di SMP Al-Kautsar 561</strong><br>
+            • 🤝 <strong>Pengalaman Volunteer di HiraaCenter</strong><br>
+            • 💰 <strong>Transparansi Tabungan & Target Keuangan</strong><br>
+            • 📬 <strong>Alamat Kontak & Media Sosial</strong><br><br>
+            Silakan klik salah satu topik di atas atau tuliskan pertanyaan spesifikmu! 😊`;
+        };
+
+        // Handle user sending message
+        const handleSendMessage = (text) => {
+            const trimmed = text.trim();
+            if (!trimmed) return;
+
+            // Render user bubble
+            appendMessage('user', escapeHtml(trimmed));
+            if (asisfanInput) asisfanInput.value = '';
+
+            // Hide suggestions to keep view clean
+            if (asisfanSuggestions) {
+                asisfanSuggestions.style.display = 'none';
+            }
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate natural AI thinking delay (450 - 750ms)
+            const delay = Math.min(750, Math.max(450, trimmed.length * 15));
+            setTimeout(() => {
+                hideTypingIndicator();
+                const replyHtml = generateAsisFanAnswer(trimmed);
+                appendMessage('bot', replyHtml);
+            }, delay);
+        };
+
+        if (asisfanForm) {
+            asisfanForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (asisfanInput) handleSendMessage(asisfanInput.value);
+            });
+        }
+
+        // Handle Suggestion Chips click
+        const bindSuggestionChips = () => {
+            document.querySelectorAll('.asisfan-chip').forEach(chip => {
+                chip.onclick = () => {
+                    const query = chip.getAttribute('data-query') || chip.textContent;
+                    handleSendMessage(query);
+                };
+            });
+        };
+        bindSuggestionChips();
+
+        // Clear Chat History
+        if (asisfanClearBtn) {
+            asisfanClearBtn.addEventListener('click', () => {
+                asisfanMessages.innerHTML = `
+                    <div class="asisfan-msg asisfan-msg-bot">
+                        <div class="asisfan-header-avatar" style="width: 30px; height: 30px; font-size: 0.95rem; flex-shrink: 0;">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <div class="asisfan-msg-bubble">
+                                Riwayat percakapan telah dibersihkan! 🧹<br><br>
+                                Ada yang ingin kamu tanyakan lagi kepada <strong>AsisFan</strong> tentang profil atau karya Shifan?
+                            </div>
+                            <span class="asisfan-msg-time">${getCurrentTime()}</span>
+                        </div>
+                    </div>
+                    <div class="asisfan-suggestions" id="asisfanSuggestions">
+                        <button type="button" class="asisfan-chip" data-query="Siapa itu Shifan Shalih Adiluhung?">💡 Siapa itu Shifan?</button>
+                        <button type="button" class="asisfan-chip" data-query="Apa saja keahlian dan skill yang dikuasai Shifan?">⚡ Skill &amp; Kemampuan</button>
+                        <button type="button" class="asisfan-chip" data-query="Apa saja pengalaman organisasi dan kepengurusan Shifan?">💼 Pengalaman &amp; OSIS</button>
+                        <button type="button" class="asisfan-chip" data-query="Proyek dan karya apa yang sudah dibuat Shifan?">🚀 Proyek &amp; Karya</button>
+                        <button type="button" class="asisfan-chip" data-query="Berapa uang yang sedang ditabung Shifan saat ini?">💰 Tabungan &amp; Keuangan</button>
+                        <button type="button" class="asisfan-chip" data-query="Bagaimana cara menghubungi atau kontak Shifan?">📩 Kontak &amp; Medsos</button>
+                    </div>
+                `;
+                bindSuggestionChips();
+                showToast("Percakapan dengan AsisFan dibersihkan.", "info");
+            });
+        }
+    }
 });
 

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css?v=14.0">
+    <link rel="stylesheet" href="styles.css?v=15.0">
 </head>
 <body class="dark-theme">
     <!-- Custom Glowing Cursor Follower -->
@@ -766,7 +766,87 @@
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- ASISFAN: AI Assistant Chat Widget -->
+    <div class="asisfan-widget" id="asisfanWidget">
+        <!-- Chat Window -->
+        <div class="asisfan-chat-window" id="asisfanChatWindow">
+            <!-- Header -->
+            <div class="asisfan-header">
+                <div class="asisfan-header-profile">
+                    <div class="asisfan-header-avatar">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="asisfan-header-info">
+                        <h4>AsisFan <i class="fa-solid fa-sparkles" style="color: var(--text-gold); font-size: 0.8rem;"></i></h4>
+                        <span>Online • Asisten AI Shifan</span>
+                    </div>
+                </div>
+                <div class="asisfan-header-actions">
+                    <button type="button" class="asisfan-tool-btn" id="asisfanClearBtn" title="Hapus Riwayat Chat">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                    <button type="button" class="asisfan-tool-btn" id="asisfanCloseBtn" title="Tutup Chat">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="asisfan-messages" id="asisfanMessages">
+                <!-- Welcome Bot Message -->
+                <div class="asisfan-msg asisfan-msg-bot">
+                    <div class="asisfan-header-avatar" style="width: 30px; height: 30px; font-size: 0.95rem; flex-shrink: 0;">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="asisfan-msg-bubble">
+                            Halo! 👋 Saya <strong>AsisFan</strong>, asisten AI cerdas milik Shifan Shalih Adiluhung.
+                            <br><br>
+                            Ada yang ingin kamu tanyakan seputar profil, keahlian, rekam jejak, atau karya Shifan? Silakan pilih topik cepat di bawah atau ketik langsung pertanyaanmu! 😊
+                        </div>
+                        <span class="asisfan-msg-time">Sekarang</span>
+                    </div>
+                </div>
+
+                <!-- Suggestion Chips -->
+                <div class="asisfan-suggestions" id="asisfanSuggestions">
+                    <button type="button" class="asisfan-chip" data-query="Siapa itu Shifan Shalih Adiluhung?">💡 Siapa itu Shifan?</button>
+                    <button type="button" class="asisfan-chip" data-query="Apa saja keahlian dan skill yang dikuasai Shifan?">⚡ Skill &amp; Kemampuan</button>
+                    <button type="button" class="asisfan-chip" data-query="Apa saja pengalaman organisasi dan kepengurusan Shifan?">💼 Pengalaman &amp; OSIS</button>
+                    <button type="button" class="asisfan-chip" data-query="Proyek dan karya apa yang sudah dibuat Shifan?">🚀 Proyek &amp; Karya</button>
+                    <button type="button" class="asisfan-chip" data-query="Berapa uang yang sedang ditabung Shifan saat ini?">💰 Tabungan &amp; Keuangan</button>
+                    <button type="button" class="asisfan-chip" data-query="Bagaimana cara menghubungi atau kontak Shifan?">📩 Kontak &amp; Medsos</button>
+                </div>
+            </div>
+
+            <!-- Chat Footer Input -->
+            <div class="asisfan-footer">
+                <form class="asisfan-input-form" id="asisfanForm">
+                    <input type="text" id="asisfanInput" class="asisfan-input" placeholder="Tanya sesuatu ke AsisFan AI..." autocomplete="off" required>
+                    <button type="submit" class="asisfan-send-btn" id="asisfanSendBtn" title="Kirim Pesan">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="asisfan-footer-credit">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary-color);"></i> Terhubung langsung dengan basis data Portofolio Shifan
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Trigger Button -->
+        <button type="button" class="asisfan-trigger-btn" id="asisfanTriggerBtn" aria-label="Buka Chat AsisFan AI">
+            <div class="asisfan-btn-avatar">
+                <i class="fa-solid fa-robot"></i>
+                <div class="asisfan-pulse-dot"></div>
+            </div>
+            <div class="asisfan-btn-text">
+                <span class="asisfan-btn-title">Tanya AsisFan <i class="fa-solid fa-sparkles" style="color: #fef08a;"></i></span>
+                <span class="asisfan-btn-sub">Asisten AI Shifan</span>
+            </div>
+        </button>
+    </div>
+
     <!-- Scripts -->
-    <script src="script.js?v=17.0"></script>
+    <script src="script.js?v=18.0"></script>
 </body>
 </html>
