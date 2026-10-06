@@ -574,10 +574,10 @@
                     <div class="panel-header-box" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
                         <div>
                             <h2><i class="fa-solid fa-trophy" style="color: var(--primary-color);"></i> 6. Achievements</h2>
-                            <p>Kelola capaian prestasi akademis, keilmuan, dan hafalan Al-Qur'an.</p>
+                            <p>Kelola capaian prestasi kompetisi, keilmuan, dan penghargaan resmi.</p>
                         </div>
                         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-outline btn-sm" id="resetAchievementsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke On Progress</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="resetAchievementsBtn"><i class="fa-solid fa-rotate-left"></i> Reset ke Default</button>
                             <button type="button" class="btn btn-primary btn-sm" id="addAchievementBtn"><i class="fa-solid fa-plus"></i> Tambah Capaian</button>
                         </div>
                     </div>
@@ -926,9 +926,15 @@
                         desc: "Berkontribusi aktif sebagai relawan (volunteer) dalam mendukung kelancaran operasional, pendampingan peserta, serta rangkaian kegiatan pembelajaran dan kepesantrenan pada program Pesantren Liburan Batch 3 di HiraaCenter."
                     }
                 ],
-                // Achievements (On Progress)
+                // Achievements
                 achievements: [
-                    { id: 1, title: "Daftar Pencapaian & Prestasi Resmi", desc: "Informasi rekam jejak pencapaian dan prestasi resmi sedang dalam tahap penyesuaian data (On Progress)." }
+                    {
+                        id: 1,
+                        title: "Pemenang ke-2 Deen Warriors",
+                        role: "Ketua Kelompok",
+                        award: "Hadiah Rp 2.500.000",
+                        desc: "Meraih Juara 2 dalam ajang kompetisi Deen Warriors sekaligus memimpin tim sebagai Ketua Kelompok, dengan perolehan apresiasi hadiah senilai Rp 2.500.000 atas dedikasi dan kerja sama tim yang solid."
+                    }
                 ],
                 // Certificates (On Progress)
                 certificates: [
@@ -1087,7 +1093,10 @@
                         siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
                     }
                 }
-                if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+                const isOldAchPlaceholder = siteData.achievements && siteData.achievements.length === 1 && (siteData.achievements[0].title.includes('On Progress') || siteData.achievements[0].title.includes('Daftar Pencapaian') || siteData.achievements[0].desc.includes('On Progress'));
+                if (!siteData.achievements || !Array.isArray(siteData.achievements) || siteData.achievements.length === 0 || isOldAchPlaceholder) {
+                    siteData.achievements = defaultSiteData.achievements;
+                }
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
                 if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
                 if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
@@ -2249,14 +2258,14 @@
                 if (!achs || achs.length === 0) {
                     container.innerHTML = `
                         <div class="glass-card p-3 text-muted mb-3" style="border: 1px dashed rgba(255,255,255,0.15); font-size: 0.9rem;">
-                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (On Progress — data pencapaian dalam tahap pemutakhiran resmi).</em>
+                            <i class="fa-solid fa-hourglass-half"></i> <em>Kosong (Belum ada pencapaian yang ditambahkan).</em>
                         </div>
                     `;
                 } else {
                     container.innerHTML = achs.map(a => `
                         <div class="item-row">
                             <div style="flex-grow: 1; padding-right: 1rem;">
-                                <strong>${a.title} ${a.title.includes('On Progress') || a.desc.includes('On Progress') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <strong>${a.title} ${a.role ? `<span style="color: #10b981; background: rgba(16,185,129,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-crown"></i> ${a.role}</span>` : ''} ${a.award ? `<span style="color: #38bdf8; background: rgba(6,182,212,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-gift"></i> ${a.award}</span>` : ''} ${a.title.includes('On Progress') || a.desc.includes('On Progress') ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
                                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${a.desc}</p>
                             </div>
                             <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
@@ -2274,9 +2283,13 @@
                         if (!a) return;
                         showEditModal(`Edit Pencapaian: ${a.title}`, [
                             { name: 'title', label: 'Judul Pencapaian / Prestasi', value: a.title, required: true },
+                            { name: 'role', label: 'Peran / Kepemimpinan (opsional, contoh: Ketua Kelompok)', value: a.role || '' },
+                            { name: 'award', label: 'Apresiasi / Hadiah (opsional, contoh: Hadiah Rp 2.500.000)', value: a.award || '' },
                             { name: 'desc', label: 'Keterangan / Deskripsi Prestasi', type: 'textarea', value: a.desc }
                         ], (data) => {
                             a.title = data.title.trim();
+                            a.role = data.role ? data.role.trim() : '';
+                            a.award = data.award ? data.award.trim() : '';
                             a.desc = data.desc.trim();
                             saveState();
                             renderAchievementsList();
@@ -2301,11 +2314,15 @@
                 addAchievementBtn.addEventListener('click', () => {
                     showEditModal("Tambah Pencapaian Baru", [
                         { name: 'title', label: 'Judul Pencapaian / Prestasi', value: '', required: true },
+                        { name: 'role', label: 'Peran / Kepemimpinan (opsional, contoh: Ketua Kelompok)', value: '' },
+                        { name: 'award', label: 'Apresiasi / Hadiah (opsional, contoh: Hadiah Rp 2.500.000)', value: '' },
                         { name: 'desc', label: 'Keterangan / Deskripsi Prestasi', type: 'textarea', value: '' }
                     ], (data) => {
                         const newAch = {
                             id: Date.now(),
                             title: data.title.trim(),
+                            role: data.role ? data.role.trim() : '',
+                            award: data.award ? data.award.trim() : '',
                             desc: data.desc.trim()
                         };
                         (siteData.achievements = siteData.achievements || []).push(newAch);
@@ -2319,11 +2336,11 @@
             const resetAchievementsBtn = document.getElementById('resetAchievementsBtn');
             if (resetAchievementsBtn) {
                 resetAchievementsBtn.addEventListener('click', () => {
-                    if (confirm("Reset pencapaian ke status On Progress?")) {
+                    if (confirm("Reset pencapaian ke setelan default (Juara 2 Deen Warriors)?")) {
                         siteData.achievements = defaultSiteData.achievements;
                         saveState();
                         renderAchievementsList();
-                        showToast("Pencapaian di-reset ke On Progress.", "info");
+                        showToast("Pencapaian dikembalikan ke setelan default.", "info");
                     }
                 });
             }

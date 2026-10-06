@@ -148,12 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ],
 
-        // Achievements (On Progress)
+        // Achievements
         achievements: [
             {
                 id: 1,
-                title: "Daftar Pencapaian & Prestasi Resmi",
-                desc: "Informasi rekam jejak pencapaian dan prestasi resmi sedang dalam tahap penyesuaian data (On Progress)."
+                title: "Pemenang ke-2 Deen Warriors",
+                role: "Ketua Kelompok",
+                award: "Hadiah Rp 2.500.000",
+                desc: "Meraih Juara 2 dalam ajang kompetisi Deen Warriors sekaligus memimpin tim sebagai Ketua Kelompok, dengan perolehan apresiasi hadiah senilai Rp 2.500.000 atas dedikasi dan kerja sama tim yang solid."
             }
         ],
 
@@ -271,7 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
             }
         }
-        if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+        const isOldAchPlaceholder = siteData.achievements && siteData.achievements.length === 1 && (siteData.achievements[0].title.includes('On Progress') || siteData.achievements[0].title.includes('Daftar Pencapaian') || siteData.achievements[0].desc.includes('On Progress'));
+        if (!siteData.achievements || !Array.isArray(siteData.achievements) || siteData.achievements.length === 0 || isOldAchPlaceholder) {
+            siteData.achievements = defaultSiteData.achievements;
+        }
         if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
         if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
         if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
@@ -303,7 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
                     }
                 }
-                if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
+                const isOldAchSync = siteData.achievements && siteData.achievements.length === 1 && (siteData.achievements[0].title.includes('On Progress') || siteData.achievements[0].title.includes('Daftar Pencapaian') || siteData.achievements[0].desc.includes('On Progress'));
+                if (!siteData.achievements || !Array.isArray(siteData.achievements) || isOldAchSync) {
+                    siteData.achievements = defaultSiteData.achievements;
+                }
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
                 if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
                 if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
@@ -789,13 +797,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             } else {
-                achContainer.innerHTML = achList.map(a => `
-                    <div class="achieve-card glass-card">
-                        <div class="achieve-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <h3>${a.title}</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">${a.desc}</p>
-                    </div>
-                `).join('');
+                achContainer.innerHTML = achList.map(a => {
+                    const isWin2 = (a.title && (a.title.toLowerCase().includes('ke-2') || a.title.toLowerCase().includes('ke 2') || a.title.toLowerCase().includes('juara 2')));
+                    const badges = [];
+                    if (isWin2) {
+                        badges.push(`<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-medal"></i> Juara 2</span>`);
+                    } else if (a.badge) {
+                        badges.push(`<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-medal"></i> ${a.badge}</span>`);
+                    }
+                    if (a.role) {
+                        badges.push(`<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-crown"></i> ${a.role}</span>`);
+                    }
+                    if (a.award) {
+                        badges.push(`<span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-gift"></i> ${a.award}</span>`);
+                    }
+                    const badgesHtml = badges.length > 0 ? `<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">${badges.join('')}</div>` : '';
+
+                    return `
+                        <div class="achieve-card glass-card">
+                            <div class="achieve-icon" style="color: #fbbf24; background: rgba(245, 158, 11, 0.15);"><i class="fa-solid fa-trophy"></i></div>
+                            ${badgesHtml}
+                            <h3>${a.title}</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-top: 0.35rem;">${a.desc}</p>
+                        </div>
+                    `;
+                }).join('');
             }
         }
 
@@ -1289,10 +1315,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 💬 <em>Catatan</em>: "${fin.notes}"`;
             }
 
-            // 9. Prestasi / Pencapaian / Sertifikat
-            if (q.includes('prestasi') || q.includes('pencapaian') || q.includes('achievement') || q.includes('sertifikat') || q.includes('certificate')) {
-                return `🏆 <strong>Prestasi & Sertifikasi:</strong><br><br>
-                Informasi sertifikat resmi dan capaian formal Shifan sedang dalam tahap kurasi dan verifikasi data (<em>On Progress</em>). Shifan terus berfokus menguatkan hafalan Al-Qur'an di Hiraa Center dan mengasah keahlian coding secara konsisten.`;
+            // 9. Prestasi / Pencapaian / Deen Warriors / Juara / Sertifikat
+            if (q.includes('prestasi') || q.includes('pencapaian') || q.includes('achievement') || q.includes('deen') || q.includes('warrior') || q.includes('juara') || q.includes('menang') || q.includes('hadiah') || q.includes('sertifikat') || q.includes('certificate')) {
+                const achs = data.achievements || [];
+                const validAchs = achs.filter(a => a && !a.title.includes('On Progress') && !a.desc.includes('On Progress'));
+                if (validAchs.length > 0) {
+                    let achListHtml = validAchs.map(a => {
+                        let badgeInfo = [];
+                        if (a.role) badgeInfo.push(`Peran: ${a.role}`);
+                        if (a.award) badgeInfo.push(`Hadiah: ${a.award}`);
+                        const meta = badgeInfo.length > 0 ? ` (${badgeInfo.join(' | ')})` : '';
+                        return `🏆 <strong>${a.title}</strong>${meta}<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${a.desc}</small>`;
+                    }).join('<br><br>');
+
+                    return `🏆 <strong>Prestasi & Pencapaian Shifan:</strong><br><br>
+                    ${achListHtml}<br><br>
+                    ✨ Shifan sukses meraih <strong>Juara 2 (Pemenang ke-2) Deen Warriors</strong> sekaligus memimpin tim sebagai <strong>Ketua Kelompok</strong> dengan apresiasi hadiah sebesar <strong>Rp 2.500.000</strong>!`;
+                }
+
+                return `🏆 <strong>Prestasi & Capaian Shifan:</strong><br><br>
+                Shifan telah menorehkan prestasi membanggakan sebagai <strong>Juara 2 Deen Warriors</strong> dengan peran sebagai <strong>Ketua Kelompok</strong> dan mendapatkan hadiah senilai <strong>Rp 2.500.000 (2,5 Juta)</strong>! 🌟<br><br>
+                Untuk sertifikat resmi lainnya saat ini sedang dalam proses pendataan dan verifikasi (<em>On Progress</em>). Shifan terus bersemangat menuntut ilmu dan berkarya!`;
             }
 
             // 10. Kontak / Hubungi / Email / Medsos / Sosmed

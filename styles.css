@@ -926,7 +926,15 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
 
 
 /* --- Achievements & Certificates Grids --- */
-.achievements-grid, .certificates-grid, .testimonials-grid {
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.certificates-grid, .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -937,6 +945,16 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.achieve-card {
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.achieve-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
 }
 
 .cert-icon, .achieve-icon {
