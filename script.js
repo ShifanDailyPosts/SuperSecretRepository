@@ -1236,22 +1236,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // AI Answer Generator based on live siteData
         const generateAsisFanAnswer = (query) => {
-            const q = query.toLowerCase().trim();
+            const rawQ = query.trim();
+            const q = rawQ.toLowerCase();
             const data = siteData || defaultSiteData;
 
-            // 1. Sapaan / Greetings
-            if (/^(halo|hai|assalamu|assalam|hei|hey|pagi|siang|sore|malam|tes|test|ping)/.test(q)) {
-                return `Wa'alaikumsalam warahmatullahi wabarakatuh! 👋<br><br>Halo! Senang sekali bisa berbincang denganmu. Saya <strong>AsisFan</strong>, asisten AI pribadi Shifan Shalih Adiluhung. Ada hal seputar profil, keahlian coding, rekam jejak OSIS/volunteer, atau proyek Shifan yang ingin kamu tanyakan? 😊`;
+            // =================================================================
+            // 1. NON-INFORMASI: TERBATAS PADA SAPAAN & BASA-BASI SOPAN SANTUN
+            // (Jawab sesuai pertanyaannya namun secara khusus terbatas pada sapaan)
+            // =================================================================
+
+            // 1.1 Salam Islam
+            if (/^(assalam|assalamu|assalamualai|samlikum|mikum)/.test(q) || q.includes('assalamu') || q.includes('assalamualaik')) {
+                return `Wa'alaikumsalam warahmatullahi wabarakatuh! 👋<br><br>Selamat datang di website portofolio resmi Shifan Shalih Adiluhung. Saya <strong>AsisFan</strong>, asisten AI pribadi Shifan. Senang bisa menyambutmu! Silakan tanyakan informasi seputar profil, keahlian, pengalaman, atau karya Shifan ya. 😊`;
             }
 
-            // 2. Siapa Shifan / Profil / Tentang / Biodata
-            if (q.includes('siapa') || q.includes('tentang') || q.includes('profil') || q.includes('biodata') || q.includes('nama') || q.includes('adiluhung') || q.includes('asal') || q.includes('ciamis') || q.includes('arti nama')) {
+            // 1.2 Menanyakan Kabar
+            if (q.includes('apa kabar') || q.includes('gimana kabar') || q.includes('bagaimana kabar') || q.includes('how are you') || (q.includes('kabar') && (q.includes('kamu') || q.includes('mu') || q.includes('asis')))) {
+                return `Alhamdulillah, kabar saya luar biasa baik dan senantiasa bersemangat sebagai asisten AI Shifan! 😄<br><br>Semoga kamu juga senantiasa diberikan kesehatan, kebahagiaan, dan kemudahan dalam setiap urusan. Apakah ada informasi tentang profil atau karya Shifan di website ini yang ingin kamu ketahui?`;
+            }
+
+            // 1.3 Sapaan Umum & Waktu (Halo, Hai, Selamat Pagi/Siang/Sore/Malam, dll.)
+            if (/^(halo|hai|hello|hei|hey|pagi|siang|sore|malam|selamat pagi|selamat siang|selamat sore|selamat malam|selamat datang|tes|test|ping)\b/.test(q)) {
+                let greetingWord = "Halo!";
+                if (q.includes('pagi')) greetingWord = "Selamat pagi!";
+                else if (q.includes('siang')) greetingWord = "Selamat siang!";
+                else if (q.includes('sore')) greetingWord = "Selamat sore!";
+                else if (q.includes('malam')) greetingWord = "Selamat malam!";
+                
+                return `${greetingWord} 👋 Senang sekali bisa menyapamu.<br><br>Saya <strong>AsisFan</strong>, asisten AI portofolio Shifan Shalih Adiluhung. Senang berbincang denganmu! Jika ada hal yang ingin kamu ketahui seputar informasi Shifan di website ini, silakan tanyakan ya. 😊`;
+            }
+
+            // 1.4 Terima Kasih & Rasa Syukur
+            if (q.includes('terima kasih') || q.includes('makasih') || q.includes('thanks') || q.includes('thank you') || q.includes('syukran') || q.includes('matur nuwun')) {
+                return `Sama-sama! Senang sekali bisa membantu dan melayanimu dengan baik. 🙏✨ Semoga harimu menyenangkan dan berkah. Jika masih ada hal seputar informasi Shifan yang ingin kamu tanyakan, silakan beri tahu saya!`;
+            }
+
+            // 1.5 Pujian & Apresiasi
+            if (/\b(keren|mantap|mantul|hebat|bagus|top|jos|good job|nice|alhamdulillah)\b/.test(q) && !q.includes('proyek') && !q.includes('project') && !q.includes('skill')) {
+                return `Alhamdulillah, terima kasih banyak atas apresiasi dan kata-kata positifnya! 🙏✨ Semoga portofolio dan dedikasi Shifan ini bisa memberikan manfaat dan inspirasi.`;
+            }
+
+            // 1.6 Pamitan / Perpisahan
+            if (/\b(dadah|bye|sampai jumpa|selamat tinggal|goodbye|see you|pamit)\b/.test(q)) {
+                return `Sampai jumpa kembali! 👋 Terima kasih banyak sudah berkunjung dan berinteraksi di website portofolio Shifan. Semoga sukses selalu menyertai setiap langkahmu!`;
+            }
+
+            // 1.7 Permintaan Maaf Pengguna
+            if (/\b(maaf|sorry|punten|sepurane)\b/.test(q) && q.split(' ').length <= 4) {
+                return `Sama sekali tidak apa-apa, santai saja! 😊 Senang bisa berbincang denganmu. Ada hal seputar Shifan atau isi website ini yang ingin kamu ketahui?`;
+            }
+
+            // =================================================================
+            // 2. INFORMASI SEPUTAR WEBSITE & SHIFAN SHALIH ADILUHUNG
+            // =================================================================
+
+            // 2.1 Identitas AsisFan & Website
+            if (q.includes('kamu siapa') || q.includes('asisfan') || q.includes('siapa kamu') || q.includes('asisten') || q.includes('kamu itu apa') || q.includes('bot apa')) {
+                return `Saya adalah <strong>AsisFan</strong>, asisten virtual berbasis kecerdasan buatan (AI) yang dirancang khusus untuk memandu dan menjawab pertanyaan pengunjung portofolio Shifan Shalih Adiluhung secara interaktif dan informatif! 🤖✨`;
+            }
+
+            // 2.2 Profil Shifan / Biodata / Asal / Makna Nama Adiluhung
+            if (q.includes('siapa shifan') || q.includes('tentang shifan') || q.includes('profil') || q.includes('biodata') || q.includes('nama') || q.includes('adiluhung') || q.includes('asal') || q.includes('ciamis') || q.includes('santri') || q.includes('arti nama') || q.includes('hiraa center') || (q.includes('shifan') && (q.includes('siapa') || q.includes('orang') || q.includes('tinggal') || q.includes('lahir') || q.includes('umur') || q.includes('usia')))) {
                 return `<strong>${data.name}</strong> adalah seorang pelajar asal <strong>Ciamis, Jawa Barat</strong> yang saat ini aktif sebagai santri penghafal Al-Qur'an di <strong>Hiraa Center (Rumah Qur'an & Konsultasi)</strong> sekaligus berdedikasi membangun keahlian teknologi web modern. 🌟<br><br>
                 Makna nama <em>'Adiluhung'</em> diambil dari bahasa Jawa/Indonesia yang berarti <strong>Luhur, Agung, dan Bernilai Tinggi</strong>. Nama ini menjadi pedoman Shifan dalam menjaga integritas moral santri dan menghasilkan karya berkualitas tinggi di ranah teknologi.`;
             }
 
-            // 3. OSIS / Sekolah / SMP / Al-Kautsar 561
-            if (q.includes('osis') || q.includes('sekbid') || q.includes('al-kautsar') || q.includes('561') || q.includes('smp') || q.includes('sekolah') || q.includes('bahasa')) {
+            // 2.3 OSIS / Sekolah SMP Quranic Science Boarding School Al-Kautsar 561
+            if (q.includes('osis') || q.includes('sekbid') || q.includes('al-kautsar') || q.includes('561') || q.includes('smp') || (q.includes('sekolah') && (q.includes('shifan') || q.includes('smp') || q.includes('dimana') || q.includes('di mana'))) || q.includes('komunikasi dalam bahasa')) {
                 const osisExp = data.experiences ? data.experiences.find(e => e.role.toLowerCase().includes('osis') || e.org.toLowerCase().includes('kautsar')) : null;
                 const role = osisExp ? osisExp.role : "Pengurus OSIS (Sekbid 8 - Komunikasi dalam Bahasa)";
                 const org = osisExp ? osisExp.org : "SMP Quranic Science Boarding School Al-Kautsar 561";
@@ -1263,8 +1314,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 📌 <em>Peran utama</em>: ${desc}`;
             }
 
-            // 4. Volunteer / HiraaCenter / Pesantren Liburan
-            if (q.includes('volunteer') || q.includes('relawan') || q.includes('hiraa') || q.includes('pesantren liburan') || q.includes('batch 3')) {
+            // 2.4 Volunteer / Relawan di HiraaCenter Pesantren Liburan
+            if (q.includes('volunteer') || q.includes('relawan') || q.includes('pesantren liburan') || q.includes('batch 3') || (q.includes('hiraa') && (q.includes('kegiatan') || q.includes('program') || q.includes('relawan')))) {
                 const volExp = data.experiences ? data.experiences.find(e => e.role.toLowerCase().includes('volunteer') || e.org.toLowerCase().includes('hiraa')) : null;
                 const org = volExp ? volExp.org : "HiraaCenter";
                 const cat = volExp && volExp.category ? volExp.category : "Pesantren Liburan Batch 3";
@@ -1275,8 +1326,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 📌 <em>Kontribusi</em>: ${desc}`;
             }
 
-            // 5. Seluruh Pengalaman / Experience / Karir
-            if (q.includes('pengalaman') || q.includes('experience') || q.includes('organisasi') || q.includes('karir') || q.includes('kegiatan')) {
+            // 2.5 Seluruh Pengalaman / Karir / Riwayat Organisasi
+            if (q.includes('pengalaman') || q.includes('experience') || q.includes('organisasi') || q.includes('karir') || q.includes('kegiatan shifan') || q.includes('rekam jejak')) {
                 const exps = data.experiences || [];
                 if (exps.length === 0) {
                     return `Data pengalaman Shifan saat ini sedang dalam proses pemutakhiran resmi (On Progress).`;
@@ -1285,38 +1336,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `📋 <strong>Rekam Jejak Pengalaman Shifan:</strong><br><br>${listHtml}`;
             }
 
-            // 6. Skill / Kemampuan / Bahasa Pemrograman / Tech Stack
-            if (q.includes('skill') || q.includes('kemampuan') || q.includes('keahlian') || q.includes('coding') || q.includes('program') || q.includes('bahasa pemrograman') || q.includes('html') || q.includes('css') || q.includes('javascript') || q.includes('python')) {
-                const webSkills = data.webDevSkills || [];
-                let skillList = webSkills.map(s => `• <strong>${s.name}</strong> — status: <span style="color:var(--text-gold); font-weight:600;">${s.statusText || 'Aktif Dipelajari'}</span>`).join('<br>');
-                return `⚡ <strong>Keahlian & Penguasaan Teknologi Shifan:</strong><br><br>
-                Shifan berfokus pada teknologi web modern dan pemrograman:<br>${skillList || '• HTML5, CSS3, JavaScript ES6+, Python'}<br><br>
-                Teknologi pendukung harian: Git & GitHub, VS Code, LocalStorage API, Responsive Grid/Flexbox, dan FTP Hosting Deployment.`;
-            }
-
-            // 7. Proyek / Project / Karya / Portofolio
-            if (q.includes('proyek') || q.includes('project') || q.includes('karya') || q.includes('portofolio') || q.includes('bikin apa') || q.includes('buat apa')) {
-                const projs = data.projects || [];
-                let projList = projs.slice(0, 3).map(p => `• <strong>${p.title}</strong> (${p.category})<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${p.desc}</small>`).join('<br><br>');
-                return `🚀 <strong>Proyek & Portofolio Karya Shifan:</strong><br><br>
-                ${projList}<br><br>
-                Website portofolio yang sedang kamu buka ini adalah bukti nyata karya Shifan yang dibangun dari nol!`;
-            }
-
-            // 8. Tabungan / Keuangan / Duit / Finansial
-            if (q.includes('tabung') || q.includes('uang') || q.includes('duit') || q.includes('keuangan') || q.includes('finansial') || q.includes('biaya') || q.includes('target tabung') || q.includes('terkumpul')) {
-                const fin = data.finance || { current: 1500000, target: 5000000, goal: "Tabungan Mandiri & Pendidikan", notes: "Pengelolaan terencana.", lastUpdated: "Oktober 2026" };
-                const pct = Math.min(100, Math.round(((fin.current || 0) / (fin.target || 1)) * 100));
-                return `💰 <strong>Status Pengelolaan Keuangan & Tabungan Shifan:</strong><br><br>
-                • <strong>Uang Terkumpul</strong>: <span style="color:#10b981; font-weight:700;">${formatRupiah(fin.current)}</span><br>
-                • <strong>Target Tabungan</strong>: ${formatRupiah(fin.target)} (${pct}% tercapai)<br>
-                • <strong>Tujuan Alokasi</strong>: ${fin.goal}<br>
-                • <strong>Pembaruan Terakhir</strong>: ${fin.lastUpdated}<br><br>
-                💬 <em>Catatan</em>: "${fin.notes}"`;
-            }
-
-            // 9. Prestasi / Pencapaian / Deen Warriors / Juara / Sertifikat
-            if (q.includes('prestasi') || q.includes('pencapaian') || q.includes('achievement') || q.includes('deen') || q.includes('warrior') || q.includes('juara') || q.includes('menang') || q.includes('hadiah') || q.includes('sertifikat') || q.includes('certificate')) {
+            // 2.6 Prestasi & Pencapaian (Deen Warriors, Hadiah 2.5 Juta, Ketua Kelompok)
+            if (q.includes('prestasi') || q.includes('pencapaian') || q.includes('achievement') || q.includes('deen') || q.includes('warrior') || q.includes('juara') || q.includes('menang') || q.includes('lomba') || q.includes('kompetisi') || q.includes('hadiah') || q.includes('sertifikat') || q.includes('certificate')) {
                 const achs = data.achievements || [];
                 const validAchs = achs.filter(a => a && !a.title.includes('On Progress') && !a.desc.includes('On Progress'));
                 if (validAchs.length > 0) {
@@ -1330,7 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     return `🏆 <strong>Prestasi & Pencapaian Shifan:</strong><br><br>
                     ${achListHtml}<br><br>
-                    ✨ Shifan sukses meraih <strong>Juara 2 (Pemenang ke-2) Deen Warriors</strong> sekaligus memimpin tim sebagai <strong>Ketua Kelompok</strong> dengan apresiasi hadiah sebesar <strong>Rp 2.500.000</strong>!`;
+                    ✨ Shifan sukses meraih <strong>Juara 2 (Pemenang ke-2) Deen Warriors</strong> sekaligus memimpin tim sebagai <strong>Ketua Kelompok</strong> dengan perolehan apresiasi hadiah sebesar <strong>Rp 2.500.000 (2,5 Juta)</strong>!`;
                 }
 
                 return `🏆 <strong>Prestasi & Capaian Shifan:</strong><br><br>
@@ -1338,8 +1359,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 Untuk sertifikat resmi lainnya saat ini sedang dalam proses pendataan dan verifikasi (<em>On Progress</em>). Shifan terus bersemangat menuntut ilmu dan berkarya!`;
             }
 
-            // 10. Kontak / Hubungi / Email / Medsos / Sosmed
-            if (q.includes('kontak') || q.includes('hubungi') || q.includes('email') || q.includes('instagram') || q.includes('github') || q.includes('linkedin') || q.includes('sosmed') || q.includes('medsos') || q.includes('wa') || q.includes('telepon')) {
+            // 2.7 Keahlian, Kemampuan & Skill Coding
+            if (q.includes('skill') || q.includes('kemampuan') || q.includes('keahlian') || q.includes('coding') || q.includes('program') || q.includes('pemrograman') || q.includes('html') || q.includes('css') || q.includes('javascript') || q.includes('python') || q.includes('tech stack') || q.includes('tools')) {
+                const webSkills = data.webDevSkills || [];
+                let skillList = webSkills.map(s => `• <strong>${s.name}</strong> — status: <span style="color:var(--text-gold); font-weight:600;">${s.statusText || 'Aktif Dipelajari'}</span>`).join('<br>');
+                return `⚡ <strong>Keahlian & Penguasaan Teknologi Shifan:</strong><br><br>
+                Shifan berfokus pada teknologi web modern dan pemrograman:<br>${skillList || '• HTML5, CSS3, JavaScript ES6+, Python'}<br><br>
+                Teknologi pendukung harian: Git & GitHub, VS Code, LocalStorage API, Responsive Grid/Flexbox, dan FTP Hosting Deployment.`;
+            }
+
+            // 2.8 Proyek & Karya Portofolio
+            if (q.includes('proyek') || q.includes('project') || q.includes('karya') || q.includes('portofolio') || q.includes('portfolio') || q.includes('bikin apa') || q.includes('buat apa')) {
+                const projs = data.projects || [];
+                let projList = projs.slice(0, 3).map(p => `• <strong>${p.title}</strong> (${p.category})<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${p.desc}</small>`).join('<br><br>');
+                return `🚀 <strong>Proyek & Portofolio Karya Shifan:</strong><br><br>
+                ${projList}<br><br>
+                Website portofolio yang sedang kamu buka ini adalah bukti nyata karya Shifan yang dibangun dari nol!`;
+            }
+
+            // 2.9 Tabungan, Keuangan & Finansial
+            if (q.includes('tabung') || q.includes('uang') || q.includes('duit') || q.includes('keuangan') || q.includes('finansial') || q.includes('biaya') || q.includes('target tabung') || q.includes('terkumpul') || q.includes('dana')) {
+                const fin = data.finance || { current: 1500000, target: 5000000, goal: "Tabungan Mandiri & Pendidikan", notes: "Pengelolaan terencana.", lastUpdated: "Oktober 2026" };
+                const pct = Math.min(100, Math.round(((fin.current || 0) / (fin.target || 1)) * 100));
+                return `💰 <strong>Status Pengelolaan Keuangan & Tabungan Shifan:</strong><br><br>
+                • <strong>Uang Terkumpul</strong>: <span style="color:#10b981; font-weight:700;">${formatRupiah(fin.current)}</span><br>
+                • <strong>Target Tabungan</strong>: ${formatRupiah(fin.target)} (${pct}% tercapai)<br>
+                • <strong>Tujuan Alokasi</strong>: ${fin.goal}<br>
+                • <strong>Pembaruan Terakhir</strong>: ${fin.lastUpdated}<br><br>
+                💬 <em>Catatan</em>: "${fin.notes}"`;
+            }
+
+            // 2.10 Kontak & Media Sosial
+            if (q.includes('kontak') || q.includes('hubungi') || q.includes('email') || q.includes('instagram') || q.includes('github') || q.includes('linkedin') || q.includes('sosmed') || q.includes('medsos') || q.includes('wa') || q.includes('whatsapp') || q.includes('telepon') || q.includes('pesan') || q.includes('domisili') || q.includes('alamat')) {
                 return `📬 <strong>Informasi Kontak & Media Sosial Shifan:</strong><br><br>
                 • 📧 <strong>Email Resmi</strong>: <a href="mailto:${data.contactEmail}">${data.contactEmail}</a><br>
                 • 📍 <strong>Domisili</strong>: ${data.contactLocation}<br>
@@ -1349,26 +1400,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 Kamu juga bisa mengirim pesan langsung melalui formulir kontak di bagian bawah website!`;
             }
 
-            // 11. Pujian / Ucapan Terima Kasih
-            if (q.includes('terima kasih') || q.includes('makasih') || q.includes('thanks') || q.includes('keren') || q.includes('mantap') || q.includes('hebat') || q.includes('bagus') || q.includes('alhamdulillah')) {
-                return `Alhamdulillah, terima kasih banyak atas apresiasi dan doa baiknya! 🙏✨ Semoga keberkahan dan kesuksesan selalu menyertaimu. Jika ada hal lain yang ingin kamu tanyakan seputar Shifan, silakan beri tahu saya ya!`;
+            // 2.11 Akses Admin Panel
+            if (q.includes('admin') || q.includes('panel') || q.includes('login') || q.includes('masuk admin')) {
+                return `🔐 <strong>Akses Admin Panel Portofolio:</strong><br><br>
+                Akses panel admin Shifan diproteksi secara tersembunyi. Kamu dapat mengaksesnya dengan melakukan <strong>triple-click pada logo brand 'Shifan'</strong> di bar navigasi atas atau menambahkan parameter <code>?panel=1</code> pada URL.<br><br>
+                Halaman admin memerlukan autentikasi kata sandi resmi untuk melakukan perubahan konten.`;
             }
 
-            // 12. Identitas AsisFan
-            if (q.includes('kamu siapa') || q.includes('asisfan') || q.includes('siapa kamu') || q.includes('asisten')) {
-                return `Saya adalah <strong>AsisFan</strong>, asisten virtual berbasis kecerdasan buatan (AI) yang dirancang khusus untuk memandu dan menjawab pertanyaan pengunjung portofolio Shifan Shalih Adiluhung secara interaktif dan informatif! 🤖✨`;
-            }
-
-            // 13. Default Smart Fallback
-            return `Terima kasih atas pertanyaannya! 🤔<br><br>
-            Sebagai asisten AI, saya siap membantu menjawab seputar Shifan Shalih Adiluhung, antara lain:<br>
-            • 💡 <strong>Profil & Makna Filosofis Nama Adiluhung</strong><br>
-            • ⚡ <strong>Skill & Penguasaan Bahasa Pemrograman</strong><br>
-            • 🏫 <strong>Pengalaman OSIS Sekbid 8 di SMP Al-Kautsar 561</strong><br>
-            • 🤝 <strong>Pengalaman Volunteer di HiraaCenter</strong><br>
-            • 💰 <strong>Transparansi Tabungan & Target Keuangan</strong><br>
-            • 📬 <strong>Alamat Kontak & Media Sosial</strong><br><br>
-            Silakan klik salah satu topik di atas atau tuliskan pertanyaan spesifikmu! 😊`;
+            // =================================================================
+            // 3. PERTANYAAN INFORMASI SELAIN DARI WEBSITE
+            // (Penolakan halus dan berharap untuk tidak mengulang pertanyaan itu)
+            // =================================================================
+            return `Mohon maaf yang sebesar-besarnya. 🙏<br><br>
+            Saya adalah <strong>AsisFan</strong>, asisten AI yang <em>khusus diprogram hanya untuk menyajikan informasi seputar Shifan Shalih Adiluhung dan seluruh isi website portofolio ini</em>.<br><br>
+            Saya tidak dapat memberikan jawaban atau informasi di luar topik website portofolio ini, dan <strong>saya sangat berharap Anda tidak mengulang pertanyaan di luar konteks website ini</strong>. 😊<br><br>
+            Sebagai gantinya, silakan ajukan pertanyaan seputar informasi yang tersedia di website ini:<br>
+            • 💡 <strong>Profil Pribadi & Filosofi Nama Adiluhung</strong><br>
+            • 🏆 <strong>Prestasi Juara 2 Deen Warriors (Ketua Kelompok & Hadiah Rp 2,5 Juta)</strong><br>
+            • 🏫 <strong>Pengurus OSIS Sekbid 8 di SMP Al-Kautsar 561</strong><br>
+            • 🤝 <strong>Volunteer HiraaCenter Pesantren Liburan Batch 3</strong><br>
+            • ⚡ <strong>Skill Coding & Penguasaan Bahasa Pemrograman</strong><br>
+            • 🚀 <strong>Proyek Karya & Portofolio Web</strong><br>
+            • 💰 <strong>Status Tabungan & Pengelolaan Keuangan</strong><br>
+            • 📬 <strong>Kontak Resmi & Media Sosial Shifan</strong>`;
         };
 
         // Handle user sending message
