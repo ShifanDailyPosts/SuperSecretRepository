@@ -911,10 +911,11 @@
                 experiences: [
                     {
                         id: 1,
-                        role: "Riwayat & Rekam Jejak Pengalaman",
-                        org: "Tahap Pemutakhiran Data",
-                        period: "On Progress",
-                        desc: "Bagian pengalaman dan rekam jejak ini sedang dalam tahap penyesuaian dan verifikasi data resmi (On Progress)."
+                        role: "Volunteer",
+                        org: "HiraaCenter",
+                        category: "Pesantren Liburan Batch 3",
+                        period: "Pesantren Liburan Batch 3",
+                        desc: "Berkontribusi aktif sebagai relawan (volunteer) dalam mendukung kelancaran operasional, pendampingan peserta, serta rangkaian kegiatan pembelajaran dan kepesantrenan pada program Pesantren Liburan Batch 3 di HiraaCenter."
                     }
                 ],
                 // Achievements (On Progress)
@@ -1069,7 +1070,10 @@
                     siteData.webDevSkills = defaultSiteData.webDevSkills;
                 }
                 if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
-                if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+                const isOldExpPlaceholder = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
+                if (!siteData.experiences || !Array.isArray(siteData.experiences) || siteData.experiences.length === 0 || isOldExpPlaceholder) {
+                    siteData.experiences = defaultSiteData.experiences;
+                }
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
                 if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
@@ -2139,7 +2143,7 @@
                     container.innerHTML = exps.map(e => `
                         <div class="item-row">
                             <div style="flex-grow: 1; padding-right: 1rem;">
-                                <strong>${e.role} — ${e.org} ${e.period === 'On Progress' ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
+                                <strong>${e.role} — ${e.org} ${e.category ? `<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-tag"></i> ${e.category}</span>` : ''} ${e.period === 'On Progress' ? '<span style="color: #fbbf24; background: rgba(245,158,11,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;"><i class="fa-solid fa-hourglass-half"></i> On Progress</span>' : ''}</strong>
                                 <span>Periode: ${e.period}</span>
                                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; margin-bottom: 0;">${e.desc}</p>
                             </div>
@@ -2159,11 +2163,13 @@
                         showEditModal(`Edit Pengalaman: ${e.role}`, [
                             { name: 'role', label: 'Peran / Posisi / Jabatan', value: e.role, required: true },
                             { name: 'org', label: 'Organisasi / Instansi / Tempat', value: e.org, required: true },
-                            { name: 'period', label: 'Periode (contoh: 2024 - Sekarang atau On Progress)', value: e.period, required: true },
+                            { name: 'category', label: 'Kategori / Program Kegiatan', value: e.category || 'Pesantren Liburan Batch 3', required: true },
+                            { name: 'period', label: 'Periode (contoh: Pesantren Liburan Batch 3 atau 2024 - Sekarang)', value: e.period, required: true },
                             { name: 'desc', label: 'Deskripsi Kegiatan / Tanggung Jawab', type: 'textarea', value: e.desc }
                         ], (data) => {
                             e.role = data.role.trim();
                             e.org = data.org.trim();
+                            e.category = data.category ? data.category.trim() : '';
                             e.period = data.period.trim();
                             e.desc = data.desc.trim();
                             saveState();
@@ -2190,13 +2196,15 @@
                     showEditModal("Tambah Pengalaman Baru", [
                         { name: 'role', label: 'Peran / Posisi / Jabatan', value: '', required: true },
                         { name: 'org', label: 'Organisasi / Instansi / Tempat', value: '', required: true },
-                        { name: 'period', label: 'Periode (contoh: 2024 - Sekarang atau On Progress)', value: 'On Progress', required: true },
+                        { name: 'category', label: 'Kategori / Program Kegiatan', value: 'Pesantren Liburan Batch 3', required: true },
+                        { name: 'period', label: 'Periode (contoh: Pesantren Liburan Batch 3 atau 2024 - Sekarang)', value: 'Pesantren Liburan Batch 3', required: true },
                         { name: 'desc', label: 'Deskripsi Kegiatan / Tanggung Jawab', type: 'textarea', value: '' }
                     ], (data) => {
                         const newExp = {
                             id: Date.now(),
                             role: data.role.trim(),
                             org: data.org.trim(),
+                            category: data.category ? data.category.trim() : '',
                             period: data.period.trim(),
                             desc: data.desc.trim()
                         };
@@ -2211,11 +2219,11 @@
             const resetExperienceBtn = document.getElementById('resetExperienceBtn');
             if (resetExperienceBtn) {
                 resetExperienceBtn.addEventListener('click', () => {
-                    if (confirm("Reset pengalaman ke status On Progress?")) {
+                    if (confirm("Reset pengalaman ke setelan default (Volunteer HiraaCenter)?")) {
                         siteData.experiences = defaultSiteData.experiences;
                         saveState();
                         renderExperienceList();
-                        showToast("Pengalaman di-reset ke On Progress.", "info");
+                        showToast("Pengalaman dikembalikan ke setelan default.", "info");
                     }
                 });
             }

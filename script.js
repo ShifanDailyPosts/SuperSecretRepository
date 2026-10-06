@@ -128,14 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ],
 
-        // Experience (On Progress)
+        // Experience
         experiences: [
             {
                 id: 1,
-                role: "Riwayat & Rekam Jejak Pengalaman",
-                org: "Tahap Pemutakhiran Data",
-                period: "On Progress",
-                desc: "Bagian pengalaman dan rekam jejak ini sedang dalam tahap penyesuaian dan verifikasi data resmi (On Progress)."
+                role: "Volunteer",
+                org: "HiraaCenter",
+                category: "Pesantren Liburan Batch 3",
+                period: "Pesantren Liburan Batch 3",
+                desc: "Berkontribusi aktif sebagai relawan (volunteer) dalam mendukung kelancaran operasional, pendampingan peserta, serta rangkaian kegiatan pembelajaran dan kepesantrenan pada program Pesantren Liburan Batch 3 di HiraaCenter."
             }
         ],
 
@@ -253,7 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
             siteData.webDevSkills = defaultSiteData.webDevSkills;
         }
         if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
-        if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+        const isOldExpPlaceholder = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
+        if (!siteData.experiences || !Array.isArray(siteData.experiences) || siteData.experiences.length === 0 || isOldExpPlaceholder) {
+            siteData.experiences = defaultSiteData.experiences;
+        }
         if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
         if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
         if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
@@ -277,7 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     siteData.webDevSkills = defaultSiteData.webDevSkills;
                 }
                 if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
-                if (!siteData.experiences || !Array.isArray(siteData.experiences)) siteData.experiences = defaultSiteData.experiences;
+                const isOldExpSync = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
+                if (!siteData.experiences || !Array.isArray(siteData.experiences) || isOldExpSync) {
+                    siteData.experiences = defaultSiteData.experiences;
+                }
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
                 if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
@@ -711,17 +718,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             } else {
-                expContainer.innerHTML = expList.map(e => `
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content glass-card">
-                            <span class="timeline-date"><i class="fa-solid fa-calendar-days"></i> ${e.period}</span>
-                            <h3>${e.role}</h3>
-                            <h4 style="color: var(--primary-color); font-size: 0.95rem; margin-bottom: 0.75rem;">${e.org}</h4>
-                            <p>${e.desc}</p>
+                expContainer.innerHTML = expList.map(e => {
+                    const isVolunteer = (e.role && e.role.toLowerCase().includes('volunteer')) || (e.desc && e.desc.toLowerCase().includes('volunteer'));
+                    const iconClass = isVolunteer ? 'fa-solid fa-hand-holding-heart' : (e.period === 'On Progress' ? 'fa-solid fa-hourglass-half' : 'fa-solid fa-briefcase');
+                    const categoryHtml = e.category ? `<span class="exp-category-badge"><i class="fa-solid fa-tag"></i> ${e.category}</span>` : '';
+                    const periodHtml = e.period ? `<span class="exp-period-badge"><i class="fa-solid fa-calendar-check"></i> ${e.period}</span>` : '';
+
+                    return `
+                        <div class="experience-card-item glass-card">
+                            <div class="experience-badge-icon">
+                                <i class="${iconClass}"></i>
+                            </div>
+                            <div class="experience-body">
+                                <div class="experience-header-meta">
+                                    <div>
+                                        <h3 class="experience-role-title">${e.role}</h3>
+                                        <span class="experience-org-title"><i class="fa-solid fa-building-columns"></i> ${e.org}</span>
+                                    </div>
+                                    <div class="experience-meta-tags">
+                                        ${categoryHtml}
+                                        ${periodHtml}
+                                    </div>
+                                </div>
+                                <p class="experience-desc">${e.desc}</p>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             }
         }
 

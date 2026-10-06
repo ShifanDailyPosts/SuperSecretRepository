@@ -1402,3 +1402,158 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
     .finance-main-amount { font-size: 2.35rem; }
     .finance-grid-stats { grid-template-columns: 1fr; }
 }
+
+/* --- Experience Vertical Grid --- */
+.experience-vertical-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.experience-card-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 2rem 2.25rem;
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    overflow: hidden;
+}
+
+.experience-card-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary-gradient);
+    opacity: 0.8;
+    transition: opacity var(--transition-fast);
+}
+
+.experience-card-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 16px 36px rgba(6, 182, 212, 0.15);
+}
+
+.experience-card-item:hover::before {
+    opacity: 1;
+    box-shadow: 0 0 12px var(--primary-color);
+}
+
+.experience-badge-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    transition: transform var(--transition-bounce);
+}
+
+.experience-card-item:hover .experience-badge-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.experience-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.experience-header-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.experience-role-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.25;
+}
+
+.experience-org-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+}
+
+.experience-meta-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.exp-category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(245, 158, 11, 0.14);
+    color: var(--text-gold);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.exp-period-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.experience-desc {
+    font-size: 0.93rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .experience-card-item {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1.25rem;
+        gap: 1rem;
+    }
+    .experience-badge-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+    .experience-header-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
