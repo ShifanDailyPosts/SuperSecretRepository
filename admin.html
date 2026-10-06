@@ -911,6 +911,14 @@
                 experiences: [
                     {
                         id: 1,
+                        role: "Pengurus OSIS (Sekbid 8 - Komunikasi dalam Bahasa)",
+                        org: "SMP Quranic Science Boarding School Al-Kautsar 561",
+                        category: "Kepengurusan OSIS",
+                        period: "2026 - 2027",
+                        desc: "Berperan aktif sebagai pengurus OSIS Seksi Bidang 8 (Komunikasi dalam Bahasa), mengoordinasikan program pengembangan bahasa, literasi santri, serta komunikasi multibahasa di lingkungan SMP Quranic Science Boarding School Al-Kautsar 561."
+                    },
+                    {
+                        id: 2,
                         role: "Volunteer",
                         org: "HiraaCenter",
                         category: "Pesantren Liburan Batch 3",
@@ -1073,6 +1081,11 @@
                 const isOldExpPlaceholder = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
                 if (!siteData.experiences || !Array.isArray(siteData.experiences) || siteData.experiences.length === 0 || isOldExpPlaceholder) {
                     siteData.experiences = defaultSiteData.experiences;
+                } else {
+                    const hasOsis = siteData.experiences.some(e => e.role && e.role.toLowerCase().includes('osis'));
+                    if (!hasOsis) {
+                        siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
+                    }
                 }
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
@@ -2219,7 +2232,7 @@
             const resetExperienceBtn = document.getElementById('resetExperienceBtn');
             if (resetExperienceBtn) {
                 resetExperienceBtn.addEventListener('click', () => {
-                    if (confirm("Reset pengalaman ke setelan default (Volunteer HiraaCenter)?")) {
+                    if (confirm("Reset pengalaman ke setelan default (OSIS Al-Kautsar 561 & Volunteer HiraaCenter)?")) {
                         siteData.experiences = defaultSiteData.experiences;
                         saveState();
                         renderExperienceList();

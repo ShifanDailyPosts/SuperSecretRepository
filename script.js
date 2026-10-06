@@ -132,6 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
         experiences: [
             {
                 id: 1,
+                role: "Pengurus OSIS (Sekbid 8 - Komunikasi dalam Bahasa)",
+                org: "SMP Quranic Science Boarding School Al-Kautsar 561",
+                category: "Kepengurusan OSIS",
+                period: "2026 - 2027",
+                desc: "Berperan aktif sebagai pengurus OSIS Seksi Bidang 8 (Komunikasi dalam Bahasa), mengoordinasikan program pengembangan bahasa, literasi santri, serta komunikasi multibahasa di lingkungan SMP Quranic Science Boarding School Al-Kautsar 561."
+            },
+            {
+                id: 2,
                 role: "Volunteer",
                 org: "HiraaCenter",
                 category: "Pesantren Liburan Batch 3",
@@ -257,6 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const isOldExpPlaceholder = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
         if (!siteData.experiences || !Array.isArray(siteData.experiences) || siteData.experiences.length === 0 || isOldExpPlaceholder) {
             siteData.experiences = defaultSiteData.experiences;
+        } else {
+            const hasOsis = siteData.experiences.some(e => e.role && e.role.toLowerCase().includes('osis'));
+            if (!hasOsis) {
+                siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
+            }
         }
         if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
         if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
@@ -284,6 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isOldExpSync = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
                 if (!siteData.experiences || !Array.isArray(siteData.experiences) || isOldExpSync) {
                     siteData.experiences = defaultSiteData.experiences;
+                } else {
+                    const hasOsisSync = siteData.experiences.some(e => e.role && e.role.toLowerCase().includes('osis'));
+                    if (!hasOsisSync) {
+                        siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
+                    }
                 }
                 if (!siteData.achievements || !Array.isArray(siteData.achievements)) siteData.achievements = defaultSiteData.achievements;
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
@@ -720,7 +738,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 expContainer.innerHTML = expList.map(e => {
                     const isVolunteer = (e.role && e.role.toLowerCase().includes('volunteer')) || (e.desc && e.desc.toLowerCase().includes('volunteer'));
-                    const iconClass = isVolunteer ? 'fa-solid fa-hand-holding-heart' : (e.period === 'On Progress' ? 'fa-solid fa-hourglass-half' : 'fa-solid fa-briefcase');
+                    const isOsis = (e.role && e.role.toLowerCase().includes('osis')) || (e.category && e.category.toLowerCase().includes('osis'));
+                    let iconClass = 'fa-solid fa-briefcase';
+                    if (isVolunteer) iconClass = 'fa-solid fa-hand-holding-heart';
+                    else if (isOsis) iconClass = 'fa-solid fa-users-gear';
+                    else if (e.period === 'On Progress') iconClass = 'fa-solid fa-hourglass-half';
+
+                    let orgIcon = 'fa-solid fa-building-columns';
+                    if (e.org && (e.org.toLowerCase().includes('smp') || e.org.toLowerCase().includes('school'))) orgIcon = 'fa-solid fa-school';
+                    else if (e.org && e.org.toLowerCase().includes('hiraa')) orgIcon = 'fa-solid fa-mosque';
+
                     const categoryHtml = e.category ? `<span class="exp-category-badge"><i class="fa-solid fa-tag"></i> ${e.category}</span>` : '';
                     const periodHtml = e.period ? `<span class="exp-period-badge"><i class="fa-solid fa-calendar-check"></i> ${e.period}</span>` : '';
 
@@ -733,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="experience-header-meta">
                                     <div>
                                         <h3 class="experience-role-title">${e.role}</h3>
-                                        <span class="experience-org-title"><i class="fa-solid fa-building-columns"></i> ${e.org}</span>
+                                        <span class="experience-org-title"><i class="${orgIcon}"></i> ${e.org}</span>
                                     </div>
                                     <div class="experience-meta-tags">
                                         ${categoryHtml}
