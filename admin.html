@@ -289,9 +289,6 @@
             </form>
 
             <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
-                <button type="button" id="resetPassLoginBtn" style="background: none; border: none; color: var(--primary-color); font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.35rem;">
-                    <i class="fa-solid fa-rotate-left"></i> Set Ulang Kata Sandi ke Default
-                </button>
                 <a href="index.html" style="color: var(--text-muted); font-size: 0.88rem;"><i class="fa-solid fa-arrow-left"></i> Kembali ke Tampilan Website Utama</a>
             </div>
         </div>
@@ -786,7 +783,13 @@
     <!-- Admin Engine Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const FIXED_DEFAULT_PASS = "adiluhung33";
+            // Hash SHA-256 kata sandi default (tidak menyimpan plaintext di source code)
+            const DEFAULT_PASS_HASH = "d8e9655d771b44536416df510ec66989bb8335461655d6fd87a301a3de0b4a03";
+
+            async function hashPassword(str) {
+                const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+                return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
 
             const defaultSiteData = {
                 name: "Shifan Shalih Adiluhung",
@@ -797,7 +800,7 @@
                     "Innovator Nilai Adiluhung"
                 ],
                 bio: "Mengkombinasikan ketekunan keilmuan, integritas karakter santri terpelajar, dan semangat inovasi teknologi modern untuk menghasilkan karya bermakna yang bernilai Adiluhung (luhur & agung).",
-                adminPassword: FIXED_DEFAULT_PASS,
+                adminPasswordHash: DEFAULT_PASS_HASH,
                 heroStats: [
                     { icon: "fa-solid fa-graduation-cap", num: "100%", label: "Integritas Keilmuan" },
                     { icon: "fa-solid fa-microchip", num: "Modern", label: "Tech & Development" },
@@ -1072,9 +1075,13 @@
                 siteData = defaultSiteData;
                 localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
             } else {
-                siteData = migrateSkillsData(siteData);
-                // Enforce reset password ke default jika kosong
-                if (!siteData.adminPassword) siteData.adminPassword = FIXED_DEFAULT_PASS;
+                // Bersihkan password plaintext lama jika ada, dan pastikan adminPasswordHash tersedia
+                if (siteData.adminPassword) {
+                    delete siteData.adminPassword;
+                }
+                if (!siteData.adminPasswordHash) {
+                    siteData.adminPasswordHash = DEFAULT_PASS_HASH;
+                }
 
                 // Non-destructive initialization: pastikan semua bagian data tersedia tanpa menghapus editan pengguna
                 if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
@@ -1167,32 +1174,19 @@
                 logoutBtn.style.display = 'none';
             }
 
-            const resetPassLoginBtn = document.getElementById('resetPassLoginBtn');
-            if (resetPassLoginBtn) {
-                resetPassLoginBtn.addEventListener('click', () => {
-                    siteData.adminPassword = FIXED_DEFAULT_PASS;
-                    saveState();
-                    adminPasswordInput.value = FIXED_DEFAULT_PASS;
-                    adminPasswordInput.type = "text";
-                    togglePassBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
-                    showToast(`Kata sandi telah di-set ulang ke: ${FIXED_DEFAULT_PASS}`, "success");
-                });
-            }
-
-            adminLoginForm.addEventListener('submit', (e) => {
+            adminLoginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const pass = adminPasswordInput.value.trim();
-                const correctPass = siteData.adminPassword || FIXED_DEFAULT_PASS;
+                const inputHash = await hashPassword(pass);
+                const targetHash = siteData.adminPasswordHash || DEFAULT_PASS_HASH;
 
-                if (pass === correctPass || pass === FIXED_DEFAULT_PASS) {
-                    siteData.adminPassword = FIXED_DEFAULT_PASS;
-                    saveState();
+                if (inputHash === targetHash || inputHash === DEFAULT_PASS_HASH) {
                     sessionStorage.setItem('ssa_admin_session', 'true');
                     localStorage.setItem('ssa_admin_session', 'true');
                     showToast("Login Berhasil! Selamat datang Shifan.", "success");
                     showDashboard();
                 } else {
-                    showToast("Kata sandi salah! Silakan coba lagi atau gunakan tombol 'Set Ulang Kata Sandi'.", "error");
+                    showToast("Kata sandi salah! Silakan coba lagi.", "error");
                     adminPasswordInput.focus();
                 }
             });
@@ -1358,13 +1352,16 @@
                 });
             }
 
-            document.getElementById('formChangePassword').addEventListener('submit', (e) => {
+            document.getElementById('formChangePassword').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const currPass = document.getElementById('currPassword').value;
                 const newPass = document.getElementById('newPassword').value;
                 const confirmPass = document.getElementById('confirmPassword').value;
 
-                if (currPass !== siteData.adminPassword) {
+                const currHash = await hashPassword(currPass);
+                const targetHash = siteData.adminPasswordHash || DEFAULT_PASS_HASH;
+
+                if (currHash !== targetHash && currHash !== DEFAULT_PASS_HASH) {
                     showToast("Kata sandi saat ini salah!", "error");
                     return;
                 }
@@ -1372,15 +1369,16 @@
                     showToast("Ketik ulang kata sandi baru tidak cocok!", "error");
                     return;
                 }
-                if (newPass.length < 4) {
-                    showToast("Kata sandi terlalu pendek.", "error");
+                if (newPass.length < 6) {
+                    showToast("Kata sandi baru minimal 6 karakter.", "error");
                     return;
                 }
 
-                siteData.adminPassword = newPass;
+                siteData.adminPasswordHash = await hashPassword(newPass);
+                delete siteData.adminPassword;
                 saveState();
                 document.getElementById('formChangePassword').reset();
-                showToast("Kata sandi pengelola berhasil diubah!", "success");
+                showToast("Kata sandi pengelola berhasil diubah secara aman!", "success");
             });
 
             function recalculateSkillProgress(cat, sIdx) {
@@ -2659,7 +2657,8 @@
                 if (confirm("Apakah Anda yakin ingin mengembalikan seluruh isi website ke setelan awal pabrikan?")) {
                     localStorage.removeItem('ssa_site_data');
                     siteData = defaultSiteData;
-                    siteData.adminPassword = FIXED_DEFAULT_PASS;
+                    siteData.adminPasswordHash = DEFAULT_PASS_HASH;
+                    delete siteData.adminPassword;
                     saveState();
                     populateDashboardForms();
                     showToast("Seluruh data telah dikembalikan ke setelan awal.", "info");

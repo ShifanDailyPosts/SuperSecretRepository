@@ -1400,11 +1400,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 Kamu juga bisa mengirim pesan langsung melalui formulir kontak di bagian bawah website!`;
             }
 
-            // 2.11 Akses Admin Panel
-            if (q.includes('admin') || q.includes('panel') || q.includes('login') || q.includes('masuk admin')) {
-                return `🔐 <strong>Akses Admin Panel Portofolio:</strong><br><br>
-                Akses panel admin Shifan diproteksi secara tersembunyi. Kamu dapat mengaksesnya dengan melakukan <strong>triple-click pada logo brand 'Shifan'</strong> di bar navigasi atas atau menambahkan parameter <code>?panel=1</code> pada URL.<br><br>
-                Halaman admin memerlukan autentikasi kata sandi resmi untuk melakukan perubahan konten.`;
+            // 2.11 Akses Pengelolaan / Admin
+            if (q.includes('admin') || q.includes('panel') || q.includes('login') || q.includes('masuk admin') || q.includes('dashboard admin')) {
+                return `🔐 <strong>Akses Pengelolaan:</strong><br><br>
+                Halaman dan sistem pengelolaan website portofolio ini bersifat <strong>tertutup & terproteksi khusus</strong> hanya untuk pemilik resmi (Shifan Shalih Adiluhung).<br><br>
+                Pengunjung umum dapat menikmati seluruh informasi karya, keahlian, dan prestasi Shifan langsung melalui halaman utama website ini. 😊`;
             }
 
             // =================================================================
