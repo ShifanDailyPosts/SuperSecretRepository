@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Halaman Pengelola (Admin) Website Shifan Shalih Adiluhung">
+    <meta name="robots" content="noindex, nofollow">
     <title>Halaman Pengelola Website | Shifan Shalih Adiluhung</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=5.0">
+    <link rel="stylesheet" href="styles.css?v=17.0">
     
     <style>
         body.admin-full-page {
@@ -34,9 +35,28 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        .admin-top-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding-left: 0.75rem;
+            border-left: 1px solid var(--border-color);
+        }
+
+        /* Header admin di layar kecil: sembunyikan subjudul, tombol jadi ikon */
+        @media (max-width: 900px) {
+            .admin-top-subtitle { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .admin-top-bar { padding: 0.75rem 1rem; }
+            .admin-top-actions .btn span { display: none; }
+            .admin-top-actions .btn { width: 40px; height: 40px; padding: 0; }
         }
 
         .admin-top-brand {
@@ -229,10 +249,11 @@
         // Anti-Flicker: Check session immediately before DOM renders
         (function() {
             try {
-                var isAuth = sessionStorage.getItem('ssa_admin_session') === 'true' || localStorage.getItem('ssa_admin_session') === 'true';
+                // Sesi hanya berlaku sampai tab ditutup; hapus flag lama yang dulu disimpan permanen
+                localStorage.removeItem('ssa_admin_session');
+                var isAuth = sessionStorage.getItem('ssa_admin_session') === 'true';
                 if (isAuth) {
                     document.documentElement.classList.add('is-authenticated');
-                    sessionStorage.setItem('ssa_admin_session', 'true');
                 } else {
                     document.documentElement.classList.add('is-unauthenticated');
                 }
@@ -249,7 +270,7 @@
                 <div class="logo-badge">SSA</div>
                 <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
             </a>
-            <span style="font-size: 0.85rem; color: var(--text-muted); padding-left: 0.5rem; border-left: 1px solid var(--border-color);">Pengelola Website Portofolio (Semua Bagian Lengkap)</span>
+            <span class="admin-top-subtitle">Pengelola Website Portofolio (Semua Bagian Lengkap)</span>
         </div>
 
         <div class="admin-top-actions">
@@ -1162,9 +1183,8 @@
             }
 
             // Check persistent session immediately
-            const isAuth = sessionStorage.getItem('ssa_admin_session') === 'true' || localStorage.getItem('ssa_admin_session') === 'true';
+            const isAuth = sessionStorage.getItem('ssa_admin_session') === 'true';
             if (isAuth) {
-                sessionStorage.setItem('ssa_admin_session', 'true');
                 showDashboard();
             } else {
                 document.documentElement.classList.add('is-unauthenticated');
@@ -1180,9 +1200,9 @@
                 const inputHash = await hashPassword(pass);
                 const targetHash = siteData.adminPasswordHash || DEFAULT_PASS_HASH;
 
-                if (inputHash === targetHash || inputHash === DEFAULT_PASS_HASH) {
+                // Hanya password aktif yang diterima (password bawaan tidak lagi berlaku setelah diganti)
+                if (inputHash === targetHash) {
                     sessionStorage.setItem('ssa_admin_session', 'true');
-                    localStorage.setItem('ssa_admin_session', 'true');
                     showToast("Login Berhasil! Selamat datang Shifan.", "success");
                     showDashboard();
                 } else {
@@ -1361,7 +1381,7 @@
                 const currHash = await hashPassword(currPass);
                 const targetHash = siteData.adminPasswordHash || DEFAULT_PASS_HASH;
 
-                if (currHash !== targetHash && currHash !== DEFAULT_PASS_HASH) {
+                if (currHash !== targetHash) {
                     showToast("Kata sandi saat ini salah!", "error");
                     return;
                 }

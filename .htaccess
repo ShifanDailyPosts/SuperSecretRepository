@@ -1,12 +1,15 @@
 # ----------------------------------------------------------------------
-# Keamanan & Proteksi Berkas Portofolio Shifan
+# Keamanan, Proteksi Berkas & Performa - Portofolio Shifan
 # ----------------------------------------------------------------------
 
 # 1. Nonaktifkan Directory Listing (Mencegah pengunjung melihat isi folder)
 Options -Indexes
 
-# 2. Blokir akses langsung ke berkas sensitif & tersembunyi
-<FilesMatch "^\.|\.(env|ps1|sh|json|log|md|yml|yaml|git|bak|backup|sql|cfg|ini)$">
+# 2. Blokir folder repo/CI (.git, .github) beserta seluruh isinya
+RedirectMatch 404 /\.(git|github)(/|$)
+
+# 3. Blokir akses langsung ke berkas sensitif, tersembunyi & alat pengembangan
+<FilesMatch "^\.|\.(env|ps1|sh|json|log|md|yml|yaml|git|bak|backup|sql|cfg|ini|lock)$|^server\.js$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -16,14 +19,46 @@ Options -Indexes
     </IfModule>
 </FilesMatch>
 
-# 3. Security HTTP Headers
+# 4. Security HTTP Headers
 <IfModule mod_headers.c>
     # Cegah Clickjacking (website di-embed di iframe luar)
     Header always set X-Frame-Options "SAMEORIGIN"
     # Cegah MIME Type Sniffing
     Header always set X-Content-Type-Options "nosniff"
-    # Proteksi XSS pada browser lama
-    Header always set X-XSS-Protection "1; mode=block"
     # Kontrol Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Wajibkan HTTPS di browser selama 1 tahun (hanya untuk subdomain ini)
+    Header always set Strict-Transport-Security "max-age=31536000"
+    # Matikan fitur browser yang tidak dipakai
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+    # Content Security Policy: skrip hanya dari website ini & cdnjs, tanpa skrip inline
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+    # Panel admin masih memakai skrip inline: kebijakan khusus & jangan diindeks mesin pencari
+    <Files "admin.html">
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+        Header always set X-Robots-Tag "noindex, nofollow"
+        Header always set Cache-Control "no-store"
+    </Files>
+</IfModule>
+
+# 5. Performa: cache aset statis (nama file sudah memakai ?v= untuk pembaruan)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 hour"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType text/javascript "access plus 30 days"
+    ExpiresByType application/x-javascript "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+# 6. Performa: kompres teks (respons streaming AsisFan dikecualikan di api/.htaccess)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript text/javascript application/x-javascript application/json image/svg+xml
 </IfModule>

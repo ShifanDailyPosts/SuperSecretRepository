@@ -250,79 +250,60 @@ document.addEventListener('DOMContentLoaded', () => {
         return data;
     };
 
+    // Lengkapi data tersimpan dengan nilai bawaan & migrasi format lama (dipakai saat load dan sinkronisasi tab)
+    const normalizeSiteData = (raw) => {
+        const data = migrateSkillsData(raw);
+        const isArr = (v) => Array.isArray(v);
+
+        if (!isArr(data.skillCategories) || data.skillCategories.length === 0) data.skillCategories = defaultSiteData.skillCategories;
+        if (!isArr(data.webDevSkills) || data.webDevSkills.length === 0) data.webDevSkills = defaultSiteData.webDevSkills;
+        if (!isArr(data.projects)) data.projects = defaultSiteData.projects;
+
+        const exp = data.experiences;
+        const isOldExpPlaceholder = isArr(exp) && exp.length === 1 && (exp[0].org === 'Tahap Pemutakhiran Data' || exp[0].role === 'Riwayat & Rekam Jejak Pengalaman');
+        if (!isArr(exp) || exp.length === 0 || isOldExpPlaceholder) {
+            data.experiences = defaultSiteData.experiences;
+        } else if (!exp.some(e => e.role && e.role.toLowerCase().includes('osis'))) {
+            data.experiences = [defaultSiteData.experiences[0], ...exp];
+        }
+
+        const ach = data.achievements;
+        const isOldAchPlaceholder = isArr(ach) && ach.length === 1 && [ach[0].title, ach[0].desc].some(t => t && (t.includes('On Progress') || t.includes('Daftar Pencapaian')));
+        if (!isArr(ach) || ach.length === 0 || isOldAchPlaceholder) data.achievements = defaultSiteData.achievements;
+
+        ['certificates', 'testimonials', 'tools', 'heroStats'].forEach(key => {
+            if (!isArr(data[key])) data[key] = defaultSiteData[key];
+        });
+        ['aboutFactTitle', 'aboutFactDesc', 'finance'].forEach(key => {
+            if (!data[key]) data[key] = defaultSiteData[key];
+        });
+        return data;
+    };
+
+    const readStoredSiteData = () => {
+        try {
+            return JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
+        } catch (e) {
+            console.warn('Data tersimpan rusak, memakai data bawaan.', e);
+            return null;
+        }
+    };
+
+    const storeSiteData = (data) => {
+        try { localStorage.setItem('ssa_site_data', JSON.stringify(data)); } catch (e) { /* penyimpanan penuh/diblokir */ }
+    };
+
     // Load State from LocalStorage or initialize
-    let siteData = JSON.parse(localStorage.getItem('ssa_site_data') || 'null');
-    if (!siteData) {
-        siteData = defaultSiteData;
-        localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
-    } else {
-        siteData = migrateSkillsData(siteData);
-        if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
-            siteData.skillCategories = defaultSiteData.skillCategories;
-        }
-        if (!siteData.webDevSkills || !Array.isArray(siteData.webDevSkills) || siteData.webDevSkills.length === 0) {
-            siteData.webDevSkills = defaultSiteData.webDevSkills;
-        }
-        if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
-        const isOldExpPlaceholder = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
-        if (!siteData.experiences || !Array.isArray(siteData.experiences) || siteData.experiences.length === 0 || isOldExpPlaceholder) {
-            siteData.experiences = defaultSiteData.experiences;
-        } else {
-            const hasOsis = siteData.experiences.some(e => e.role && e.role.toLowerCase().includes('osis'));
-            if (!hasOsis) {
-                siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
-            }
-        }
-        const isOldAchPlaceholder = siteData.achievements && siteData.achievements.length === 1 && (siteData.achievements[0].title.includes('On Progress') || siteData.achievements[0].title.includes('Daftar Pencapaian') || siteData.achievements[0].desc.includes('On Progress'));
-        if (!siteData.achievements || !Array.isArray(siteData.achievements) || siteData.achievements.length === 0 || isOldAchPlaceholder) {
-            siteData.achievements = defaultSiteData.achievements;
-        }
-        if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
-        if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
-        if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
-        if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
-        if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
-        if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
-        if (!siteData.finance) siteData.finance = defaultSiteData.finance;
-        localStorage.setItem('ssa_site_data', JSON.stringify(siteData));
-    }
+    const storedSiteData = readStoredSiteData();
+    let siteData = storedSiteData ? normalizeSiteData(storedSiteData) : defaultSiteData;
+    storeSiteData(siteData);
 
     // Real-time Storage Sync (Updates website live when Admin edits in another tab)
     window.addEventListener('storage', (e) => {
         if (e.key === 'ssa_site_data' && e.newValue) {
             try {
-                siteData = migrateSkillsData(JSON.parse(e.newValue));
-                if (!siteData.skillCategories || !Array.isArray(siteData.skillCategories) || siteData.skillCategories.length === 0) {
-                    siteData.skillCategories = defaultSiteData.skillCategories;
-                }
-                if (!siteData.webDevSkills || !Array.isArray(siteData.webDevSkills) || siteData.webDevSkills.length === 0) {
-                    siteData.webDevSkills = defaultSiteData.webDevSkills;
-                }
-                if (!siteData.projects || !Array.isArray(siteData.projects)) siteData.projects = defaultSiteData.projects;
-                const isOldExpSync = siteData.experiences && siteData.experiences.length === 1 && (siteData.experiences[0].org === 'Tahap Pemutakhiran Data' || siteData.experiences[0].role === 'Riwayat & Rekam Jejak Pengalaman');
-                if (!siteData.experiences || !Array.isArray(siteData.experiences) || isOldExpSync) {
-                    siteData.experiences = defaultSiteData.experiences;
-                } else {
-                    const hasOsisSync = siteData.experiences.some(e => e.role && e.role.toLowerCase().includes('osis'));
-                    if (!hasOsisSync) {
-                        siteData.experiences = [defaultSiteData.experiences[0], ...siteData.experiences];
-                    }
-                }
-                const isOldAchSync = siteData.achievements && siteData.achievements.length === 1 && (siteData.achievements[0].title.includes('On Progress') || siteData.achievements[0].title.includes('Daftar Pencapaian') || siteData.achievements[0].desc.includes('On Progress'));
-                if (!siteData.achievements || !Array.isArray(siteData.achievements) || isOldAchSync) {
-                    siteData.achievements = defaultSiteData.achievements;
-                }
-                if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
-                if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
-                if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
-                if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
-                if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
-                if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
-                if (!siteData.finance) siteData.finance = defaultSiteData.finance;
-
-                if (typeof renderFrontendContent === 'function') {
-                    renderFrontendContent();
-                }
+                siteData = normalizeSiteData(JSON.parse(e.newValue));
+                renderFrontendContent();
             } catch (err) {
                 console.error("Auto-sync error:", err);
             }
@@ -333,47 +314,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursorDot = document.getElementById('cursorDot');
     const cursorBlur = document.getElementById('cursorBlur');
 
-    if (cursorDot && cursorBlur && window.innerWidth > 992) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (cursorDot && cursorBlur && hasFinePointer && !prefersReducedMotion && window.innerWidth > 992) {
         let mouseX = 0, mouseY = 0;
         let blurX = 0, blurY = 0;
+        let animating = false;
+
+        // Animasi hanya berjalan saat kursor bergerak, berhenti saat sudah diam (hemat CPU)
+        const animateCursor = () => {
+            blurX += (mouseX - blurX) * 0.15;
+            blurY += (mouseY - blurY) * 0.15;
+            cursorBlur.style.transform = `translate3d(${blurX}px, ${blurY}px, 0) translate(-50%, -50%)`;
+            if (Math.abs(mouseX - blurX) > 0.3 || Math.abs(mouseY - blurY) > 0.3) {
+                requestAnimationFrame(animateCursor);
+            } else {
+                animating = false;
+            }
+        };
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
             cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-        });
-
-        const animateCursor = () => {
-            blurX += (mouseX - blurX) * 0.15;
-            blurY += (mouseY - blurY) * 0.15;
-            cursorBlur.style.transform = `translate3d(${blurX}px, ${blurY}px, 0) translate(-50%, -50%)`;
-            requestAnimationFrame(animateCursor);
-        };
-        animateCursor();
+            if (!animating) {
+                animating = true;
+                requestAnimationFrame(animateCursor);
+            }
+        }, { passive: true });
+    } else {
+        if (cursorDot) cursorDot.remove();
+        if (cursorBlur) cursorBlur.remove();
     }
 
     // === 2. Theme Switcher ===
+    // Tema tersimpan sudah diterapkan lebih awal oleh theme-init.js
     const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const savedTheme = localStorage.getItem('ssa_theme') || 'dark';
-
-    if (savedTheme === 'light') {
-        document.body.classList.remove('dark-theme');
-        document.body.classList.add('light-theme');
-    }
 
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
-            if (document.body.classList.contains('dark-theme')) {
-                document.body.classList.remove('dark-theme');
-                document.body.classList.add('light-theme');
-                localStorage.setItem('ssa_theme', 'light');
-                showToast('Tema terang diaktifkan', 'info');
-            } else {
-                document.body.classList.remove('light-theme');
-                document.body.classList.add('dark-theme');
-                localStorage.setItem('ssa_theme', 'dark');
-                showToast('Tema gelap diaktifkan', 'info');
-            }
+            const toLight = document.body.classList.contains('dark-theme');
+            document.body.classList.toggle('light-theme', toLight);
+            document.body.classList.toggle('dark-theme', !toLight);
+            try { localStorage.setItem('ssa_theme', toLight ? 'light' : 'dark'); } catch (e) { /* abaikan */ }
+            showToast(toLight ? 'Tema terang diaktifkan' : 'Tema gelap diaktifkan', 'info');
         });
     }
 
@@ -383,24 +368,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('navMenu');
 
     window.addEventListener('scroll', () => {
-        if (siteHeader) {
-            if (window.scrollY > 40) {
-                siteHeader.classList.add('scrolled');
-            } else {
-                siteHeader.classList.remove('scrolled');
-            }
-        }
-    });
+        if (siteHeader) siteHeader.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
 
     if (hamburgerBtn && navMenu) {
-        hamburgerBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        const setMenuOpen = (open) => {
+            navMenu.classList.toggle('active', open);
+            hamburgerBtn.setAttribute('aria-expanded', String(open));
+        };
+        setMenuOpen(false);
+
+        hamburgerBtn.addEventListener('click', () => setMenuOpen(!navMenu.classList.contains('active')));
 
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
+            link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setMenuOpen(false);
         });
     }
 
@@ -515,6 +500,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === 5. Render All Frontend Content Dynamically ===
+    // Data dari localStorage/admin selalu di-escape sebelum masuk ke HTML (cegah XSS)
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+    // Hanya izinkan tautan http(s) dan mailto
+    const safeUrl = (url) => (/^(https?:\/\/|mailto:)/i.test(String(url || '').trim()) ? esc(String(url).trim()) : '#');
+    // Kelas ikon Font Awesome: hanya huruf, angka, spasi, dan tanda hubung
+    const safeIcon = (cls, fallback) => (/^[\w\s-]+$/.test(cls || '') ? cls : fallback);
+
     const renderFrontendContent = () => {
         if (!document.getElementById('heroNameDisplay')) return;
 
@@ -555,13 +549,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // About Narrative
-        if (document.getElementById('aboutMeaningText')) document.getElementById('aboutMeaningText').innerHTML = siteData.aboutMeaning || defaultSiteData.aboutMeaning;
-        if (document.getElementById('aboutEduText')) document.getElementById('aboutEduText').innerHTML = siteData.aboutEdu || defaultSiteData.aboutEdu;
-        if (document.getElementById('aboutVisionText')) document.getElementById('aboutVisionText').innerHTML = siteData.aboutVision || defaultSiteData.aboutVision;
+        if (document.getElementById('aboutMeaningText')) document.getElementById('aboutMeaningText').textContent = siteData.aboutMeaning || defaultSiteData.aboutMeaning;
+        if (document.getElementById('aboutEduText')) document.getElementById('aboutEduText').textContent = siteData.aboutEdu || defaultSiteData.aboutEdu;
+        if (document.getElementById('aboutVisionText')) document.getElementById('aboutVisionText').textContent = siteData.aboutVision || defaultSiteData.aboutVision;
 
         // About Fact Banner
-        if (document.getElementById('aboutFactTitle')) document.getElementById('aboutFactTitle').innerHTML = siteData.aboutFactTitle || defaultSiteData.aboutFactTitle;
-        if (document.getElementById('aboutFactDesc')) document.getElementById('aboutFactDesc').innerHTML = siteData.aboutFactDesc || defaultSiteData.aboutFactDesc;
+        if (document.getElementById('aboutFactTitle')) document.getElementById('aboutFactTitle').textContent = siteData.aboutFactTitle || defaultSiteData.aboutFactTitle;
+        if (document.getElementById('aboutFactDesc')) document.getElementById('aboutFactDesc').textContent = siteData.aboutFactDesc || defaultSiteData.aboutFactDesc;
 
         // Footer Name
         if (document.getElementById('footerCopyrightName')) document.getElementById('footerCopyrightName').textContent = siteData.name;
@@ -613,13 +607,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="skill-item">
                     <div class="skill-info">
                         <div class="skill-name-box">
-                            <i class="${iconClass} skill-icon"></i>
-                            <span class="skill-name">${s.name}</span>
+                            <i class="${safeIcon(iconClass, 'fa-solid fa-code')} skill-icon"></i>
+                            <span class="skill-name">${esc(s.name)}</span>
                         </div>
-                        <span class="skill-status-badge ${badgeClass}">${statusText}</span>
+                        <span class="skill-status-badge ${badgeClass}">${esc(statusText)}</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill ${isGold ? 'gold-fill' : ''}" style="width: ${progressPct}%;"></div>
+                        <div class="progress-fill ${isGold ? 'gold-fill' : ''}" style="width: ${Math.max(0, Math.min(100, Number(progressPct) || 0))}%;"></div>
                     </div>
                 </div>
             `;
@@ -648,8 +642,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else {
                 skillsTabGroup.innerHTML = categories.map((cat, idx) => `
-                    <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-skill-tab="${cat.id}">
-                        <i class="${cat.icon || 'fa-solid fa-folder'}"></i> ${cat.title}
+                    <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-skill-tab="${esc(cat.id)}">
+                        <i class="${safeIcon(cat.icon, 'fa-solid fa-folder')}"></i> ${esc(cat.title)}
                     </button>
                 `).join('');
 
@@ -669,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     return `
-                        <div class="skills-pane ${idx === 0 ? 'active' : ''}" id="paneSkill_${cat.id}">
+                        <div class="skills-pane ${idx === 0 ? 'active' : ''}" id="paneSkill_${esc(cat.id)}">
                             <div class="skills-grid glass-card p-4">
                                 <div class="skill-items">
                                     ${itemsHtml}
@@ -689,17 +683,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isCurrentWebsite = p.isCurrentSite || (p.link === "index.html") || (p.title && p.title.toLowerCase().includes("website portofolio"));
                 if (isCurrentWebsite) {
                     return `
-                        <div class="project-card glass-card project-card-clickable" data-category="${p.category}" data-href="index.html" title="Klik untuk memuat ulang / masuk ke website ini">
+                        <div class="project-card glass-card project-card-clickable" data-category="${esc(p.category)}" data-href="index.html" title="Klik untuk memuat ulang / masuk ke website ini">
                             <div class="project-thumb">
                                 <div class="badge-live-site"><span class="badge-live-dot"></span> Website Ini (Aktif)</div>
                                 <div class="thumb-icon"><i class="fa-solid fa-globe"></i></div>
                                 <span class="project-category">Web Project</span>
                             </div>
                             <div class="project-details">
-                                <h3>${p.title}</h3>
-                                <p>${p.desc}</p>
+                                <h3>${esc(p.title)}</h3>
+                                <p>${esc(p.desc)}</p>
                                 <div class="project-tech">
-                                    ${p.tech.split(',').map(t => `<span>${t.trim()}</span>`).join('')}
+                                    ${String(p.tech || '').split(',').map(t => `<span>${esc(t.trim())}</span>`).join('')}
                                 </div>
                                 <a href="index.html" class="btn btn-sm btn-primary project-action-btn" style="width: fit-content; text-decoration: none;">
                                     <i class="fa-solid fa-arrow-rotate-right"></i> Masuk Ulang ke Website Ini
@@ -709,17 +703,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 } else {
                     return `
-                        <div class="project-card glass-card project-card-onprogress" data-category="${p.category}" title="Proyek masih dalam tahap pengerjaan (On Progress)">
+                        <div class="project-card glass-card project-card-onprogress" data-category="${esc(p.category)}" title="Proyek masih dalam tahap pengerjaan (On Progress)">
                             <div class="project-thumb">
                                 <div class="badge-onprogress-site"><i class="fa-solid fa-hourglass-half"></i> On Progress</div>
                                 <div class="thumb-icon" style="opacity: 0.45;"><i class="fa-solid fa-${p.category === 'web-projects' ? 'laptop-code' : p.category === 'design-projects' ? 'wand-magic-sparkles' : 'folder'}"></i></div>
                                 <span class="project-category">${p.category === 'web-projects' ? 'Web Project' : p.category === 'design-projects' ? 'Design Project' : 'Other Project'}</span>
                             </div>
                             <div class="project-details">
-                                <h3>${p.title}</h3>
-                                <p>${p.desc}</p>
+                                <h3>${esc(p.title)}</h3>
+                                <p>${esc(p.desc)}</p>
                                 <div class="project-tech">
-                                    ${p.tech.split(',').map(t => `<span style="background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25);">${t.trim()}</span>`).join('')}
+                                    ${String(p.tech || '').split(',').map(t => `<span class="tech-onprogress">${esc(t.trim())}</span>`).join('')}
                                 </div>
                                 <button type="button" class="btn btn-sm btn-outline onprogress-project-btn" style="width: fit-content; opacity: 0.85; cursor: pointer;">
                                     <i class="fa-solid fa-hourglass-half"></i> On Progress
@@ -756,8 +750,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (e.org && (e.org.toLowerCase().includes('smp') || e.org.toLowerCase().includes('school'))) orgIcon = 'fa-solid fa-school';
                     else if (e.org && e.org.toLowerCase().includes('hiraa')) orgIcon = 'fa-solid fa-mosque';
 
-                    const categoryHtml = e.category ? `<span class="exp-category-badge"><i class="fa-solid fa-tag"></i> ${e.category}</span>` : '';
-                    const periodHtml = e.period ? `<span class="exp-period-badge"><i class="fa-solid fa-calendar-check"></i> ${e.period}</span>` : '';
+                    const categoryHtml = e.category ? `<span class="exp-category-badge"><i class="fa-solid fa-tag"></i> ${esc(e.category)}</span>` : '';
+                    const periodHtml = e.period ? `<span class="exp-period-badge"><i class="fa-solid fa-calendar-check"></i> ${esc(e.period)}</span>` : '';
 
                     return `
                         <div class="experience-card-item glass-card">
@@ -767,15 +761,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="experience-body">
                                 <div class="experience-header-meta">
                                     <div>
-                                        <h3 class="experience-role-title">${e.role}</h3>
-                                        <span class="experience-org-title"><i class="${orgIcon}"></i> ${e.org}</span>
+                                        <h3 class="experience-role-title">${esc(e.role)}</h3>
+                                        <span class="experience-org-title"><i class="${orgIcon}"></i> ${esc(e.org)}</span>
                                     </div>
                                     <div class="experience-meta-tags">
                                         ${categoryHtml}
                                         ${periodHtml}
                                     </div>
                                 </div>
-                                <p class="experience-desc">${e.desc}</p>
+                                <p class="experience-desc">${esc(e.desc)}</p>
                             </div>
                         </div>
                     `;
@@ -803,13 +797,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (isWin2) {
                         badges.push(`<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-medal"></i> Juara 2</span>`);
                     } else if (a.badge) {
-                        badges.push(`<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-medal"></i> ${a.badge}</span>`);
+                        badges.push(`<span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-medal"></i> ${esc(a.badge)}</span>`);
                     }
                     if (a.role) {
-                        badges.push(`<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-crown"></i> ${a.role}</span>`);
+                        badges.push(`<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-crown"></i> ${esc(a.role)}</span>`);
                     }
                     if (a.award) {
-                        badges.push(`<span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-gift"></i> ${a.award}</span>`);
+                        badges.push(`<span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.75rem; padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-gift"></i> ${esc(a.award)}</span>`);
                     }
                     const badgesHtml = badges.length > 0 ? `<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">${badges.join('')}</div>` : '';
 
@@ -817,8 +811,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="achieve-card glass-card">
                             <div class="achieve-icon" style="color: #fbbf24; background: rgba(245, 158, 11, 0.15);"><i class="fa-solid fa-trophy"></i></div>
                             ${badgesHtml}
-                            <h3>${a.title}</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-top: 0.35rem;">${a.desc}</p>
+                            <h3>${esc(a.title)}</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-top: 0.35rem;">${esc(a.desc)}</p>
                         </div>
                     `;
                 }).join('');
@@ -841,9 +835,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 certContainer.innerHTML = certList.map(c => `
                     <div class="cert-card glass-card">
                         <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
-                        <div class="cert-issuer">${c.issuer}</div>
-                        <h3>${c.title}</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${c.desc}</p>
+                        <div class="cert-issuer">${esc(c.issuer)}</div>
+                        <h3>${esc(c.title)}</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${esc(c.desc)}</p>
                     </div>
                 `).join('');
             }
@@ -855,8 +849,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toolContainer) {
             toolContainer.innerHTML = toolList.map(t => `
                 <div class="tool-card glass-card">
-                    <div class="tool-icon"><i class="${t.icon}"></i></div>
-                    <div class="tool-name">${t.name}</div>
+                    <div class="tool-icon"><i class="${safeIcon(t.icon, 'fa-solid fa-wrench')}"></i></div>
+                    <div class="tool-name">${esc(t.name)}</div>
                 </div>
             `).join('');
         }
@@ -877,12 +871,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 testContainer.innerHTML = testList.map(t => `
                     <div class="testimonial-card glass-card">
-                        <p>"${t.quote}"</p>
+                        <p>"${esc(t.quote)}"</p>
                         <div class="testimonial-author">
-                            <div class="author-avatar">${t.author.charAt(0)}</div>
+                            <div class="author-avatar">${esc(String(t.author || '?').charAt(0))}</div>
                             <div class="author-info">
-                                <strong>${t.author}</strong>
-                                <span>${t.title}</span>
+                                <strong>${esc(t.author)}</strong>
+                                <span>${esc(t.title)}</span>
                             </div>
                         </div>
                     </div>
@@ -898,10 +892,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const socialContainer = document.getElementById('socialLinksContainer');
         if (socialContainer) {
             socialContainer.innerHTML = `
-                <a href="${siteData.githubUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="${siteData.linkedinUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="${siteData.instagramUrl}" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:${siteData.contactEmail}" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="${safeUrl(siteData.githubUrl)}" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="${safeUrl(siteData.linkedinUrl)}" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="${safeUrl(siteData.instagramUrl)}" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="${safeUrl('mailto:' + (siteData.contactEmail || ''))}" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             `;
         }
 
@@ -1096,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (type === 'success') iconClass = 'fa-circle-check';
         if (type === 'error') iconClass = 'fa-triangle-exclamation';
 
-        toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
+        toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${esc(message)}</span>`;
         container.appendChild(toast);
 
         setTimeout(() => {
@@ -1149,6 +1143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const shouldOpen = (open !== undefined) ? open : !asisfanChatWindow.classList.contains('active');
             if (shouldOpen) {
                 asisfanChatWindow.classList.add('active');
+                if (window.AsisFanAI) window.AsisFanAI.loadMarkdownLibs();
                 setTimeout(() => { if (asisfanInput) asisfanInput.focus(); }, 200);
             } else {
                 asisfanChatWindow.classList.remove('active');

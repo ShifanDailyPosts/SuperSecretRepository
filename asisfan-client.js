@@ -84,6 +84,7 @@
      * onText dipanggil dengan teks jawaban lengkap sejauh ini.
      */
     const streamChat = async ({ mode, messages, context, onText, signal }) => {
+        loadMarkdownLibs();
         let response;
         try {
             response = await fetch(ENDPOINT, {
@@ -161,6 +162,35 @@
         throw fail('incomplete', 'Koneksi terputus sebelum jawaban selesai.');
     };
 
+    // Library Markdown dimuat hanya saat AsisFan dipakai (halaman utama jadi lebih ringan)
+    const MARKDOWN_LIBS = [
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js',
+            integrity: 'sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi',
+        },
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js',
+            integrity: 'sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a',
+        },
+    ];
+    let libsPromise = null;
+
+    const loadMarkdownLibs = () => {
+        if (window.marked && window.DOMPurify) return Promise.resolve();
+        if (!libsPromise) {
+            libsPromise = Promise.all(MARKDOWN_LIBS.map((lib) => new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = lib.src;
+                script.integrity = lib.integrity;
+                script.crossOrigin = 'anonymous';
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            }))).catch(() => { libsPromise = null; });
+        }
+        return libsPromise;
+    };
+
     // Ubah Markdown jawaban AI menjadi HTML yang aman
     let purifyReady = false;
     const renderMarkdown = (text) => {
@@ -181,5 +211,5 @@
         return escapeHtml(text).replace(/\n/g, '<br>');
     };
 
-    window.AsisFanAI = { streamChat, buildContext, readSiteData, renderMarkdown, escapeHtml, AsisFanError };
+    window.AsisFanAI = { streamChat, buildContext, readSiteData, renderMarkdown, loadMarkdownLibs, escapeHtml, AsisFanError };
 })();

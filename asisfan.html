@@ -10,20 +10,17 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css?v=16.0">
-    <link rel="stylesheet" href="asisfan.css?v=1.0">
+    <link rel="stylesheet" href="styles.css?v=17.0">
+    <link rel="stylesheet" href="asisfan.css?v=1.1">
 </head>
 <body class="dark-theme af-page">
-    <script>
-        // Terapkan tema tersimpan sebelum halaman tampil (sinkron dengan website utama)
-        try { if (localStorage.getItem('ssa_theme') === 'light') document.body.classList.replace('dark-theme', 'light-theme'); } catch (e) {}
-    </script>
+    <script src="theme-init.js?v=1.0"></script>
 
     <div class="af-app">
         <!-- Sidebar: riwayat percakapan -->
@@ -105,9 +102,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
-    <script src="asisfan-client.js?v=1.0"></script>
-    <script src="asisfan-page.js?v=1.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous" defer></script>
+    <script src="asisfan-client.js?v=1.1" defer></script>
+    <script src="asisfan-page.js?v=1.1" defer></script>
 </body>
 </html>

@@ -294,14 +294,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     asisfan_json(405, 'method_not_allowed', 'Gunakan metode POST.');
 }
 
-// Tolak request dari website lain (browser selalu mengirim Origin pada fetch POST)
+// Hanya terima request dari halaman website ini sendiri.
+// Browser modern selalu mengirim header Origin pada fetch POST, jadi request tanpa Origin ditolak.
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if ($origin !== '') {
-    $originHost = (string) parse_url($origin, PHP_URL_HOST);
-    $host = preg_replace('/:\d+$/', '', (string) ($_SERVER['HTTP_HOST'] ?? ''));
-    if ($originHost === '' || strcasecmp($originHost, $host) !== 0) {
-        asisfan_json(403, 'forbidden_origin', 'Akses ditolak.');
-    }
+$originHost = $origin !== '' ? (string) parse_url($origin, PHP_URL_HOST) : '';
+$host = preg_replace('/:\d+$/', '', (string) ($_SERVER['HTTP_HOST'] ?? ''));
+if ($originHost === '' || strcasecmp($originHost, $host) !== 0) {
+    asisfan_json(403, 'forbidden_origin', 'Akses ditolak.');
 }
 
 $config = asisfan_load_config();
