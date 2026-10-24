@@ -1,0 +1,764 @@
+/* ==========================================================================
+   AsisFan - Halaman Chat AI (tata letak ala Claude.ai, tema website Shifan)
+   Memakai variabel warna & font dari styles.css
+   ========================================================================== */
+
+.af-page {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.af-app {
+    display: flex;
+    height: 100%;
+}
+
+/* --- Sidebar --- */
+.af-sidebar {
+    width: 272px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.85rem;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    z-index: 50;
+}
+
+.af-sidebar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 0.35rem 1rem;
+}
+
+.af-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+}
+
+.af-new-chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.af-new-chat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(6, 182, 212, 0.45);
+}
+
+.af-history-label {
+    margin: 1.4rem 0.6rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.af-history {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-height: 0;
+}
+
+.af-history-empty {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.af-history-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.af-history-item:hover,
+.af-history-item.active {
+    background: var(--bg-card);
+}
+
+.af-history-open {
+    flex: 1;
+    min-width: 0;
+    padding: 0.6rem 0.65rem;
+    background: none;
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.af-history-item.active .af-history-open {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.af-history-delete {
+    width: 28px;
+    height: 28px;
+    margin-right: 0.3rem;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.af-history-item:hover .af-history-delete,
+.af-history-item.active .af-history-delete,
+.af-history-delete:focus-visible {
+    opacity: 1;
+}
+
+.af-history-delete:hover {
+    color: #ef4444;
+}
+
+.af-sidebar-foot {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.af-back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.65rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.af-back-link:hover {
+    background: var(--bg-card);
+    color: var(--primary-color);
+}
+
+.af-overlay {
+    display: none;
+}
+
+/* --- Main area --- */
+.af-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.af-topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 64px;
+    flex-shrink: 0;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: relative;
+    z-index: 5;
+}
+
+.af-topbar-title {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.af-topbar .theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+}
+
+.af-icon-btn {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.af-icon-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--primary-color);
+}
+
+.af-mobile-only {
+    display: none;
+}
+
+.af-stage {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.af-stage .ambient-glow {
+    transition: opacity var(--transition-normal);
+}
+
+.af-main:not(.is-empty) .af-stage .ambient-glow {
+    opacity: 0.35;
+}
+
+.af-chat {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+/* Tampilan awal: sapaan & kotak pesan di tengah (seperti Claude.ai) */
+.af-main.is-empty .af-stage {
+    justify-content: center;
+}
+
+.af-main.is-empty .af-chat {
+    flex: 0 0 auto;
+    overflow: visible;
+}
+
+.af-main.is-empty .af-messages,
+.af-main:not(.is-empty) .af-empty,
+.af-main:not(.is-empty) .af-suggestions {
+    display: none;
+}
+
+.af-empty {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1.25rem 1.75rem;
+    text-align: center;
+    animation: afFadeUp 0.5s ease both;
+}
+
+.af-empty-avatar {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.25rem;
+    border-radius: 20px;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-glow);
+}
+
+.af-greeting {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.af-greeting-sub {
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* --- Messages --- */
+.af-messages {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.af-msg {
+    display: flex;
+    animation: afFadeUp 0.3s ease both;
+}
+
+.af-msg-user {
+    justify-content: flex-end;
+}
+
+.af-bubble {
+    max-width: 85%;
+    padding: 0.75rem 1.1rem;
+    border-radius: 20px 20px 6px 20px;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(59, 130, 246, 0.16));
+    border: 1px solid var(--border-hover);
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+.af-msg-bot {
+    gap: 0.9rem;
+    align-items: flex-start;
+}
+
+.af-avatar {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+}
+
+.af-msg-body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 0.25rem;
+}
+
+.af-typing {
+    display: inline-flex;
+    gap: 0.3rem;
+    padding: 0.55rem 0;
+}
+
+.af-typing span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation: afBounce 1.2s infinite ease-in-out;
+}
+
+.af-typing span:nth-child(2) { animation-delay: 0.15s; }
+.af-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+.af-msg-bot.has-text .af-typing,
+.af-msg-bot.has-error .af-typing {
+    display: none;
+}
+
+.af-msg-bot.is-streaming.has-text .af-markdown > :last-child::after {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-left: 0.3em;
+    border-radius: 50%;
+    background: var(--primary-color);
+    vertical-align: middle;
+    animation: afPulse 1s infinite;
+}
+
+.af-note {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.af-error {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+    color: var(--text-primary);
+    font-size: 0.92rem;
+}
+
+.af-error i {
+    color: #ef4444;
+}
+
+.af-retry-btn {
+    margin-left: auto;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.af-retry-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--primary-color);
+}
+
+.af-msg-actions {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.4rem;
+    opacity: 0.55;
+    transition: opacity var(--transition-fast);
+}
+
+.af-msg-bot:hover .af-msg-actions {
+    opacity: 1;
+}
+
+.af-msg-bot.is-streaming .af-msg-actions,
+.af-msg-bot.has-error .af-msg-actions {
+    display: none;
+}
+
+.af-action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.af-action-btn:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* --- Isi jawaban (Markdown) --- */
+.af-markdown {
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.af-markdown > :first-child { margin-top: 0; }
+.af-markdown > :last-child { margin-bottom: 0; }
+
+.af-markdown p,
+.af-markdown ul,
+.af-markdown ol,
+.af-markdown pre,
+.af-markdown blockquote,
+.af-markdown table {
+    margin: 0 0 0.9em;
+}
+
+.af-markdown h1,
+.af-markdown h2,
+.af-markdown h3,
+.af-markdown h4 {
+    font-family: var(--font-heading);
+    line-height: 1.3;
+    margin: 1.3em 0 0.55em;
+}
+
+.af-markdown h1 { font-size: 1.45rem; }
+.af-markdown h2 { font-size: 1.25rem; }
+.af-markdown h3 { font-size: 1.1rem; }
+.af-markdown h4 { font-size: 1rem; }
+
+.af-markdown ul,
+.af-markdown ol {
+    padding-left: 1.4em;
+}
+
+.af-markdown ul { list-style: disc; }
+.af-markdown ol { list-style: decimal; }
+.af-markdown li { margin: 0.25em 0; }
+.af-markdown li::marker { color: var(--primary-color); }
+
+.af-markdown strong { font-weight: 700; color: var(--text-primary); }
+
+.af-markdown a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.af-markdown code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.88em;
+    padding: 0.15em 0.4em;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+.af-markdown pre {
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.af-markdown pre code {
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+.af-markdown blockquote {
+    padding: 0.2em 0 0.2em 1em;
+    border-left: 3px solid var(--primary-color);
+    color: var(--text-secondary);
+}
+
+.af-markdown table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.af-markdown th,
+.af-markdown td {
+    padding: 0.5em 0.8em;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.af-markdown th { background: var(--bg-card); }
+
+.af-markdown hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1.4em 0;
+}
+
+/* --- Composer --- */
+.af-composer-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0.75rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+}
+
+.af-composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    padding: 0.55rem 0.55rem 0.55rem 1.15rem;
+    border-radius: 26px;
+    background: var(--bg-surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.af-composer:focus-within {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.af-composer textarea {
+    flex: 1;
+    min-width: 0;
+    max-height: 200px;
+    padding: 0.5rem 0;
+    resize: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.af-composer textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.af-send-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-bounce), box-shadow var(--transition-fast), opacity var(--transition-fast);
+}
+
+.af-send-btn:hover:not(:disabled) {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.af-send-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.af-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.af-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.95rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.af-chip i {
+    color: var(--primary-color);
+}
+
+.af-chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.af-disclaimer {
+    margin-top: 0.6rem;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* --- Animations --- */
+@keyframes afFadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes afBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes afPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .af-empty,
+    .af-msg {
+        animation: none;
+    }
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .af-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .af-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .af-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-normal);
+    }
+
+    .af-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .af-mobile-only {
+        display: inline-flex;
+    }
+
+    .af-topbar {
+        padding: 0 1rem;
+    }
+
+    .af-messages {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .af-composer-wrap {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .af-bubble {
+        max-width: 92%;
+    }
+}

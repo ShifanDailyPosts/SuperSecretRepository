@@ -1141,6 +1141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const asisfanInput = document.getElementById('asisfanInput');
     const asisfanMessages = document.getElementById('asisfanMessages');
     const asisfanSuggestions = document.getElementById('asisfanSuggestions');
+    const asisfanSendBtn = document.getElementById('asisfanSendBtn');
 
     if (asisfanWidget && asisfanTriggerBtn && asisfanChatWindow) {
         // Toggle Chat Window
@@ -1425,10 +1426,20 @@ document.addEventListener('DOMContentLoaded', () => {
             • 📬 <strong>Kontak Resmi & Media Sosial Shifan</strong>`;
         };
 
+        // Riwayat percakapan untuk AsisFan AI (Anthropic, lewat api/asisfan.php)
+        let asisfanHistory = [];
+        let asisfanAbort = null;
+        let asisfanBusy = false;
+
+        const setAsisfanBusy = (state) => {
+            asisfanBusy = state;
+            if (asisfanSendBtn) asisfanSendBtn.disabled = state;
+        };
+
         // Handle user sending message
-        const handleSendMessage = (text) => {
+        const handleSendMessage = async (text) => {
             const trimmed = text.trim();
-            if (!trimmed) return;
+            if (!trimmed || asisfanBusy) return;
 
             // Render user bubble
             appendMessage('user', escapeHtml(trimmed));
@@ -1441,14 +1452,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Show typing indicator
             showTypingIndicator();
+            setAsisfanBusy(true);
 
-            // Simulate natural AI thinking delay (450 - 750ms)
+            // Natural thinking delay for local answers (450 - 750ms)
             const delay = Math.min(750, Math.max(450, trimmed.length * 15));
-            setTimeout(() => {
-                hideTypingIndicator();
-                const replyHtml = generateAsisFanAnswer(trimmed);
-                appendMessage('bot', replyHtml);
-            }, delay);
+            const startedAt = Date.now();
+            const ai = window.AsisFanAI;
+            let bubble = null;
+
+            try {
+                if (!ai) throw new Error('AsisFan AI client tidak termuat');
+                asisfanAbort = new AbortController();
+                const result = await ai.streamChat({
+                    mode: 'widget',
+                    messages: [...asisfanHistory, { role: 'user', content: trimmed }],
+                    context: ai.buildContext(siteData || defaultSiteData),
+                    signal: asisfanAbort.signal,
+                    onText: (fullText) => {
+                        if (!bubble) {
+                            hideTypingIndicator();
+                            bubble = appendMessage('bot', '').querySelector('.asisfan-msg-bubble');
+                        }
+                        bubble.innerHTML = ai.renderMarkdown(fullText);
+                        scrollToBottom();
+                    }
+                });
+                if (!bubble) throw new ai.AsisFanError('empty', 'Jawaban kosong');
+                if (result.stopReason === 'max_tokens') {
+                    bubble.insertAdjacentHTML('beforeend', '<p><em>(Jawaban dipotong karena terlalu panjang.)</em></p>');
+                }
+                asisfanHistory.push({ role: 'user', content: trimmed }, { role: 'assistant', content: result.text });
+                asisfanHistory = asisfanHistory.slice(-20);
+            } catch (err) {
+                if (err && err.name === 'AbortError') {
+                    hideTypingIndicator();
+                } else if (bubble) {
+                    // Jawaban AI terputus di tengah jalan
+                    bubble.insertAdjacentHTML('beforeend', `<p><em>(${escapeHtml(err.message || 'Koneksi terputus.')})</em></p>`);
+                    if (err.partialText) {
+                        asisfanHistory.push({ role: 'user', content: trimmed }, { role: 'assistant', content: err.partialText });
+                    }
+                } else {
+                    // Fallback: jawaban lokal berbasis kata kunci (AI belum aktif / gagal)
+                    if (!err || err.code !== 'not_configured') {
+                        console.warn('AsisFan AI tidak tersedia, memakai jawaban lokal:', (err && err.message) || err);
+                    }
+                    await new Promise(resolve => setTimeout(resolve, Math.max(0, delay - (Date.now() - startedAt))));
+                    hideTypingIndicator();
+                    appendMessage('bot', generateAsisFanAnswer(trimmed));
+                }
+            } finally {
+                asisfanAbort = null;
+                setAsisfanBusy(false);
+            }
         };
 
         if (asisfanForm) {
@@ -1472,6 +1528,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear Chat History
         if (asisfanClearBtn) {
             asisfanClearBtn.addEventListener('click', () => {
+                if (asisfanAbort) asisfanAbort.abort();
+                asisfanHistory = [];
                 asisfanMessages.innerHTML = `
                     <div class="asisfan-msg asisfan-msg-bot">
                         <div class="asisfan-header-avatar" style="width: 30px; height: 30px; font-size: 0.95rem; flex-shrink: 0;">

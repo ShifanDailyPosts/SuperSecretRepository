@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="AsisFan - asisten AI milik Shifan Shalih Adiluhung. Tanyakan apa saja, dari profil Shifan sampai belajar coding.">
+    <meta name="author" content="Shifan Shalih Adiluhung">
+    <title>AsisFan | Asisten AI Shifan Shalih Adiluhung</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css?v=16.0">
+    <link rel="stylesheet" href="asisfan.css?v=1.0">
+</head>
+<body class="dark-theme af-page">
+    <script>
+        // Terapkan tema tersimpan sebelum halaman tampil (sinkron dengan website utama)
+        try { if (localStorage.getItem('ssa_theme') === 'light') document.body.classList.replace('dark-theme', 'light-theme'); } catch (e) {}
+    </script>
+
+    <div class="af-app">
+        <!-- Sidebar: riwayat percakapan -->
+        <aside class="af-sidebar" id="afSidebar" aria-label="Riwayat percakapan">
+            <div class="af-sidebar-head">
+                <a href="index.html" class="logo-brand af-brand" title="Kembali ke portofolio">
+                    <div class="logo-badge af-badge"><i class="fa-solid fa-robot"></i></div>
+                    <span class="logo-text">Asis<span class="highlight">Fan</span></span>
+                </a>
+                <button type="button" class="af-icon-btn af-mobile-only" id="afSidebarClose" aria-label="Tutup riwayat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <button type="button" class="af-new-chat" id="afNewChat">
+                <i class="fa-solid fa-plus"></i>
+                <span>Percakapan baru</span>
+            </button>
+
+            <div class="af-history-label">Riwayat</div>
+            <nav class="af-history" id="afHistory"></nav>
+
+            <div class="af-sidebar-foot">
+                <a href="index.html" class="af-back-link">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Portofolio</span>
+                </a>
+            </div>
+        </aside>
+        <div class="af-overlay" id="afOverlay"></div>
+
+        <!-- Area chat utama -->
+        <main class="af-main is-empty" id="afMain">
+            <header class="af-topbar">
+                <button type="button" class="af-icon-btn af-mobile-only" id="afSidebarToggle" aria-label="Buka riwayat">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="af-topbar-title" id="afChatTitle">Percakapan baru</div>
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ubah Tema">
+                    <i class="fa-solid fa-moon icon-moon"></i>
+                    <i class="fa-solid fa-sun icon-sun"></i>
+                </button>
+            </header>
+
+            <div class="af-stage">
+                <div class="ambient-glow glow-1"></div>
+                <div class="ambient-glow glow-2"></div>
+
+                <section class="af-chat" id="afChat">
+                    <!-- Tampilan awal -->
+                    <div class="af-empty" id="afEmpty">
+                        <div class="af-empty-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <h1 class="af-greeting">Halo, saya <span class="text-gradient">AsisFan</span></h1>
+                        <p class="af-greeting-sub">Asisten AI Shifan Shalih Adiluhung. Tanyakan apa saja, dari profil Shifan sampai belajar coding.</p>
+                    </div>
+
+                    <div class="af-messages" id="afMessages" aria-live="polite"></div>
+                </section>
+
+                <footer class="af-composer-wrap">
+                    <form class="af-composer" id="afComposer">
+                        <textarea id="afInput" rows="1" maxlength="8000" placeholder="Kirim pesan ke AsisFan..." aria-label="Pesan untuk AsisFan"></textarea>
+                        <button type="submit" class="af-send-btn" id="afSendBtn" aria-label="Kirim pesan">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                    </form>
+
+                    <div class="af-suggestions" id="afSuggestions">
+                        <button type="button" class="af-chip" data-query="Siapa itu Shifan Shalih Adiluhung?"><i class="fa-solid fa-user"></i> Siapa Shifan?</button>
+                        <button type="button" class="af-chip" data-query="Apa saja prestasi dan pengalaman Shifan?"><i class="fa-solid fa-trophy"></i> Prestasi &amp; pengalaman</button>
+                        <button type="button" class="af-chip" data-query="Ajari saya dasar-dasar JavaScript untuk pemula, langkah demi langkah."><i class="fa-solid fa-code"></i> Belajar JavaScript</button>
+                        <button type="button" class="af-chip" data-query="Buatkan jadwal harian yang seimbang untuk menghafal Al-Qur'an sambil belajar coding."><i class="fa-solid fa-book-quran"></i> Jadwal hafalan &amp; coding</button>
+                    </div>
+
+                    <p class="af-disclaimer">AsisFan bisa keliru. Periksa kembali informasi penting.</p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+    <script src="asisfan-client.js?v=1.0"></script>
+    <script src="asisfan-page.js?v=1.0"></script>
+</body>
+</html>

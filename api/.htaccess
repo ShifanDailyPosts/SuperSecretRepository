@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------
+# AsisFan API: hanya asisfan.php yang boleh diakses dari browser
+# ----------------------------------------------------------------------
+
+<IfModule mod_authz_core.c>
+    Require all denied
+    <Files "asisfan.php">
+        Require all granted
+    </Files>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+    <Files "asisfan.php">
+        Allow from all
+    </Files>
+</IfModule>
+
+# Jangan kompres respons streaming agar jawaban AI muncul bertahap
+<IfModule mod_env.c>
+    SetEnv no-gzip 1
+</IfModule>

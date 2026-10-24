@@ -19,3 +19,7 @@ desktop.ini
 # Local logs & node dependencies
 *.log
 node_modules/
+
+# AsisFan AI: konfigurasi API key & data batas pemakaian (jangan di-commit)
+asisfan-config.php
+asisfan-data/

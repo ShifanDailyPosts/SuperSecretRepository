@@ -1988,3 +1988,62 @@ body.light-theme .icon-moon { display: block; color: #3b82f6; }
         bottom: calc(100% + 0.75rem);
     }
 }
+
+/* --- AsisFan AI: menu & format jawaban (Markdown) di widget --- */
+.nav-link-asisfan {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-link-asisfan:hover {
+    color: var(--text-primary);
+}
+
+.asisfan-msg-bubble p,
+.asisfan-msg-bubble ul,
+.asisfan-msg-bubble ol,
+.asisfan-msg-bubble pre,
+.asisfan-msg-bubble blockquote {
+    margin: 0 0 0.6em;
+}
+
+.asisfan-msg-bubble > :last-child {
+    margin-bottom: 0;
+}
+
+.asisfan-msg-bubble ul,
+.asisfan-msg-bubble ol {
+    padding-left: 1.2em;
+}
+
+.asisfan-msg-bubble ul { list-style: disc; }
+.asisfan-msg-bubble ol { list-style: decimal; }
+
+.asisfan-msg-bubble h1,
+.asisfan-msg-bubble h2,
+.asisfan-msg-bubble h3,
+.asisfan-msg-bubble h4 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    margin: 0.4em 0 0.4em;
+}
+
+.asisfan-msg-bubble code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.asisfan-msg-bubble pre {
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    overflow-x: auto;
+}
+
+.asisfan-msg-bubble pre code {
+    padding: 0;
+    background: none;
+}
