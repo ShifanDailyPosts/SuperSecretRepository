@@ -19,8 +19,18 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-    let filePath = path.join(PUBLIC_DIR, req.url === '/' ? 'index.html' : req.url);
-    
+    // Strip query string (e.g. styles.css?v=15.0) and decode the path
+    let urlPath;
+    try {
+        urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    } catch (e) {
+        res.writeHead(400);
+        res.end('Bad Request');
+        return;
+    }
+
+    let filePath = path.join(PUBLIC_DIR, urlPath === '/' ? 'index.html' : urlPath);
+
     // Normalize path to prevent directory traversal
     filePath = path.normalize(filePath);
     if (!filePath.startsWith(PUBLIC_DIR)) {
