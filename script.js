@@ -171,12 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Tools & Tech
         tools: [
-            { name: "HTML5", icon: "fa-brands fa-html5" },
-            { name: "CSS3", icon: "fa-brands fa-css3-alt" },
-            { name: "JavaScript", icon: "fa-brands fa-js" },
-            { name: "Git & GitHub", icon: "fa-brands fa-github" },
-            { name: "Hostinger FTP", icon: "fa-solid fa-server" },
-            { name: "VS Code", icon: "fa-solid fa-code" }
+            { id: "html", name: "HTML", icon: "fa-brands fa-html5", desc: "Bahasa markup standar untuk menyusun struktur halaman web." },
+            { id: "css", name: "CSS", icon: "fa-brands fa-css3-alt", desc: "Bahasa styling untuk mendesain tata letak, warna, dan animasi visual." },
+            { id: "javascript", name: "JavaScript", icon: "fa-brands fa-js", desc: "Bahasa pemrograman dinamis untuk interaktivitas dan logika web modern." },
+            { id: "python", name: "Python", icon: "fa-brands fa-python", desc: "Bahasa serbaguna dengan sintaks bersih untuk pemula, sains, dan otomasi." },
+            { id: "git", name: "Git & GitHub", icon: "fa-brands fa-github", desc: "Sistem kontrol versi dan platform kolaborasi kode terpopuler di dunia." },
+            { id: "hostinger", name: "Hostinger FTP", icon: "fa-solid fa-server", desc: "Layanan hosting dan protokol transfer berkas untuk mempublikasikan website." },
+            { id: "vscode", name: "VS Code", icon: "fa-solid fa-code", desc: "Code editor andalan developer modern dengan ekosistem ekstensi lengkap." }
         ],
 
         // Testimonials (On Progress)
@@ -271,7 +272,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const isOldAchPlaceholder = isArr(ach) && ach.length === 1 && [ach[0].title, ach[0].desc].some(t => t && (t.includes('On Progress') || t.includes('Daftar Pencapaian')));
         if (!isArr(ach) || ach.length === 0 || isOldAchPlaceholder) data.achievements = defaultSiteData.achievements;
 
-        ['certificates', 'testimonials', 'tools', 'heroStats'].forEach(key => {
+        if (!isArr(data.tools) || data.tools.length === 0) {
+            data.tools = defaultSiteData.tools;
+        } else {
+            data.tools.forEach(t => {
+                if (t.name === 'HTML5') t.name = 'HTML';
+                if (t.name === 'CSS3') t.name = 'CSS';
+            });
+            const hasPython = data.tools.some(t => t.name && t.name.toLowerCase().includes('python'));
+            if (!hasPython) {
+                const jsIdx = data.tools.findIndex(t => t.name && (t.name.toLowerCase().includes('javascript') || t.name.toLowerCase().includes('java')));
+                const pythonTool = { id: "python", name: "Python", icon: "fa-brands fa-python", desc: "Bahasa serbaguna dengan sintaks bersih untuk pemula, sains, dan otomasi." };
+                if (jsIdx !== -1) {
+                    data.tools.splice(jsIdx + 1, 0, pythonTool);
+                } else {
+                    data.tools.push(pythonTool);
+                }
+            }
+        }
+
+        ['certificates', 'testimonials', 'heroStats'].forEach(key => {
             if (!isArr(data[key])) data[key] = defaultSiteData[key];
         });
         ['aboutFactTitle', 'aboutFactDesc', 'finance'].forEach(key => {
@@ -847,12 +867,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const toolContainer = document.getElementById('toolsGridContainer');
         const toolList = siteData.tools || defaultSiteData.tools;
         if (toolContainer) {
-            toolContainer.innerHTML = toolList.map(t => `
-                <div class="tool-card glass-card">
-                    <div class="tool-icon"><i class="${safeIcon(t.icon, 'fa-solid fa-wrench')}"></i></div>
-                    <div class="tool-name">${esc(t.name)}</div>
-                </div>
-            `).join('');
+            toolContainer.innerHTML = toolList.map(t => {
+                const rawName = (t.name || '').toLowerCase();
+                let toolSlug = 'html';
+                if (rawName.includes('html')) toolSlug = 'html';
+                else if (rawName.includes('css')) toolSlug = 'css';
+                else if (rawName.includes('java')) toolSlug = 'javascript';
+                else if (rawName.includes('python')) toolSlug = 'python';
+                else if (rawName.includes('git')) toolSlug = 'git';
+                else if (rawName.includes('hostinger') || rawName.includes('ftp') || rawName.includes('server')) toolSlug = 'hostinger';
+                else if (rawName.includes('vscode') || rawName.includes('code')) toolSlug = 'vscode';
+
+                return `
+                    <a href="learn.html?tool=${toolSlug}" class="tool-card glass-card" title="Pelajari ${esc(t.name)} (Penjelasan, Materi & Latihan Soal)">
+                        <div class="tool-icon"><i class="${safeIcon(t.icon, 'fa-solid fa-wrench')}"></i></div>
+                        <div class="tool-name">${esc(t.name)}</div>
+                        <span class="tool-action-pill">
+                            <span>Pelajari</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </a>
+                `;
+            }).join('');
         }
 
         // Testimonials
@@ -1356,15 +1392,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 2.7 Keahlian, Kemampuan & Skill Coding
-            if (q.includes('skill') || q.includes('kemampuan') || q.includes('keahlian') || q.includes('coding') || q.includes('program') || q.includes('pemrograman') || q.includes('html') || q.includes('css') || q.includes('javascript') || q.includes('python') || q.includes('tech stack') || q.includes('tools')) {
+            if (q.includes('skill') || q.includes('kemampuan') || q.includes('keahlian') || q.includes('coding') || q.includes('program') || q.includes('pemrograman') || q.includes('tech stack')) {
                 const webSkills = data.webDevSkills || [];
                 let skillList = webSkills.map(s => `• <strong>${s.name}</strong> — status: <span style="color:var(--text-gold); font-weight:600;">${s.statusText || 'Aktif Dipelajari'}</span>`).join('<br>');
                 return `⚡ <strong>Keahlian & Penguasaan Teknologi Shifan:</strong><br><br>
-                Shifan berfokus pada teknologi web modern dan pemrograman:<br>${skillList || '• HTML5, CSS3, JavaScript ES6+, Python'}<br><br>
-                Teknologi pendukung harian: Git & GitHub, VS Code, LocalStorage API, Responsive Grid/Flexbox, dan FTP Hosting Deployment.`;
+                Shifan berfokus pada teknologi web modern dan pemrograman:<br>${skillList || '• HTML, CSS, JavaScript ES6+, Python'}<br><br>
+                Teknologi pendukung harian: Git & GitHub, VS Code, LocalStorage API, Responsive Grid/Flexbox, dan FTP Hosting Deployment.<br><br>
+                💡 <em>Tips</em>: Kamu juga bisa mempelajari materi dan menguji pemahaman dengan kuis latihan soal di menu <a href="learn.html" style="color: var(--primary-color); font-weight: 600;">Modul Belajar & Latihan Soal Tools</a>!`;
             }
 
-            // 2.8 Proyek & Karya Portofolio
+            // 2.8 Modul Belajar, Pelajaran Pembuka & Latihan Soal Tools (learn.html)
+            if (q.includes('belajar') || q.includes('modul') || q.includes('latihan') || q.includes('soal') || q.includes('kuis') || q.includes('quiz') || q.includes('learn') || q.includes('materi') || q.includes('tools') || q.includes('tool') || q.includes('python') || q.includes('vscode') || q.includes('hostinger') || q.includes('git') || (q.includes('html') && !q.includes('tentang')) || (q.includes('css') && !q.includes('tentang')) || (q.includes('javascript') && !q.includes('tentang')) || (q.includes('java') && !q.includes('jawa') && !q.includes('tentang'))) {
+                return `📚 <strong>Modul Belajar & Latihan Soal Interaktif (Tools):</strong><br><br>
+                Website ini menyediakan halaman pembelajaran interaktif lengkap di <a href="learn.html" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">learn.html (Modul Belajar)</a> untuk <strong>7 tools teknologi</strong>:<br><br>
+                • <strong>HTML</strong> — Penjelasan dasar kerangka & tag semantik web + kuis.<br>
+                • <strong>CSS</strong> — Tata letak flexbox/grid, pewarnaan modern & responsif + kuis.<br>
+                • <strong>JavaScript</strong> — Logika dinamis, DOM manipulation & ES6+ + kuis.<br>
+                • <strong>Python</strong> — Sintaks bersih, logika variabel & automasi + kuis.<br>
+                • <strong>Git & GitHub</strong> — Version control, commit, push & kolaborasi tim + kuis.<br>
+                • <strong>Hostinger FTP</strong> — Konsep deployment web hosting & upload berkas + kuis.<br>
+                • <strong>VS Code</strong> — Shortcut produktivitas developer modern & extensions + kuis.<br><br>
+                Setiap modul menyajikan <em>penjelasan ringkas</em>, <em>pelajaran pembukaan dengan blok kode</em>, serta <em>3 latihan soal kuis interaktif</em> dengan penilaian dan pembahasan instan! Silakan coba langsung di bagian Tools atau buka <a href="learn.html">learn.html</a>. 🚀`;
+            }
+
+            // 2.9 Proyek & Karya Portofolio
             if (q.includes('proyek') || q.includes('project') || q.includes('karya') || q.includes('portofolio') || q.includes('portfolio') || q.includes('bikin apa') || q.includes('buat apa')) {
                 const projs = data.projects || [];
                 let projList = projs.slice(0, 3).map(p => `• <strong>${p.title}</strong> (${p.category})<br>&nbsp;&nbsp;↳ <small style="opacity:0.9;">${p.desc}</small>`).join('<br><br>');
@@ -1373,7 +1424,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Website portofolio yang sedang kamu buka ini adalah bukti nyata karya Shifan yang dibangun dari nol!`;
             }
 
-            // 2.9 Tabungan, Keuangan & Finansial
+            // 2.10 Tabungan, Keuangan & Finansial
             if (q.includes('tabung') || q.includes('uang') || q.includes('duit') || q.includes('keuangan') || q.includes('finansial') || q.includes('biaya') || q.includes('target tabung') || q.includes('terkumpul') || q.includes('dana')) {
                 const fin = data.finance || { current: 1500000, target: 5000000, goal: "Tabungan Mandiri & Pendidikan", notes: "Pengelolaan terencana.", lastUpdated: "Oktober 2026" };
                 const pct = Math.min(100, Math.round(((fin.current || 0) / (fin.target || 1)) * 100));
@@ -1385,7 +1436,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 💬 <em>Catatan</em>: "${fin.notes}"`;
             }
 
-            // 2.10 Kontak & Media Sosial
+            // 2.11 Kontak & Media Sosial
             if (q.includes('kontak') || q.includes('hubungi') || q.includes('email') || q.includes('instagram') || q.includes('github') || q.includes('linkedin') || q.includes('sosmed') || q.includes('medsos') || q.includes('wa') || q.includes('whatsapp') || q.includes('telepon') || q.includes('pesan') || q.includes('domisili') || q.includes('alamat')) {
                 return `📬 <strong>Informasi Kontak & Media Sosial Shifan:</strong><br><br>
                 • 📧 <strong>Email Resmi</strong>: <a href="mailto:${data.contactEmail}">${data.contactEmail}</a><br>
@@ -1396,11 +1447,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 Kamu juga bisa mengirim pesan langsung melalui formulir kontak di bagian bawah website!`;
             }
 
-            // 2.11 Akses Pengelolaan / Admin
+            // 2.12 Akses Pengelolaan / Admin
             if (q.includes('admin') || q.includes('panel') || q.includes('login') || q.includes('masuk admin') || q.includes('dashboard admin')) {
                 return `🔐 <strong>Akses Pengelolaan:</strong><br><br>
                 Halaman dan sistem pengelolaan website portofolio ini bersifat <strong>tertutup & terproteksi khusus</strong> hanya untuk pemilik resmi (Shifan Shalih Adiluhung).<br><br>
-                Pengunjung umum dapat menikmati seluruh informasi karya, keahlian, dan prestasi Shifan langsung melalui halaman utama website ini. 😊`;
+                Pengunjung umum dapat menikmati seluruh informasi karya, keahlian, dan modul belajar Shifan langsung melalui halaman website ini. 😊`;
             }
 
             // =================================================================
@@ -1415,6 +1466,7 @@ document.addEventListener('DOMContentLoaded', () => {
             • 🏆 <strong>Prestasi Juara 2 Deen Warriors (Ketua Kelompok & Hadiah Rp 2,5 Juta)</strong><br>
             • 🏫 <strong>Pengurus OSIS Sekbid 8 di SMP Al-Kautsar 561</strong><br>
             • 🤝 <strong>Volunteer HiraaCenter Pesantren Liburan Batch 3</strong><br>
+            • 📚 <strong>Modul Belajar & Kuis Latihan Soal Tools (HTML, CSS, JS, Python, Git, Hostinger, VS Code)</strong><br>
             • ⚡ <strong>Skill Coding & Penguasaan Bahasa Pemrograman</strong><br>
             • 🚀 <strong>Proyek Karya & Portofolio Web</strong><br>
             • 💰 <strong>Status Tabungan & Pengelolaan Keuangan</strong><br>

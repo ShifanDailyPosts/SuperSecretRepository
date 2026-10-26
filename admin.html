@@ -970,12 +970,13 @@
                     }
                 ],
                 tools: [
-                    { name: "HTML5", icon: "fa-brands fa-html5" },
-                    { name: "CSS3", icon: "fa-brands fa-css3-alt" },
-                    { name: "JavaScript", icon: "fa-brands fa-js" },
-                    { name: "Git & GitHub", icon: "fa-brands fa-github" },
-                    { name: "Hostinger FTP", icon: "fa-solid fa-server" },
-                    { name: "VS Code", icon: "fa-solid fa-code" }
+                    { id: "html", name: "HTML", icon: "fa-brands fa-html5", desc: "Bahasa markup standar untuk menyusun struktur halaman web." },
+                    { id: "css", name: "CSS", icon: "fa-brands fa-css3-alt", desc: "Bahasa styling untuk mendesain tata letak, warna, dan animasi visual." },
+                    { id: "javascript", name: "JavaScript", icon: "fa-brands fa-js", desc: "Bahasa pemrograman dinamis untuk interaktivitas dan logika web modern." },
+                    { id: "python", name: "Python", icon: "fa-brands fa-python", desc: "Bahasa serbaguna dengan sintaks bersih untuk pemula, sains, dan otomasi." },
+                    { id: "git", name: "Git & GitHub", icon: "fa-brands fa-github", desc: "Sistem kontrol versi dan platform kolaborasi kode terpopuler di dunia." },
+                    { id: "hostinger", name: "Hostinger FTP", icon: "fa-solid fa-server", desc: "Layanan hosting dan protokol transfer berkas untuk mempublikasikan website." },
+                    { id: "vscode", name: "VS Code", icon: "fa-solid fa-code", desc: "Code editor andalan developer modern dengan ekosistem ekstensi lengkap." }
                 ],
                 // Testimonials (On Progress)
                 testimonials: [
@@ -1126,9 +1127,24 @@
                     siteData.achievements = defaultSiteData.achievements;
                 }
                 if (!siteData.certificates || !Array.isArray(siteData.certificates)) siteData.certificates = defaultSiteData.certificates;
-                if (!siteData.testimonials || !Array.isArray(siteData.testimonials)) siteData.testimonials = defaultSiteData.testimonials;
-                if (!siteData.tools || !Array.isArray(siteData.tools)) siteData.tools = defaultSiteData.tools;
-                if (!siteData.heroStats || !Array.isArray(siteData.heroStats)) siteData.heroStats = defaultSiteData.heroStats;
+                if (!siteData.tools || !Array.isArray(siteData.tools) || siteData.tools.length === 0) {
+                    siteData.tools = defaultSiteData.tools;
+                } else {
+                    siteData.tools.forEach(t => {
+                        if (t.name === 'HTML5') t.name = 'HTML';
+                        if (t.name === 'CSS3') t.name = 'CSS';
+                    });
+                    const hasPython = siteData.tools.some(t => t.name && t.name.toLowerCase().includes('python'));
+                    if (!hasPython) {
+                        const jsIdx = siteData.tools.findIndex(t => t.name && (t.name.toLowerCase().includes('javascript') || t.name.toLowerCase().includes('java')));
+                        const pythonTool = { id: "python", name: "Python", icon: "fa-brands fa-python", desc: "Bahasa serbaguna dengan sintaks bersih untuk pemula, sains, dan otomasi." };
+                        if (jsIdx !== -1) {
+                            siteData.tools.splice(jsIdx + 1, 0, pythonTool);
+                        } else {
+                            siteData.tools.push(pythonTool);
+                        }
+                    }
+                }
                 if (!siteData.aboutFactTitle) siteData.aboutFactTitle = defaultSiteData.aboutFactTitle;
                 if (!siteData.aboutFactDesc) siteData.aboutFactDesc = defaultSiteData.aboutFactDesc;
                 if (!siteData.finance) siteData.finance = defaultSiteData.finance;
