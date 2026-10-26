@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputEl = $('afInput');
     const sendBtn = $('afSendBtn');
     const attachBtn = $('afAttachBtn');
+    const researchBtn = $('afResearchBtn');
     const fileInput = $('afFileInput');
     const attachmentsEl = $('afAttachments');
     const composerNote = $('afComposerNote');
@@ -71,6 +72,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let pending = [];      // lampiran yang belum dikirim
     let processing = 0;    // file yang sedang dibaca
     const attachmentStore = new Map(); // id pesan -> isi lampiran
+
+    // === Mode Riset: lebih banyak pencarian web & berpikir lebih dalam ===
+    let research = false;
+    try { research = localStorage.getItem('asisfan_research') === '1'; } catch (e) { /* abaikan */ }
+    const setResearch = (on) => {
+        research = on;
+        researchBtn.classList.toggle('is-active', on);
+        researchBtn.setAttribute('aria-pressed', String(on));
+        inputEl.placeholder = on ? 'Mau riset apa?' : 'Kirim pesan ke AsisFan...';
+        try { localStorage.setItem('asisfan_research', on ? '1' : '0'); } catch (e) { /* abaikan */ }
+    };
+    researchBtn.addEventListener('click', () => {
+        setResearch(!research);
+        inputEl.focus();
+    });
+    setResearch(research);
 
     const makeId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 
@@ -257,12 +274,13 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(list);
     };
 
-    const appendBot = () => {
+    const appendBot = (isResearch) => {
         const row = document.createElement('div');
         row.className = 'af-msg af-msg-bot';
         row.innerHTML = `
             <div class="af-avatar"><i class="fa-solid fa-robot"></i></div>
             <div class="af-msg-body">
+                <div class="af-research-tag" hidden><i class="fa-solid fa-flask"></i><span>Mode Riset</span></div>
                 <div class="af-status" hidden></div>
                 <div class="af-markdown"></div>
                 <div class="af-typing"><span></span><span></span><span></span></div>
@@ -281,6 +299,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const markdownEl = row.querySelector('.af-markdown');
         const statusEl = row.querySelector('.af-status');
+        const tagEl = row.querySelector('.af-research-tag');
+        const steps = { search: 0, fetch: 0 };
+        const updateTag = (saved) => {
+            if (saved) Object.assign(steps, saved);
+            const parts = [];
+            if (steps.search) parts.push(`${steps.search} pencarian`);
+            if (steps.fetch) parts.push(`${steps.fetch} halaman dibaca`);
+            tagEl.querySelector('span').textContent = parts.length ? `Mode Riset · ${parts.join(' · ')}` : 'Mode Riset';
+        };
+        tagEl.hidden = !isResearch;
         const sourcesEl = row.querySelector('.af-sources');
         const bodyEl = row.querySelector('.af-msg-body');
         const copyBtn = row.querySelector('[data-act="copy"]');
@@ -310,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             get text() { return text; },
             get sources() { return sources; },
+            get steps() { return steps; },
             stream() { row.classList.add('is-streaming'); },
             update(newText) {
                 text = newText;
@@ -332,6 +361,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     return;
                 }
+                if (info.tool === 'search' || info.tool === 'fetch') {
+                    steps[info.tool] += 1;
+                    updateTag();
+                }
                 statusEl.replaceChildren(icon, label);
                 statusEl.hidden = false;
                 scrollToBottom();
@@ -341,10 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (sources.some((s) => s.url === source.url)) return;
                 sources.push({ url: source.url, title: (source.title || '').slice(0, 160) });
             },
-            finish(finalText, note, savedSources) {
+            finish(finalText, note, savedSources, savedSteps) {
                 if (frame) cancelAnimationFrame(frame);
                 text = finalText;
                 if (savedSources) sources = savedSources;
+                if (savedSteps) updateTag(savedSteps);
                 render();
                 enhanceCodeBlocks(markdownEl, text);
                 renderSources(sourcesEl, sources);
@@ -429,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
         titleEl.textContent = current.title;
         current.messages.forEach((m) => {
             if (m.role === 'user') appendUser(m);
-            else appendBot().finish(m.content, null, m.sources);
+            else appendBot(Boolean(m.research)).finish(m.content, null, m.sources, m.research);
         });
         scrollToBottom(true);
     };
@@ -650,13 +684,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteFor = (stopReason) => {
         if (stopReason === 'max_tokens') return 'Jawaban dipotong karena mencapai batas panjang.';
         if (stopReason === 'refusal') return 'Sebagian permintaan ini tidak bisa dilayani.';
-        if (stopReason === 'pause_turn') return 'Pencarian dihentikan karena terlalu panjang. Kirim "lanjutkan" untuk meneruskan.';
+        if (stopReason === 'pause_turn') return 'Riset dihentikan karena terlalu panjang. Kirim "lanjutkan" untuk meneruskan.';
         return null;
     };
 
     const runAssistant = async () => {
         const chat = current;
-        const view = appendBot();
+        const isResearch = research;
+        const view = appendBot(isResearch);
         view.stream();
         scrollToBottom(true);
 
@@ -672,12 +707,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const pushAnswer = (content) => {
             const message = { role: 'assistant', content };
             if (view.sources.length) message.sources = view.sources;
+            if (isResearch) message.research = { ...view.steps };
             chat.messages.push(message);
         };
 
         try {
             const result = await ai.streamChat({
-                mode: 'page',
+                mode: isResearch ? 'research' : 'page',
                 messages: buildRequestMessages(chat.messages),
                 context: ai.buildContext(ai.readSiteData()),
                 signal: abortCtrl.signal,
@@ -762,6 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     inputEl.addEventListener('input', autoResize);
+    window.addEventListener('resize', autoResize); // tinggi bisa salah hitung saat tab belum tampil
     inputEl.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
             e.preventDefault();

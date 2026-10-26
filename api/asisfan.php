@@ -20,11 +20,16 @@ const ASISFAN_API_VERSION = '2026-10-21';
 const ASISFAN_FALLBACK_MODELS = ['claude-fable-5-1', 'claude-opus-5-5', 'claude-opus-5', 'claude-sonnet-5-5'];
 
 // Pengaturan per tampilan: widget kecil di halaman utama vs halaman chat penuh
-// attachments: boleh kirim file; web: boleh mencari & membuka halaman web secara realtime
+// attachments: boleh kirim file; web: jumlah maksimal pencarian (dan buka halaman) per jawaban, 0 = tanpa web
+// cost: bobot di batas pemakaian; time: batas waktu permintaan (detik)
 const ASISFAN_MODES = [
-    'widget' => ['max_tokens' => 1500, 'effort' => 'low', 'max_message_chars' => 1000, 'attachments' => false, 'web' => false],
-    'page' => ['max_tokens' => 16000, 'effort' => 'medium', 'max_message_chars' => 8000, 'attachments' => true, 'web' => true],
+    'widget' => ['max_tokens' => 1500, 'effort' => 'low', 'max_message_chars' => 1000, 'attachments' => false, 'web' => 0, 'cost' => 1, 'time' => 120],
+    'page' => ['max_tokens' => 16000, 'effort' => 'medium', 'max_message_chars' => 8000, 'attachments' => true, 'web' => 5, 'cost' => 1, 'time' => 300],
+    // Mode Riset: lebih banyak pencarian & berpikir lebih dalam, dihitung 3 pesan di batas pemakaian
+    'research' => ['max_tokens' => 32000, 'effort' => 'high', 'max_message_chars' => 8000, 'attachments' => true, 'web' => 15, 'cost' => 3, 'time' => 600],
 ];
+
+const ASISFAN_MAX_CONTINUATIONS = 4; // lanjutkan otomatis saat API menjeda giliran (pause_turn) di tengah riset
 
 const ASISFAN_MAX_HISTORY = 20;          // jumlah pesan terakhir yang dikirim ke AI
 const ASISFAN_MAX_HISTORY_CHARS = 48000; // total karakter riwayat percakapan
@@ -37,26 +42,29 @@ const ASISFAN_MAX_TEXT_FILE_CHARS = 150000;      // total isi file teks per perm
 const ASISFAN_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 const ASISFAN_BASE64_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
-// Alat web dari Anthropic (dijalankan di server Anthropic, ditagih per pencarian)
-const ASISFAN_WEB_TOOLS = [
-    [
-        'type' => 'web_search_20260209',
-        'name' => 'web_search',
-        'max_uses' => 5,
-        'user_location' => ['type' => 'approximate', 'country' => 'ID', 'timezone' => 'Asia/Jakarta'],
-    ],
-    [
-        'type' => 'web_fetch_20260209',
-        'name' => 'web_fetch',
-        'max_uses' => 5,
-        'max_content_tokens' => 30000,
-        'citations' => ['enabled' => true],
-    ],
-];
-
 header('X-Content-Type-Options: nosniff');
 
 // === Helpers ===
+// Alat web dari Anthropic (dijalankan di server Anthropic, ditagih per pencarian)
+function asisfan_web_tools(int $maxUses): array
+{
+    return [
+        [
+            'type' => 'web_search_20260209',
+            'name' => 'web_search',
+            'max_uses' => $maxUses,
+            'user_location' => ['type' => 'approximate', 'country' => 'ID', 'timezone' => 'Asia/Jakarta'],
+        ],
+        [
+            'type' => 'web_fetch_20260209',
+            'name' => 'web_fetch',
+            'max_uses' => $maxUses,
+            'max_content_tokens' => 30000,
+            'citations' => ['enabled' => true],
+        ],
+    ];
+}
+
 function asisfan_json(int $status, string $error, string $message): void
 {
     http_response_code($status);
@@ -257,7 +265,7 @@ function asisfan_clean_messages($messages, array $modeConfig)
  * Batas pemakaian sederhana agar API key tidak disalahgunakan.
  * Mengembalikan kode error jika batas terlampaui, atau null jika boleh lanjut.
  */
-function asisfan_rate_limit(string $dir, string $ip, int $perHour, int $perDay): ?string
+function asisfan_rate_limit(string $dir, string $ip, int $perHour, int $perDay, int $cost = 1): ?string
 {
     if (!is_dir($dir) && !@mkdir($dir, 0700, true)) {
         $dir = sys_get_temp_dir() . '/asisfan-data';
@@ -294,13 +302,15 @@ function asisfan_rate_limit(string $dir, string $ip, int $perHour, int $perDay):
 
     $ipKey = substr(hash('sha256', $ip), 0, 16);
     $error = null;
-    if ($state['count'] >= $perDay) {
+    if ($state['count'] + $cost > $perDay) {
         $error = 'daily_limit';
-    } elseif (count($ips[$ipKey] ?? []) >= $perHour) {
+    } elseif (count($ips[$ipKey] ?? []) + $cost > $perHour) {
         $error = 'ip_limit';
     } else {
-        $state['count']++;
-        $ips[$ipKey][] = $now;
+        $state['count'] += $cost;
+        for ($i = 0; $i < $cost; $i++) {
+            $ips[$ipKey][] = $now;
+        }
     }
     $state['ips'] = $ips;
 
@@ -339,7 +349,14 @@ Kamu sedang tampil di jendela chat kecil di pojok halaman portofolio.
 TXT;
     }
 
-    return $base . "\n\n" . <<<TXT
+    $research = $mode !== 'research' ? '' : "\n\n" . <<<TXT
+Mode Riset aktif:
+- Pengguna meminta riset mendalam. Cari dari beberapa sudut dan sumber berbeda (kamu punya jatah hingga 15 pencarian dan 15 halaman), buka halaman yang paling relevan untuk membaca detailnya, dan bandingkan informasinya. Utamakan sumber resmi dan terbaru.
+- Jika sumber saling bertentangan, sebutkan perbedaannya. Jika ada yang belum pasti, katakan terus terang.
+- Tulis hasilnya sebagai laporan terstruktur: ringkasan singkat di awal, pembahasan per bagian dengan judul, lalu daftar "Sumber" berisi tautan di akhir.
+TXT;
+
+    return $base . $research . "\n\n" . <<<TXT
 Kamu sedang tampil di halaman chat penuh AsisFan.
 - Bantu pengguna dengan topik apa pun yang wajar: belajar, menulis, coding, ide, pertanyaan umum, maupun informasi tentang Shifan.
 - Jawab selengkap yang dibutuhkan, tetapi tetap ringkas dan terstruktur.
@@ -402,6 +419,9 @@ function asisfan_handle_upstream_event(string $raw, array &$state): void
         case 'content_block_start':
             $block = $event['content_block'] ?? [];
             $blockType = (string) ($block['type'] ?? '');
+            if (is_array($block) && $blockType !== '') {
+                $state['blocks'][$index] = $block; // disimpan utuh untuk melanjutkan pause_turn
+            }
             if ($blockType === 'server_tool_use') {
                 $state['tools'][$index] = ['name' => (string) ($block['name'] ?? ''), 'json' => '', 'input' => $block['input'] ?? []];
             } elseif ($blockType === 'web_search_tool_result' && is_array($block['content'] ?? null)) {
@@ -434,13 +454,24 @@ function asisfan_handle_upstream_event(string $raw, array &$state): void
         case 'content_block_delta':
             $delta = $event['delta'] ?? [];
             $deltaType = $delta['type'] ?? '';
-            // Hanya teks jawaban yang diteruskan; blok thinking diabaikan
+            $stored = isset($state['blocks'][$index]);
+            // Hanya teks jawaban yang diteruskan ke browser; blok thinking hanya disimpan
             if ($deltaType === 'text_delta' && ($delta['text'] ?? '') !== '') {
                 $state['has_text'] = true;
+                if ($stored) {
+                    $state['blocks'][$index]['text'] = ($state['blocks'][$index]['text'] ?? '') . $delta['text'];
+                }
                 asisfan_sse('text', ['t' => $delta['text']]);
+            } elseif ($deltaType === 'thinking_delta' && $stored) {
+                $state['blocks'][$index]['thinking'] = ($state['blocks'][$index]['thinking'] ?? '') . (string) ($delta['thinking'] ?? '');
+            } elseif ($deltaType === 'signature_delta' && $stored) {
+                $state['blocks'][$index]['signature'] = ($state['blocks'][$index]['signature'] ?? '') . (string) ($delta['signature'] ?? '');
             } elseif ($deltaType === 'input_json_delta' && isset($state['tools'][$index])) {
                 $state['tools'][$index]['json'] .= (string) ($delta['partial_json'] ?? '');
             } elseif ($deltaType === 'citations_delta') {
+                if ($stored && is_array($delta['citation'] ?? null)) {
+                    $state['blocks'][$index]['citations'][] = $delta['citation'];
+                }
                 $url = $delta['citation']['url'] ?? null;
                 if (is_string($url) && preg_match('#^https?://#i', $url)) {
                     asisfan_sse('source', ['url' => $url, 'title' => (string) ($delta['citation']['title'] ?? '')]);
@@ -452,6 +483,10 @@ function asisfan_handle_upstream_event(string $raw, array &$state): void
                 $tool = $state['tools'][$index];
                 unset($state['tools'][$index]);
                 $input = $tool['json'] !== '' ? json_decode($tool['json'], true) : $tool['input'];
+                if (isset($state['blocks'][$index])) {
+                    // input harus berupa objek JSON saat dikirim balik, termasuk jika kosong
+                    $state['blocks'][$index]['input'] = is_array($input) && $input ? $input : new stdClass();
+                }
                 if ($tool['name'] === 'web_search' && is_string($input['query'] ?? null)) {
                     asisfan_sse('status', ['tool' => 'search', 'query' => $input['query']]);
                 } elseif ($tool['name'] === 'web_fetch' && is_string($input['url'] ?? null)) {
@@ -529,10 +564,13 @@ $limitError = asisfan_rate_limit(
     (string) $config['data_dir'],
     (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown'),
     (int) $config['limit_per_ip_hour'],
-    (int) $config['limit_per_day']
+    (int) $config['limit_per_day'],
+    $modeConfig['cost']
 );
 if ($limitError === 'ip_limit') {
-    asisfan_json(429, 'rate_limited', 'Kamu sudah mengirim banyak pesan dalam satu jam terakhir. Coba lagi nanti ya.');
+    asisfan_json(429, 'rate_limited', $mode === 'research'
+        ? 'Kuota Mode Riset untuk satu jam ini sudah habis (1 riset = 3 pesan). Matikan Mode Riset atau coba lagi nanti ya.'
+        : 'Kamu sudah mengirim banyak pesan dalam satu jam terakhir. Coba lagi nanti ya.');
 }
 if ($limitError === 'daily_limit') {
     asisfan_json(429, 'daily_limit', 'Kuota harian AsisFan sudah habis. Coba lagi besok ya.');
@@ -554,13 +592,13 @@ $payload = [
     'messages' => $messages,
     'output_config' => ['effort' => $modeConfig['effort']],
 ];
-if ($modeConfig['web']) {
-    $payload['tools'] = ASISFAN_WEB_TOOLS;
+if ($modeConfig['web'] > 0) {
+    $payload['tools'] = asisfan_web_tools($modeConfig['web']);
     // Tanggal ditaruh setelah breakpoint cache agar pergantian hari tidak membuang cache di atasnya
     $today = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
     $payload['system'][] = ['type' => 'text', 'text' => 'Tanggal hari ini: ' . $today->format('Y-m-d') . ' (WIB).'];
 }
-if ($mode === 'page') {
+if ($mode !== 'widget') {
     // Riwayat + lampiran di-cache, jadi pesan lanjutan tentang file yang sama jauh lebih murah
     $payload['cache_control'] = ['type' => 'ephemeral'];
 }
@@ -581,7 +619,7 @@ if (!function_exists('curl_init')) {
 }
 
 // === Stream jawaban ke browser (Server-Sent Events) ===
-@set_time_limit(300);
+@set_time_limit($modeConfig['time']);
 ignore_user_abort(true);
 @ini_set('zlib.output_compression', '0');
 while (ob_get_level() > 0) {
@@ -594,11 +632,12 @@ header('X-Accel-Buffering: no');
 echo ':' . str_repeat(' ', 2048) . "\n\n"; // dorong proxy/server agar tidak menahan stream
 flush();
 
-function asisfan_request(string $url, array $payload, array $headers): array
+// $hasText: apakah teks jawaban sudah terkirim di permintaan sebelumnya (saat melanjutkan pause_turn)
+function asisfan_request(string $url, array $payload, array $headers, int $timeout, bool $hasText = false): array
 {
     $state = [
         'buffer' => '', 'error_body' => '', 'stop_reason' => null, 'stream_error' => null, 'aborted' => false,
-        'tools' => [], 'after_tool' => false, 'has_text' => false,
+        'tools' => [], 'blocks' => [], 'after_tool' => $hasText, 'has_text' => $hasText,
     ];
 
     $ch = curl_init($url);
@@ -607,7 +646,7 @@ function asisfan_request(string $url, array $payload, array $headers): array
         CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE),
         CURLOPT_HTTPHEADER => $headers,
         CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_TIMEOUT => 290,
+        CURLOPT_TIMEOUT => $timeout,
         CURLOPT_WRITEFUNCTION => function ($ch, string $chunk) use (&$state): int {
             if (curl_getinfo($ch, CURLINFO_RESPONSE_CODE) !== 200) {
                 $state['error_body'] .= substr($chunk, 0, 4000);
@@ -637,14 +676,30 @@ function asisfan_request(string $url, array $payload, array $headers): array
 }
 
 $url = rtrim((string) $config['api_base'], '/') . '/v1/messages';
-$state = asisfan_request($url, $payload, $headers);
+$deadline = time() + $modeConfig['time'] - 10;
+$state = asisfan_request($url, $payload, $headers, $deadline - time());
 
 // Jika pencarian web belum diizinkan untuk API key ini, tetap jawab tanpa akses web
 if ($state['status'] === 400 && isset($payload['tools']) && preg_match('/web[_ ]?(search|fetch)|tool/i', $state['error_body'])) {
     error_log('[AsisFan] Alat web ditolak, mencoba ulang tanpa web: ' . substr($state['error_body'], 0, 300));
     unset($payload['tools']);
     asisfan_sse('status', ['tool' => 'web_unavailable']);
-    $state = asisfan_request($url, $payload, $headers);
+    $state = asisfan_request($url, $payload, $headers, $deadline - time());
+}
+
+// Riset panjang bisa dijeda API (pause_turn). Kirim balik isi giliran sejauh ini agar AI melanjutkan.
+$continuations = 0;
+while ($state['stop_reason'] === 'pause_turn' && !$state['aborted'] && $state['status'] === 200
+    && $continuations < ASISFAN_MAX_CONTINUATIONS && $deadline - time() > 30) {
+    $continuations++;
+    $blocks = array_values($state['blocks']);
+    $last = count($payload['messages']) - 1;
+    if ($payload['messages'][$last]['role'] === 'assistant') {
+        $payload['messages'][$last]['content'] = array_merge($payload['messages'][$last]['content'], $blocks);
+    } else {
+        $payload['messages'][] = ['role' => 'assistant', 'content' => $blocks];
+    }
+    $state = asisfan_request($url, $payload, $headers, $deadline - time(), $state['has_text']);
 }
 
 $status = $state['status'];
