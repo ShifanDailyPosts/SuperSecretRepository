@@ -82,8 +82,9 @@
     /**
      * Kirim percakapan dan terima jawaban secara bertahap (streaming).
      * onText dipanggil dengan teks jawaban lengkap sejauh ini.
+     * onStatus dipanggil saat AI mencari/membuka halaman web, onSource untuk tiap sumber web.
      */
-    const streamChat = async ({ mode, messages, context, onText, signal }) => {
+    const streamChat = async ({ mode, messages, context, onText, onStatus, onSource, signal }) => {
         loadMarkdownLibs();
         let response;
         try {
@@ -144,6 +145,10 @@
                     if (event === 'text') {
                         text += payload.t || '';
                         if (onText) onText(text);
+                    } else if (event === 'status') {
+                        if (onStatus) onStatus(payload);
+                    } else if (event === 'source') {
+                        if (onSource) onSource(payload);
                     } else if (event === 'done') {
                         return { text, stopReason: payload.stop_reason || null };
                     } else if (event === 'error') {
@@ -211,5 +216,62 @@
         return escapeHtml(text).replace(/\n/g, '<br>');
     };
 
-    window.AsisFanAI = { streamChat, buildContext, readSiteData, renderMarkdown, loadMarkdownLibs, escapeHtml, AsisFanError };
+    // === File buatan AI: setiap blok kode bisa diunduh ===
+    const LANG_EXT = {
+        html: 'html', htm: 'html', css: 'css', javascript: 'js', js: 'js', mjs: 'js', jsx: 'jsx', typescript: 'ts', ts: 'ts', tsx: 'tsx',
+        json: 'json', python: 'py', py: 'py', php: 'php', markdown: 'md', md: 'md', csv: 'csv', svg: 'svg', xml: 'xml', sql: 'sql',
+        bash: 'sh', sh: 'sh', shell: 'sh', powershell: 'ps1', ps1: 'ps1', bat: 'bat', java: 'java', kotlin: 'kt', c: 'c', cpp: 'cpp',
+        'c++': 'cpp', csharp: 'cs', cs: 'cs', go: 'go', rust: 'rs', ruby: 'rb', dart: 'dart', swift: 'swift', yaml: 'yml', yml: 'yml',
+        toml: 'toml', ini: 'ini', txt: 'txt', text: 'txt', plaintext: 'txt',
+    };
+    const EXT_MIME = {
+        html: 'text/html', css: 'text/css', js: 'text/javascript', json: 'application/json', csv: 'text/csv',
+        svg: 'image/svg+xml', md: 'text/markdown', xml: 'application/xml',
+    };
+
+    const safeFileName = (name) => String(name || '')
+        .split(/[\\/]/).pop()
+        .replace(/[<>:"|?*\u0000-\u001f]/g, '_')
+        .replace(/^\.+/, '')
+        .slice(0, 100);
+
+    // Daftar blok kode dalam jawaban, urutannya sama dengan elemen <pre> hasil renderMarkdown.
+    // Nama file diambil dari info string, contoh: ```html index.html
+    const extractCodeBlocks = (text) => {
+        if (!window.marked || typeof window.marked.lexer !== 'function') return null;
+        const blocks = [];
+        window.marked.walkTokens(window.marked.lexer(String(text), { gfm: true, breaks: true }), (token) => {
+            if (token.type !== 'code') return;
+            const info = String(token.lang || '').trim().split(/\s+/).filter(Boolean);
+            const lang = (info[0] || '').toLowerCase();
+            let filename = info.slice(1).join(' ').replace(/^(title|file(name)?)=/i, '').replace(/^["']|["']$/g, '');
+            if (!filename && /\.[a-z0-9]{1,8}$/i.test(info[0] || '')) filename = info[0];
+            filename = safeFileName(filename);
+            const ext = (filename.match(/\.([a-z0-9]{1,8})$/i) || [])[1] || LANG_EXT[lang] || 'txt';
+            blocks.push({
+                lang,
+                filename: filename || `asisfan-${blocks.length + 1}.${ext}`,
+                mime: EXT_MIME[ext.toLowerCase()] || 'text/plain',
+                code: token.text,
+            });
+        });
+        return blocks;
+    };
+
+    const downloadFile = (filename, content, mime) => {
+        const blob = new Blob([content], { type: `${mime || 'text/plain'};charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = safeFileName(filename) || 'asisfan.txt';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+
+    window.AsisFanAI = {
+        streamChat, buildContext, readSiteData, renderMarkdown, loadMarkdownLibs, escapeHtml, AsisFanError,
+        extractCodeBlocks, downloadFile,
+    };
 })();

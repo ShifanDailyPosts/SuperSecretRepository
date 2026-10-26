@@ -17,7 +17,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css?v=17.0">
-    <link rel="stylesheet" href="asisfan.css?v=1.1">
+    <link rel="stylesheet" href="asisfan.css?v=1.2">
 </head>
 <body class="dark-theme af-page">
     <script src="theme-init.js?v=1.0"></script>
@@ -82,11 +82,19 @@
 
                 <footer class="af-composer-wrap">
                     <form class="af-composer" id="afComposer">
-                        <textarea id="afInput" rows="1" maxlength="8000" placeholder="Kirim pesan ke AsisFan..." aria-label="Pesan untuk AsisFan"></textarea>
-                        <button type="submit" class="af-send-btn" id="afSendBtn" aria-label="Kirim pesan">
-                            <i class="fa-solid fa-arrow-up"></i>
-                        </button>
+                        <div class="af-attachments" id="afAttachments" hidden></div>
+                        <div class="af-composer-row">
+                            <button type="button" class="af-attach-btn" id="afAttachBtn" title="Lampirkan gambar, PDF, atau file teks" aria-label="Lampirkan file">
+                                <i class="fa-solid fa-paperclip"></i>
+                            </button>
+                            <textarea id="afInput" rows="1" maxlength="8000" placeholder="Kirim pesan ke AsisFan..." aria-label="Pesan untuk AsisFan"></textarea>
+                            <button type="submit" class="af-send-btn" id="afSendBtn" aria-label="Kirim pesan">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </button>
+                        </div>
+                        <input type="file" id="afFileInput" multiple hidden accept="image/jpeg,image/png,image/gif,image/webp,application/pdf,text/*,.md,.csv,.json,.xml,.html,.css,.js,.ts,.py,.php,.java,.c,.cpp,.cs,.go,.rs,.rb,.sql,.sh,.yml,.yaml,.toml,.ini,.log,.svg">
                     </form>
+                    <p class="af-composer-note" id="afComposerNote" role="status" hidden></p>
 
                     <div class="af-suggestions" id="afSuggestions">
                         <button type="button" class="af-chip" data-query="Siapa itu Shifan Shalih Adiluhung?"><i class="fa-solid fa-user"></i> Siapa Shifan?</button>
@@ -104,7 +112,7 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous" defer></script>
-    <script src="asisfan-client.js?v=1.1" defer></script>
-    <script src="asisfan-page.js?v=1.1" defer></script>
+    <script src="asisfan-client.js?v=1.2" defer></script>
+    <script src="asisfan-page.js?v=1.2" defer></script>
 </body>
 </html>

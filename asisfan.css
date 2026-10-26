@@ -238,6 +238,7 @@
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    overflow: clip; /* cahaya latar tidak boleh membuat area ini ikut tergeser saat fokus/scroll */
 }
 
 .af-stage .ambient-glow {
@@ -338,6 +339,162 @@
     white-space: pre-wrap;
     word-break: break-word;
     line-height: 1.6;
+}
+
+.af-user-wrap {
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+}
+
+.af-user-wrap .af-bubble {
+    max-width: 100%;
+}
+
+.af-msg-files {
+    justify-content: flex-end;
+}
+
+/* Status pencarian web & daftar sumber */
+.af-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.af-status[hidden] {
+    display: none;
+}
+
+.af-status i {
+    color: var(--primary-color);
+    animation: afPulse 1.2s infinite;
+}
+
+.af-status span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.af-sources:empty {
+    display: none;
+}
+
+.af-sources {
+    margin-top: 0.9rem;
+}
+
+.af-sources-label {
+    margin-bottom: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.af-sources-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.af-source {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 220px;
+    padding: 0.4rem 0.7rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 0.78rem;
+    line-height: 1.35;
+    transition: border-color var(--transition-fast);
+}
+
+.af-source:hover {
+    border-color: var(--border-hover);
+}
+
+.af-source-host {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.af-source-title {
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Blok kode dengan nama file, tombol salin & unduh */
+.af-markdown .af-code {
+    margin: 0 0 0.9em;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    overflow: hidden;
+}
+
+.af-markdown .af-code pre {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.af-code-head {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.35rem 0.5rem 0.35rem 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-card);
+    font-size: 0.8rem;
+}
+
+.af-code-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-secondary);
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.af-code-name i {
+    color: var(--primary-color);
+}
+
+.af-code-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.af-code-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--primary-color);
 }
 
 .af-msg-bot {
@@ -589,9 +746,9 @@
 
 .af-composer {
     display: flex;
-    align-items: flex-end;
-    gap: 0.6rem;
-    padding: 0.55rem 0.55rem 0.55rem 1.15rem;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.55rem;
     border-radius: 26px;
     background: var(--bg-surface);
     backdrop-filter: blur(16px);
@@ -604,6 +761,112 @@
 .af-composer:focus-within {
     border-color: var(--border-hover);
     box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+.af-composer.is-dragover {
+    border-style: dashed;
+    border-color: var(--primary-color);
+}
+
+.af-composer-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+}
+
+.af-attach-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.af-attach-btn:hover {
+    background: var(--bg-card);
+    color: var(--primary-color);
+}
+
+.af-attachments,
+.af-msg-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.af-attachments {
+    padding: 0.15rem 0.2rem 0;
+}
+
+.af-attachments[hidden] {
+    display: none;
+}
+
+.af-file-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    max-width: 220px;
+    padding: 0.3rem 0.45rem 0.3rem 0.35rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.af-file-chip img {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.af-file-chip > i {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--bg-secondary);
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.af-file-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.af-file-remove {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.af-file-remove:hover {
+    color: #ef4444;
+}
+
+.af-composer-note {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #ef4444;
+    text-align: center;
 }
 
 .af-composer textarea {
@@ -758,7 +1021,12 @@
         padding-right: 1rem;
     }
 
-    .af-bubble {
+    .af-bubble,
+    .af-user-wrap {
         max-width: 92%;
+    }
+
+    .af-code-btn span {
+        display: none;
     }
 }
