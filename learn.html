@@ -861,50 +861,50 @@
                     <div class="step-item">
                         <div class="step-num">1</div>
                         <div class="step-body">
-                            <h5><code class="inline-code">&lt;!DOCTYPE html&gt;</code> &amp; <code class="inline-code">&lt;html lang="id"&gt;</code></h5>
-                            <p>Deklarasi awal dokumen: '<code class="inline-code">&lt;!DOCTYPE html&gt;</code>' memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut '<code class="inline-code">lang="id"</code>' (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat.</p>
+                            <h5>Deklarasi Standar: Tag <code class="inline-code">#!DOCTYPE html</code> &amp; Atribut <code class="inline-code">#lang</code></h5>
+                            <p>Deklarasi awal dokumen: Tag <code class="inline-code">#!DOCTYPE html</code> memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut <code class="inline-code">#lang="id"</code> (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">2</div>
                         <div class="step-body">
-                            <h5><code class="inline-code">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></h5>
-                            <p>Kunci wajib website responsif di layar ponsel/tablet. Tag ini memiliki 2 instruksi vital: (1) '<code class="inline-code">width=device-width</code>' menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) '<code class="inline-code">initial-scale=1.0</code>' menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom).</p>
+                            <h5>Tag <code class="inline-code">#meta viewport</code> (Kunci Desain Web Responsif Layar HP)</h5>
+                            <p>Kunci wajib website responsif di layar ponsel/tablet. Tag <code class="inline-code">#meta viewport</code> memiliki 2 instruksi vital: (1) Parameter <code class="inline-code">#width=device-width</code> menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) Parameter <code class="inline-code">#initial-scale=1.0</code> menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom).</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">3</div>
                         <div class="step-body">
-                            <h5>Pemisahan Landmark Semantik: <code class="inline-code">&lt;header&gt;</code>, <code class="inline-code">&lt;nav&gt;</code>, dan <code class="inline-code">&lt;main&gt;</code></h5>
-                            <p>Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) '<code class="inline-code">&lt;header&gt;</code>' adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) '<code class="inline-code">&lt;nav&gt;</code>' khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) '<code class="inline-code">&lt;main&gt;</code>' adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: tag &lt;main&gt; HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer.</p>
+                            <h5>Pemisahan Landmark Semantik: Tag <code class="inline-code">#header</code>, <code class="inline-code">#nav</code>, dan <code class="inline-code">#main</code></h5>
+                            <p>Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) Tag <code class="inline-code">#header</code> adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) Tag <code class="inline-code">#nav</code> khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) Tag <code class="inline-code">#main</code> adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: Tag <code class="inline-code">#main</code> HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">4</div>
                         <div class="step-body">
-                            <h5>Aksesibilitas Formulir: Relasi <code class="inline-code">&lt;label for="id"&gt;</code> dan <code class="inline-code">&lt;input id="..."&gt;</code></h5>
-                            <p>Standar aksesibilitas WCAG: nilai atribut 'for' pada tag &lt;label&gt; harus persis sama dengan atribut 'id' pada kotak &lt;input&gt;. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik.</p>
+                            <h5>Aksesibilitas Formulir: Relasi Tag <code class="inline-code">#label</code> dan Tag <code class="inline-code">#input</code></h5>
+                            <p>Standar aksesibilitas WCAG: nilai atribut for pada Tag <code class="inline-code">#label</code> harus persis sama dengan atribut id pada kotak Tag <code class="inline-code">#input</code>. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">5</div>
                         <div class="step-body">
-                            <h5>Sistem Validasi Input Bawaan HTML5</h5>
-                            <p>Atribut '<code class="inline-code">required</code>' mencegah form dikirim jika belum diisi, atribut '<code class="inline-code">type="email"</code>' otomatis mengecek keberadaan tanda '@' dan domain surat elektronik, serta '<code class="inline-code">minlength="3"</code>' membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript.</p>
+                            <h5>Sistem Validasi Input Bawaan: Atribut <code class="inline-code">#required</code> dan <code class="inline-code">#email</code></h5>
+                            <p>Atribut <code class="inline-code">#required</code> mencegah form dikirim jika belum diisi, atribut <code class="inline-code">#type="email"</code> otomatis mengecek keberadaan tanda @ dan domain surat elektronik, serta atribut <code class="inline-code">#minlength="3"</code> membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">6</div>
                         <div class="step-body">
-                            <h5>Tautan Aksesibilitas 'Skip-Link' (<code class="inline-code">&lt;a href="#main-content"&gt;</code>)</h5>
-                            <p>Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (&lt;main id="main-content"&gt;).</p>
+                            <h5>Tautan Aksesibilitas: Tag <code class="inline-code">#a</code> skip-link (<code class="inline-code">#main-content</code>)</h5>
+                            <p>Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan Tag <code class="inline-code">#a</code> ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (Tag <code class="inline-code">#main</code> id="main-content").</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="pro-tip-box">
                     <h5><i class="fa-solid fa-lightbulb"></i> Tips Santri Developer:</h5>
-                    <p>Gunakan tag semantik (seperti &lt;main&gt;, &lt;article&gt;, &lt;section&gt;) daripada hanya menggunakan &lt;div&gt;, agar struktur halamanmu rapi, bersih, dan mudah dibaca oleh Googlebot maupun pembaca layar tunanetra.</p>
+                    <p>Hindari 'div soup' (menggunakan Tag <code class="inline-code">#div</code> untuk segala hal). Selalu utamakan tag semantik (Tag <code class="inline-code">#article</code>, <code class="inline-code">#section</code>, <code class="inline-code">#aside</code>, <code class="inline-code">#button</code>). Jangan pernah mengganti Tag <code class="inline-code">#button</code> dengan Tag <code class="inline-code">#div</code> onclick karena Tag <code class="inline-code">#div</code> tidak dapat diakses keyboard (tombol Tab/Enter) dan tidak dikenali screen reader.</p>
                 </div>
             </section>
 
@@ -964,6 +964,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Learning Portal External Script (Strict CSP Compliant) -->
-    <script src="learn.js?v=2.3"></script>
+    <script src="learn.js?v=2.4"></script>
 </body>
 </html>
