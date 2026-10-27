@@ -1,798 +1,1921 @@
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-            // === 1. COMPREHENSIVE TOOLS CURRICULUM DATABASE ===
-            const LEARN_MODULES = {
-                html: {
-                    id: "html",
-                    name: "HTML",
-                    category: "Markup Language",
-                    badgeClass: "learn-badge-cyan",
-                    iconClass: "fa-brands fa-html5",
-                    iconColor: "#e34f26",
-                    tagline: "Pondasi Kerangka & Struktur Utama Halaman Web",
-                    brief: {
-                        summary: "HTML (HyperText Markup Language) adalah bahasa markup standar yang menjadi pondasi dasar seluruh website di internet. Jika diibaratkan membangun rumah, HTML adalah tiang penyangga, dinding, lantai, dan atapnya sebelum rumah tersebut dicat dan dihias.",
-                        takeaways: [
-                            { icon: "fa-solid fa-cubes", title: "Penyusun Struktur", desc: "Menyusun hierarki dokumen dari judul (heading), paragraf, gambar, formulir, hingga tata letak navigasi." },
-                            { icon: "fa-solid fa-tags", title: "Berbasis Tag Semantik", desc: "Menggunakan tag semantik seperti <header>, <nav>, <main>, dan <footer> agar ramah mesin pencari (SEO)." },
-                            { icon: "fa-solid fa-globe", title: "Standar Global W3C", desc: "Dapat dieksekusi secara universal oleh semua web browser tanpa memerlukan instalasi compiler tambahan." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Anatomi Dokumen HTML Pertama Kamu",
-                        desc: "Setiap halaman web modern selalu diawali dengan dokumen HTML standar. Mari pelajari kerangka dasar yang wajib kamu ketahui:",
-                        codeTitle: "index.html (Struktur Dasar)",
-                        code: `<!DOCTYPE html>
+    // === 1. COMPREHENSIVE TOOLS CURRICULUM DATABASE ===
+    const LEARN_MODULES = {
+        html: {
+            id: "html",
+            name: "HTML",
+            category: "Markup Language",
+            badgeClass: "learn-badge-cyan",
+            iconClass: "fa-brands fa-html5",
+            iconColor: "#e34f26",
+            tagline: "Pondasi Arsitektur Semantik, Aksesibilitas (A11y) & Struktur Web Modern",
+            brief: {
+                summary: "HTML (HyperText Markup Language) adalah bahasa markup standar yang menjadi fondasi dasar seluruh website di internet. Dalam era web modern, HTML bukan sekadar menampilkan teks atau gambar, melainkan bertindak sebagai arsitektur semantik yang memberi makna pada setiap elemen. Arsitektur semantik ini memungkinkan peramban web (browser), mesin pencari (SEO Googlebot), dan teknologi bantu disabilitas (Screen Readers) untuk memahami struktur dokumen secara akurat, hierarkis, dan mudah diakses oleh semua pengguna.",
+                takeaways: [
+                    { icon: "fa-solid fa-sitemap", title: "Arsitektur Semantik & SEO", desc: "Tag seperti <header>, <nav>, <main>, <article>, <section>, dan <footer> memberi sinyal struktural yang jelas ke Googlebot untuk meningkatkan ranking SEO." },
+                    { icon: "fa-solid fa-universal-access", title: "Aksesibilitas Universal (WCAG)", desc: "Standar aksesibilitas memastikan konten dapat dinavigasi oleh screen reader melalui atribut alt, aria-label, dan struktur form yang benar." },
+                    { icon: "fa-solid fa-shield-halved", title: "Validasi Form Bawaan", desc: "HTML5 menyediakan sistem validasi input bawaan tanpa JavaScript melalui atribut required, type='email', pattern, min, dan max." },
+                    { icon: "fa-solid fa-mobile-screen-button", title: "Metadata & Viewport", desc: "Tag <meta name='viewport'> menjamin scaling responsif di layar ponsel, serta meta Open Graph (og:) untuk kartu preview media sosial." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Anatomi Dokumen HTML5 Semantik & Aksesibel",
+                desc: "Berikut kerangka dokumen HTML5 profesional yang menerapkan hierarki semantik, aksesibilitas formulir, dan metadata SEO:",
+                codeTitle: "index.html (Standar Profesional)",
+                code: `<!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- 1. Metadata Dasar & Responsiveness -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Santri Developer</title>
+    <meta name="description" content="Portofolio resmi Shifan Shalih Adiluhung - Santri & Web Developer">
+    <title>Shifan Shalih Adiluhung | Web Developer</title>
+
+    <!-- 2. Favicon & Stylesheet External -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Halo Dunia, Saya Shifan!</h1>
-        <p>Santri di Hiraa Center & Pengembang Web</p>
+    <!-- 3. Semantic Header & Navigasi Utama -->
+    <header class="site-header">
+        <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+        <nav aria-label="Navigasi Utama Situs">
+            <a href="#tentang">Tentang</a>
+            <a href="#karya">Karya</a>
+            <a href="#kontak">Hubungi</a>
+        </nav>
     </header>
 
-    <main>
-        <section>
-            <h2>Tentang Saya</h2>
-            <p>Belajar coding dengan tekun untuk menebar manfaat.</p>
-            <a href="https://github.com" target="_blank">Kunjungi GitHub Saya</a>
-        </section>
+    <!-- 4. Konten Pokok Tunggal Dokumen -->
+    <main id="main-content">
+        <article class="hero-article">
+            <header>
+                <h1>Bismillah, Selamat Datang di Karya Shifan</h1>
+                <p class="subtitle">Santri Hiraa Center yang berdedikasi di bidang teknologi web.</p>
+            </header>
+            
+            <section id="kontak-form">
+                <h2>Kirim Pesan Kolaborasi</h2>
+                <!-- Form dengan label aksesibel & validasi bawaan -->
+                <form action="/kirim" method="POST">
+                    <div class="form-group">
+                        <label for="namaUser">Nama Lengkap:</label>
+                        <input type="text" id="namaUser" name="nama" required minlength="3" placeholder="Masukkan nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailUser">Alamat Email:</label>
+                        <input type="email" id="emailUser" name="email" required placeholder="nama@email.com">
+                    </div>
+                    <button type="submit">Kirim Pesan</button>
+                </form>
+            </section>
+        </article>
     </main>
+
+    <!-- 5. Footer Semantik Penutup -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Shifan Shalih Adiluhung. Dibuat dengan integritas santri.</p>
+    </footer>
 </body>
 </html>`,
-                        steps: [
-                            { num: 1, title: "<!DOCTYPE html>", desc: "Mendeklarasikan bahwa dokumen ini menggunakan standar HTML5 modern." },
-                            { num: 2, title: "<head> vs <body>", desc: "<head> memuat informasi metadata, judul tab, dan font. Sedangkan <body> memuat seluruh elemen visual yang dilihat pengunjung di layar." },
-                            { num: 3, title: "Tag Heading <h1> - <h6>", desc: "Digunakan untuk hierarki judul utama (h1) hingga sub-judul yang lebih kecil (h2-h6)." },
-                            { num: 4, title: "Tag Tautan <a> & Atribut href", desc: "Tag anchor dengan atribut href (hypertext reference) menghubungkan halaman ke website lain." }
-                        ],
-                        tip: "Gunakan tag semantik (seperti <main>, <article>, <section>) daripada hanya menggunakan <div>, agar struktur halamanmu rapi, bersih, dan mudah dibaca oleh Googlebot maupun pembaca layar tunanetra."
-                    },
-                    quiz: [
-                        {
-                            q: "Tag manakah yang digunakan untuk membuat judul utama paling besar dan penting pada halaman HTML?",
-                            options: ["<head>", "<h6>", "<h1>", "<title>"],
-                            ans: 2,
-                            explain: "Benar! Tag <h1> adalah heading tingkat pertama yang merepresentasikan judul utama paling penting pada sebuah halaman."
-                        },
-                        {
-                            q: "Atribut apa yang wajib dicantumkan pada tag <a> untuk menentukan alamat tujuan tautan?",
-                            options: ["src", "link", "href", "target"],
-                            ans: 2,
-                            explain: "Tepat sekali! Atribut href (Hypertext Reference) bertugas menentukan tautan URL yang akan dibuka saat link diklik."
-                        },
-                        {
-                            q: "Bagian manakah dari dokumen HTML yang memuat konten yang benar-benar tampil di layar browser pengunjung?",
-                            options: ["<head>", "<title>", "<body>", "<meta>"],
-                            ans: 2,
-                            explain: "Tepat! Seluruh teks, gambar, tombol, dan elemen yang tampak di layar browser diletakkan di dalam tag <body>."
-                        }
+                steps: [
+                    { num: 1, title: "<!DOCTYPE html> & <html lang='id'>", desc: "Mendeklarasikan standar HTML5 dan bahasa dokumen (id = Bahasa Indonesia) agar browser dan screen reader dapat melafalkan kata dengan intonasi tepat." },
+                    { num: 2, title: "<meta name='viewport'>", desc: "Wajib ada untuk web responsif: memastikan rasio pixel dan lebar viewport menyesuaikan layar smartphone tanpa zoom-out default yang mengecilkan teks." },
+                    { num: 3, title: "<header>, <nav>, dan <main>", desc: "Tag landmark resmi W3C. Tag <main> hanya boleh muncul satu kali per halaman untuk memuat konten utama tanpa duplikasi header/footer." },
+                    { num: 4, title: "Aksesibilitas Form: <label for='id'>", desc: "Atribut 'for' pada <label> wajib identik dengan 'id' pada <input>, sehingga saat teks label diklik kursor otomatis fokus ke kotak input." },
+                    { num: 5, title: "Validasi Form HTML5 Bawaan", desc: "Atribut 'required' dan type='email' memicu pengecekan format otomatis oleh browser sebelum formulir dapat dikirimkan ke server." },
+                    { num: 6, title: "Tautan Skip-Link", desc: "Teknik aksesibilitas tingkat lanjut: tautan tersembunyi yang memungkinkan pengguna tunanetra melompati navigasi panjang langsung ke konten utama." }
+                ],
+                tip: "Hindari 'div soup' (menggunakan <div> untuk segala hal). Selalu utamakan tag semantik (<article>, <section>, <aside>, <button>). Jangan pernah mengganti <button> dengan <div onclick='...'> karena <div> tidak dapat diakses keyboard (tombol Tab/Enter) dan tidak dikenali screen reader."
+            },
+            challenge: "Buka teks editor, buat dokumen HTML5 semantik yang memuat: (1) satu tag <main>, (2) formulir pendaftaran dengan input nama (type='text', required) dan nomor WhatsApp (type='tel'), serta (3) tag <figure> dengan <img> yang memiliki atribut alt deskriptif dan <figcaption> keterangan gambar.",
+            questionPool: [
+                {
+                    q: "Manakah perbedaan mendasar antara tag semantik <article> dan <section>?",
+                    options: [
+                        "<article> berdiri sendiri dan bermakna mandiri (dapat disindikasi/dibagikan terpisah), sedangkan <section> mengelompokkan konten yang memiliki tema serumpun",
+                        "<article> hanya untuk teks blog tulisan panjang, sedangkan <section> hanya untuk gambar dan video",
+                        "<article> adalah elemen inline, sedangkan <section> adalah elemen block-level",
+                        "Tidak ada perbedaan sama sekali, keduanya identik fungsinya dengan tag <div>"
                     ],
-                    challenge: "Buka VS Code atau teks editor di komputermu, buat satu berkas bernama `latihan.html`, lalu buat struktur HTML yang memuat namamu dalam tag <h1> dan 2 keahlian favoritmu dalam tag list (<ul><li>...</li></ul>)."
+                    ans: 0,
+                    explain: "Tepat! Standar W3C menyatakan <article> dirancang untuk konten independen dan mandiri (seperti postingan blog, kartu produk, atau berita), sedangkan <section> membagi dokumen ke dalam bab atau bagian bertema sama."
                 },
+                {
+                    q: "Mengapa atribut 'alt' pada tag <img> sangat penting dalam standar web modern?",
+                    options: [
+                        "Hanya berfungsi mempercepat proses unduhan gambar di server web",
+                        "Menyediakan teks pengganti bagi pembaca layar tunanetra (Screen Reader) dan membantu SEO mesin pencari saat gambar gagal dimuat",
+                        "Wajib diisi dengan nama file gambar lengkap dengan ekstensinya",
+                        "Mengatur warna border di sekeliling gambar secara otomatis"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Atribut 'alt' (alternative text) adalah pilar aksesibilitas (WCAG) yang dibacakan oleh screen reader dan ditampilkan jika gambar gagal dimuat atau koneksi lambat."
+                },
+                {
+                    q: "Berapa kali tag semantik <main> diperbolehkan muncul di dalam satu dokumen HTML?",
+                    options: [
+                        "Boleh sebanyak-banyaknya di setiap kartu",
+                        "Maksimal 2 kali (satu untuk desktop, satu untuk mobile)",
+                        "Hanya boleh 1 kali per halaman karena merepresentasikan konten inti unik halaman tersebut",
+                        "Tergantung pada jumlah tag <header> yang digunakan"
+                    ],
+                    ans: 2,
+                    explain: "Tepat! Spesifikasi HTML5 menetapkan bahwa tag <main> harus unik dan hanya ada satu dalam satu dokumen, tidak boleh diletakkan di dalam <header>, <footer>, atau <nav>."
+                },
+                {
+                    q: "Agar saat pengguna mengklik teks label kursor otomatis masuk ke kotak input, atribut apa yang harus dihubungkan?",
+                    options: [
+                        "Atribut 'name' pada label dan 'class' pada input",
+                        "Atribut 'for' pada <label> harus bernilai sama persis dengan atribut 'id' pada <input>",
+                        "Atribut 'href' pada label dan 'target' pada input",
+                        "Atribut 'title' pada label dan 'placeholder' pada input"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Keterkaitan antara <label for='emailId'> dan <input id='emailId'> menciptakan relasi aksesibilitas resmi sehingga area klik menjadi lebih luas dan ramah pengguna."
+                },
+                {
+                    q: "Apakah fungsi utama tag <meta name='viewport' content='width=device-width, initial-scale=1.0'>?",
+                    options: [
+                        "Mengompresi ukuran gambar agar halaman lebih ringan diakses",
+                        "Memerintahkan browser untuk menyesuaikan lebar halaman dengan lebar fisik layar perangkat pengguna (kunci web responsif)",
+                        "Membuat website dapat diakses secara offline tanpa internet",
+                        "Mengaktifkan mode gelap (dark mode) otomatis pada browser ponsel"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Tanpa meta viewport, browser smartphone akan merender halaman web pada resolusi layar desktop virtual (biasanya 980px) lalu mengecilkannya secara drastis (zoom-out)."
+                },
+                {
+                    q: "Mengapa tautan dengan target='_blank' disarankan untuk selalu dilengkapi atribut rel='noopener noreferrer'?",
+                    options: [
+                        "Mencegah eksploitasi tab-nabbing keamanan (window.opener) dan melindungi privasi informasi perujuk",
+                        "Agar tautan tersebut otomatis terbuka di aplikasi WhatsApp pengguna",
+                        "Untuk mencegah Google mengindeks tautan tujuan ke hasil pencarian",
+                        "Agar tautan berubah warna menjadi biru saat sudah diklik"
+                    ],
+                    ans: 0,
+                    explain: "Benar! 'noopener' mencegah halaman baru yang dibuka memiliki akses kendali ke halaman asal melalui objek JavaScript 'window.opener', sebuah celah keamanan penting."
+                },
+                {
+                    q: "Manakah pasangan elemen yang tepat untuk menyajikan gambar ilustrasi beserta takarir keterangan teksnya secara semantik?",
+                    options: [
+                        "<div> dan <span>",
+                        "<image> dan <text>",
+                        "<figure> dan <figcaption>",
+                        "<picture> dan <summary>"
+                    ],
+                    ans: 2,
+                    explain: "Tepat! Elemen <figure> digunakan untuk membungkus konten mandiri (seperti diagram, foto, kode), dan <figcaption> menyediakan takarir penjelas semantik."
+                },
+                {
+                    q: "Bagaimanakah perilaku elemen bertipe 'inline' (seperti <span> atau <a>) dibandingkan elemen 'block' (seperti <div> atau <p>)?",
+                    options: [
+                        "Elemen inline selalu memulai baris baru di bawahnya dan mengambil lebar penuh 100%",
+                        "Elemen inline hanya mengambil lebar selebar kontennya dan tidak memaksa baris baru",
+                        "Elemen inline tidak dapat diberi gaya warna atau ukuran font dengan CSS",
+                        "Elemen inline tidak boleh diletakkan di dalam tag <body>"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Elemen inline mengalir bersama teks tanpa memutus baris, sedangkan elemen block secara default membentang selebar kontainer induk dan memulai baris baru."
+                },
+                {
+                    q: "Manakah atribut validasi HTML5 yang digunakan untuk membatasi panjang minimum karakter input teks?",
+                    options: [
+                        "minlength",
+                        "charlimit",
+                        "minimum-text",
+                        "validate-min"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! Atribut 'minlength' (dan pasangannya 'maxlength') memeriksa jumlah karakter input secara langsung di sisi browser sebelum form disubmit."
+                },
+                {
+                    q: "Entitas karakter HTML apakah yang wajib digunakan untuk menampilkan simbol kurung siku buka kurung siku tutup (< dan >) di dalam teks?",
+                    options: [
+                        "&less; dan &greater;",
+                        "&lt; dan &gt;",
+                        "&open; dan &close;",
+                        "&tag-start; dan &tag-end;"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Karena karakter '<' dan '>' digunakan sebagai pembuka tag oleh parser HTML, kita harus menuliskan entitas '&lt;' (less than) dan '&gt;' (greater than)."
+                },
+                {
+                    q: "Tag HTML manakah yang paling tepat dan semantik untuk menampilkan kutipan panjang beserta sumber rujukannya?",
+                    options: [
+                        "<q>",
+                        "<blockquote>",
+                        "<cite>",
+                        "<em>"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! <blockquote> digunakan untuk kutipan blok teks panjang dari sumber lain, sering dikombinasikan dengan atribut cite='URL'."
+                },
+                {
+                    q: "Apa fungsi dari tag semantik <aside> dalam tata letak dokumen web?",
+                    options: [
+                        "Membungkus menu navigasi utama di bagian atas",
+                        "Memuat konten pelengkap/pendukung yang berhubungan tidak langsung dengan konten utama (seperti sidebar, callout, atau arsip tautan)",
+                        "Menampilkan video latar belakang secara otomatis",
+                        "Menutup seluruh konten halaman sebelum tag </html>"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! <aside> mewakili bagian dokumen yang kontennya berhubungan secara tangensial (pendukung/pelengkap) terhadap konten inti di sekitarnya."
+                }
+            ]
+        },
 
-                css: {
-                    id: "css",
-                    name: "CSS",
-                    category: "Styling & Design",
-                    badgeClass: "learn-badge-cyan",
-                    iconClass: "fa-brands fa-css3-alt",
-                    iconColor: "#1572b6",
-                    tagline: "Desain Visual, Estetika Glassmorphism & Tata Letak Responsif",
-                    brief: {
-                        summary: "CSS (Cascading Style Sheets) adalah bahasa desain yang bertugas mempercantik dokumen HTML. Jika HTML adalah kerangka beton bangunan, maka CSS adalah cat dinding, jendela kaca artistik, lampu hiasan, serta interior ruangan yang menawan.",
-                        takeaways: [
-                            { icon: "fa-solid fa-palette", title: "Visual & Warna", desc: "Mengatur palet warna, gradien modern, tipografi, dan efek blur glassmorphism." },
-                            { icon: "fa-solid fa-table-cells-large", title: "Layout Flexbox & Grid", desc: "Menyusun elemen agar tampil rapi dan proporsional di berbagai ukuran layar (responsif)." },
-                            { icon: "fa-solid fa-wand-magic-sparkles", title: "Animasi & Transisi", desc: "Menciptakan animasi interaktif yang halus saat tombol disentuh atau halaman digulir." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Anatomi Selektor & CSS Box Model",
-                        desc: "Aturan CSS terdiri dari Selector (siapa yang dihias), Property (gaya apa yang diubah), dan Value (nilai/warnanya):",
-                        codeTitle: "styles.css (Contoh Kartu Glassmorphism)",
-                        code: `/* Selektor elemen kartu */
-.kartu-santri {
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 16px;
-    padding: 24px;
-    color: #f8fafc;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+        css: {
+            id: "css",
+            name: "CSS",
+            category: "Styling & Design",
+            badgeClass: "learn-badge-cyan",
+            iconClass: "fa-brands fa-css3-alt",
+            iconColor: "#1572b6",
+            tagline: "Desain Antarmuka, Sistem Layout Grid/Flexbox, Variabel Tema & Animasi GPU",
+            brief: {
+                summary: "CSS (Cascading Style Sheets) adalah bahasa penataan visual yang mengontrol setiap aspek tampilan antarmuka website modern. Penguasaan CSS masa kini tidak lagi terbatas pada pemilihan warna dasar atau font, melainkan mencakup arsitektur Box Model, sistem tata letak multi-dimensi (Flexbox dan CSS Grid), variabel kustom (:root custom properties) untuk tema instan, desain responsif mobile-first, hingga animasi dengan akselerasi perangkat keras (GPU) untuk pengalaman visual yang sangat responsif dan elegan.",
+                takeaways: [
+                    { icon: "fa-solid fa-box-archive", title: "Arsitektur The Box Model", desc: "Penerapan box-sizing: border-box menjamin kalkulasi padding dan border dihitung ke dalam total dimensi elemen tanpa merusak layout." },
+                    { icon: "fa-solid fa-table-cells-large", title: "Flexbox 1D vs CSS Grid 2D", desc: "Kombinasi Flexbox untuk perataan satu sumbu (baris/kolom komponen) dan Grid untuk struktur dua sumbu halaman responsif." },
+                    { icon: "fa-solid fa-swatchbook", title: "CSS Custom Properties (Variables)", desc: "Mendefinisikan token desain terpusat di selector :root untuk memudahkan penggantian palet tema warna dan mode gelap." },
+                    { icon: "fa-solid fa-wand-magic-sparkles", title: "Animasi Berperforma Tinggi", desc: "Mengoptimalkan transisi CSS menggunakan properti transform dan opacity yang diproses langsung oleh GPU tanpa layout reflow." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: CSS Grid Auto-Fit, Variabel :root & Glassmorphism",
+                desc: "Pelajari bagaimana menyusun CSS modern yang bersih, memanfaatkan variabel tema, grid adaptif otomatis, dan kartu glassmorphism:",
+                codeTitle: "styles.css (Modern CSS Architecture)",
+                code: `/* ====================================================
+   1. DESAIN TOKEN & VARIABEL TEMA (CSS CUSTOM PROPERTIES)
+   ==================================================== */
+:root {
+    --bg-primary: #0b1120;
+    --bg-surface: rgba(15, 23, 42, 0.75);
+    --border-accent: rgba(6, 182, 212, 0.3);
+    --primary-color: #06b6d4;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --font-heading: 'Outfit', sans-serif;
+    --radius-lg: 16px;
+    --shadow-glow: 0 10px 30px rgba(6, 182, 212, 0.2);
 }
 
-/* Efek saat kursor diarahkan ke kartu */
-.kartu-santri:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 32px rgba(6, 182, 212, 0.2);
-    border-color: #06b6d4;
+/* ====================================================
+   2. GLOBAL BOX-SIZING RESET
+   ==================================================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: sans-serif;
+    line-height: 1.6;
+}
+
+/* ====================================================
+   3. RESPONSIVE CSS GRID TANPA MEDIA QUERY KAKU
+   ==================================================== */
+.gallery-grid {
+    display: grid;
+    /* Otomatis mengisi kolom sesuai lebar layar: min 280px, max 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+/* ====================================================
+   4. KARTU MODERN DENGAN GLASSMORPHISM & GPU HOVER
+   ==================================================== */
+.glass-card {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Hanya animasikan transform & opacity untuk performa 60FPS */
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+    will-change: transform;
+}
+
+.glass-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Indikator fokus aksesibilitas untuk keyboard */
+.glass-card:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
 }`,
-                        steps: [
-                            { num: 1, title: "Selector .kartu-santri", desc: "Titik (.) menandakan bahwa gaya ini ditujukan untuk semua elemen HTML yang memiliki class='kartu-santri'." },
-                            { num: 2, title: "The CSS Box Model", desc: "Setiap elemen memiliki 4 lapisan: Content (isi) -> Padding (jarak dalam) -> Border (bingkai) -> Margin (jarak luar antar kartu)." },
-                            { num: 3, title: "rgba() & backdrop-filter", desc: "Kombinasi warna transparan rgba dan filter blur menghasilkan estetika Glassmorphism modern yang dipakai di website Shifan ini." },
-                            { num: 4, title: "Pseudo-class :hover", desc: "Menjalankan animasi transisi saat kursor mouse melayang di atas elemen." }
-                        ],
-                        tip: "Gunakan CSS Variables (seperti --primary-color: #06b6d4;) di root dokumenmu. Dengan variabel, kamu bisa mengubah seluruh tema warna website cukup dari satu baris kode saja."
-                    },
-                    quiz: [
-                        {
-                            q: "Properti CSS manakah yang digunakan untuk mengubah warna latar belakang sebuah elemen?",
-                            options: ["color", "bgcolor", "background-color", "fill"],
-                            ans: 2,
-                            explain: "Tepat! 'background-color' (atau singkatan 'background') adalah properti resmi untuk mengatur warna latar belakang elemen."
-                        },
-                        {
-                            q: "Dalam konsep CSS Box Model, area jarak transparan antara isi teks (content) dengan garis tepi (border) disebut?",
-                            options: ["margin", "padding", "outline", "spacing"],
-                            ans: 1,
-                            explain: "Benar! 'Padding' adalah jarak bantalan di bagian dalam antara konten dengan border. Sedangkan 'margin' adalah jarak di luar border."
-                        },
-                        {
-                            q: "Untuk membuat teks menjadi tebal (bold) menggunakan CSS, sintaks yang tepat adalah?",
-                            options: ["font-style: bold;", "text-weight: 700;", "font-weight: bold;", "font-size: heavy;"],
-                            ans: 2,
-                            explain: "Tepat sekali! 'font-weight: bold;' atau nilai numerik seperti 'font-weight: 700;' digunakan untuk mengatur ketebalan font."
-                        }
+                steps: [
+                    { num: 1, title: "Token Desain di :root", desc: "Menempatkan variabel warna, font, dan radius di pseudo-class :root memudahkan pembuatan tema gelap/terang serta menjamin konsistensi di seluruh komponen." },
+                    { num: 2, title: "Universal Box-Sizing Reset", desc: "Aturan *, *::before, *::after { box-sizing: border-box } memastikan nilai padding dan border tidak menambah lebar total elemen." },
+                    { num: 3, title: "CSS Grid: repeat(auto-fit, minmax(...))", desc: "Trik sakti CSS Grid modern: kartu otomatis terbagi 1 kolom di ponsel, 2 kolom di tablet, dan 3-4 kolom di desktop secara adaptif tanpa perlu menuliskan banyak media query." },
+                    { num: 4, title: "Efek Glassmorphism (Kaca Buram)", desc: "Properti backdrop-filter: blur(12px) memburamkan konten yang berada di belakang kartu, menciptakan kedalaman antarmuka yang sangat elegan." },
+                    { num: 5, title: "Animasi Ramah GPU (60 FPS)", desc: "Penggunaan translateY(-6px) diproses di Compositor Thread GPU tanpa memicu 'Layout Thrashing' atau 'Paint Reflow' pada prosesor CPU." },
+                    { num: 6, title: "Aksesibilitas :focus-visible", desc: "Menampilkan garis fokus kontras tinggi hanya saat pengguna menavigasi menggunakan keyboard (tombol Tab), menjaga keindahan visual bagi pengguna mouse." }
+                ],
+                tip: "Gunakan unit relatif 'rem' untuk font dan margin/padding daripada 'px' absolut. Karena 1rem dihitung dari ukuran dasar font di peramban pengguna (default 16px), tampilan akan tetap proporsional jika pengguna memperbesar font sistem untuk alasan keterbacaan mata."
+            },
+            challenge: "Buka file CSS pribadimu, definisikan 3 variabel di :root (--warna-tema, --warna-teks, --radius), buat kelas tombol .btn-modern dengan padding rem, dan berikan transisi hover yang hanya mengubah transform dan filter box-shadow!",
+            questionPool: [
+                {
+                    q: "Mengapa deklarasi 'box-sizing: border-box' pada reset universal dianggap sebagai standar wajib CSS modern?",
+                    options: [
+                        "Karena membuat border elemen selalu berwarna hitam secara default",
+                        "Karena memastikan padding dan border dihitung ke dalam total lebar (width) dan tinggi (height) elemen sehingga dimensi tidak membengkak",
+                        "Karena menghilangkan margin bawaan dari seluruh tag paragraf dan judul",
+                        "Karena otomatis mengubah tata letak elemen menjadi Flexbox"
                     ],
-                    challenge: "Cobalah tambahkan aturan CSS pada berkas HTML kamu agar sebuah teks judul memiliki warna cyan (#06b6d4), bayangan teks text-shadow, dan berikan padding 16px pada wadah pembungkusnya."
+                    ans: 1,
+                    explain: "Benar! Pada model default (content-box), lebar total adalah width + padding + border sehingga elemen sering kali meluap keluar kontainer. Border-box mengatasi masalah ini secara tuntas."
                 },
-
-                javascript: {
-                    id: "javascript",
-                    name: "JavaScript",
-                    category: "Programming Language",
-                    badgeClass: "learn-badge-gold",
-                    iconClass: "fa-brands fa-js",
-                    iconColor: "#f7df1e",
-                    tagline: "Bahasa Logika Interaktif & Otak Dinamis Web Modern",
-                    brief: {
-                        summary: "JavaScript (JS) adalah bahasa pemrograman dinamis yang memberikan nyawa dan kecerdasan pada halaman web. Tanpa JavaScript, website hanyalah dokumen bacaan statis. Dengan JavaScript, website dapat merespons klik, menjalankan chatbot AsisFan, menyimpan tabungan ke LocalStorage, dan memproses data secara real-time.",
-                        takeaways: [
-                            { icon: "fa-solid fa-bolt", title: "Manipulasi DOM", desc: "Mampu menambah, menghapus, atau mengubah teks dan elemen HTML saat pengguna sedang membaca." },
-                            { icon: "fa-solid fa-database", title: "Penyimpanan Browser", desc: "Memanfaatkan LocalStorage API untuk menyimpan status pengguna secara offline tanpa server rumit." },
-                            { icon: "fa-solid fa-robot", title: "Logika Kecerdasan Buatan", desc: "Mendasari logika percakapan natural chatbot asisten cerdas seperti AsisFan." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Menangani Klik Pengguna & Variabel",
-                        desc: "Mari lihat bagaimana JavaScript menangkap aksi tombol klik dari pengunjung:",
-                        codeTitle: "script.js (Tombol Interaktif Sederhana)",
-                        code: `// 1. Ambil elemen tombol dan teks dari dokumen HTML
-const tombolSapa = document.getElementById('btnSapa');
-const teksSambutan = document.getElementById('teksHasil');
-
-let hitunganKlik = 0;
-
-// 2. Pasang pendengar aksi klik (Event Listener)
-tombolSapa.addEventListener('click', () => {
-    hitunganKlik++;
-    teksSambutan.innerHTML = \`Assalamu'alaikum! Kamu sudah mengklik tombol ini sebanyak <strong>\${hitunganKlik} kali</strong>. ✨\`;
-    teksSambutan.style.color = '#38bdf8';
-});`,
-                        steps: [
-                            { num: 1, title: "const vs let", desc: "Gunakan 'const' untuk variabel yang referensinya tidak berubah (seperti elemen DOM), dan 'let' untuk variabel yang nilainya akan bertambah/berubah (seperti hitungan)." },
-                            { num: 2, title: "document.getElementById()", desc: "Metode standar untuk mencari elemen HTML berdasarkan atribut id yang unik." },
-                            { num: 3, title: "addEventListener('click', ...)", desc: "Menugaskan browser untuk menjalankan fungsi tertentu saat pengunjung mengklik elemen tersebut." },
-                            { num: 4, title: "Template Literals (`${...}`)", desc: "Fitur modern JavaScript untuk menggabungkan variabel ke dalam string teks dengan sangat mudah." }
-                        ],
-                        tip: "Buka DevTools di browsermu (klik kanan -> Inspect -> Tab Console). Kamu bisa mengetikkan perintah JavaScript langsung di sana seperti console.log('Halo Shifan!') untuk menguji kode secara instan."
-                    },
-                    quiz: [
-                        {
-                            q: "Keyword modern JavaScript manakah yang digunakan untuk mendeklarasikan variabel yang nilainya TIDAK akan diubah kembali?",
-                            options: ["var", "let", "const", "static"],
-                            ans: 2,
-                            explain: "Tepat sekali! 'const' (konstanta) digunakan untuk variabel tetap yang nilainya tidak boleh ditimpa ulang."
-                        },
-                        {
-                            q: "Perintah standar JavaScript manakah yang digunakan untuk mencetak informasi ke dalam panel console browser?",
-                            options: ["print.log()", "console.log()", "browser.print()", "system.out.println()"],
-                            ans: 1,
-                            explain: "Benar! 'console.log()' adalah fungsi utama untuk debugging dan menampilkan output di konsol browser."
-                        },
-                        {
-                            q: "Method apa yang digunakan untuk menangkap dan merespons aksi klik pengguna pada suatu elemen HTML?",
-                            options: ["element.onClick()", "element.listen()", "element.addEventListener('click', callback)", "element.bindAction()"],
-                            ans: 2,
-                            explain: "Tepat! 'addEventListener('click', ...)' adalah metode standar W3C untuk mendaftarkan aksi interaktif pada elemen web."
-                        }
+                {
+                    q: "Pada Flexbox, properti manakah yang mengatur perataan elemen sepanjang sumbu utama (Main Axis)?",
+                    options: [
+                        "align-items",
+                        "justify-content",
+                        "flex-wrap",
+                        "align-content"
                     ],
-                    challenge: "Buat tombol HTML sederhana dengan id='btnUbah' dan tag paragraf. Tulis skrip JavaScript yang mengganti isi teks paragraf tersebut menjadi kalimat motivasi santri saat tombol diklik!"
+                    ans: 1,
+                    explain: "Tepat! 'justify-content' mengontrol perataan di sepanjang main axis (horizontal jika flex-direction: row), sedangkan 'align-items' mengatur perataan di sepanjang cross axis (vertikal)."
                 },
-
-                python: {
-                    id: "python",
-                    name: "Python",
-                    category: "General Programming",
-                    badgeClass: "learn-badge-green",
-                    iconClass: "fa-brands fa-python",
-                    iconColor: "#38bdf8",
-                    tagline: "Bahasa Pemrograman Serbaguna dengan Sintaks Bersih & Elegan",
-                    brief: {
-                        summary: "Python adalah bahasa pemrograman tingkat tinggi yang sangat populer di seluruh dunia karena sintaksnya yang menyerupai bahasa Inggris sehari-hari. Python digunakan dalam bidang kecerdasan buatan (AI), data science, otomatisasi sistem, hingga pengembangan backend web.",
-                        takeaways: [
-                            { icon: "fa-solid fa-feather", title: "Sintaks Ramah Pemula", desc: "Tidak memerlukan kurung kurawal rumit atau titik-koma; struktur kode diatur rapi oleh spasi (indentasi)." },
-                            { icon: "fa-solid fa-brain", title: "Ekosistem AI & Sains", desc: "Pondasi utama riset AI, pembelajaran mesin (machine learning), dan komputasi ilmiah modern." },
-                            { icon: "fa-solid fa-gears", title: "Otomasi & Scripting", desc: "Mampu mengotomasi tugas-tugas rutin komputer dalam hitungan beberapa baris kode singkat." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Program Logika Pertama dengan Python",
-                        desc: "Berikut adalah contoh kode Python yang meminta nama pengguna dan menentukan tingkatan santri berdasarkan jumlah hafalan juz:",
-                        codeTitle: "program_santri.py",
-                        code: `# Program Evaluasi Capaian Santri
-nama = input("Masukkan nama santri: ")
-juz_hafalan = int(input("Berapa juz hafalan Al-Qur'an kamu? "))
-
-# Struktur percabangan logika
-if juz_hafalan >= 30:
-    predikat = "Hafizh 30 Juz (Mutqin Mumtaz)"
-elif juz_hafalan >= 15:
-    predikat = "Pejuang Setengah Perjalanan (Mumtaz)"
-elif juz_hafalan >= 5:
-    predikat = "Santri Berprogres (Jayyid Jiddan)"
-else:
-    predikat = "Newbie Semangat (Bismillah Berprogres)"
-
-print(f"Alhamdulillah, {nama} meraih predikat: {predikat}!")`,
-                        steps: [
-                            { num: 1, title: "Fungsi input() & print()", desc: "input() membaca ketikan dari pengguna, sedangkan print() menampilkan hasil ke layar terminal." },
-                            { num: 2, title: "Konversi Tipe Data int()", desc: "Teks yang diketikkan pengguna diubah menjadi angka bulat (integer) agar bisa dibandingkan nilainya." },
-                            { num: 3, title: "Indentasi (Tab/Spasi)", desc: "Di Python, isi dari percabangan if/elif/else wajib digeser ke dalam (biasanya 4 spasi). Tidak perlu tanda kurung kurawal {}." },
-                            { num: 4, title: "F-String (f'...')", desc: "Menyisipkan variabel langsung ke dalam teks menggunakan kurung kurawal {nama} secara bersih." }
-                        ],
-                        tip: "Perhatikan spasi indentasi kamu! Sebagian besar error bagi pemula di Python disebabkan oleh indentasi yang tidak sejajar (IndentationError)."
-                    },
-                    quiz: [
-                        {
-                            q: "Bagaimana cara menampilkan teks 'Bismillah' ke layar terminal menggunakan Python?",
-                            options: ["echo 'Bismillah'", "print('Bismillah')", "console.log('Bismillah')", "System.out.println('Bismillah')"],
-                            ans: 1,
-                            explain: "Benar! 'print()' adalah fungsi bawaan standar Python untuk menampilkan output ke layar."
-                        },
-                        {
-                            q: "Di dalam bahasa Python, bagaimana cara mendefinisikan blok kode di dalam fungsi atau percabangan if?",
-                            options: ["Menggunakan kurung kurawal { }", "Menggunakan indentasi (spasi/tab)", "Menutupnya dengan kata 'ENDIF'", "Menggunakan titik koma di akhir baris"],
-                            ans: 1,
-                            explain: "Tepat sekali! Python mengandalkan indentasi spasi untuk menentukan struktur hirarki blok kode, menjadikannya sangat bersih dan mudah dibaca."
-                        },
-                        {
-                            q: "Karakter manakah yang digunakan untuk menulis baris komentar (catatan yang tidak dieksekusi) di Python?",
-                            options: ["//", "/*", "#", "<!--"],
-                            ans: 2,
-                            explain: "Benar! Tanda pagar '#' digunakan untuk membuat komentar satu baris di Python."
-                        }
+                {
+                    q: "Apa arti dari baris 'grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))' pada CSS Grid?",
+                    options: [
+                        "Membuat tepat 3 kolom berukuran 260px di semua perangkat",
+                        "Secara otomatis menyesuaikan jumlah kolom: setiap kolom memiliki lebar minimal 260px dan meregang mengisi ruang sisa secara merata",
+                        "Membatasi maksimal lebar kontainer grid menjadi 260px",
+                        "Mengunci tinggi setiap baris menjadi 260px di layar mobile"
                     ],
-                    challenge: "Tulis program Python sederhana yang menghitung luas persegi panjang: minta input panjang dan lebar, lalu cetak hasil perhitungan luasnya menggunakan rumus panjang x lebar."
+                    ans: 1,
+                    explain: "Tepat sekali! 'auto-fit' dan 'minmax(260px, 1fr)' adalah pola grid responsif paling populer: kolom akan bertambah atau berkurang otomatis sesuai ruang layar yang tersedia tanpa merusak tampilan."
                 },
+                {
+                    q: "Bagaimana cara membaca nilai variabel CSS '--accent-color' di dalam properti deklarasi?",
+                    options: [
+                        "color: $--accent-color;",
+                        "color: var(--accent-color);",
+                        "color: get(--accent-color);",
+                        "color: @accent-color;"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Sintaks resmi CSS Custom Properties menggunakan fungsi 'var(--nama-variabel)' untuk mengambil nilai yang telah dideklarasikan."
+                },
+                {
+                    q: "Di antara pilihan berikut, manakah urutan spesifisitas selector dari yang paling kuat hingga yang paling lemah?",
+                    options: [
+                        "Tag Element > Class Selector > ID Selector > Inline Style",
+                        "Inline Style > ID Selector > Class Selector (termasuk atribut & pseudo-class) > Tag Element",
+                        "ID Selector > Inline Style > Tag Element > Class Selector",
+                        "Class Selector > Inline Style > ID Selector > Tag Element"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Aturan spesifisitas CSS menilai bobot: Inline style (1,0,0,0) > ID (0,1,0,0) > Class/Pseudo-class (0,0,1,0) > Tag/Pseudo-element (0,0,0,1)."
+                },
+                {
+                    q: "Apa perbedaan visual dan struktural antara 'display: none' dan 'visibility: hidden'?",
+                    options: [
+                        "'display: none' hanya membuat elemen transparan, sedangkan 'visibility: hidden' menghapus elemen dari DOM",
+                        "'display: none' menghapus elemen sepenuhnya dari alur tata letak (tidak memakan ruang), sedangkan 'visibility: hidden' menyembunyikan elemen tetapi ruang fisiknya tetap tersisa",
+                        "Keduanya memiliki efek yang persis sama tanpa perbedaan",
+                        "'visibility: hidden' hanya berlaku untuk gambar dan video"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'display: none' membuat elemen tidak dirender dalam flow dokumen, sedangkan 'visibility: hidden' membuat elemen tidak tampak namun ruang kotaknya tetap memakan tempat di layar."
+                },
+                {
+                    q: "Properti CSS manakah yang digunakan untuk menciptakan efek kaca buram (glassmorphism) pada elemen yang berada di belakang kartu?",
+                    options: [
+                        "background-blur: 10px;",
+                        "backdrop-filter: blur(10px);",
+                        "filter: opacity(0.5);",
+                        "box-shadow: inset 0 0 10px rgba(0,0,0,0.5);"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'backdrop-filter: blur(...)' menerapkan filter grafis pada area di belakang elemen semi-transparan, menghasilkan estetika modern glassmorphism."
+                },
+                {
+                    q: "Properti manakah yang paling direkomendasikan untuk animasi CSS karena diproses langsung oleh GPU tanpa memicu layout reflow?",
+                    options: [
+                        "width dan height",
+                        "top dan left",
+                        "transform dan opacity",
+                        "margin dan padding"
+                    ],
+                    ans: 2,
+                    explain: "Sangat tepat! 'transform' dan 'opacity' dihitung pada Compositor Thread GPU, menghasilkan animasi yang sangat mulus (60 FPS) tanpa membebani CPU dengan recalculate layout."
+                },
+                {
+                    q: "Ukuran unit 'rem' dihitung secara relatif terhadap ukuran font dari elemen apa?",
+                    options: [
+                        "Elemen induk langsung (Parent element)",
+                        "Elemen akar dokumen (Root element <html>)",
+                        "Ukuran lebar layar perangkat (Viewport width)",
+                        "Elemen <body> terdekat"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'rem' singkatan dari Root EM, nilainya selalu dikalkulasikan relatif terhadap ukuran font pada elemen <html> (bawaan browser biasanya 16px)."
+                },
+                {
+                    q: "Pseudo-class manakah yang menampilkan indikator fokus hanya saat pengguna berinteraksi menggunakan keyboard (misalnya tombol Tab)?",
+                    options: [
+                        ":focus",
+                        ":focus-visible",
+                        ":hover",
+                        ":active"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! ':focus-visible' adalah fitur aksesibilitas modern yang mencegah garis fokus muncul saat pengguna mengklik dengan mouse, namun tetap menampilkannya secara jelas saat bernavigasi dengan keyboard."
+                },
+                {
+                    q: "Properti apakah yang wajib ada pada pseudo-element '::before' atau '::after' agar elemen semu tersebut dapat dirender?",
+                    options: [
+                        "display: block;",
+                        "content: '';",
+                        "position: absolute;",
+                        "visibility: visible;"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Tanpa deklarasi properti 'content' (meskipun hanya berupa string kosong content: ''), pseudo-element ::before atau ::after tidak akan pernah ditampilkan di layar."
+                },
+                {
+                    q: "Dalam filosofi desain 'Mobile-First', media query utama biasanya disusun menggunakan kondisi apa?",
+                    options: [
+                        "@media (max-width: ...)",
+                        "@media (min-width: ...)",
+                        "@media (orientation: landscape)",
+                        "@media (screen-only: true)"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Pendekatan mobile-first menulis gaya dasar untuk layar kecil terlebih dahulu tanpa media query, lalu menggunakan '@media (min-width: ...)' secara bertahap saat layar bertambah lebar ke tablet dan desktop."
+                }
+            ]
+        },
 
-                git: {
-                    id: "git",
-                    name: "Git & GitHub",
-                    category: "Version Control",
-                    badgeClass: "learn-badge-cyan",
-                    iconClass: "fa-brands fa-github",
-                    iconColor: "#cbd5e1",
-                    tagline: "Sistem Kontrol Versi Kode & Platform Kolaborasi Developer Global",
-                    brief: {
-                        summary: "Git adalah sistem kontrol versi (Version Control System) terdistribusi yang mencatat setiap riwayat perubahan pada kode projekmu secara aman. Sedangkan GitHub adalah platform cloud tempat menyimpan repositori Git tersebut secara online agar dapat dicadangkan dan dikolaborasikan.",
-                        takeaways: [
-                            { icon: "fa-solid fa-clock-rotate-left", title: "Mesin Waktu Kode", desc: "Kamu bisa membatalkan kesalahan dan kembali ke versi kode kapan pun tanpa takut file rusak." },
-                            { icon: "fa-solid fa-cloud-arrow-up", title: "Pencadangan Aman", desc: "Menyimpan seluruh aset portofolio di cloud GitHub agar tidak hilang jika laptop mengalami kendala." },
-                            { icon: "fa-solid fa-code-branch", title: "Kolaborasi Tim", desc: "Mendukung pembuatan branch (cabang kerja) sehingga banyak developer bisa bekerja bersamaan tanpa bentrok." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Alur Kerja 3 Perintah Keramat Git",
-                        desc: "Setiap kali kamu menyelesaikan fitur baru di website portofoliomu, berikut alur kerja standar yang selalu kamu jalankan:",
-                        codeTitle: "Terminal / Bash",
-                        code: `# 1. Periksa file apa saja yang baru kamu ubah
+        javascript: {
+            id: "javascript",
+            name: "JavaScript",
+            category: "Programming Language",
+            badgeClass: "learn-badge-yellow",
+            iconClass: "fa-brands fa-js",
+            iconColor: "#f7df1e",
+            tagline: "Logika Interaktif, Manipulasi DOM, Asynchronous (Async/Await) & Storage API",
+            brief: {
+                summary: "JavaScript adalah bahasa pemrograman dinamis tingkat tinggi yang menjadi motor penggerak interaktivitas aplikasi web modern. Di balik layar, mesin JavaScript (seperti V8 di Chrome atau SpiderMonkey di Firefox) mengeksekusi kode melalui single-threaded Event Loop yang mampu menangani ribuan aksi pengguna, request jaringan, dan manipulasi data secara asynchronous tanpa membuat antarmuka macet (*non-blocking*). Penguasaan JavaScript modern (ES6+) mencakup manipulasi DOM, event delegation, Promises, async/await, serta penyimpanan persisten lokal.",
+                takeaways: [
+                    { icon: "fa-solid fa-bolt", title: "Manipulasi DOM & Event Delegation", desc: "Mendengarkan event interaksi pengguna pada kontainer induk untuk menangani banyak elemen dinamis secara hemat memori." },
+                    { icon: "fa-solid fa-clock", title: "Asynchronous & Event Loop", desc: "Memanfaatkan Promises dan async/await untuk menangani pengambilan data jaringan (API fetch) tanpa memblokir thread antarmuka." },
+                    { icon: "fa-solid fa-code", title: "Sintaks Modern ECMAScript (ES6+)", desc: "Penggunaan arrow functions, destructuring, template literals, spread operator (...), optional chaining (?.), dan nullish coalescing (??)." },
+                    { icon: "fa-solid fa-database", title: "Web Storage & Client State", desc: "Menyimpan data aplikasi di sisi browser menggunakan LocalStorage dengan serialisasi objek berbasis JSON." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Event Delegation, Async/Await & LocalStorage",
+                desc: "Perhatikan arsitektur kode JavaScript modern yang mengelola daftar tugas santri secara reaktif, efisien, dan tersimpan permanen:",
+                codeTitle: "app.js (Clean Modern JavaScript)",
+                code: `// ====================================================
+// 1. STATE MANAGER & PERSISTENCE (LOCALSTORAGE)
+// ====================================================
+const STORAGE_KEY = 'santri_tasks_data';
+
+// Ambil data tersimpan atau gunakan nilai awal
+const loadTasks = () => {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [
+            { id: 1, title: 'Muraja'ah Juz 30', done: true },
+            { id: 2, title: 'Latihan Coding JavaScript DOM', done: false }
+        ];
+    } catch (err) {
+        console.error("Gagal membaca LocalStorage:", err);
+        return [];
+    }
+};
+
+const saveTasks = (tasks) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+};
+
+let tasks = loadTasks();
+
+// ====================================================
+// 2. DOM CACHE & ELEMENT SELECTION
+// ====================================================
+const taskListEl = document.getElementById('taskList');
+const taskFormEl = document.getElementById('taskForm');
+const taskInputEl = document.getElementById('taskInput');
+
+// ====================================================
+// 3. RENDER FUNCTION (PURE STATE TO UI)
+// ====================================================
+const renderTasks = () => {
+    if (tasks.length === 0) {
+        taskListEl.innerHTML = '<li class="empty-state">Belum ada tugas hari ini.</li>';
+        return;
+    }
+
+    // Transformasi array menjadi string HTML dengan .map()
+    taskListEl.innerHTML = tasks.map(task => \`
+        <li class="task-item \${task.done ? 'is-completed' : ''}" data-id="\${task.id}">
+            <input type="checkbox" class="task-check" \${task.done ? 'checked' : ''}>
+            <span class="task-title">\${escapeHtml(task.title)}</span>
+            <button type="button" class="btn-delete" title="Hapus tugas">&times;</button>
+        </li>
+    \`).join('');
+};
+
+// ====================================================
+// 4. EVENT DELEGATION (EFISIENSI SATU EVENT LISTENER)
+// ====================================================
+taskListEl.addEventListener('click', (e) => {
+    // Cari elemen pembungkus terdekat yang memiliki data-id
+    const itemEl = e.target.closest('.task-item');
+    if (!itemEl) return;
+    const taskId = parseInt(itemEl.dataset.id, 10);
+
+    // Jika pengguna mengklik checkbox
+    if (e.target.classList.contains('task-check')) {
+        tasks = tasks.map(t => t.id === taskId ? { ...t, done: e.target.checked } : t);
+        saveTasks(tasks);
+        renderTasks();
+    }
+
+    // Jika pengguna mengklik tombol hapus
+    if (e.target.classList.contains('btn-delete')) {
+        tasks = tasks.filter(t => t.id !== taskId);
+        saveTasks(tasks);
+        renderTasks();
+    }
+});
+
+// Sanitasi string untuk mencegah celah keamanan XSS
+function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Inisialisasi awal UI
+renderTasks();`,
+                steps: [
+                    { num: 1, title: "Immutability & State Driven", desc: "Kita tidak langsung mengubah teks HTML secara serampangan, melainkan memperbarui variabel 'tasks' (state) terlebih dahulu, lalu merender ulang tampilan (Single Source of Truth)." },
+                    { num: 2, title: "Event Delegation pada Induk", desc: "Alih-alih memasang ratusan event listener pada setiap tombol tugas, kita hanya memasang 1 listener pada 'taskListEl' dan memanfaatkan 'e.target.closest()' untuk efisiensi memori." },
+                    { num: 3, title: "Array Methods: .map() & .filter()", desc: "Menggunakan method modern bawaan JavaScript yang tidak memutasi data asli untuk menghasilkan data turunan baru secara bersih." },
+                    { num: 4, title: "Spread Operator ({ ...t, done })", desc: "Sintaksis salinan dangkal (shallow copy) ES6 untuk memperbarui properti objek tertentu tanpa merusak properti lainnya." },
+                    { num: 5, title: "JSON.stringify() & JSON.parse()", desc: "LocalStorage hanya menerima tipe data string primitif; fungsi JSON mengubah objek JavaScript menjadi string dan sebaliknya." },
+                    { num: 6, title: "Pencegahan XSS (Cross-Site Scripting)", desc: "Fungsi escapeHtml() memastikan teks yang diketik pengguna tidak dieksekusi sebagai tag skrip berbahaya oleh peramban." }
+                ],
+                tip: "Gunakan fitur modern Optional Chaining (obj?.prop) dan Nullish Coalescing (val ?? defaultVal) untuk mencegah error runtime legendaris 'Cannot read properties of undefined'."
+            },
+            challenge: "Buka tab Console perambanmu (tekan F12 > Console), buat array berisi 3 angka [10, 25, 40], lalu gunakan fungsi .reduce((sum, num) => sum + num, 0) untuk menghitung total jumlahnya!",
+            questionPool: [
+                {
+                    q: "Manakah perbedaan mendasar antara variabel yang dideklarasikan dengan 'const', 'let', dan 'var'?",
+                    options: [
+                        "'var' memiliki block scope, sedangkan 'let' dan 'const' memiliki global scope",
+                        "'const' nilainya tidak dapat di-reassign (konstan), 'let' dapat diubah dan memiliki block scope, sedangkan 'var' memiliki function scope dan terpengaruh hoisting",
+                        "'let' hanya digunakan untuk angka, sedangkan 'const' hanya untuk teks",
+                        "Ketiganya persis sama dan hanya variasi penulisan nama di JavaScript"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'const' mencegah reassignment identifier, 'let' membatasi jangkauan pada blok kurung kurawal ({}), sedangkan 'var' warisan lama memiliki function scope yang rentan bug hoisting."
+                },
+                {
+                    q: "Apa perbedaan antara operator pembanding '==' (loose equality) dan '===' (strict equality)?",
+                    options: [
+                        "'==' membandingkan nilai setelah melakukan konversi tipe data otomatis (type coercion), sedangkan '===' membandingkan nilai dan tipe data tanpa konversi",
+                        "'===' selalu menghasilkan nilai false jika digunakan pada angka",
+                        "'==' hanya untuk teks string, sedangkan '===' untuk perbandingan objek",
+                        "Tidak ada perbedaan, keduanya melakukan perbandingan identik"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! Contohnya: '5' == 5 bernilai true (karena string '5' dikoversi ke angka 5), sedangkan '5' === 5 bernilai false karena tipenya berbeda (string vs number)."
+                },
+                {
+                    q: "Metode array manakah yang digunakan untuk memfilter dan menghasilkan array baru hanya berisi elemen yang memenuhi syarat kondisi tertentu?",
+                    options: [
+                        ".map()",
+                        ".filter()",
+                        ".forEach()",
+                        ".reduce()"
+                    ],
+                    ans: 1,
+                    explain: "Benar! '.filter()' menerima fungsi predikat (yang mengembalikan boolean true/false) dan menghasilkan array baru yang hanya memuat elemen dengan nilai true."
+                },
+                {
+                    q: "Apakah nilai kembalian dari ekspresi 'typeof null' di JavaScript?",
+                    options: [
+                        "'null'",
+                        "'undefined'",
+                        "'object'",
+                        "'boolean'"
+                    ],
+                    ans: 2,
+                    explain: "Tepat! Secara teknis 'typeof null' mengembalikan 'object'. Ini adalah bug historis warisan versi pertama JavaScript tahun 1995 yang dipertahankan demi menjaga kompatibilitas website lama."
+                },
+                {
+                    q: "Blok apakah yang digunakan untuk menangani exception atau error agar aplikasi web tidak crash dan berhenti mendadak?",
+                    options: [
+                        "if...else",
+                        "try...catch...finally",
+                        "switch...case",
+                        "while...do"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Blok 'try' mengeksekusi kode rawan error, blok 'catch' menangani objek error yang tertangkap, dan 'finally' selalu dijalankan di akhir pembersihan proses."
+                },
+                {
+                    q: "Fungsi apakah yang digunakan untuk mengubah objek JavaScript menjadi format string JSON agar dapat disimpan di LocalStorage?",
+                    options: [
+                        "JSON.parse()",
+                        "JSON.stringify()",
+                        "JSON.toString()",
+                        "JSON.encode()"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'JSON.stringify(obj)' mengubah objek menjadi representasi string JSON, sedangkan 'JSON.parse(str)' mengembalikannya menjadi objek JavaScript."
+                },
+                {
+                    q: "Apa perbedaan mendasar antara 'localStorage' dan 'sessionStorage' di peramban?",
+                    options: [
+                        "localStorage hanya bisa menampung 100 karakter, sedangkan sessionStorage tidak terbatas",
+                        "Data di localStorage tetap tersimpan meskipun browser/komputer dimatikan, sedangkan sessionStorage otomatis terhapus saat tab browser ditutup",
+                        "sessionStorage tersimpan di server web, sedangkan localStorage di komputer lokal",
+                        "localStorage hanya dapat diakses melalui bahasa pemrograman PHP"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'localStorage' bersifat persisten tanpa batas waktu sampai dihapus secara manual, sedangkan 'sessionStorage' hanya hidup selama siklus satu tab browser dibuka."
+                },
+                {
+                    q: "Apakah yang dimaksud dengan teknik 'Event Delegation' pada manipulasi DOM?",
+                    options: [
+                        "Membuat event listener baru pada setiap elemen anak secara terpisah",
+                        "Menempatkan satu event listener pada elemen induk untuk menangani aksi dari elemen-elemen anak melalui prinsip bubbling",
+                        "Menonaktifkan seluruh event klik pada halaman web",
+                        "Mendelegasikan penanganan event ke server backend"
+                    ],
+                    ans: 1,
+                    explain: "Sangat tepat! Event Delegation memanfaatkan sifat 'Event Bubbling': satu event listener pada induk (misal <ul>) dapat menangani klik pada ribuan elemen anak (<li>) secara hemat memori."
+                },
+                {
+                    q: "Operator Nullish Coalescing (??) hanya akan mengembalikan nilai sisi kanan jika nilai sisi kirinya bernilai apa?",
+                    options: [
+                        "false, 0, atau string kosong ''",
+                        "null atau undefined saja",
+                        "NaN saja",
+                        "Semua nilai falsy"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Berbeda dari operator '||' yang menganggap 0 atau '' sebagai falsy, operator '??' hanya berpindah ke nilai default jika operand kirinya benar-benar bernilai 'null' atau 'undefined'."
+                },
+                {
+                    q: "Bagaimanakah urutan eksekusi tugas dalam arsitektur Event Loop JavaScript?",
+                    options: [
+                        "Semua timer dieksekusi sebelum kode sinkron",
+                        "Call Stack (kode sinkron) dieksekusi hingga kosong, lalu Microtask Queue (Promise), baru kemudian Task Queue (setTimeout)",
+                        "Task Queue dieksekusi secara acak tanpa aturan prioritas",
+                        "JavaScript menjalankan semua tugas secara multi-threaded paralel murni"
+                    ],
+                    ans: 1,
+                    explain: "Benar! JavaScript adalah single-threaded: Call stack sinkron selalu diselesaikan pertama, lalu antrean microtask (Promises), kemudian macrotask (setTimeout/setInterval)."
+                },
+                {
+                    q: "Manakah sintaks yang benar untuk mengekstraksi properti 'nama' dan 'umur' dari sebuah objek menggunakan Destructuring ES6?",
+                    options: [
+                        "const [nama, umur] = objek;",
+                        "const { nama, umur } = objek;",
+                        "const nama, umur from objek;",
+                        "const extract(nama, umur) of objek;"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Sintaks kurung kurawal 'const { nama, umur } = objek;' adalah Object Destructuring untuk menyalin properti objek ke variabel lokal dengan nama yang sama."
+                },
+                {
+                    q: "Bagaimanakah perilaku konteks 'this' di dalam sebuah Arrow Function dibandingkan fungsi konvensional?",
+                    options: [
+                        "Arrow function selalu menunjuk 'this' ke elemen DOM yang diklik",
+                        "Arrow function tidak memiliki 'this' sendiri, melainkan mewarisi nilai 'this' dari scope leksikal tempat fungsi tersebut didefinisikan",
+                        "Arrow function membuat 'this' bernilai undefined secara permanen",
+                        "Arrow function memiliki nilai 'this' yang selalu berubah secara otomatis setiap detik"
+                    ],
+                    ans: 1,
+                    explain: "Sangat tepat! Arrow function memiliki 'lexical this' yang sangat berguna pada callback asynchronous agar tidak kehilangan konteks objek pemiliknya."
+                }
+            ]
+        },
+
+        python: {
+            id: "python",
+            name: "Python",
+            category: "General Programming",
+            badgeClass: "learn-badge-cyan",
+            iconClass: "fa-brands fa-python",
+            iconColor: "#38bdf8",
+            tagline: "Sintaks Bersih PEP 8, Multi-Paradigma, Automasi Scripting & Pondasi Kecerdasan Buatan (AI)",
+            brief: {
+                summary: "Python adalah bahasa pemrograman interpretatif tingkat tinggi yang dirancang oleh Guido van Rossum dengan fokus utama pada keterbacaan kode (*code readability*). Mengacu pada pedoman filosofis *The Zen of Python (PEP 20)*, sintaksis Python sengaja dirancang menyerupai bahasa Inggris alami tanpa titik koma atau kurung kurawal berlebih. Python mendukung multi-paradigma (pemrograman berorientasi objek, fungsional, dan prosedural) serta memiliki ekosistem pustaka (*libraries*) terbesar di dunia untuk automasi sistem, rekayasa data, dan kecerdasan buatan (Machine Learning & AI).",
+                takeaways: [
+                    { icon: "fa-solid fa-feather-pointed", title: "Sintaksis Bersih & Terbaca (PEP 8)", desc: "Blok kode ditentukan oleh indentasi spasi yang konsisten, menghasilkan kode yang rapi dan mudah dirawat antar-tim pengembang." },
+                    { icon: "fa-solid fa-cubes-stacked", title: "Struktur Data Bawaan yang Sangat Kuat", desc: "List, Dictionary, Tuple, dan Set bawaan Python dirancang dengan performa algoritma tinggi untuk pengolahan data instan." },
+                    { icon: "fa-solid fa-shield-virus", title: "Context Manager & Robust Handling", desc: "Pernyataan 'with' menjamin resource file atau koneksi jaringan tertutup otomatis tanpa risiko memory leak." },
+                    { icon: "fa-solid fa-brain", title: "Ekosistem AI, Sains & Automasi Global", desc: "Pondasi utama pustaka canggih dunia seperti PyTorch, TensorFlow, Pandas, FastAPI, hingga script automasi harian." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Type Hints, List Comprehension & File Handling",
+                desc: "Pelajari cara menulis skrip Python modern yang profesional dengan type hints, pengolahan data comprehension, dan context manager:",
+                codeTitle: "santri_analytics.py (Professional Python 3.10+)",
+                code: `from datetime import datetime
+from typing import List, Dict
+
+# ====================================================
+# 1. STRUKTUR DATA & TYPE HINTS
+# ====================================================
+santri_db: List[Dict[str, any]] = [
+    {"nama": "Shifan Shalih Adiluhung", "juz": 5, "kehadiran": 98, "aktif": True},
+    {"nama": "Ahmad Fauzan", "juz": 3, "kehadiran": 85, "aktif": True},
+    {"nama": "Zaidan Al-Farisi", "juz": 8, "kehadiran": 95, "aktif": True},
+    {"nama": "Santri Alumni", "juz": 30, "kehadiran": 100, "aktif": False}
+]
+
+# ====================================================
+# 2. PENGOLAHAN DATA DENGAN LIST COMPREHENSION
+# ====================================================
+# Saring hanya santri aktif yang memiliki hafalan minimal 4 juz
+santri_unggulan = [
+    s["nama"] for s in santri_db 
+    if s["aktif"] and s["juz"] >= 4
+]
+
+# Hitung rata-rata juz dengan fungsi bawaan sum() dan len()
+santri_aktif = [s for s in santri_db if s["aktif"]]
+rata_juz = sum(s["juz"] for s in santri_aktif) / len(santri_aktif)
+
+# ====================================================
+# 3. PENULISAN LAPORAN DENGAN CONTEXT MANAGER (WITH)
+# ====================================================
+def buat_laporan_harian(filename: str) -> bool:
+    """Menulis ringkasan data ke file teks dengan aman."""
+    try:
+        # Context manager 'with' otomatis menutup file meski terjadi error
+        with open(filename, mode="w", encoding="utf-8") as f:
+            f.write(f"=== LAPORAN EVALUASI SANTRI ===\\n")
+            f.write(f"Waktu Cetak : {datetime.now().strftime('%d-%m-%Y %H:%M')}\\n")
+            f.write(f"Rata-rata Juz Santri Aktif : {rata_juz:.2f} Juz\\n")
+            f.write(f"Santri Berprestasi (>= 4 Juz):\\n")
+            for idx, nama in enumerate(santri_unggulan, start=1):
+                f.write(f"  {idx}. {nama}\\n")
+        return True
+    except OSError as err:
+        print(f"Gagal menulis berkas {filename}: {err}")
+        return False
+
+# Jalankan fungsi
+sukses = buat_laporan_harian("rekap_santri.txt")
+print(f"Status pembuatan berkas: {'Sukses' if sukses else 'Gagal'}")`,
+                steps: [
+                    { num: 1, title: "Type Hints (Typing Annotation)", desc: "Menambahkan anotasi tipe data seperti 'List[Dict]' dan '-> bool' membuat kode lebih mudah dipahami oleh programmer lain dan diverifikasi oleh static analyzer." },
+                    { num: 2, title: "List Comprehension", desc: "Cara idiomatik Python untuk menyaring dan mentransformasi data dalam satu baris yang sangat ekspresif: [ekspresi for item in koleksi if kondisi]." },
+                    { num: 3, title: "Context Manager: with open(...)", desc: "Kunci penanganan resource file: file dijamin ditutup otomatis saat blok kode selesai, mencegah kerusakan data atau penguncian file oleh sistem operasi." },
+                    { num: 4, title: "F-Strings dengan Format Specifier", desc: "Format f'{rata_juz:.2f}' membatasi angka desimal menjadi tepat 2 digit di belakang koma tanpa perlu fungsi pembulatan terpisah." },
+                    { num: 5, title: "Fungsi bawaan enumerate()", desc: "Mengulang koleksi data sekaligus mendapatkan nomor urut indeks dan nilainya secara bersamaan tanpa perlu membuat variabel counter manual." },
+                    { num: 6, title: "Error Handling: try...except OSError", desc: "Menangkap potensi kegagalan sistem operasi (seperti permission denied atau disk penuh) secara elegan tanpa memutus alur program utama." }
+                ],
+                tip: "Gunakan environment virtual (python -m venv .venv) di setiap proyek barumu untuk mengisolasi versi pustaka dan paket pip, mencegah konflik dependensi antar-proyek di komputermu."
+            },
+            challenge: "Tulis skrip Python ringkas di kepalamu: buat dictionary santri = {'nama': 'Shifan', 'usia': 15}, gunakan method .get('asal', 'Jawa Barat') untuk mengambil nilai default jika key tidak ada, lalu cetak menggunakan f-string!",
+            questionPool: [
+                {
+                    q: "Bagaimana cara Python membedakan blok kode fungsi, perulangan, atau percabangan if dari kode di luarnya?",
+                    options: [
+                        "Menggunakan tanda kurung kurawal { dan }",
+                        "Menggunakan tanda titik koma ; di setiap akhir baris",
+                        "Menggunakan indentasi spasi yang konsisten menjorok ke dalam",
+                        "Menggunakan kata kunci begin dan end"
+                    ],
+                    ans: 2,
+                    explain: "Benar! Ciri khas utama sintaksis Python adalah penggunaan indentasi (standar PEP 8 merekomendasikan 4 spasi) untuk mendefinisikan scope blok kode."
+                },
+                {
+                    q: "Manakah di antara tipe data Python berikut yang bersifat 'immutable' (tidak dapat diubah nilainya setelah dibuat)?",
+                    options: [
+                        "List",
+                        "Dictionary",
+                        "Tuple",
+                        "Set"
+                    ],
+                    ans: 2,
+                    explain: "Tepat! 'Tuple' (ditulis dengan kurung biasa (1, 2, 3)) bersifat immutable, berbeda dari List atau Dictionary yang datanya bisa ditambah atau diubah (mutable)."
+                },
+                {
+                    q: "Sintaks List Comprehension manakah yang benar untuk menghasilkan daftar kuadrat dari angka genap saja pada list 'angka'?",
+                    options: [
+                        "[x**2 for x in angka if x % 2 == 0]",
+                        "[for x in angka: x**2 if x % 2 == 0]",
+                        "[x if x % 2 == 0 then x**2 for x in angka]",
+                        "[x**2 in angka where x % 2 == 0]"
+                    ],
+                    ans: 0,
+                    explain: "Benar! Pola standar List Comprehension adalah [ekspresi for item in iterable if kondisi], menghasilkan kode yang sangat ringkas dan cepat dieksekusi."
+                },
+                {
+                    q: "Mengapa membuka berkas dianjurkan menggunakan pernyataan 'with open(...) as f:'?",
+                    options: [
+                        "Karena otomatis mengenkripsi isi file dengan kata sandi",
+                        "Karena berfungsi sebagai Context Manager yang menjamin berkas otomatis ditutup setelah blok selesai, bahkan jika terjadi error",
+                        "Karena membuat proses membaca berkas menjadi 100 kali lebih cepat",
+                        "Karena hanya format ini yang didukung oleh sistem operasi Windows"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Pernyataan 'with' memanggil method __enter__ dan __exit__ secara otomatis untuk membersihkan dan menutup berkas tanpa risiko memory leak."
+                },
+                {
+                    q: "Apa perbedaan antara operator '==' dan operator 'is' pada Python?",
+                    options: [
+                        "Tidak ada perbedaan, keduanya memeriksa hal yang sama",
+                        "'==' memeriksa kesamaan nilai (equality), sedangkan 'is' memeriksa kesamaan identitas memori (apakah keduanya merujuk objek yang sama persis di RAM)",
+                        "'is' hanya digunakan untuk tipe data teks string",
+                        "'==' hanya dapat digunakan pada angka genap"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Contoh: a = [1, 2]; b = [1, 2]. Maka a == b adalah True (karena nilainya sama), tetapi a is b adalah False (karena berada di lokasi memori terpisah)."
+                },
+                {
+                    q: "Method dictionary apakah yang digunakan untuk mengambil nilai secara aman tanpa menimbulkan error 'KeyError' jika kuncinya tidak ditemukan?",
+                    options: [
+                        ".fetch()",
+                        ".get()",
+                        ".lookup()",
+                        ".find()"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Method 'dict.get(key, default_value)' mengembalikan None atau nilai default kustom jika key tidak ada, mencegah crash KeyError."
+                },
+                {
+                    q: "Fungsi bawaan Python manakah yang digunakan untuk mengulang koleksi data sekaligus mendapatkan nomor indeks dan nilainya bersamaan?",
+                    options: [
+                        "range()",
+                        "enumerate()",
+                        "zip()",
+                        "counter()"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'for idx, val in enumerate(data):' mengembalikan pasangan tuple (indeks, nilai) secara langsung dan sangat bersih."
+                },
+                {
+                    q: "Keyword apakah yang digunakan di Python untuk membuat fungsi anonim singkat dalam satu baris ekspresi?",
+                    options: [
+                        "def",
+                        "lambda",
+                        "func",
+                        "inline"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Fungsi 'lambda' adalah fungsi anonim kecil yang hanya boleh memiliki satu ekspresi, sering digunakan sebagai argumen pengurutan key=lambda x: x['umur']."
+                },
+                {
+                    q: "Bagian manakah dalam penanganan error 'try...except' yang dijamin SELALU dieksekusi, baik terjadi exception maupun tidak?",
+                    options: [
+                        "else",
+                        "finally",
+                        "catch",
+                        "default"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Blok 'finally' selalu dijalankan di akhir proses, ideal untuk menutup koneksi database atau membersihkan berkas sementara."
+                },
+                {
+                    q: "Bagaimana cara memformat variabel angka desimal 'skor = 95.6789' menjadi string dengan 2 angka di belakang koma menggunakan F-string?",
+                    options: [
+                        "f'{skor:2}'",
+                        "f'{skor:.2f}'",
+                        "f'{round(skor, 2)}f'",
+                        "f'{skor % 2}'"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Format specifier ':.2f' pada f-string membulatkan dan menampilkan bilangan float dengan tepat 2 digit desimal (menghasilkan '95.68')."
+                },
+                {
+                    q: "Apa nama dokumen pedoman resmi gaya penulisan kode (Style Guide) yang menjadi standar konvensi komunitas Python sedunia?",
+                    options: [
+                        "PEP 8",
+                        "ISO 9001",
+                        "W3C Python Standard",
+                        "RFC 2616"
+                    ],
+                    ans: 0,
+                    explain: "Benar! PEP 8 (Python Enhancement Proposal 8) adalah panduan resmi yang menetapkan konvensi penamaan variabel, fungsi, batas panjang baris, dan indentasi di Python."
+                },
+                {
+                    q: "Tipe data bawaan Python apakah yang secara otomatis menghapus elemen duplikat dan tidak memiliki indeks posisi terurut?",
+                    options: [
+                        "List",
+                        "Tuple",
+                        "Set",
+                        "Array"
+                    ],
+                    ans: 2,
+                    explain: "Tepat! 'Set' (dibuat dengan kurung kurawal {1, 2, 3}) menyimpan elemen unik tanpa duplikasi dan mendukung operasi matematika himpunan seperti irisan dan gabungan."
+                }
+            ]
+        },
+
+        git: {
+            id: "git",
+            name: "Git & GitHub",
+            category: "Version Control & Collaboration",
+            badgeClass: "learn-badge-purple",
+            iconClass: "fa-brands fa-github",
+            iconColor: "#cbd5e1",
+            tagline: "Sistem Kontrol Versi Terdistribusi (DAG), Alur Percabangan & Kolaborasi Cloud",
+            brief: {
+                summary: "Git adalah sistem kontrol versi terdistribusi (Distributed Version Control System) yang diciptakan oleh Linus Torvalds untuk melacak setiap perubahan riwayat kode sumber secara matematis melalui struktur graf asiklik terarah (DAG) dan hash kriptografi. Berbeda dari sekadar mencadangkan file secara manual, Git mencatat snapshot lengkap proyek di titik waktu tertentu. Bersama platform cloud GitHub, developer dapat bereksperimen di branch terisolasi, mereview kode rekan lewat Pull Request, serta berkolaborasi dalam tim software engineering skala global dengan aman.",
+                takeaways: [
+                    { icon: "fa-solid fa-tree", title: "Arsitektur 3 Status Berkas", desc: "Memahami perpindahan berkas antara Working Directory (lokal), Staging Area/Index (persiapan), dan HEAD Repository (commit)." },
+                    { icon: "fa-solid fa-code-branch", title: "Branching Ringan & Terisolasi", desc: "Membuat cabang fitur terpisah (git checkout -b) memungkinkan eksperimen bebas tanpa risiko merusak kode produksi utama." },
+                    { icon: "fa-solid fa-code-merge", title: "Resolusi Merge Conflict", desc: "Membaca dan menyelesaikan konflik integrasi kode ketika dua cabang memodifikasi baris berkas yang sama secara bersamaan." },
+                    { icon: "fa-solid fa-user-shield", title: "Keamanan Repositori & .gitignore", desc: "Mencegah file kredensial rahasia, environment lokal (.env), dan direktori build terunggah secara tidak sengaja ke publik." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Alur Kerja Harian Profesional & Git Semantic Commit",
+                desc: "Berikut panduan terminal alur kerja profesional harian dari pembuatan branch, pementasan berkas, commit semantik, hingga sinkronisasi remote:",
+                codeTitle: "Terminal Bash / PowerShell Commands",
+                code: `# ====================================================
+# 1. PERIKSA STATUS & BUAT CABANG FITUR BARU
+# ====================================================
+# Periksa kondisi berkas saat ini
 git status
 
-# 2. Masukkan seluruh file perubahan ke Staging Area (siap dikemas)
-git add .
+# Buat dan langsung berpindah ke branch fitur baru (Feature Branch)
+git checkout -b feat/modul-belajar-interaktif
 
-# 3. Simpan perubahan secara permanen dengan catatan pesan bermakna
-git commit -m "feat: tambahkan modul belajar dan latihan soal interaktif"
+# ====================================================
+# 2. PEMENTASAN BERKAS (STAGING AREA) SECARA SELEKTIF
+# ====================================================
+# Tambahkan berkas spesifik ke area pementasan
+git add learn.html learn.js styles.css
 
-# 4. Kirimkan commit dari laptopmu ke server cloud GitHub
-git push origin main`,
-                        steps: [
-                            { num: 1, title: "Working Directory", desc: "Area tempat kamu mengetik dan mengedit file di editor (sebelum file dimasukkan ke Git)." },
-                            { num: 2, title: "git add . (Staging Area)", desc: "Menyiapkan file yang ingin dimasukkan ke dalam paket rekaman commit." },
-                            { num: 3, title: "git commit -m '...'", desc: "Menyegel rekaman perubahan permanen dengan deskripsi yang menjelaskan apa yang baru diperbaiki atau ditambahkan." },
-                            { num: 4, title: "git push origin main", desc: "Mengunggah paket commit lokal ke branch 'main' di server GitHub online." }
-                        ],
-                        tip: "Selalu sertakan pesan commit yang jelas dan bermakna (misal: 'fix: perbaiki tombol login' bukan 'update' atau 'revisi 123') agar riwayat projekmu mudah dipahami di masa depan."
-                    },
-                    quiz: [
-                        {
-                            q: "Perintah Git apakah yang digunakan untuk memindahkan perubahan berkas ke Staging Area sebelum disimpan?",
-                            options: ["git push", "git commit", "git add .", "git save"],
-                            ans: 2,
-                            explain: "Tepat! 'git add .' memindahkan semua berkas yang telah dimodifikasi ke Staging Area."
-                        },
-                        {
-                            q: "Perintah manakah yang digunakan untuk membuat catatan rekaman riwayat permanen disertai pesan deskripsi?",
-                            options: ["git commit -m 'pesan'", "git log -m 'pesan'", "git record", "git push"],
-                            ans: 0,
-                            explain: "Benar! 'git commit -m' membuat catatan snapshot permanen dalam riwayat Git projekmu."
-                        },
-                        {
-                            q: "Perintah apa yang digunakan untuk memeriksa status berkas apakah ada yang baru diubah atau belum ter-stage?",
-                            options: ["git check", "git view", "git status", "git list"],
-                            ans: 2,
-                            explain: "Tepat sekali! 'git status' adalah perintah andalan untuk melihat kondisi cabang kerja dan berkas yang termodifikasi."
-                        }
+# Periksa perbedaan kode yang siap di-commit vs yang ada di repo
+git diff --staged
+
+# ====================================================
+# 3. BUAT COMMIT BERSIH DENGAN KONVENSI SEMANTIK
+# ====================================================
+# Tuliskan pesan commit yang terstruktur (feat/fix/refactor/docs)
+git commit -m "feat(learn): tambahkan kurikulum 7 tools dan sistem kuis acak 5 soal"
+
+# ====================================================
+# 4. SINKRONISASI DENGAN REPOSITORI UTAMA (REMOTE)
+# ====================================================
+# Ambil pembaruan terbaru dari remote tanpa langsung menggabungkan
+git fetch origin main
+
+# Pindahkan branch lokal kita di atas commit terbaru remote
+git pull --rebase origin main
+
+# Unggah cabang fitur ke GitHub untuk direview via Pull Request
+git push -u origin feat/modul-belajar-interaktif
+
+# ====================================================
+# 5. MELIHAT RIWAYAT KOMIT DALAM BENTUK GRAF RINGKAS
+# ====================================================
+git log --graph --oneline --decorate -n 5`,
+                steps: [
+                    { num: 1, title: "Feature Branch Workflow", desc: "Jangan pernah mengedit fitur baru langsung di branch 'main'. Selalu buat branch terpisah (misal feat/nama-fitur) agar branch produksi tetap bersih dan stabil." },
+                    { num: 2, title: "Staging Area (Panggung Persiapan)", desc: "Perintah 'git add' menempatkan berkas ke index staging; kamu bisa memilih berkas mana saja yang ingin disertakan dalam commit berikutnya secara selektif." },
+                    { num: 3, title: "Pesan Commit Semantik", desc: "Standar industri menggunakan format Semantic Commits: 'feat:' untuk fitur baru, 'fix:' untuk perbaikan bug, 'refactor:' untuk perapian kode, dan 'chore:' untuk pemeliharaan rutin." },
+                    { num: 4, title: "git fetch vs git pull", desc: "'git fetch' hanya mengunduh data riwayat terbaru dari cloud tanpa memodifikasi berkas lokalmu, memberi kesempatan untuk memeriksa perubahan sebelum digabungkan." },
+                    { num: 5, title: "Rebase (--rebase) vs Merge", desc: "Rebase memindahkan riwayat commit fiturmu ke puncak cabang utama, menghasilkan riwayat git log yang lurus, bersih, dan mudah dilacak." },
+                    { num: 6, title: "Pull Request (PR) & Code Review", desc: "Di GitHub, branch fitur diajukan sebagai PR agar dapat diuji oleh automated tests dan ditinjau rekan programmer sebelum dimerge ke branch 'main'." }
+                ],
+                tip: "Gunakan 'git commit --amend' jika kamu hanya ingin memperbaiki typo pada pesan commit terakhir yang belum di-push ke remote, atau 'git stash' untuk menyimpan sementara pekerjaan yang belum selesai saat harus berganti cabang mendadak."
+            },
+            challenge: "Buka terminal komputermu di folder proyek ini, jalankan perintah `git log -n 3 --oneline` untuk melihat 3 commit terbaru, lalu periksa status berkas lokal dengan `git status`!",
+            questionPool: [
+                {
+                    q: "Area apakah dalam arsitektur Git yang berfungsi sebagai tempat persiapan berkas sebelum dicatat secara permanen ke dalam riwayat commit?",
+                    options: [
+                        "Working Directory",
+                        "Staging Area (Index)",
+                        "Remote Repository",
+                        "Trash Bin"
                     ],
-                    challenge: "Buka terminal di komputermu pada folder projek, jalankan perintah `git status`, dan amati informasi branch serta berkas yang sedang dalam pengawasan Git."
+                    ans: 1,
+                    explain: "Benar! 'Staging Area' atau 'Index' adalah area perantara tempat pengembang mengumpulkan dan menyeleksi berkas (via git add) sebelum dieksekusi menjadi snapshot commit permanen."
                 },
-
-                hostinger: {
-                    id: "hostinger",
-                    name: "Hostinger FTP",
-                    category: "Cloud & Deployment",
-                    badgeClass: "learn-badge-cyan",
-                    iconClass: "fa-solid fa-server",
-                    iconColor: "#c084fc",
-                    tagline: "Hosting Cloud & Protokol Deployment Website ke Ranah Publik",
-                    brief: {
-                        summary: "Hostinger adalah penyedia layanan web hosting tempat berkas website disimpan di server internet 24 jam nonstop. Sementara FTP (File Transfer Protocol) adalah jalur protokol pengiriman berkas dari komputer lokal menuju direktori server (public_html) agar website bisa dibuka oleh siapa saja di seluruh dunia.",
-                        takeaways: [
-                            { icon: "fa-solid fa-globe", title: "Akses Global 24/7", desc: "Membuat portofoliomu online dan dapat dikunjungi kapan pun oleh penguji, guru, maupun calon mitra." },
-                            { icon: "fa-solid fa-bolt-lightning", title: "Otomasi Skrip Deployment", desc: "Mengunggah pembaruan file HTML, CSS, dan JS hanya dengan sekali klik skrip PowerShell (upload_ftp.ps1)." },
-                            { icon: "fa-solid fa-shield-halved", title: "Proteksi Berkas (.htaccess)", desc: "Menjaga keamanan folder server agar file sensitif tidak bisa diintip orang luar." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Mengunggah Berkas ke Folder public_html",
-                        desc: "Agar website dapat diakses publik, seluruh berkas utama (index.html, styles.css, script.js) harus diletakkan di dalam folder `public_html` di server hosting:",
-                        codeTitle: "Konsep Alur FTP Deployment",
-                        code: `# 1. Alur Koneksi FTP
-Komputer Lokal (D:\\Portofolio Shifan\\)
-         │
-         ▼ (Protokol FTP port 21 terautentikasi)
-Hostinger Web Server (IP: 145.79.9.243)
-         │
-         ▼
-Folder Utama: /public_html/
-   ├── index.html        (Halaman Utama Portofolio)
-   ├── learn.html        (Modul Belajar & Latihan Soal)
-   ├── styles.css        (Desain Tampilan Glassmorphism)
-   ├── script.js         (Otak Interaktif & AsisFan AI)
-   ├── .htaccess         (Proteksi Keamanan Server)
-   └── assets/images/    (Foto Profil & Media)`,
-                        steps: [
-                            { num: 1, title: "Folder public_html", desc: "Merupakan akar direktori web. Berkas index.html di dalam folder ini otomatis menjadi halaman pertama yang terbuka saat domain diakses." },
-                            { num: 2, title: "Kredensial FTP", desc: "Terdiri dari Host IP Server, Username FTP, dan Password FTP. Ingat: data ini harus dirahasiakan dan jangan diunggah ke GitHub!" },
-                            { num: 3, title: "Skrip upload_ftp.ps1", desc: "Skrip otomasi yang membaca berkas lokal dan mengirimkannya ke Hostinger via method WebClient STOR secara instan." }
-                        ],
-                        tip: "Pastikan selalu menyertakan berkas .htaccess dengan aturan 'Options -Indexes' agar struktur folder hostingmu tidak terbuka bebas di internet."
-                    },
-                    quiz: [
-                        {
-                            q: "Kepanjangan dari singkatan FTP adalah?",
-                            options: ["Fast Text Protocol", "File Transfer Protocol", "Folder Tracking Program", "Format Transmission Protocol"],
-                            ans: 1,
-                            explain: "Tepat sekali! FTP adalah singkatan dari File Transfer Protocol, protokol standar transfer file antar komputer dan server."
-                        },
-                        {
-                            q: "Folder utama di server hosting tempat meletakkan berkas website agar bisa diakses oleh pengunjung umum adalah?",
-                            options: ["private_folder", "public_html", "system_root", "server_files"],
-                            ans: 1,
-                            explain: "Benar! 'public_html' adalah root direktori standar web server tempat meletakkan dokumen yang dapat dibuka publik."
-                        },
-                        {
-                            q: "Port default berstandar jaringan yang digunakan untuk koneksi FTP konvensional adalah?",
-                            options: ["Port 80", "Port 443", "Port 21", "Port 22"],
-                            ans: 2,
-                            explain: "Tepat! Port 21 adalah port default yang digunakan untuk melayani perintah kontrol koneksi FTP."
-                        }
+                {
+                    q: "Perintah Git ringkas manakah yang digunakan untuk membuat branch baru sekaligus langsung berpindah ke branch tersebut?",
+                    options: [
+                        "git branch --create-and-jump <nama>",
+                        "git checkout -b <nama> (atau git switch -c <nama>)",
+                        "git branch -m <nama>",
+                        "git merge --new <nama>"
                     ],
-                    challenge: "Pahami alur berkas: jika kamu membuat halaman baru bernama `kontak.html` di komputer lokal, ke folder manakah di server Hostinger berkas tersebut harus diunggah agar bisa dibuka di browser?"
+                    ans: 1,
+                    explain: "Tepat! Flag '-b' pada 'git checkout -b <nama>' (atau perintah baru 'git switch -c') membuat cabang baru dan seketika memindahkan HEAD ke cabang tersebut."
                 },
-
-                vscode: {
-                    id: "vscode",
-                    name: "VS Code",
-                    category: "Code Editor",
-                    badgeClass: "learn-badge-cyan",
-                    iconClass: "fa-solid fa-code",
-                    iconColor: "#007acc",
-                    tagline: "Editor Kode Andalan Developer Modern dengan Ekosistem Super Lengkap",
-                    brief: {
-                        summary: "Visual Studio Code (VS Code) adalah teks editor dan Integrated Development Environment (IDE) ringan namun sangat bertenaga buatan Microsoft. Editor ini menjadi senjata harian Shifan dalam menulis kode HTML, CSS, JavaScript, dan skrip otomasi dengan cepat dan terstruktur.",
-                        takeaways: [
-                            { icon: "fa-solid fa-terminal", title: "Terminal Terintegrasi", desc: "Dapat menjalankan perintah Git dan PowerShell langsung di dalam editor tanpa perlu membuka jendela terpisah." },
-                            { icon: "fa-solid fa-puzzle-piece", title: "Ribuan Ekstensi", desc: "Mendukung ekstensi populer seperti Live Server, Prettier, dan Auto Rename Tag untuk mempercepat coding." },
-                            { icon: "fa-solid fa-keyboard", title: "Shortcut Produktivitas", desc: "Dilengkapi pintasan keyboard sakti untuk navigasi berkas dan perapian kode otomatis." }
-                        ]
-                    },
-                    lesson: {
-                        title: "Pelajaran Pembukaan: Shortcut Sakti & Emmet Cepat",
-                        desc: "Berikut adalah shortcut keyboard yang wajib dikuasai santri developer agar mengetik kode 10 kali lebih cepat:",
-                        codeTitle: "VS Code Productivity Guide",
-                        code: `/* Shortcut Wajib Tahu di Windows */
-Ctrl + P            -> Buka berkas apa saja secara instan (Quick Open)
-Ctrl + Shift + P    -> Buka Command Palette (semua perintah editor)
-Ctrl + ~ (backtick) -> Buka / Tutup Terminal terintegrasi
-Alt + Shift + F     -> Merapikan format kode otomatis (Auto Format)
-Alt + Panah Bawah   -> Menggandakan baris kode ke bawah
-Ctrl + /            -> Memberi komentar (comment/uncomment) otomatis
-
-/* Keajaiban Emmet di file HTML */
-Ketik '!' lalu tekan Tab -> Menghasilkan kerangka lengkap HTML5 dalam 1 detik!
-Ketik 'div.kartu>h3+p'  -> Menghasilkan <div> dengan class kartu, berisi <h3> dan <p>!`,
-                        steps: [
-                            { num: 1, title: "Explorer Panel (Ctrl + B)", desc: "Menampilkan dan menyembunyikan daftar berkas projek di panel kiri agar layar kerja lega." },
-                            { num: 2, title: "Live Server Extension", desc: "Ekstensi yang membuat browser me-reload otomatis setiap kali kamu menekan Ctrl + S (Simpan)." },
-                            { num: 3, title: "Format Document (Alt + Shift + F)", desc: "Menata indentasi spasi kode yang berantakan menjadi rapi dan mudah dibaca." }
-                        ],
-                        tip: "Selalu aktifkan fitur 'Format on Save' di pengaturan VS Code (Settings -> ketik 'Format on Save' -> centang). Kode kamu akan selalu rapi otomatis setiap kali disimpan!"
-                    },
-                    quiz: [
-                        {
-                            q: "Shortcut default pada VS Code di sistem Windows untuk membuka Terminal terintegrasi adalah?",
-                            options: ["Ctrl + T", "Ctrl + ~ (backtick)", "Alt + F4", "Ctrl + Shift + T"],
-                            ans: 1,
-                            explain: "Tepat sekali! 'Ctrl + ~' membuka dan menutup terminal bawaan VS Code secara instan."
-                        },
-                        {
-                            q: "Fitur singkatan bawaan VS Code yang memungkinkan kamu membuat kerangka HTML cukup dengan mengetik tanda '!' lalu Tab bernama?",
-                            options: ["IntelliCode", "SnippetMaster", "Emmet", "AutoBoilerplate"],
-                            ans: 2,
-                            explain: "Benar! 'Emmet' adalah toolkit singkatan bawaan VS Code yang mempercepat penulisan tag HTML dan CSS secara drastis."
-                        },
-                        {
-                            q: "Kombinasi tombol keyboard manakah yang digunakan untuk mencari dan membuka berkas projek secara instan (Quick Open)?",
-                            options: ["Ctrl + P", "Ctrl + F", "Ctrl + O", "Alt + P"],
-                            ans: 0,
-                            explain: "Tepat! 'Ctrl + P' membuka bilah Quick Open file tanpa perlu mengeklik folder satu per satu di Explorer."
-                        }
+                {
+                    q: "Apa perbedaan mendasar antara perintah 'git fetch' dan 'git pull'?",
+                    options: [
+                        "'git fetch' mengunduh perubahan dari server remote tanpa langsung menggabungkannya ke berkas kerja lokal, sedangkan 'git pull' otomatis mengunduh sekaligus menggabungkan (fetch + merge)",
+                        "'git fetch' digunakan untuk mengunggah commit ke server, sedangkan 'git pull' untuk menghapus commit",
+                        "'git pull' hanya bekerja pada repositori lokal tanpa koneksi internet",
+                        "Keduanya adalah perintah yang sama persis tanpa perbedaan"
                     ],
-                    challenge: "Buka VS Code, buat file baru berekstensi .html, ketik tanda seru (!) lalu tekan tombol Tab. Perhatikan bagaimana kerangka HTML5 dibuat otomatis dalam 1 detik!"
+                    ans: 0,
+                    explain: "Benar! 'git fetch' aman dijalankan kapan pun untuk memeriksa update tanpa merusak kode lokal, sedangkan 'git pull' adalah kombinasi instan dari fetch dilanjutkan dengan merge."
+                },
+                {
+                    q: "Berkas khusus apakah yang digunakan untuk memberitahu Git agar mengabaikan berkas kredensial sensitif atau folder build raksasa?",
+                    options: [
+                        ".gitconfig",
+                        ".gitignore",
+                        ".gitprotect",
+                        ".gitsecret"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Berkas '.gitignore' mendaftar pola nama file/folder (seperti .env, node_modules/, atau upload_ftp.ps1) agar tidak dilacak atau diunggah ke repositori Git."
+                },
+                {
+                    q: "Kapan situasi 'Merge Conflict' terjadi di dalam Git?",
+                    options: [
+                        "Ketika komputer kehilangan koneksi internet saat commit",
+                        "Ketika dua commit/cabang yang berbeda memodifikasi baris kode yang sama pada berkas yang sama dan Git tidak dapat memutuskan versi mana yang benar secara otomatis",
+                        "Ketika kapasitas penyimpanan server GitHub sudah penuh",
+                        "Ketika nama file memiliki huruf kapital yang tidak konsisten"
+                    ],
+                    ans: 1,
+                    explain: "Tepat sekali! Jika dua branch mengedit baris kode yang sama, Git akan berhenti dan meminta pengembang memilih baris mana yang dipertahankan melalui penanda <<<<<<< dan >>>>>>>."
+                },
+                {
+                    q: "Perintah apakah yang digunakan untuk membatalkan perubahan pada berkas di Working Directory yang belum dimasukkan ke Staging Area?",
+                    options: [
+                        "git restore <file>",
+                        "git delete <file>",
+                        "git unstage <file>",
+                        "git erase <file>"
+                    ],
+                    ans: 0,
+                    explain: "Benar! 'git restore <file>' mengembalikan isi berkas kerja ke kondisi persis seperti pada commit terakhir, membuang modifikasi yang belum di-stage."
+                },
+                {
+                    q: "Apa yang dimaksud dengan 'Pull Request' (PR) dalam alur kerja kolaborasi di GitHub?",
+                    options: [
+                        "Perintah untuk memaksa menarik seluruh kode dari komputer orang lain",
+                        "Mekanisme pengajuan usulan penggabungan cabang fitur ke cabang utama yang dilengkapi ruang diskusi, code review, dan automated tests",
+                        "Laporan bug error yang otomatis dikirim ke tim keamanan",
+                        "Permintaan izin untuk menghapus repositori publik"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Pull Request adalah inti kolaborasi software engineering di GitHub tempat rekan tim memeriksa kualitas kode (code review) sebelum dimerge ke produksi."
+                },
+                {
+                    q: "Perintah Git manakah yang digunakan untuk melihat riwayat commit dalam format satu baris per commit yang bersih dan ringkas?",
+                    options: [
+                        "git history --short",
+                        "git log --oneline",
+                        "git commit --list",
+                        "git show --summary"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'git log --oneline' menampilkan 7 karakter hash commit beserta judul pesan commit dalam satu baris per rekaman."
+                },
+                {
+                    q: "Apakah yang ditunjuk oleh pointer 'HEAD' pada repositori Git?",
+                    options: [
+                        "Commit pertama kali saat repositori dibuat",
+                        "Penunjuk referensi ke commit atau cabang lokal yang sedang aktif dikerjakan saat ini",
+                        "Akun pemilik server GitHub",
+                        "Alamat IP server hosting"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'HEAD' adalah simbol penunjuk di dalam direktori .git yang menunjukkan commit snapshot tempat working tree kamu saat ini berada."
+                },
+                {
+                    q: "Perintah apakah yang digunakan untuk menyimpan sementara perubahan kode yang belum selesai di-commit saat kamu harus segera berganti ke branch lain?",
+                    options: [
+                        "git stash",
+                        "git pause",
+                        "git hold",
+                        "git sleep"
+                    ],
+                    ans: 0,
+                    explain: "Benar! 'git stash' menyembunyikan perubahan lokal yang belum di-commit ke papan penyimpanan sementara, dan dapat dipanggil kembali nanti dengan 'git stash pop'."
+                },
+                {
+                    q: "Manakah pernyataan yang paling akurat mengenai perbedaan Git dan GitHub?",
+                    options: [
+                        "Git dan GitHub adalah produk yang persis sama dari perusahaan yang sama",
+                        "Git adalah perangkat lunak open-source pengendali versi lokal di komputermu, sedangkan GitHub adalah platform web hosting cloud untuk menyimpan dan mengolaborasikan repositori Git",
+                        "Git hanya bisa digunakan untuk bahasa Python, sedangkan GitHub untuk HTML",
+                        "GitHub bekerja secara offline, sedangkan Git wajib menggunakan internet"
+                    ],
+                    ans: 1,
+                    explain: "Sangat tepat! Git adalah tool CLI lokal pengendali versi, sedangkan GitHub (bersama GitLab atau Bitbucket) adalah platform cloud berbasis web untuk hosting dan kolaborasi tim."
+                },
+                {
+                    q: "Perintah apakah yang digunakan untuk mendaftarkan URL repositori cloud online dengan nama alias 'origin' pada proyek lokalmu?",
+                    options: [
+                        "git link remote <url>",
+                        "git remote add origin <url>",
+                        "git cloud connect origin <url>",
+                        "git server set <url>"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'git remote add origin <url>' menghubungkan repositori Git lokal dengan URL server remote dan memberinya alias standar 'origin'."
                 }
-            };
+            ]
+        },
 
-            const TOOL_KEYS = ['html', 'css', 'javascript', 'python', 'git', 'hostinger', 'vscode'];
+        hostinger: {
+            id: "hostinger",
+            name: "Hostinger FTP",
+            category: "Deployment & Hosting",
+            badgeClass: "learn-badge-purple",
+            iconClass: "fa-solid fa-server",
+            iconColor: "#c084fc",
+            tagline: "Protokol Transfer Berkas (FTP/FTPS), Konfigurasi Server Web & Automasi Rilis",
+            brief: {
+                summary: "Website yang selesai dibuat di komputer lokal (*localhost*) belum dapat diakses oleh publik global sebelum diunggah ke server web hosting yang terhubung 24/7 ke internet. Hostinger menyediakan infrastruktur server web berkecepatan tinggi, dan FTP (File Transfer Protocol) merupakan protokol standar jaringan untuk mentransfer berkas HTML, stylesheet CSS, skrip JavaScript, serta aset media langsung ke direktori publik server. Penguasaan deployment mencakup pemahaman struktur direktori web (public_html), konfigurasi keamanan server lewat berkas .htaccess, manajemen izin akses (*file permissions*), dan automasi rilis berkas.",
+                takeaways: [
+                    { icon: "fa-solid fa-folder-tree", title: "Anatomi Direktori public_html", desc: "Folder publik akar tempat berkas index.html dieksekusi server saat pengunjung membuka nama domain resmi di browser." },
+                    { icon: "fa-solid fa-network-wired", title: "Protokol Jaringan: FTP vs FTPS", desc: "Memahami perbedaan port 21 standar dan enkripsi FTPS/SSL port 990 untuk menjamin kredensial tidak dicegat di jaringan publik." },
+                    { icon: "fa-solid fa-gears", title: "Konfigurasi Server Web (.htaccess)", desc: "Mengendalikan aturan rewrite URL, proteksi file sensitif, keamanan CSP (Content Security Policy), dan browser cache control." },
+                    { icon: "fa-solid fa-terminal", title: "Automasi Scripted Deployment", desc: "Menyusun skrip PowerShell/Bash untuk mengunggah pembaruan website secara otomatis dalam hitungan detik tanpa aplikasi FTP manual." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Alur Otomasi Upload PowerShell & Keamanan .htaccess",
+                desc: "Pelajari bagaimana skrip automasi pengunggahan berkas bekerja dengan retry attempt dan bagaimana berkas .htaccess mengamankan server:",
+                codeTitle: "upload_ftp.ps1 & .htaccess (Production Configuration)",
+                code: `# ====================================================
+# 1. SKRIP POWERSHELL AUTOMATION DEPLOYMENT
+# ====================================================
+$ftpServer = "145.79.9.243"
+$username  = "u848516441.shifandailyposts.mediasosial.net"
+$password  = "KredensialRahasiaHostinger"
 
-            // === 2. STATE MANAGER & QUERY PARSER ===
-            const urlParams = new URLSearchParams(window.location.search);
-            let currentToolKey = (urlParams.get('tool') || 'html').toLowerCase();
-            if (!LEARN_MODULES[currentToolKey]) currentToolKey = 'html';
+function Upload-FtpFile {
+    param ([string]$localFilePath, [string]$remotePath)
+    $ftpUrl = "ftp://$ftpServer/$remotePath"
+    Write-Host "Mengunggah $localFilePath ke server..." -ForegroundColor Cyan
 
-            // Quiz progress tracker per tool
-            const quizProgress = {};
-            TOOL_KEYS.forEach(k => {
-                quizProgress[k] = {
-                    answers: {}, // questionIdx -> selectedOptIdx
-                    submitted: false
-                };
-            });
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        try {
+            $client = New-Object System.Net.WebClient
+            $client.Credentials = New-Object System.Net.NetworkCredential($username, $password)
+            # Mengirim berkas menggunakan protokol STOR standar
+            $client.UploadFile($ftpUrl, "STOR", $localFilePath)
+            $client.Dispose()
+            Write-Host "  -> Sukses terbit di $remotePath!" -ForegroundColor Green
+            return $true
+        } catch {
+            Write-Host "  -> Percobaan $attempt gagal: $_" -ForegroundColor Yellow
+            Start-Sleep -Seconds 2
+        }
+    }
+    return $false
+}
 
-            // === 3. DOM ELEMENTS ===
-            const toolNavList = document.getElementById('toolNavList');
-            const toolHeroBanner = document.getElementById('toolHeroBanner');
-            const sectionBrief = document.getElementById('sectionBrief');
-            const sectionLesson = document.getElementById('sectionLesson');
-            const sectionQuiz = document.getElementById('sectionQuiz');
-            const prevToolBtn = document.getElementById('prevToolBtn');
-            const nextToolBtn = document.getElementById('nextToolBtn');
-            const prevToolLabel = document.getElementById('prevToolLabel');
-            const nextToolLabel = document.getElementById('nextToolLabel');
+# Eksekusi sinkronisasi berkas website
+Upload-FtpFile "d:\\Portofolio Shifan\\index.html" "index.html"
+Upload-FtpFile "d:\\Portofolio Shifan\\learn.html" "learn.html"
+Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
 
-            // === 4. RENDER ENGINE ===
-            function renderModule(toolKey) {
-                const mod = LEARN_MODULES[toolKey];
-                if (!mod) return;
-                currentToolKey = toolKey;
+# ====================================================
+# 2. CONTOH KONFIGURASI KEAMANAN (.htaccess)
+# ====================================================
+# Cegah pembacaan isi direktori oleh pihak luar
+# Options -Indexes
 
-                // Update URL query string without reloading page
-                try {
-                    const newUrl = new URL(window.location);
-                    newUrl.searchParams.set('tool', toolKey);
-                    window.history.replaceState({}, '', newUrl);
-                } catch (e) {
-                    // Safe fallback for file:// or restricted environments
+# Lindungi file konfigurasi sensitif (.env, .git, .ps1)
+# <FilesMatch "\\.(env|ps1|json|git|log)$">
+#     Require all denied
+# </FilesMatch>`,
+                steps: [
+                    { num: 1, title: "Alamat Host Server & Akun FTP", desc: "IP server host (misal 145.79.9.243) dan username khusus akun FTP yang dibuat di panel kontrol hPanel Hostinger." },
+                    { num: 2, title: "Protokol STOR (Store)", desc: "Perintah standar protokol RFC 959 FTP yang memberi instruksi server untuk menerima aliran berkas data dan menyimpannya di path tujuan." },
+                    { num: 3, title: "Retry Mechanism (Percobaan Ulang)", desc: "Skrip dilengkapi loop 3x percobaan untuk mengatasi lonjakan latensi jaringan sementara tanpa menggagalkan seluruh proses deployment." },
+                    { num: 4, title: "Pelepasan Memori: client.Dispose()", desc: "Wajib menutup koneksi WebClient setelah berkas selesai ditransfer agar server hosting tidak kehabisan kuota koneksi concurrent." },
+                    { num: 5, title: "Peran Berkas .htaccess", desc: "Berkas konfigurasi tingkat direktori pada web server Apache/LiteSpeed yang memblokir akses ke skrip sensitif (.ps1, .env) dan mengatur cache." },
+                    { num: 6, title: "Cache-Busting (?v=2.0)", desc: "Menambahkan parameter versi pada berkas JS/CSS di HTML agar pengunjung segera menerima kode terbaru tanpa tertahan cache browser lama." }
+                ],
+                tip: "Jangan pernah mengunggah berkas skrip deployment (yang berisi kata sandi FTP) ke repositori publik GitHub. Selalu daftarkan 'upload_ftp.ps1' ke dalam berkas '.gitignore' agar kredensial servermu tetap aman."
+            },
+            challenge: "Buka berkas `.htaccess` di proyekmu, periksa apakah baris `Options -Indexes` sudah aktif untuk mencegah pengunjung asing melihat daftar folder website!",
+            questionPool: [
+                {
+                    q: "Di dalam direktori manakah berkas website publik (seperti index.html) harus diletakkan pada server hosting agar dapat diakses oleh pengunjung di browser?",
+                    options: [
+                        "/system_root",
+                        "public_html (atau htdocs)",
+                        "/private_data",
+                        "/database_backup"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'public_html' adalah direktori akar dokumen (document root) standar pada mayoritas web hosting Linux tempat web server melayani konten publik."
+                },
+                {
+                    q: "Apakah kepanjangan dari singkatan protokol FTP?",
+                    options: [
+                        "Fast Text Protocol",
+                        "File Transfer Protocol",
+                        "Format Transmission Program",
+                        "Folder Tracking Process"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! FTP adalah singkatan dari File Transfer Protocol, protokol jaringan tertua dan standar untuk mentransfer berkas antar-komputer."
+                },
+                {
+                    q: "Berapakah nomor port jaringan default yang digunakan oleh protokol FTP konvensional?",
+                    options: [
+                        "Port 80",
+                        "Port 443",
+                        "Port 21",
+                        "Port 22"
+                    ],
+                    ans: 2,
+                    explain: "Benar! Port 21 adalah port kontrol standar untuk protokol FTP, sedangkan port 80 untuk HTTP, 443 untuk HTTPS, dan 22 untuk SSH/SFTP."
+                },
+                {
+                    q: "Perintah direktif apakah pada berkas '.htaccess' yang berfungsi mencegah pengunjung melihat daftar seluruh isi folder jika tidak ada file index.html?",
+                    options: [
+                        "Hide -All",
+                        "Options -Indexes",
+                        "Block -DirectoryList",
+                        "Secure -Folders"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'Options -Indexes' menonaktifkan directory browsing; jika pengunjung membuka folder tanpa index, server akan menampilkan 403 Forbidden alih-alih daftar file."
+                },
+                {
+                    q: "Mengapa kredensial kata sandi FTP tidak boleh disimpan di berkas yang di-push ke GitHub publik?",
+                    options: [
+                        "Karena ukuran file akan membengkak dan memperlambat Git",
+                        "Karena orang asing di internet dapat mencuri sandi tersebut dan membajak/merusak seluruh berkas di server hostingmu",
+                        "Karena GitHub otomatis menolak semua file teks",
+                        "Karena akun FTP hanya dapat digunakan satu kali saja"
+                    ],
+                    ans: 1,
+                    explain: "Sangat tepat! Kredensial server adalah rahasia mutlak. Jika bocor di repositori publik, bot pemindai dapat meretas dan menyusupkan malware ke website."
+                },
+                {
+                    q: "Arti dari kode status HTTP 404 pada respons web server adalah apa?",
+                    options: [
+                        "Server berhasil memproses permintaan (OK)",
+                        "Berkas atau halaman yang diminta tidak ditemukan di server",
+                        "Akses ke berkas tersebut dilarang (Forbidden)",
+                        "Terjadi error internal pada kode server (Internal Server Error)"
+                    ],
+                    ans: 1,
+                    explain: "Benar! HTTP 404 Not Found menandakan bahwa server aktif dan menerima permintaan, tetapi alamat URL yang dituju tidak ada di direktori server."
+                },
+                {
+                    q: "Apa keunggulan protokol FTPS (FTP over SSL) atau SFTP dibandingkan protokol FTP biasa?",
+                    options: [
+                        "FTPS/SFTP mengompresi gambar secara otomatis",
+                        "FTPS/SFTP mengenkripsi username, kata sandi, dan data transfer berkas sehingga aman dari penyadapan jaringan (man-in-the-middle attack)",
+                        "FTPS tidak memerlukan username sama sekali",
+                        "FTPS hanya bekerja pada sistem operasi Android"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! FTP biasa mengirimkan username dan sandi dalam bentuk plain-text mentah. FTPS/SFTP membungkus sesi dengan enkripsi kriptografi modern (TLS/SSH)."
+                },
+                {
+                    q: "Izin hak akses (File Permissions) numerik berapakah yang paling standar dan aman untuk berkas statis (seperti .html, .css, .jpg) di server web Linux?",
+                    options: [
+                        "777 (Full read, write, execute untuk semua orang)",
+                        "644 (Pemilik bisa membaca & menulis, publik hanya bisa membaca)",
+                        "000 (Semua akses diblokir)",
+                        "100 (Hanya bisa dieksekusi)"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Izin 644 (rw-r--r--) adalah standar keamanan berkas web: pemilik akun berhak mengedit, sementara pengunjung publik web server hanya diberi izin membaca (read)."
+                },
+                {
+                    q: "Teknik 'Cache-Busting' (misalnya memanggil styles.css?v=2.1) bertujuan untuk apa?",
+                    options: [
+                        "Menghapus cache database server",
+                        "Memaksa peramban pengunjung mengunduh berkas CSS/JS versi terbaru dari server dan mengabaikan salinan cache lama di komputernya",
+                        "Mempercepat pengetikan kode di editor",
+                        "Menonaktifkan enkripsi SSL"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! Karena browser gemar menyimpan file statis di memori lokal demi kecepatan, menambahkan parameter query '?v=...' memaksa browser mendeteksi URL baru dan mengambil berkas teranyar."
+                },
+                {
+                    q: "Kode status HTTP berapakah yang menandakan bahwa permintaan berhasil diselesaikan dengan sukses oleh server?",
+                    options: [
+                        "HTTP 200 OK",
+                        "HTTP 301 Moved Permanently",
+                        "HTTP 403 Forbidden",
+                        "HTTP 502 Bad Gateway"
+                    ],
+                    ans: 0,
+                    explain: "Benar! '200 OK' adalah status standar keberhasilan protokol HTTP untuk permintaan berkas yang berhasil ditemukan dan dikirimkan ke peramban."
+                },
+                {
+                    q: "Sistem apakah di internet yang bertanggung jawab menerjemahkan nama domain (seperti shifandailyposts.mediasosial.net) menjadi alamat IP server hosting?",
+                    options: [
+                        "FTP (File Transfer Protocol)",
+                        "DNS (Domain Name System)",
+                        "SSL (Secure Sockets Layer)",
+                        "DHCP (Dynamic Host Configuration)"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! DNS (Domain Name System) bertindak sebagai buku telepon internet global yang memetakan nama domain ramah manusia ke alamat IP numerik server."
+                },
+                {
+                    q: "Perintah FTP apakah yang digunakan oleh client untuk mengunggah dan menyimpan berkas baru ke direktori server?",
+                    options: [
+                        "RETR (Retrieve)",
+                        "STOR (Store)",
+                        "QUIT",
+                        "PORT"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'STOR' (Store) adalah perintah resmi protokol FTP untuk mengunggah dan menyimpan berkas, sedangkan 'RETR' (Retrieve) untuk mengunduh."
                 }
+            ]
+        },
 
-                // Update Active Tab in nav strip
-                document.querySelectorAll('.tool-nav-btn').forEach(btn => {
-                    if (btn.getAttribute('data-tool') === toolKey) {
-                        btn.classList.add('active');
-                        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
+        vscode: {
+            id: "vscode",
+            name: "VS Code",
+            category: "Code Editor & IDE",
+            badgeClass: "learn-badge-cyan",
+            iconClass: "fa-solid fa-code",
+            iconColor: "#007acc",
+            tagline: "Arsitektur Editor Modern, Language Server Protocol (LSP), Emmet & Debugging Visual",
+            brief: {
+                summary: "Visual Studio Code (VS Code) yang dikembangkan oleh Microsoft adalah editor kode sumber terpopuler di dunia software engineering modern. Dibangun di atas fondasi Electron dan Monaco Editor, keunggulan utama VS Code terletak pada penerapan Language Server Protocol (LSP) yang memisahkan pemrosesan bahasa (IntelliSense autocomplete, linting, diagnosa error) ke proses latar belakang independen. Hal ini membuat editor tetap sangat ringan, cepat, serta dapat diekspansi secara tak terbatas melalui ribuan ekstensi terkurasi, debugging visual terintegrasi, terminal multi-shell, dan integrasi kontrol versi Git.",
+                takeaways: [
+                    { icon: "fa-solid fa-bolt", title: "Language Server Protocol & IntelliSense", desc: "Autocomplete kontekstual cerdas yang memahami definisi fungsi, tipe data variabel, dan dokumentasi parameter secara instan." },
+                    { icon: "fa-solid fa-keyboard", title: "Navigasi Keyboard Cepat & Multi-Cursor", desc: "Menguasai Command Palette (Ctrl+Shift+P), Quick Open (Ctrl+P), dan multi-cursor (Ctrl+D) melipatgandakan kecepatan coding." },
+                    { icon: "fa-solid fa-sliders", title: "Workspace Configuration (.vscode)", desc: "Menstandarkan aturan format kode tim, linter, dan ekstensi yang direkomendasikan melalui file .vscode/settings.json." },
+                    { icon: "fa-solid fa-bug", title: "Debugger Visual & Terminal Terpadu", desc: "Menyetel breakpoint, menginspeksi alur eksekusi variabel, dan menjalankan shell terminal tanpa perlu berpindah jendela aplikasi." }
+                ]
+            },
+            lesson: {
+                title: "Pelajaran Mendalam: Pintasan Sakti, Emmet Abbreviation & Workspace JSON",
+                desc: "Pelajari konfigurasi file settings.json profesional serta daftar pintasan tombol esensial yang wajib dikuasai developer modern:",
+                codeTitle: ".vscode/settings.json (Professional Workspace Setup)",
+                code: `{
+    /* 1. Pengaturan Editor & Perapian Otomatis */
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
 
-                // Update Title
-                document.title = `Modul Belajar ${mod.name} - Shifan Shalih Adiluhung`;
+    /* 2. Navigasi & Tampilan Visual */
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
+    "editor.renderWhitespace": "selection",
+    "editor.wordWrap": "on",
 
-                // 1. Render Hero Banner
-                toolHeroBanner.innerHTML = `
-                    <div class="learn-hero-meta">
-                        <div class="learn-hero-icon" style="color: ${mod.iconColor};">
-                            <i class="${mod.iconClass}"></i>
-                        </div>
-                        <div class="learn-hero-title">
-                            <h1>
-                                <span>${mod.name}</span>
-                                <span class="learn-badge ${mod.badgeClass}">${mod.category}</span>
-                            </h1>
-                            <p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 1.05rem;">
-                                ${mod.tagline}
-                            </p>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <span class="badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
-                            <i class="fa-solid fa-graduation-cap"></i> Tingkat: Dasar / Pembuka
-                        </span>
-                        <span class="badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
-                            <i class="fa-solid fa-circle-question"></i> ${mod.quiz.length} Soal Latihan
-                        </span>
-                    </div>
-                `;
+    /* 3. Terminal Terintegrasi Bawaan */
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.fontSize": 13,
 
-                // 2. Render Section 1: Ringkasan & Fungsi
-                sectionBrief.innerHTML = `
-                    <div class="section-tag-heading">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <span>1. Ringkasan &amp; Fungsi ${mod.name}</span>
-                    </div>
-                    <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem;">
-                        ${mod.brief.summary}
-                    </p>
-                    <div class="takeaway-grid">
-                        ${mod.brief.takeaways.map(t => `
-                            <div class="takeaway-card">
-                                <h4><i class="${t.icon}"></i> ${t.title}</h4>
-                                <p>${t.desc}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
+    /* 4. Emmet Cepat untuk HTML & JSX */
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.triggerExpansionOnTab": true,
 
-                // 3. Render Section 2: Pelajaran Pembukaan
-                sectionLesson.innerHTML = `
-                    <div class="section-tag-heading">
-                        <i class="fa-solid fa-book-open"></i>
-                        <span>2. ${mod.lesson.title}</span>
-                    </div>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem;">
-                        ${mod.lesson.desc}
-                    </p>
-
-                    <div class="code-playground">
-                        <div class="code-header">
-                            <div class="code-dots">
-                                <span class="code-dot dot-red"></span>
-                                <span class="code-dot dot-yellow"></span>
-                                <span class="code-dot dot-green"></span>
-                            </div>
-                            <span class="code-title"><i class="fa-regular fa-file-code"></i> ${mod.lesson.codeTitle}</span>
-                            <button type="button" class="copy-btn" id="copyCodeBtn" data-code="${encodeURIComponent(mod.lesson.code)}">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Salin Kode</span>
-                            </button>
-                        </div>
-                        <pre class="code-content"><code>${escapeHtml(mod.lesson.code)}</code></pre>
-                    </div>
-
-                    <div class="step-list">
-                        ${mod.lesson.steps.map(s => `
-                            <div class="step-item">
-                                <div class="step-num">${s.num}</div>
-                                <div class="step-body">
-                                    <h5>${s.title}</h5>
-                                    <p>${s.desc}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <div class="pro-tip-box">
-                        <h5><i class="fa-solid fa-lightbulb"></i> Tips Santri Developer:</h5>
-                        <p>${mod.lesson.tip}</p>
-                    </div>
-                `;
-
-                // Bind copy button
-                const copyBtn = document.getElementById('copyCodeBtn');
-                if (copyBtn) {
-                    copyBtn.addEventListener('click', () => {
-                        const rawCode = decodeURIComponent(copyBtn.getAttribute('data-code'));
-                        navigator.clipboard.writeText(rawCode).then(() => {
-                            copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> <span style="color:#10b981;">Tersalin!</span>`;
-                            showToast("Kode berhasil disalin ke clipboard!", "success");
-                            setTimeout(() => {
-                                copyBtn.innerHTML = `<i class="fa-regular fa-copy"></i> <span>Salin Kode</span>`;
-                            }, 2000);
-                        });
-                    });
+    /* 5. Penyembunyian Berkas Sampah dari Explorer */
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": false
+    }
+}`,
+                steps: [
+                    { num: 1, title: "Ctrl + Shift + P (Command Palette)", desc: "Pintu gerbang seluruh perintah VS Code: kamu bisa mengakses fitur apa saja (mengubah tema warna, menginstal ekstensi, format kode) tanpa menyentuh mouse." },
+                    { num: 2, title: "Ctrl + P (Quick Open File)", desc: "Ketik sebagian nama berkas untuk berpindah berkas secara instan dalam hitungan milidetik di proyek raksasa." },
+                    { num: 3, title: "Ctrl + ` (Toggle Integrated Terminal)", desc: "Membuka dan menutup terminal PowerShell/Bash tepat di direktori proyek saat ini, mempercepat pengetikan perintah Git." },
+                    { num: 4, title: "Ctrl + D (Multi-Cursor Selection)", desc: "Pilih kata yang sama berikutnya secara berurutan; kamu dapat mengedit 5 atau 10 kata yang sama secara serentak dalam satu ketukan." },
+                    { num: 5, title: "Shift + Alt + Panah Atas/Bawah", desc: "Menduplikasi baris kode saat ini ke atas atau ke bawah seketika tanpa proses copy-paste manual yang lambat." },
+                    { num: 6, title: "Emmet Abbreviations (Sakti!)", desc: "Ketik singkatan seperti 'ul.nav>li*3>a' lalu tekan tombol Tab, VS Code akan otomatis membentangkannya menjadi 3 baris list lengkap dengan tag anchor!" }
+                ],
+                tip: "Pasang ekstensi wajib developer modern: (1) Prettier untuk format kode rapi otomatis saat save, (2) Live Server untuk preview web otomatis reload, dan (3) GitLens untuk melihat riwayat penulis setiap baris kode secara visual."
+            },
+            challenge: "Buka VS Code di komputermu, buat satu baris baru di file HTML, ketik singkatan Emmet `div.kartu-santri>h3+p+button.btn` lalu tekan tombol Tab, dan saksikan kerangka HTML terbentuk dalam 1 detik!",
+            questionPool: [
+                {
+                    q: "Pintasan tombol (keyboard shortcut) sakti apakah di VS Code untuk membuka kotak pencarian dan pembukaan berkas secara instan (Quick Open File)?",
+                    options: [
+                        "Ctrl + P",
+                        "Ctrl + F",
+                        "Ctrl + O",
+                        "Ctrl + N"
+                    ],
+                    ans: 0,
+                    explain: "Benar! 'Ctrl + P' membuka palet Quick Open untuk melompat ke berkas apa saja hanya dengan mengetikkan beberapa huruf dari nama berkas tersebut."
+                },
+                {
+                    q: "Pintasan tombol apakah yang digunakan untuk membuka Command Palette (pusat seluruh perintah dan pengaturan fitur) di VS Code?",
+                    options: [
+                        "Ctrl + Shift + P (atau F1)",
+                        "Ctrl + Alt + Del",
+                        "Ctrl + Shift + Esc",
+                        "Alt + Tab"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! 'Ctrl + Shift + P' (atau tombol F1) adalah gerbang Command Palette tempat semua perintah VS Code dapat dicari dan dijalankan dengan cepat."
+                },
+                {
+                    q: "Bagaimanakah shortcut keyboard untuk memunculkan atau menyembunyikan terminal terintegrasi bawaan di VS Code pada Windows?",
+                    options: [
+                        "Ctrl + T",
+                        "Ctrl + ` (tanda backtick di bawah tombol Esc)",
+                        "Ctrl + Shift + T",
+                        "Alt + Enter"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'Ctrl + `' (tanda petik miring backtick) membuka atau menyembunyikan panel terminal terpadu tanpa menutup proses shell yang sedang berjalan."
+                },
+                {
+                    q: "Fitur pintar VS Code apakah yang memberikan pelengkapan otomatis (autocomplete), petunjuk parameter fungsi, dan navigasi kode cerdas?",
+                    options: [
+                        "AutoPilot",
+                        "IntelliSense",
+                        "CodeSpell",
+                        "SmartType"
+                    ],
+                    ans: 1,
+                    explain: "Tepat! 'IntelliSense' adalah istilah payung Microsoft untuk fitur pelengkapan kode cerdas, informasi tipe, dan daftar member berbasis Language Server Protocol."
+                },
+                {
+                    q: "Pintasan tombol apakah yang digunakan untuk memilih kata yang sama berikutnya sehingga kita dapat mengedit banyak teks serupa secara bersamaan (Multi-Cursor)?",
+                    options: [
+                        "Ctrl + D",
+                        "Ctrl + H",
+                        "Ctrl + M",
+                        "Shift + F3"
+                    ],
+                    ans: 0,
+                    explain: "Sangat tepat! Menekan 'Ctrl + D' berulang kali akan menambahkan kursor pada kata yang sama berikutnya, memungkinkan refactoring nama variabel dalam sekejap."
+                },
+                {
+                    q: "Folder dan berkas apakah yang digunakan untuk menyimpan pengaturan khusus proyek (Workspace Settings) yang dapat dibagikan ke tim lewat Git?",
+                    options: [
+                        ".config/editor.cfg",
+                        ".vscode/settings.json",
+                        "vscode_preferences.ini",
+                        "system.workspace"
+                    ],
+                    ans: 1,
+                    explain: "Benar! Folder '.vscode' yang memuat berkas 'settings.json' memungkinkan proyek memiliki aturan khusus (seperti tab size, linter, atau formatter) yang berlaku seragam bagi seluruh tim."
+                },
+                {
+                    q: "Fitur singkatan bawaan VS Code apakah yang memungkinkan penulisan 'ul>li*3' dibentangkan menjadi 3 baris list HTML secara instan saat menekan Tab?",
+                    options: [
+                        "Emmet",
+                        "SnippetPro",
+                        "MacroText",
+                        "HTML-Gen"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! 'Emmet' adalah toolkit pengembang bawaan di VS Code yang mengubah singkatan berbasis CSS selector menjadi markup HTML lengkap."
+                },
+                {
+                    q: "Pintasan tombol apakah yang digunakan untuk menduplikasi baris kode saat ini ke atas atau ke bawah seketika tanpa perlu copy-paste?",
+                    options: [
+                        "Ctrl + C lalu Ctrl + V",
+                        "Shift + Alt + Panah Atas / Bawah",
+                        "Ctrl + D",
+                        "Alt + Insert"
+                    ],
+                    ans: 1,
+                    explain: "Benar! 'Shift + Alt + Panah Atas / Bawah' menduplikasi baris tempat kursor berada secara instan, menghemat waktu penulisan kode berulang."
+                },
+                {
+                    q: "Pintasan tombol (shortcut) apakah di VS Code yang digunakan untuk mengubah nama variabel/fungsi di seluruh file secara aman (Rename Symbol)?",
+                    options: [
+                        "F2",
+                        "F5",
+                        "Ctrl + R",
+                        "F12"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! Tombol 'F2' memicu Rename Symbol yang secara cerdas mengubah nama identifier di semua referensi yang terkait, jauh lebih aman daripada Find & Replace mentah."
+                },
+                {
+                    q: "Tombol shortcut apakah di VS Code yang digunakan untuk memulai sesi penelusuran error (Start Debugging) dengan breakpoints?",
+                    options: [
+                        "F5",
+                        "F11",
+                        "Ctrl + Enter",
+                        "Shift + F10"
+                    ],
+                    ans: 0,
+                    explain: "Benar! Tombol 'F5' menjalankan debugger bawaan dengan konfigurasi launch.json untuk menelusuri eksekusi program baris demi baris."
+                },
+                {
+                    q: "Ekstensi populer apakah di VS Code yang menyediakan server lokal untuk preview website dan otomatis me-refresh halaman browser setiap kali file disimpan?",
+                    options: [
+                        "Live Server",
+                        "AutoRefresh Pro",
+                        "Browser Sync Plus",
+                        "Web Previewer"
+                    ],
+                    ans: 0,
+                    explain: "Tepat! 'Live Server' oleh Ritwick Dey adalah salah satu ekstensi terpopuler yang menginjeksi socket ke halaman lokal sehingga browser otomatis ter-reload saat file HTML/CSS/JS diubah."
+                },
+                {
+                    q: "Pintasan tombol apakah yang digunakan untuk menyembunyikan atau memunculkan bilah samping utama (Primary Side Bar Explorer) di VS Code?",
+                    options: [
+                        "Ctrl + B",
+                        "Ctrl + E",
+                        "Ctrl + S",
+                        "Alt + B"
+                    ],
+                    ans: 0,
+                    explain: "Benar! 'Ctrl + B' digunakan untuk membuka/menutup Primary Side Bar, memberikan area layar yang lebih luas dan fokus saat mengetik kode."
                 }
+            ]
+        }
+    };
 
-                // 4. Render Section 3: Latihan Soal Interaktif
-                renderQuizSection(toolKey);
+    const TOOL_KEYS = ['html', 'css', 'javascript', 'python', 'git', 'hostinger', 'vscode'];
 
-                // 5. Update Pager
-                const currentIdx = TOOL_KEYS.indexOf(toolKey);
-                const prevIdx = (currentIdx - 1 + TOOL_KEYS.length) % TOOL_KEYS.length;
-                const nextIdx = (currentIdx + 1) % TOOL_KEYS.length;
+    // === 2. DYNAMIC RANDOM QUIZ SAMPLER (5 SOAL ACAK SETIAP BUKA HALAMAN) ===
+    function shuffleArray(array) {
+        const copy = [...array];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
 
-                prevToolLabel.textContent = LEARN_MODULES[TOOL_KEYS[prevIdx]].name;
-                nextToolLabel.textContent = LEARN_MODULES[TOOL_KEYS[nextIdx]].name;
+    // Ambil tepat 5 soal acak dari pool 12 soal
+    function pickRandomQuestions(toolKey, count = 5) {
+        const pool = LEARN_MODULES[toolKey].questionPool || [];
+        return shuffleArray(pool).slice(0, Math.min(count, pool.length));
+    }
 
-                prevToolBtn.onclick = () => renderModule(TOOL_KEYS[prevIdx]);
-                nextToolBtn.onclick = () => renderModule(TOOL_KEYS[nextIdx]);
+    // State tracker kuis per tool
+    const quizState = {};
+    TOOL_KEYS.forEach(k => {
+        quizState[k] = {
+            questions: pickRandomQuestions(k, 5),
+            answers: {} // questionIdx -> selectedOptIdx
+        };
+    });
+
+    // === 3. STATE MANAGER & QUERY PARSER ===
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentToolKey = (urlParams.get('tool') || 'html').toLowerCase();
+    if (!LEARN_MODULES[currentToolKey]) currentToolKey = 'html';
+
+    // === 4. DOM ELEMENTS ===
+    const toolNavList = document.getElementById('toolNavList');
+    const toolHeroBanner = document.getElementById('toolHeroBanner');
+    const sectionBrief = document.getElementById('sectionBrief');
+    const sectionLesson = document.getElementById('sectionLesson');
+    const sectionQuiz = document.getElementById('sectionQuiz');
+    const prevToolBtn = document.getElementById('prevToolBtn');
+    const nextToolBtn = document.getElementById('nextToolBtn');
+    const prevToolLabel = document.getElementById('prevToolLabel');
+    const nextToolLabel = document.getElementById('nextToolLabel');
+
+    // === 5. RENDER ENGINE ===
+    function renderModule(toolKey) {
+        const mod = LEARN_MODULES[toolKey];
+        if (!mod) return;
+        currentToolKey = toolKey;
+
+        // Update URL query string tanpa reload halaman
+        try {
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('tool', toolKey);
+            window.history.replaceState({}, '', newUrl);
+        } catch (e) {
+            // Fallback aman untuk protokol file:// atau sandbox terbatas
+        }
+
+        // Update Active Tab in nav strip
+        document.querySelectorAll('.tool-nav-btn').forEach(btn => {
+            if (btn.getAttribute('data-tool') === toolKey) {
+                btn.classList.add('active');
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                btn.classList.remove('active');
             }
-
-            // === 5. QUIZ ENGINE ===
-            function renderQuizSection(toolKey) {
-                const mod = LEARN_MODULES[toolKey];
-                const state = quizProgress[toolKey];
-
-                const letters = ['A', 'B', 'C', 'D'];
-                const totalQ = mod.quiz.length;
-                let answeredCount = Object.keys(state.answers).length;
-                let correctCount = 0;
-
-                Object.keys(state.answers).forEach(qIdx => {
-                    if (state.answers[qIdx] === mod.quiz[qIdx].ans) {
-                        correctCount++;
-                    }
-                });
-
-                const quizHtml = mod.quiz.map((qItem, qIdx) => {
-                    const chosen = state.answers[qIdx];
-                    const isAnswered = (chosen !== undefined);
-
-                    return `
-                        <div class="quiz-item-card glass-card" id="qcard_${qIdx}">
-                            <div class="quiz-item-header">
-                                <span class="quiz-q-num"><i class="fa-solid fa-circle-question"></i> Soal ${qIdx + 1} dari ${totalQ}</span>
-                                ${isAnswered ? (chosen === qItem.ans ? '<span class="badge" style="background: rgba(16,185,129,0.18); color: #34d399; font-size: 0.75rem;"><i class="fa-solid fa-check"></i> Benar</span>' : '<span class="badge" style="background: rgba(239,68,68,0.18); color: #f87171; font-size: 0.75rem;"><i class="fa-solid fa-xmark"></i> Kurang Tepat</span>') : ''}
-                            </div>
-                            <h4>${qItem.q}</h4>
-                            <div class="quiz-options">
-                                ${qItem.options.map((optText, optIdx) => {
-                                    let extraClass = '';
-                                    if (isAnswered) {
-                                        if (optIdx === qItem.ans) extraClass = 'correct';
-                                        else if (optIdx === chosen) extraClass = 'wrong';
-                                    }
-                                    return `
-                                        <button type="button" class="quiz-opt-btn ${extraClass}" data-q="${qIdx}" data-opt="${optIdx}" ${isAnswered ? 'disabled' : ''}>
-                                            <span class="opt-letter">${letters[optIdx]}</span>
-                                            <span>${escapeHtml(optText)}</span>
-                                        </button>
-                                    `;
-                                }).join('')}
-                            </div>
-
-                            <div class="quiz-feedback-box ${isAnswered ? 'show' : ''} ${isAnswered ? (chosen === qItem.ans ? 'quiz-feedback-correct' : 'quiz-feedback-wrong') : ''}">
-                                ${isAnswered ? (chosen === qItem.ans ? `<strong><i class="fa-solid fa-circle-check"></i> Jawaban Tepat!</strong> ` : `<strong><i class="fa-solid fa-circle-xmark"></i> Jawaban Kurang Tepat.</strong> `) + qItem.explain : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                const scorePct = Math.round((correctCount / totalQ) * 100);
-
-                sectionQuiz.innerHTML = `
-                    <div class="section-tag-heading">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <span>3. Latihan Soal Interaktif (${mod.name})</span>
-                    </div>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-                        Uji pemahamanmu setelah membaca materi di atas. Klik pilihan jawaban yang menurutmu paling tepat:
-                    </p>
-
-                    <div class="quiz-container">
-                        ${quizHtml}
-                    </div>
-
-                    <!-- Live Score Board -->
-                    <div class="quiz-score-board">
-                        <div class="score-info">
-                            <div class="score-trophy">
-                                <i class="fa-solid ${scorePct === 100 ? 'fa-crown' : (scorePct >= 60 ? 'fa-award' : 'fa-seedling')}"></i>
-                            </div>
-                            <div class="score-text">
-                                <h4>Progres Latihan: ${answeredCount} / ${totalQ} Soal Dijawab</h4>
-                                <p>Skor Kamu Saat Ini: <strong style="color: ${scorePct >= 70 ? '#34d399' : '#fbbf24'}; font-size: 1.05rem;">${correctCount} Benar (${scorePct}%)</strong></p>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-outline btn-sm" id="resetQuizBtn" style="cursor: pointer;">
-                            <i class="fa-solid fa-rotate-left"></i>
-                            <span>Ulangi Kuis ${mod.name}</span>
-                        </button>
-                    </div>
-
-                    <!-- Hands-on Challenge -->
-                    <div class="challenge-card">
-                        <h4><i class="fa-solid fa-laptop-code"></i> Tantangan Praktik Mandiri:</h4>
-                        <p>${mod.challenge}</p>
-                    </div>
-                `;
-
-                // Bind option click listeners
-                sectionQuiz.querySelectorAll('.quiz-opt-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const qIdx = parseInt(btn.getAttribute('data-q'));
-                        const optIdx = parseInt(btn.getAttribute('data-opt'));
-                        state.answers[qIdx] = optIdx;
-
-                        const isCorrect = (optIdx === mod.quiz[qIdx].ans);
-                        if (isCorrect) {
-                            showToast("Jawaban kamu tepat! Lanjutkan.", "success");
-                        } else {
-                            showToast("Jawaban kurang tepat. Perhatikan pembahasannya.", "error");
-                        }
-
-                        // Re-render quiz section to show feedback
-                        renderQuizSection(toolKey);
-                    });
-                });
-
-                // Bind reset quiz button
-                const resetBtn = document.getElementById('resetQuizBtn');
-                if (resetBtn) {
-                    resetBtn.addEventListener('click', () => {
-                        state.answers = {};
-                        renderQuizSection(toolKey);
-                        showToast(`Kuis ${mod.name} telah di-reset. Selamat mencoba kembali!`, "info");
-                    });
-                }
-            }
-
-            // === 6. TOP STRIP BUTTONS EVENT LISTENERS ===
-            document.querySelectorAll('.tool-nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const toolKey = btn.getAttribute('data-tool');
-                    renderModule(toolKey);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            });
-
-            // Helper to escape HTML
-            function escapeHtml(str) {
-                return str
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
-            }
-
-            // Toast Helper
-            function showToast(message, type = 'info') {
-                const container = document.getElementById('toastContainer');
-                if (!container) return;
-                const toast = document.createElement('div');
-                toast.className = `toast toast-${type}`;
-
-                let iconClass = 'fa-circle-info';
-                if (type === 'success') iconClass = 'fa-circle-check';
-                if (type === 'error') iconClass = 'fa-triangle-exclamation';
-
-                toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
-                container.appendChild(toast);
-
-                setTimeout(() => {
-                    toast.style.animation = 'slideIn 0.3s ease-out reverse forwards';
-                    setTimeout(() => toast.remove(), 300);
-                }, 2800);
-            }
-
-            // === 7. INITIAL LAUNCH ===
-            renderModule(currentToolKey);
-
         });
+
+        // Update Document Title
+        document.title = `Modul Belajar & Kuis ${mod.name} - Shifan Shalih Adiluhung`;
+
+        // 1. Render Hero Banner
+        toolHeroBanner.innerHTML = `
+            <div class="learn-hero-meta">
+                <div class="learn-hero-icon" style="color: ${mod.iconColor};">
+                    <i class="${mod.iconClass}"></i>
+                </div>
+                <div class="learn-hero-title">
+                    <h1>
+                        <span>${mod.name}</span>
+                        <span class="learn-badge ${mod.badgeClass}">${mod.category}</span>
+                    </h1>
+                    <p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 1.05rem;">
+                        ${mod.tagline}
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <span class="badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
+                    <i class="fa-solid fa-graduation-cap"></i> Tingkat: Komprehensif & Mendalam
+                </span>
+                <span class="badge" style="background: rgba(6, 182, 212, 0.12); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
+                    <i class="fa-solid fa-dice"></i> 5 Soal Latihan (Acak Setiap Sesi)
+                </span>
+            </div>
+        `;
+
+        // 2. Render Section 1: Ringkasan & 4 Key Takeaways
+        sectionBrief.innerHTML = `
+            <div class="section-tag-heading">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>1. Ringkasan &amp; Pembahasan Mendalam ${mod.name}</span>
+            </div>
+            <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 1.5rem;">
+                ${mod.brief.summary}
+            </p>
+            <div class="takeaway-grid">
+                ${mod.brief.takeaways.map(t => `
+                    <div class="takeaway-card">
+                        <h4><i class="${t.icon}"></i> ${t.title}</h4>
+                        <p>${t.desc}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        // 3. Render Section 2: Pelajaran Pembukaan
+        sectionLesson.innerHTML = `
+            <div class="section-tag-heading">
+                <i class="fa-solid fa-book-open"></i>
+                <span>2. ${mod.lesson.title}</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem;">
+                ${mod.lesson.desc}
+            </p>
+
+            <div class="code-playground">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span class="code-dot dot-red"></span>
+                        <span class="code-dot dot-yellow"></span>
+                        <span class="code-dot dot-green"></span>
+                    </div>
+                    <span class="code-title"><i class="fa-regular fa-file-code"></i> ${mod.lesson.codeTitle}</span>
+                    <button type="button" class="copy-btn" id="copyCodeBtn" data-code="${encodeURIComponent(mod.lesson.code)}">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Salin Kode</span>
+                    </button>
+                </div>
+                <pre class="code-content"><code>${escapeHtml(mod.lesson.code)}</code></pre>
+            </div>
+
+            <div class="step-list">
+                ${mod.lesson.steps.map(s => `
+                    <div class="step-item">
+                        <div class="step-num">${s.num}</div>
+                        <div class="step-body">
+                            <h5>${s.title}</h5>
+                            <p>${s.desc}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="pro-tip-box">
+                <h5><i class="fa-solid fa-lightbulb"></i> Tips Santri Developer:</h5>
+                <p>${mod.lesson.tip}</p>
+            </div>
+        `;
+
+        // Bind copy button listener
+        const copyBtn = document.getElementById('copyCodeBtn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const rawCode = decodeURIComponent(copyBtn.getAttribute('data-code'));
+                navigator.clipboard.writeText(rawCode).then(() => {
+                    copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#10b981;"></i> <span style="color:#10b981;">Tersalin!</span>`;
+                    showToast("Kode berhasil disalin ke clipboard!", "success");
+                    setTimeout(() => {
+                        copyBtn.innerHTML = `<i class="fa-regular fa-copy"></i> <span>Salin Kode</span>`;
+                    }, 2000);
+                });
+            });
+        }
+
+        // 4. Render Section 3: Latihan Soal Interaktif (5 Soal Dinamis)
+        renderQuizSection(toolKey);
+
+        // 5. Update Pager Navigasi Bawah
+        const currentIdx = TOOL_KEYS.indexOf(toolKey);
+        const prevIdx = (currentIdx - 1 + TOOL_KEYS.length) % TOOL_KEYS.length;
+        const nextIdx = (currentIdx + 1) % TOOL_KEYS.length;
+
+        prevToolLabel.textContent = LEARN_MODULES[TOOL_KEYS[prevIdx]].name;
+        nextToolLabel.textContent = LEARN_MODULES[TOOL_KEYS[nextIdx]].name;
+
+        prevToolBtn.onclick = () => {
+            renderModule(TOOL_KEYS[prevIdx]);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        nextToolBtn.onclick = () => {
+            renderModule(TOOL_KEYS[nextIdx]);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    }
+
+    // === 6. QUIZ ENGINE (5 SOAL ACAK & EVALUASI LANGSUNG) ===
+    function renderQuizSection(toolKey) {
+        const mod = LEARN_MODULES[toolKey];
+        const state = quizState[toolKey];
+        const activeQuestions = state.questions; // 5 soal acak
+
+        const letters = ['A', 'B', 'C', 'D'];
+        const totalQ = activeQuestions.length;
+        let answeredCount = Object.keys(state.answers).length;
+        let correctCount = 0;
+
+        Object.keys(state.answers).forEach(qIdxStr => {
+            const qIdx = parseInt(qIdxStr, 10);
+            if (activeQuestions[qIdx] && state.answers[qIdx] === activeQuestions[qIdx].ans) {
+                correctCount++;
+            }
+        });
+
+        const quizHtml = activeQuestions.map((qItem, qIdx) => {
+            const chosen = state.answers[qIdx];
+            const isAnswered = (chosen !== undefined);
+            const isCorrect = isAnswered && (chosen === qItem.ans);
+
+            return `
+                <div class="quiz-item-card glass-card" id="qcard_${qIdx}">
+                    <div class="quiz-item-header">
+                        <span class="quiz-q-num"><i class="fa-solid fa-circle-question"></i> Soal ${qIdx + 1} dari ${totalQ}</span>
+                        ${isAnswered ? (isCorrect ? '<span class="badge" style="background: rgba(16,185,129,0.18); color: #34d399; font-size: 0.78rem; font-weight:600;"><i class="fa-solid fa-check"></i> Jawaban Tepat</span>' : '<span class="badge" style="background: rgba(239,68,68,0.18); color: #f87171; font-size: 0.78rem; font-weight:600;"><i class="fa-solid fa-xmark"></i> Kurang Tepat</span>') : ''}
+                    </div>
+                    <h4>${escapeHtml(qItem.q)}</h4>
+                    <div class="quiz-options">
+                        ${qItem.options.map((optText, optIdx) => {
+                            let extraClass = '';
+                            if (isAnswered) {
+                                if (optIdx === qItem.ans) extraClass = 'correct';
+                                else if (optIdx === chosen) extraClass = 'wrong';
+                            }
+                            return `
+                                <button type="button" class="quiz-opt-btn ${extraClass}" data-q="${qIdx}" data-opt="${optIdx}" ${isAnswered ? 'disabled' : ''}>
+                                    <span class="opt-letter">${letters[optIdx]}</span>
+                                    <span>${escapeHtml(optText)}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <div class="quiz-feedback-box ${isAnswered ? 'show' : ''} ${isAnswered ? (isCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong') : ''}">
+                        ${isAnswered ? (isCorrect ? `<strong><i class="fa-solid fa-circle-check"></i> Tepat Sekali!</strong> ` : `<strong><i class="fa-solid fa-circle-xmark"></i> Kurang Tepat.</strong> `) + escapeHtml(qItem.explain) : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const scorePct = totalQ > 0 ? Math.round((correctCount / totalQ) * 100) : 0;
+
+        sectionQuiz.innerHTML = `
+            <div class="section-tag-heading">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>3. Latihan Soal Interaktif (${mod.name})</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                Tersedia <strong>5 soal pilihan ganda acak</strong> yang diundi otomatis dari bank soal materi ${mod.name} setiap kali kamu membuka halaman. Uji pemahamanmu sekarang:
+            </p>
+
+            <div class="quiz-container">
+                ${quizHtml}
+            </div>
+
+            <!-- Live Score Board -->
+            <div class="quiz-score-board">
+                <div class="score-info">
+                    <div class="score-trophy">
+                        <i class="fa-solid ${scorePct === 100 ? 'fa-crown' : (scorePct >= 80 ? 'fa-award' : (scorePct >= 60 ? 'fa-medal' : 'fa-seedling'))}"></i>
+                    </div>
+                    <div class="score-text">
+                        <h4>Progres Latihan: ${answeredCount} / ${totalQ} Soal Dijawab</h4>
+                        <p>Skor Kamu Saat Ini: <strong style="color: ${scorePct >= 80 ? '#34d399' : (scorePct >= 60 ? '#fbbf24' : '#f87171')}; font-size: 1.05rem;">${correctCount} dari ${totalQ} Benar (${scorePct}%)</strong></p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm" id="resetQuizBtn" style="cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>Acak 5 Soal Baru &amp; Ulangi</span>
+                </button>
+            </div>
+
+            <!-- Hands-on Challenge -->
+            <div class="challenge-card">
+                <h4><i class="fa-solid fa-laptop-code"></i> Tantangan Praktik Mandiri:</h4>
+                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">${mod.challenge}</p>
+            </div>
+        `;
+
+        // Bind option click listeners
+        sectionQuiz.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const qIdx = parseInt(btn.getAttribute('data-q'), 10);
+                const optIdx = parseInt(btn.getAttribute('data-opt'), 10);
+                state.answers[qIdx] = optIdx;
+
+                const isCorrect = (optIdx === activeQuestions[qIdx].ans);
+                if (isCorrect) {
+                    showToast("Jawaban kamu tepat! Lanjutkan.", "success");
+                } else {
+                    showToast("Jawaban kurang tepat. Perhatikan pembahasannya.", "error");
+                }
+
+                // Re-render quiz section to show visual feedback
+                renderQuizSection(toolKey);
+            });
+        });
+
+        // Bind reset quiz button (mengacak 5 soal baru dari pool)
+        const resetBtn = document.getElementById('resetQuizBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                state.questions = pickRandomQuestions(toolKey, 5);
+                state.answers = {};
+                renderQuizSection(toolKey);
+                showToast(`Kuis ${mod.name} diacak ulang dengan 5 soal baru! Selamat mencoba.`, "info");
+            });
+        }
+    }
+
+    // === 7. TOP STRIP BUTTONS EVENT LISTENERS ===
+    document.querySelectorAll('.tool-nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const toolKey = btn.getAttribute('data-tool');
+            renderModule(toolKey);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Helper to escape HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // Toast Helper
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+
+        let iconClass = 'fa-circle-info';
+        if (type === 'success') iconClass = 'fa-circle-check';
+        if (type === 'error') iconClass = 'fa-triangle-exclamation';
+
+        toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.animation = 'slideIn 0.3s ease-out reverse forwards';
+            setTimeout(() => toast.remove(), 300);
+        }, 2800);
+    }
+
+    // === 8. INITIAL LAUNCH ===
+    renderModule(currentToolKey);
+
+});
