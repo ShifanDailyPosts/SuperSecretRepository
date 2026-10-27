@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>AI Prompt Engineering Guide | Others - Shifan Shalih Adiluhung</title>
+    <title>AI & Prompting Hub | Others - Shifan Shalih Adiluhung</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,27 +100,33 @@
             letter-spacing: -0.02em;
         }
 
-        .gate-subtitle {
+        .gate-desc {
             font-size: 0.92rem;
             color: var(--text-secondary);
+            margin-bottom: 1.75rem;
             line-height: 1.55;
-            margin-bottom: 2rem;
         }
 
         .gate-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
             text-align: left;
         }
 
-        .gate-form-group {
-            margin-bottom: 1.25rem;
+        .gate-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
         }
 
-        .gate-label {
-            display: block;
-            font-size: 0.85rem;
+        .gate-input-group label {
+            font-size: 0.84rem;
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         .gate-input-wrapper {
@@ -129,7 +135,7 @@
             align-items: center;
         }
 
-        .gate-input-icon {
+        .gate-input-wrapper i.input-icon {
             position: absolute;
             left: 1rem;
             color: var(--text-muted);
@@ -140,67 +146,102 @@
 
         .gate-input {
             width: 100%;
-            padding: 0.85rem 1rem 0.85rem 2.75rem;
-            background: rgba(11, 15, 25, 0.7);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
+            padding: 0.75rem 2.75rem 0.75rem 2.6rem;
             color: var(--text-primary);
-            font-family: var(--font-body);
             font-size: 0.95rem;
+            font-family: var(--font-body);
             transition: all var(--transition-fast);
         }
 
         body.light-theme .gate-input {
             background: #ffffff;
-            border-color: rgba(0, 0, 0, 0.15);
-            color: #0f172a;
+            border-color: #cbd5e1;
         }
 
         .gate-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            background: rgba(11, 15, 25, 0.9);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+            background: rgba(6, 182, 212, 0.04);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
         }
 
-        body.light-theme .gate-input:focus {
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.25);
-        }
-
-        .gate-input-wrapper:focus-within .gate-input-icon {
+        .gate-input:focus + i.input-icon {
             color: var(--primary-color);
         }
 
-        .gate-toggle-pass {
+        .toggle-password-btn {
             position: absolute;
-            right: 0.85rem;
+            right: 0.75rem;
             background: transparent;
             border: none;
             color: var(--text-muted);
             cursor: pointer;
             padding: 0.4rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color var(--transition-fast);
         }
 
-        .gate-toggle-pass:hover {
+        .toggle-password-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .gate-submit-btn {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: var(--font-body);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
+            margin-top: 0.5rem;
+        }
+
+        .gate-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5);
+        }
+
+        .gate-back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: color var(--transition-fast);
+        }
+
+        .gate-back-link:hover {
             color: var(--primary-color);
         }
 
-        /* Error Alert */
         .gate-alert {
             display: none;
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.35);
-            color: #fca5a5;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.86rem;
-            margin-bottom: 1.25rem;
             align-items: center;
             gap: 0.6rem;
-            animation: fadeIn 0.25s ease;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            color: #f87171;
+            font-size: 0.86rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .gate-alert.show {
@@ -217,70 +258,82 @@
             animation: shakeCard 0.5s ease-in-out;
         }
 
-        .gate-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-            margin-top: 1.75rem;
-        }
-
-        .btn-block {
-            width: 100%;
-            justify-content: center;
-            padding: 0.85rem 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .gate-footer-note {
-            margin-top: 1.75rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-        }
-
         /* ========================================================
-           AUTHENTICATED PORTAL: AI PROMPTING WORKSPACE
+           AUTHENTICATED PORTAL: AI & PROMPTING WORKSPACE
            ======================================================== */
         .others-topbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(11, 15, 25, 0.88);
+            background: rgba(11, 15, 25, 0.9);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
-            padding: 0.9rem 0;
+            padding: 0.85rem 1.5rem;
         }
 
         body.light-theme .others-topbar {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
         }
 
         .others-topbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
         }
 
-        .others-topbar-left {
+        .others-nav-left {
             display: flex;
             align-items: center;
             gap: 1.25rem;
         }
 
-        .others-topbar-right {
+        .others-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all var(--transition-fast);
+        }
+
+        .others-back-btn:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .others-page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .others-nav-right {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        /* Prompt Workspace Main Container */
+        /* Workspace Container */
         .prompt-workspace {
-            padding: 3rem 0 6rem 0;
+            padding: 2.5rem 0 6rem 0;
             position: relative;
             z-index: 10;
         }
@@ -288,8 +341,8 @@
         /* Hero Banner */
         .prompt-hero {
             text-align: center;
-            max-width: 900px;
-            margin: 0 auto 3rem auto;
+            max-width: 880px;
+            margin: 0 auto 2.5rem auto;
         }
 
         .prompt-hero-badge {
@@ -307,7 +360,7 @@
         }
 
         .prompt-hero-title {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 800;
             line-height: 1.25;
             color: var(--text-primary);
@@ -316,14 +369,14 @@
         }
 
         .prompt-hero-desc {
-            font-size: 1.08rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            line-height: 1.75;
-            max-width: 760px;
+            line-height: 1.7;
+            max-width: 720px;
             margin: 0 auto;
         }
 
-        /* Tabs Navigation Strip */
+        /* Navigation Tabs */
         .prompt-tabs-nav {
             display: flex;
             gap: 0.5rem;
@@ -338,21 +391,21 @@
         }
 
         body.light-theme .prompt-tabs-nav {
-            background: rgba(241, 245, 249, 0.8);
+            background: rgba(241, 245, 249, 0.85);
         }
 
         .prompt-tab-btn {
             background: transparent;
             border: 1px solid transparent;
             color: var(--text-secondary);
-            padding: 0.7rem 1.25rem;
+            padding: 0.65rem 1.2rem;
             border-radius: var(--radius-sm);
             font-size: 0.92rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.55rem;
             transition: all var(--transition-fast);
             font-family: var(--font-body);
         }
@@ -371,16 +424,16 @@
         /* Tab Content Panes */
         .prompt-tab-pane {
             display: none;
-            animation: fadeIn 0.35s ease-out;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .prompt-tab-pane.active {
             display: block;
         }
 
-        /* Card & Content Components */
+        /* Card Components */
         .prompt-card {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(17, 24, 39, 0.75);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 2.25rem;
@@ -392,12 +445,8 @@
         }
 
         body.light-theme .prompt-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
-        }
-
-        .prompt-card:hover {
-            border-color: rgba(6, 182, 212, 0.35);
         }
 
         .prompt-card-header {
@@ -436,165 +485,583 @@
             margin: 0.2rem 0 0 0;
         }
 
-        /* Pillars Grid (Mengapa Prompting Penting) */
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .pillar-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
+        /* Visual Analogy Box */
+        .analogy-box {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: var(--radius-md);
             padding: 1.5rem;
-            transition: all var(--transition-normal);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
         }
 
-        .pillar-item:hover {
-            background: rgba(6, 182, 212, 0.04);
-            border-color: rgba(6, 182, 212, 0.3);
-            transform: translateY(-4px);
+        .analogy-icon {
+            font-size: 2.2rem;
+            line-height: 1;
+            flex-shrink: 0;
         }
 
-        .pillar-icon {
-            font-size: 1.6rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .pillar-item h4 {
+        .analogy-text h4 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            margin: 0 0 0.4rem 0;
         }
 
-        .pillar-item p {
-            font-size: 0.92rem;
+        .analogy-text p {
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            line-height: 1.65;
+            line-height: 1.6;
             margin: 0;
         }
 
-        /* RTCO Framework Step-by-Step Boxes */
-        .framework-flow {
+        /* 2-Column Comparison Grid (AI Biasa vs AI Agent) */
+        .agent-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .agent-card {
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-card.featured {
+            background: linear-gradient(145deg, rgba(6, 182, 212, 0.08) 0%, rgba(17, 24, 39, 0.7) 100%);
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .agent-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .agent-badge-tag.basic {
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .agent-badge-tag.pro {
+            background: rgba(6, 182, 212, 0.18);
+            color: #38bdf8;
+            border: 1px solid rgba(6, 182, 212, 0.4);
+        }
+
+        .agent-card-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .agent-card-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .agent-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            gap: 0.75rem;
         }
 
-        .framework-step {
+        .agent-feature-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            line-height: 1.5;
+        }
+
+        .agent-feature-list li i {
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .agent-feature-list li.check i { color: #34d399; }
+        .agent-feature-list li.cross i { color: #f87171; }
+
+        .agent-example-bubble {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            border-left: 3px solid var(--primary-color);
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        body.light-theme .agent-example-bubble {
+            background: rgba(241, 245, 249, 0.9);
+            color: #334155;
+        }
+
+        /* 4-Card Grid (The Big 4) */
+        .big4-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .big4-card {
             border-radius: var(--radius-md);
-            padding: 1.6rem;
+            padding: 1.75rem 1.5rem;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all var(--transition-fast);
             position: relative;
-            transition: border-color var(--transition-fast);
+            display: flex;
+            flex-direction: column;
         }
 
-        .framework-step:hover {
-            border-color: rgba(6, 182, 212, 0.35);
+        .big4-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.4);
         }
 
-        .step-letter-badge {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            background: var(--primary-gradient);
-            color: #ffffff;
-            font-size: 1.4rem;
-            font-weight: 800;
+        .big4-card.chatgpt { border-top: 4px solid #10a37f; }
+        .big4-card.claude { border-top: 4px solid #f97316; }
+        .big4-card.gemini { border-top: 4px solid #3b82f6; }
+        .big4-card.grok { border-top: 4px solid #e2e8f0; }
+
+        .big4-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .big4-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+            font-size: 1.4rem;
         }
 
-        .step-info {
+        .big4-card.chatgpt .big4-logo { background: rgba(16, 163, 127, 0.15); color: #10a37f; }
+        .big4-card.claude .big4-logo { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .big4-card.gemini .big4-logo { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .big4-card.grok .big4-logo { background: rgba(226, 232, 240, 0.15); color: #e2e8f0; }
+
+        .big4-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .big4-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0 0 0.35rem 0;
+        }
+
+        .big4-title {
+            font-size: 0.86rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+        }
+
+        .big4-card.chatgpt .big4-title { color: #34d399; }
+        .big4-card.claude .big4-title { color: #fb923c; }
+        .big4-card.gemini .big4-title { color: #60a5fa; }
+        .big4-card.grok .big4-title { color: #cbd5e1; }
+
+        .big4-vibes {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .big4-points {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.25rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
             flex-grow: 1;
         }
 
-        .step-info h4 {
-            font-size: 1.18rem;
+        .big4-points li {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            line-height: 1.45;
+        }
+
+        .big4-points li i {
+            margin-top: 0.2rem;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .big4-best-for {
+            border-top: 1px dashed var(--border-color);
+            padding-top: 0.9rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .big4-best-for strong {
+            color: var(--text-primary);
+        }
+
+        /* Pillars / Reason Cards (Mengapa Harus Prompting) */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .reason-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all var(--transition-fast);
+        }
+
+        .reason-card:hover {
+            border-color: rgba(6, 182, 212, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .reason-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .reason-title {
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.4rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .reason-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* RTCO 4 Steps Grid */
+        .rtco-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .rtco-step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            position: relative;
+            transition: all var(--transition-fast);
+        }
+
+        .rtco-step-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .rtco-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
         }
 
-        .step-info .step-tag {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.55rem;
-            border-radius: 4px;
-            background: rgba(6, 182, 212, 0.15);
-            color: #38bdf8;
+        .rtco-step-card.r .rtco-badge { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+        .rtco-step-card.c .rtco-badge { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+        .rtco-step-card.t .rtco-badge { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid #f97316; }
+        .rtco-step-card.o .rtco-badge { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #a855f7; }
+
+        .rtco-step-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 0.35rem 0;
+        }
+
+        .rtco-step-tagline {
+            font-size: 0.82rem;
             font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
         }
 
-        .step-info p {
-            font-size: 0.93rem;
+        .rtco-step-desc {
+            font-size: 0.88rem;
             color: var(--text-secondary);
-            line-height: 1.65;
-            margin-bottom: 0.85rem;
+            line-height: 1.55;
+            margin: 0 0 1rem 0;
         }
 
-        .step-example-box {
-            background: rgba(11, 15, 25, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .rtco-step-example {
+            background: rgba(0, 0, 0, 0.25);
             border-radius: var(--radius-sm);
-            padding: 0.85rem 1.1rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            color: #a5f3fc;
-            line-height: 1.6;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.8rem;
+            font-family: var(--font-code);
+            color: #e2e8f0;
+            line-height: 1.45;
         }
 
-        body.light-theme .step-example-box {
-            background: #0f172a;
-            color: #7dd3fc;
+        body.light-theme .rtco-step-example {
+            background: #f1f5f9;
+            color: #1e293b;
         }
 
-        /* Side-by-Side Comparison (Bad vs Good Prompt) */
-        .comparison-wrapper {
+        /* Bad vs Good Comparison Cards */
+        .compare-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
-            margin-top: 1.25rem;
+            margin: 1.5rem 0;
         }
 
-        @media (max-width: 860px) {
-            .comparison-wrapper {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 768px) {
+            .compare-row { grid-template-columns: 1fr; }
         }
 
-        .compare-box {
+        .compare-card {
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .compare-card.bad {
+            border-color: rgba(239, 68, 68, 0.35);
+            background: rgba(239, 68, 68, 0.03);
+        }
+
+        .compare-card.good {
+            border-color: rgba(16, 185, 129, 0.35);
+            background: rgba(16, 185, 129, 0.03);
+        }
+
+        .compare-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .compare-card.bad .compare-header { color: #f87171; }
+        .compare-card.good .compare-header { color: #34d399; }
+
+        .compare-bubble {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            font-size: 0.86rem;
+            line-height: 1.55;
+            font-family: var(--font-code);
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+
+        body.light-theme .compare-bubble {
+            background: #f8fafc;
+        }
+
+        .compare-verdict {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        /* Interactive Builder Grid */
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .builder-grid { grid-template-columns: 1fr; }
+        }
+
+        .builder-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preset-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .preset-btn:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .preset-btn.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .builder-form-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .builder-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .builder-field label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .builder-field .badge-hint {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .builder-input, .builder-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            transition: all var(--transition-fast);
+        }
+
+        body.light-theme .builder-input, body.light-theme .builder-textarea {
+            background: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        .builder-input:focus, .builder-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(6, 182, 212, 0.03);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+        }
+
+        .builder-textarea {
+            min-height: 80px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .builder-preview-wrapper {
+            background: rgba(11, 15, 25, 0.85);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: var(--radius-md);
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            height: fit-content;
+            position: sticky;
+            top: 5rem;
         }
 
-        .compare-box.bad {
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+        body.light-theme .builder-preview-wrapper {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
         }
 
-        .compare-box.good {
-            background: rgba(16, 185, 129, 0.05);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-        }
-
-        .compare-box-header {
+        .builder-preview-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -603,90 +1070,22 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .compare-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.82rem;
+        .builder-preview-title {
+            font-size: 0.95rem;
             font-weight: 700;
-            padding: 0.3rem 0.75rem;
-            border-radius: var(--radius-full);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .compare-box.bad .compare-badge {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-        }
-
-        .compare-box.good .compare-badge {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-        }
-
-        .compare-code {
-            background: rgba(11, 15, 25, 0.8);
-            border-radius: var(--radius-sm);
-            padding: 1rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.86rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .compare-box.bad .compare-code {
-            color: #fca5a5;
-            border: 1px dashed rgba(239, 68, 68, 0.3);
-        }
-
-        .compare-box.good .compare-code {
-            color: #86efac;
-            border: 1px dashed rgba(16, 185, 129, 0.3);
-        }
-
-        .compare-reason {
-            font-size: 0.88rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .compare-box.bad .compare-reason { color: #fca5a5; }
-        .compare-box.good .compare-reason { color: #a7f3d0; }
-
-        /* Code Block with Copy Button */
-        .copyable-prompt-block {
-            position: relative;
-            background: #090d16;
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: var(--radius-md);
-            padding: 1.25rem 1.25rem 1rem 1.25rem;
-            margin-top: 1rem;
-        }
-
-        .copyable-prompt-block pre {
-            margin: 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.87rem;
-            color: #e2e8f0;
-            line-height: 1.65;
-            white-space: pre-wrap;
-            word-break: break-word;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .copy-btn {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-color);
-            color: #cbd5e1;
-            padding: 0.4rem 0.85rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #38bdf8;
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
@@ -697,8 +1096,7 @@
 
         .copy-btn:hover {
             background: var(--primary-color);
-            color: #0b0f19;
-            border-color: var(--primary-color);
+            color: #ffffff;
         }
 
         .copy-btn.copied {
@@ -707,149 +1105,26 @@
             border-color: #10b981;
         }
 
-        /* Interactive Prompt Builder Form */
-        .builder-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        @media (max-width: 900px) {
-            .builder-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .builder-form-wrapper {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 1.75rem;
-        }
-
-        .builder-presets {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .preset-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 0.45rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .preset-btn:hover, .preset-btn.active {
-            background: rgba(6, 182, 212, 0.15);
-            border-color: var(--primary-color);
-            color: #38bdf8;
-        }
-
-        .builder-field {
-            margin-bottom: 1.15rem;
-        }
-
-        .builder-field label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.4rem;
-        }
-
-        .builder-field label span.badge-hint {
-            font-size: 0.74rem;
-            color: var(--text-muted);
-            font-weight: normal;
-        }
-
-        .builder-input, .builder-textarea {
-            width: 100%;
-            padding: 0.75rem 0.95rem;
-            background: rgba(11, 15, 25, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            transition: all var(--transition-fast);
-        }
-
-        body.light-theme .builder-input, body.light-theme .builder-textarea {
-            background: #ffffff;
-            border-color: rgba(0, 0, 0, 0.15);
-            color: #0f172a;
-        }
-
-        .builder-input:focus, .builder-textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
-        }
-
-        .builder-textarea {
-            resize: vertical;
-            min-height: 70px;
-        }
-
-        .builder-preview-wrapper {
-            position: sticky;
-            top: 5rem;
-            background: #090d16;
-            border: 1px solid rgba(6, 182, 212, 0.35);
-            border-radius: var(--radius-md);
-            padding: 1.75rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        body.light-theme .builder-preview-wrapper {
-            background: #0f172a;
-        }
-
-        .builder-preview-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.85rem;
-        }
-
-        .builder-preview-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
         .builder-preview-output {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.86rem;
-            line-height: 1.7;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            line-height: 1.6;
             color: #e2e8f0;
             white-space: pre-wrap;
             word-break: break-word;
-            max-height: 520px;
+            max-height: 480px;
             overflow-y: auto;
             background: rgba(0, 0, 0, 0.35);
-            padding: 1.25rem;
+            padding: 1rem;
             border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Toast notification */
+        body.light-theme .builder-preview-output {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Toast Container */
         .toast-container {
             position: fixed;
             bottom: 2rem;
@@ -862,164 +1137,125 @@
         }
 
         .toast {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(12px);
+            background: rgba(17, 24, 39, 0.95);
             border: 1px solid var(--border-color);
-            color: #f8fafc;
+            color: #ffffff;
             padding: 0.85rem 1.25rem;
             border-radius: var(--radius-sm);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
             font-size: 0.9rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.3s ease-out;
             pointer-events: auto;
         }
 
         .toast-success { border-left: 4px solid #10b981; }
-        .toast-success i { color: #10b981; }
-        .toast-info { border-left: 4px solid var(--primary-color); }
-        .toast-info i { color: var(--primary-color); }
         .toast-error { border-left: 4px solid #ef4444; }
-        .toast-error i { color: #ef4444; }
+        .toast-info { border-left: 4px solid #06b6d4; }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 640px) {
-            .prompt-hero-title { font-size: 1.85rem; }
-            .prompt-card { padding: 1.5rem; }
-            .gatekeeper-card { padding: 2.25rem 1.5rem; }
-            .others-topbar-inner { flex-direction: column; align-items: stretch; }
-            .others-topbar-right { justify-content: flex-end; }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body class="dark-theme">
-    <script src="theme-init.js?v=1.0"></script>
-    
-    <!-- Ambient Glow Backgrounds -->
-    <div class="ambient-glow glow-1"></div>
-    <div class="ambient-glow glow-2"></div>
 
-    <!-- Cursor Follower -->
+    <!-- Cursor Follower (Pure Decorative) -->
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-blur" id="cursorBlur"></div>
 
     <!-- ========================================================
-         VIEW 1: GATEKEEPER / AUTHENTICATION FORM
+         VIEW 1: GATEKEEPER AUTHENTICATION (LOCKED STATE)
          ======================================================== -->
-    <section class="gatekeeper-wrapper" id="gatekeeperSection">
+    <div class="gatekeeper-wrapper" id="gatekeeperSection">
         <div class="gatekeeper-card" id="gatekeeperCard">
             <div class="gate-icon-badge">
-                <i class="fa-solid fa-shield-halved"></i>
+                <i class="fa-solid fa-lock"></i>
             </div>
-            
-            <h1 class="gate-title">Area Terproteksi</h1>
-            <p class="gate-subtitle">
-                Halaman <strong>Others</strong> dilindungi kata sandi. Silakan masukkan nama pengguna dan kata sandi untuk melanjutkan.
+            <h1 class="gate-title">Area Khusus Others</h1>
+            <p class="gate-desc">
+                Halaman ini dilindungi. Masukkan kredensial akun kamu untuk membuka materi rahasia dan tool AI.
             </p>
 
-            <!-- Error Alert -->
-            <div class="gate-alert" id="authErrorAlert" role="alert">
+            <div class="gate-alert" id="authErrorAlert">
                 <i class="fa-solid fa-triangle-exclamation"></i>
-                <span id="authErrorText">Nama pengguna atau kata sandi tidak valid.</span>
+                <span id="authErrorText">Nama pengguna atau kata sandi keliru!</span>
             </div>
 
-            <!-- Login Form -->
-            <form class="gate-form" id="othersLoginForm" novalidate>
-                <div class="gate-form-group">
-                    <label for="usernameInput" class="gate-label">Nama Pengguna</label>
+            <form class="gate-form" id="othersLoginForm" autocomplete="off">
+                <div class="gate-input-group">
+                    <label for="usernameInput">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Nama Pengguna</span>
+                    </label>
                     <div class="gate-input-wrapper">
-                        <i class="fa-solid fa-user gate-input-icon"></i>
-                        <input 
-                            type="text" 
-                            id="usernameInput" 
-                            class="gate-input" 
-                            placeholder="Masukkan nama pengguna" 
-                            autocomplete="username" 
-                            required 
-                            autofocus
-                        >
+                        <input type="text" id="usernameInput" class="gate-input" placeholder="Masukkan username..." required autofocus>
+                        <i class="fa-solid fa-circle-user input-icon"></i>
                     </div>
                 </div>
 
-                <div class="gate-form-group">
-                    <label for="passwordInput" class="gate-label">Kata Sandi</label>
+                <div class="gate-input-group">
+                    <label for="passwordInput">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Kata Sandi</span>
+                    </label>
                     <div class="gate-input-wrapper">
-                        <i class="fa-solid fa-lock gate-input-icon"></i>
-                        <input 
-                            type="password" 
-                            id="passwordInput" 
-                            class="gate-input" 
-                            placeholder="Masukkan kata sandi" 
-                            autocomplete="current-password" 
-                            required
-                        >
-                        <button type="button" class="gate-toggle-pass" id="togglePasswordBtn" aria-label="Tampilkan atau sembunyikan kata sandi">
+                        <input type="password" id="passwordInput" class="gate-input" placeholder="Masukkan password..." required>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <button type="button" class="toggle-password-btn" id="togglePasswordBtn" aria-label="Lihat kata sandi">
                             <i class="fa-solid fa-eye" id="togglePasswordIcon"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="gate-actions">
-                    <button type="submit" class="btn btn-primary btn-glow btn-block" id="loginSubmitBtn">
-                        <span>Verifikasi &amp; Masuk</span>
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    </button>
-                    <a href="index.html" class="btn btn-outline btn-block">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Kembali ke Portofolio</span>
-                    </a>
-                </div>
+                <button type="submit" class="gate-submit-btn" id="submitLoginBtn">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <span>Buka Akses</span>
+                </button>
             </form>
 
-            <div class="gate-footer-note">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Sesi masuk disimpan sementara di tab browser ini.</span>
-            </div>
+            <a href="index.html" class="gate-back-link">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Kembali ke Beranda Utama</span>
+            </a>
         </div>
-    </section>
+    </div>
 
     <!-- ========================================================
-         VIEW 2: AI PROMPTING WORKSPACE (AUTHENTICATED)
+         VIEW 2: AUTHENTICATED AI & PROMPTING WORKSPACE
          ======================================================== -->
     <div id="blankPageSection">
-        <!-- Top Navigation Bar -->
+        <!-- Topbar Navigation -->
         <header class="others-topbar">
-            <div class="container others-topbar-inner">
-                <div class="others-topbar-left">
-                    <a href="index.html" class="logo-brand">
-                        <div class="logo-badge">SSA</div>
-                        <span class="logo-text">Shifan <span class="highlight">Adiluhung</span></span>
-                    </a>
-                    <div class="badge-pill" style="margin: 0;">
-                        <span class="pulse-dot"></span>
-                        <span>AI Prompting Masterclass</span>
-                    </div>
-                </div>
-
-                <div class="others-topbar-right">
-                    <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ubah Tema">
-                        <i class="fa-solid fa-moon icon-moon"></i>
-                        <i class="fa-solid fa-sun icon-sun"></i>
-                    </button>
-                    <a href="index.html" class="btn btn-outline btn-sm">
+            <div class="others-topbar-inner">
+                <div class="others-nav-left">
+                    <a href="index.html" class="others-back-btn">
                         <i class="fa-solid fa-house"></i>
-                        <span>Portofolio</span>
+                        <span>Beranda</span>
                     </a>
-                    <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" title="Kunci Kembali Halaman">
+                    <span class="others-page-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Akses Terverifikasi: qsbs</span>
+                    </span>
+                </div>
+                <div class="others-nav-right">
+                    <button type="button" class="others-back-btn" id="themeToggleBtn" title="Ganti Tema">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                        <span>Tema</span>
+                    </button>
+                    <button type="button" class="others-back-btn" id="logoutBtn" title="Kunci Kembali Halaman">
                         <i class="fa-solid fa-lock"></i>
-                        <span>Keluar</span>
+                        <span>Kunci</span>
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Prompt Workspace Main Content Body -->
+        <!-- Main Content Workspace -->
         <main class="prompt-workspace">
             <div class="container">
                 
@@ -1027,307 +1263,388 @@
                 <div class="prompt-hero">
                     <div class="prompt-hero-badge">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Eksklusif Santri &amp; Developer Portal</span>
+                        <span>AI Era Gen Z &amp; Alpha • Panduan Santai &amp; Seru</span>
                     </div>
                     <h1 class="prompt-hero-title">
-                        Panduan Terstruktur <br>
-                        <span class="text-gradient">Cara Melakukan Prompting AI Secara Profesional</span>
+                        Bongkar Rahasia AI: <br>
+                        <span class="text-gradient">Dari AI Agent Sampai Seni Prompting</span>
                     </h1>
                     <p class="prompt-hero-desc">
-                        Pelajari filosofi ilmiah di balik LLM, mengapa prompt terstruktur mutlak diperlukan, rumus formula standar industri (RTCO Framework), teknik penalaran lanjutan (Chain-of-Thought), serta bangun prompt siap pakai dengan generator interaktif.
+                        Gak usah pusing sama istilah rumit! Di sini kita bedah tuntas apa itu AI Agent, 4 jagoan AI terbesar di dunia (Claude, Gemini, Grok, GPT), dan trik sakti cara ngobrol (prompting) biar hasil tugas &amp; kodingan lo 10x lebih gokil! ⚡
                     </p>
                 </div>
 
-                <!-- Navigation Tabs -->
-                <nav class="prompt-tabs-nav" aria-label="Pilihan Bab Panduan">
-                    <button type="button" class="prompt-tab-btn active" data-tab="tabWhy">
-                        <i class="fa-solid fa-brain"></i>
-                        <span>1. Mengapa Harus Prompting?</span>
+                <!-- Navigation Tabs Strip -->
+                <nav class="prompt-tabs-nav" aria-label="Menu Bab Panduan AI">
+                    <button type="button" class="prompt-tab-btn active" data-tab="tabAgent">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>1. AI &amp; AI Agent</span>
                     </button>
-                    <button type="button" class="prompt-tab-btn" data-tab="tabFramework">
-                        <i class="fa-solid fa-cubes-stacked"></i>
-                        <span>2. Anatomi &amp; Framework RTCO</span>
-                    </button>
-                    <button type="button" class="prompt-tab-btn" data-tab="tabAdvanced">
+                    <button type="button" class="prompt-tab-btn" data-tab="tabBig4">
                         <i class="fa-solid fa-bolt"></i>
-                        <span>3. Teknik Lanjutan (CoT &amp; Delimiters)</span>
+                        <span>2. The Big 4 AI</span>
                     </button>
-                    <button type="button" class="prompt-tab-btn" data-tab="tabCompare">
-                        <i class="fa-solid fa-code-compare"></i>
-                        <span>4. Bad vs Good Prompt</span>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabPrompt">
+                        <i class="fa-solid fa-bullseye"></i>
+                        <span>3. Apa Itu Prompting?</span>
+                    </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabFormula">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>4. Formula Sakti (RTCO)</span>
                     </button>
                     <button type="button" class="prompt-tab-btn" data-tab="tabBuilder">
-                        <i class="fa-solid fa-laptop-code"></i>
-                        <span>5. Interactive Prompt Builder</span>
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>5. Prompt Builder</span>
                     </button>
                 </nav>
 
                 <!-- ==============================================
-                     TAB 1: MENGAPA HARUS PROMPTING? (THE WHY)
+                     TAB 1: AI & AI AGENT (BEDANYA APA?)
                      ============================================== -->
-                <div class="prompt-tab-pane active" id="tabWhy">
+                <div class="prompt-tab-pane active" id="tabAgent">
                     <div class="prompt-card">
                         <div class="prompt-card-header">
                             <div class="prompt-card-icon">
                                 <i class="fa-solid fa-microchip"></i>
                             </div>
                             <div>
-                                <h2 class="prompt-card-title">Mekanisme Kerja LLM &amp; Urgensi Prompting</h2>
-                                <p class="prompt-card-subtitle">Memahami model probabilitas bahasa agar tidak terjebak ekspektasi keliru</p>
+                                <h2 class="prompt-card-title">Biar Gak Gagal Paham: AI Biasa vs AI Agent</h2>
+                                <p class="prompt-card-subtitle">Beda kasta! Dari yang cuma bisa jawab teks, sampai yang bisa kerja mandiri kayak robot digital.</p>
                             </div>
                         </div>
 
-                        <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">
-                            Banyak orang mengira AI seperti ChatGPT, Claude, atau Gemini adalah entitas yang bisa "membaca pikiran" atau memiliki kesadaran manusiawi. Kenyataannya, <strong>Large Language Model (LLM)</strong> adalah mesin probabilitas statistik raksasa berbasis arsitektur Transformer. AI memprediksi token (kata/karakter) berikutnya berdasarkan konteks teks yang kamu masukkan.
-                        </p>
-
-                        <div class="pillars-grid">
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-trash-can-arrow-up"></i></div>
-                                <h4>1. Prinsip GIGO (Garbage In, Garbage Out)</h4>
-                                <p>Jika instruksi yang dimasukkan samar, ambigu, atau tidak terarah, probabilitas ruang jawaban AI akan melebar ke mana-mana. Output menjadi basi, klise, atau tidak sesuai tujuan. Prompt yang spesifik mempersempit probabilitas hingga menghasilkan jawaban tepat sasaran.</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                                <h4>2. Mereduksi Halusinasi (Factuality)</h4>
-                                <p>Ketika AI tidak diberikan batasan (constraints) dan data referensi yang jelas, model akan cenderung "mengarang indah" (halusinasi) agar kalimatnya terdengar meyakinkan. Prompt yang baik memaksa AI bertumpu hanya pada fakta atau menyatakan 'tidak tahu' jika informasi tidak ditemukan.</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-coins"></i></div>
-                                <h4>3. Efisiensi Token, Kuota &amp; Waktu</h4>
-                                <p>Prompt buruk membutuhkan 5–10 kali percakapan bolak-balik hanya untuk memperbaiki kesalahan kecil. Dengan prompt terstruktur sejak awal, kamu mendapatkan solusi sempurna pada percobaan pertama (First-shot Accuracy), menghemat token API dan jam kerja berharga.</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-file-code"></i></div>
-                                <h4>4. Determinisme Format Output</h4>
-                                <p>Dalam rekayasa perangkat lunak, kita membutuhkan output yang langsung dapat diproses mesin (misal: JSON valid, kode tanpa wrapper markdown, atau tabel). Prompt engineering memungkinkanmu mengunci skema keluaran tanpa narasi basa-basi pembuka dan penutup.</p>
+                        <!-- Analogi Singkat -->
+                        <div class="analogy-box">
+                            <div class="analogy-icon">💡</div>
+                            <div class="analogy-text">
+                                <h4>Singkatnya Gini:</h4>
+                                <p><strong>AI Biasa (Chatbot)</strong> itu kayak <em>kalkulator / kamus berjalan</em>: lo tanya apa, dia cuma jawab teks. <br>
+                                Kalau <strong>AI Agent</strong> itu kayak <em>asisten pribadi jenius</em>: lo kasih 1 tujuan akhir, dia yang mikir rencananya, buka internet, bikin file, ngecek error, dan nyelesaiin sendiri dari nol sampai kelar!</p>
                             </div>
                         </div>
+
+                        <!-- 2-Column Comparison Grid -->
+                        <div class="agent-compare-grid">
+                            <!-- Card 1: Chatbot Biasa -->
+                            <div class="agent-card">
+                                <span class="agent-badge-tag basic">
+                                    <i class="fa-solid fa-comment-dots"></i> Level 1: Chatbot Biasa
+                                </span>
+                                <h3 class="agent-card-title">Mesin Penjawab Teks</h3>
+                                <p class="agent-card-desc">Sifatnya pasif dan reaktif. Cuma nunggu lo ketik pertanyaan baru dia jawab.</p>
+
+                                <ul class="agent-feature-list">
+                                    <li class="cross"><i class="fa-solid fa-circle-xmark"></i> Cuma bisa jawab di dalam kotak chat, gak bisa otak-atik file lo</li>
+                                    <li class="cross"><i class="fa-solid fa-circle-xmark"></i> Harus disuapin perintah satu demi satu secara manual</li>
+                                    <li class="cross"><i class="fa-solid fa-circle-xmark"></i> Gak bisa buka browser atau jalankan program sendiri</li>
+                                    <li class="check"><i class="fa-solid fa-circle-check"></i> Bagus untuk tanya-tanya definisi atau brainstorming ide</li>
+                                </ul>
+
+                                <div class="agent-example-bubble">
+                                    <strong>Contoh interaksi:</strong><br>
+                                    👤 "Apa ibukota Jepang?"<br>
+                                    🤖 "Ibukota Jepang adalah Tokyo." (Selesai, gak ngapa-ngapain lagi)
+                                </div>
+                            </div>
+
+                            <!-- Card 2: AI Agent -->
+                            <div class="agent-card featured">
+                                <span class="agent-badge-tag pro">
+                                    <i class="fa-solid fa-sparkles"></i> Level Pro: AI Agent Mandiri
+                                </span>
+                                <h3 class="agent-card-title">Co-Pilot Otonom 24/7</h3>
+                                <p class="agent-card-desc">Punya otak buat mikir strategi (*planning*), punya tangan (*tools*), dan bisa evaluasi diri.</p>
+
+                                <ul class="agent-feature-list">
+                                    <li class="check"><i class="fa-solid fa-circle-check"></i> <strong>Browsing Sendiri:</strong> Cari data terbaru di Google dan website</li>
+                                    <li class="check"><i class="fa-solid fa-circle-check"></i> <strong>Coding &amp; Eksekusi:</strong> Nulis kode, jalanin script, dan simpan file</li>
+                                    <li class="check"><i class="fa-solid fa-circle-check"></i> <strong>Self-Healing:</strong> Kalau kodenya error, dia baca log lalu benerin sendiri</li>
+                                    <li class="check"><i class="fa-solid fa-circle-check"></i> <strong>Multi-Step Task:</strong> 1 perintah bisa dia pecah jadi 10 langkah kerja otomatis</li>
+                                </ul>
+
+                                <div class="agent-example-bubble">
+                                    <strong>Contoh interaksi:</strong><br>
+                                    👤 "Bikinkan website portofolio santri lengkap dengan database dan langsung deploy ke hosting!"<br>
+                                    🚀 <em>Agent mikir rencana ➔ buat file HTML/CSS/JS ➔ tes fungsi ➔ unggah ke server ➔ kasih link jadinya ke kamu!</em>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- ==============================================
-                     TAB 2: ANATOMI PROMPT (FRAMEWORK RTCO)
+                     TAB 2: THE BIG 4 (CLAUDE, GEMINI, GROK, GPT)
                      ============================================== -->
-                <div class="prompt-tab-pane" id="tabFramework">
+                <div class="prompt-tab-pane" id="tabBig4">
                     <div class="prompt-card">
                         <div class="prompt-card-header">
                             <div class="prompt-card-icon">
-                                <i class="fa-solid fa-cubes-stacked"></i>
+                                <i class="fa-solid fa-crown"></i>
                             </div>
                             <div>
-                                <h2 class="prompt-card-title">Framework RTCO: Formula Baku Prompt Profesional</h2>
-                                <p class="prompt-card-subtitle">Struktur baku 4 pilar yang digunakan pengembang sistem AI global</p>
+                                <h2 class="prompt-card-title">The Big 4: 4 Jagoan AI Paling Populer di Dunia</h2>
+                                <p class="prompt-card-subtitle">Masing-masing punya spesialisasi dan kekuatan unik. Jangan sampai salah pilih jagoan!</p>
                             </div>
                         </div>
 
-                        <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">
-                            Jangan pernah menulis prompt dalam satu kalimat mentah tanpa struktur. Selalu gunakan formula <strong>RTCO (Role, Task, Context, Output Constraints)</strong> untuk mendapatkan hasil berkualitas tinggi secara konsisten:
-                        </p>
-
-                        <div class="framework-flow">
-                            <!-- R -->
-                            <div class="framework-step">
-                                <div class="step-letter-badge">R</div>
-                                <div class="step-info">
-                                    <h4>Role / Persona <span class="step-tag">Peran &amp; Sudut Pandang</span></h4>
-                                    <p>Memberitahu AI siapa dirinya dan keahlian spesifik apa yang harus diaktifkan dalam jaringan bobot neural-nya. Menetapkan persona langsung mengubah gaya bahasa, kedalaman analisis, dan ketajaman teknis AI.</p>
-                                    <div class="step-example-box">
-                                        Contoh: "Bertindaklah sebagai Senior Fullstack Architect spesialis keamanan aplikasi web (OWASP Top 10) dan performa tinggi."
-                                    </div>
+                        <!-- 4-Card Grid -->
+                        <div class="big4-grid">
+                            <!-- Card 1: ChatGPT -->
+                            <div class="big4-card chatgpt">
+                                <div class="big4-header">
+                                    <div class="big4-logo"><i class="fa-solid fa-comments"></i></div>
+                                    <span class="big4-tag">OpenAI</span>
                                 </div>
+                                <h3 class="big4-name">ChatGPT</h3>
+                                <div class="big4-title">Si Pelopor Serba Bisa (All-Rounder)</div>
+                                <div class="big4-vibes">
+                                    Vibes: <em>Teman belajar serba tahu yang enak diajak ngobrol apa aja.</em>
+                                </div>
+                                <ul class="big4-points">
+                                    <li><i class="fa-solid fa-check"></i> <strong>Super Komplit:</strong> Nulis esai, terjemahan, bikin puisi, sampai rumus matematika.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Advanced Voice Mode:</strong> Bisa diajak ngobrol suara beneran dengan intonasi natural &amp; ketawa.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Reasoning Model (o-series):</strong> Mikir langkah demi langkah sebelum jawab soal logika rumit.</li>
+                                </ul>
+                                <div class="big4-best-for">
+                                    <strong>Paling Cocok Buat:</strong> Tugas sekolah harian, latihan bahasa asing, brainstorming ide kreatif.
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Claude -->
+                            <div class="big4-card claude">
+                                <div class="big4-header">
+                                    <div class="big4-logo"><i class="fa-solid fa-code"></i></div>
+                                    <span class="big4-tag">Anthropic</span>
+                                </div>
+                                <h3 class="big4-name">Claude</h3>
+                                <div class="big4-title">Si Raja Coding &amp; Tulisan Alami</div>
+                                <div class="big4-vibes">
+                                    Vibes: <em>Programmer senior ramah yang teliti banget dan tulisannya gak kaku.</em>
+                                </div>
+                                <ul class="big4-points">
+                                    <li><i class="fa-solid fa-check"></i> <strong>Juara Coding:</strong> Kodingan (HTML/CSS/JS/Python) paling bersih, rapi, dan minim error.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Bahasa Manusiawi:</strong> Enak dibaca, sopan, bernuansa, dan gak berasa kayak robot template.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Analisis Dokumen:</strong> Mampu bedah PDF atau buku ratusan halaman tanpa kehilangan detail.</li>
+                                </ul>
+                                <div class="big4-best-for">
+                                    <strong>Paling Cocok Buat:</strong> Bikin web/app, nge-debug error program santri, nulis artikel bermutu tinggi.
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Gemini -->
+                            <div class="big4-card gemini">
+                                <div class="big4-header">
+                                    <div class="big4-logo"><i class="fa-brands fa-google"></i></div>
+                                    <span class="big4-tag">Google</span>
+                                </div>
+                                <h3 class="big4-name">Gemini</h3>
+                                <div class="big4-title">Si Kilat Multimodal &amp; Terhubung Google</div>
+                                <div class="big4-vibes">
+                                    Vibes: <em>Asisten cerdas dengan akses ke seluruh isi internet dan Google.</em>
+                                </div>
+                                <ul class="big4-points">
+                                    <li><i class="fa-solid fa-check"></i> <strong>Multimodal Sejati:</strong> Paham gambar, rekaman suara, file PDF, dan video YouTube panjang sekaligus.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Memori Raksasa:</strong> Context window sampai 2 juta token (bisa tampung 30 novel dalam 1x chat!).</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Ekosistem Google:</strong> Terkoneksi langsung ke Google Search, Docs, Drive, dan YouTube.</li>
+                                </ul>
+                                <div class="big4-best-for">
+                                    <strong>Paling Cocok Buat:</strong> Rangkum video YouTube, riset fakta terbaru di Google, analisis berkas ukuran besar.
+                                </div>
+                            </div>
+
+                            <!-- Card 4: Grok -->
+                            <div class="big4-card grok">
+                                <div class="big4-header">
+                                    <div class="big4-logo"><i class="fa-brands fa-x-twitter"></i></div>
+                                    <span class="big4-tag">xAI (Elon Musk)</span>
+                                </div>
+                                <h3 class="big4-name">Grok</h3>
+                                <div class="big4-title">Si Rebel Ceplas-Ceplos &amp; Real-Time X</div>
+                                <div class="big4-vibes">
+                                    Vibes: <em>Teman nongkrong yang update berita viral detik ini juga dan suka humor sarkas.</em>
+                                </div>
+                                <ul class="big4-points">
+                                    <li><i class="fa-solid fa-check"></i> <strong>Real-Time dari X (Twitter):</strong> Berita yang baru kejadian 5 menit lalu di medsos udah dia tahu.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Gaya Bicara Asik:</strong> Punya "Fun Mode", ceplas-ceplos, anti jaim, dan gak kaku seperti korporat.</li>
+                                    <li><i class="fa-solid fa-check"></i> <strong>Generator Gambar Bebas:</strong> Bikin ilustrasi visual unik dengan sensor yang minim.</li>
+                                </ul>
+                                <div class="big4-best-for">
+                                    <strong>Paling Cocok Buat:</strong> Pantau isu &amp; topik yang lagi trending viral di medsos, opini sudut pandang alternatif.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 3: APA ITU PROMPTING? (KENAPA HARUS JAGO?)
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabPrompt">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Nah, Terus Apa Itu PROMPTING?</h2>
+                                <p class="prompt-card-subtitle">Kunci kendali utama buat nyetir otak AI biar ngeluarin hasil bintang lima!</p>
+                            </div>
+                        </div>
+
+                        <!-- Pengertian Santai -->
+                        <div class="analogy-box">
+                            <div class="analogy-icon">🎯</div>
+                            <div class="analogy-text">
+                                <h4>Definisi Gampang:</h4>
+                                <p><strong>Prompt</strong> adalah kalimat perintah atau instruksi yang lo ketik ke AI.<br>
+                                <strong>Prompting (Prompt Engineering)</strong> adalah seni dan trik merangkai kata-kata tersebut biar AI paham 100% maksud lo dan gak ngawur!</p>
+                            </div>
+                        </div>
+
+                        <!-- 3 Alasan Wajib Paham Prompting -->
+                        <h3 style="font-size: 1.15rem; color: var(--text-primary); margin: 2rem 0 1rem 0;">
+                            <i class="fa-solid fa-fire text-gradient"></i> Kenapa Lo Harus Jago Prompting? (3 Fakta Nyata)
+                        </h3>
+
+                        <div class="reasons-grid">
+                            <!-- Alasan 1 -->
+                            <div class="reason-card">
+                                <div class="reason-icon">👨‍🍳</div>
+                                <h4 class="reason-title">1. Analogi Koki Bintang 5</h4>
+                                <p class="reason-desc">
+                                    AI itu kayak koki jenius. Kalau lo cuma bilang: <em>"Bikinin makanan enak dong!"</em> (prompt ngasal), si koki bingung dan cuma ngasih telor ceplok.<br><br>
+                                    Tapi kalau lo bilang: <em>"Buatin steak wagyu medium rare, saus mushroom, kentang mashed, tanpa daun bawang!"</em>, hasilnya bakal sempurna sesuai selera!
+                                </p>
+                            </div>
+
+                            <!-- Alasan 2 -->
+                            <div class="reason-card">
+                                <div class="reason-icon">🗑️➡️✨</div>
+                                <h4 class="reason-title">2. Hukum GIGO (Garbage In, Garbage Out)</h4>
+                                <p class="reason-desc">
+                                    <strong>Sampah Masuk = Sampah Keluar!</strong><br>
+                                    Kalau instruksi lo ambigu, males ngetik detail, dan ngambang, AI bakal ngasih jawaban generik, halusinasi (ngarang), atau kodingan yang error.<br><br>
+                                    Instruksi berkualitas = Jawaban berkelas!
+                                </p>
+                            </div>
+
+                            <!-- Alasan 3 -->
+                            <div class="reason-card">
+                                <div class="reason-icon">🔮</div>
+                                <h4 class="reason-title">3. AI Bukan Dukun Pembaca Pikiran</h4>
+                                <p class="reason-desc">
+                                    AI itu mesin matematika penghitung peluang kata (*next-token prediction*). Dia gak tau lo itu siapa, lagi ngerjain apa, atau pake bahasa pemrograman apa.<br><br>
+                                    Dengan prompt yang terstruktur, lo membatasi ruang tebakan AI sehingga probabilitas jawabannya tepat sasaran 99%!
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 4: FORMULA SAKTI (RTCO) & BAD VS GOOD
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabFormula">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Formula Sakti R-T-C-O (Cheat Sheet Anti Bingung)</h2>
+                                <p class="prompt-card-subtitle">Rumus 4 langkah gampang yang dipakai profesional buat bikin prompt berkualitas dewa.</p>
+                            </div>
+                        </div>
+
+                        <!-- 4 Steps RTCO -->
+                        <div class="rtco-grid">
+                            <!-- R -->
+                            <div class="rtco-step-card r">
+                                <div class="rtco-badge">R</div>
+                                <h3 class="rtco-step-name">Role (Topeng / Peran)</h3>
+                                <div class="rtco-step-tagline">Kasih AI identitas keahlian</div>
+                                <p class="rtco-step-desc">Tentukan siapa yang lo ajak ngobrol biar AI pake sudut pandang spesialis.</p>
+                                <div class="rtco-step-example">"Kamu adalah Senior Web Designer &amp; Pakar CSS Modern..."</div>
                             </div>
 
                             <!-- C -->
-                            <div class="framework-step">
-                                <div class="step-letter-badge">C</div>
-                                <div class="step-info">
-                                    <h4>Context &amp; Background <span class="step-tag">Latar Belakang &amp; Lingkungan</span></h4>
-                                    <p>Jelaskan situasi proyek, teknologi stack yang digunakan, versi pustaka, target audiens, dan masalah mendesak yang dihadapi agar AI tidak membuat asumsi salah.</p>
-                                    <div class="step-example-box">
-                                        Contoh: "Saya sedang membangun website portofolio santri menggunakan HTML5 murni, CSS Modern, dan Vanilla JavaScript (tanpa framework, strict CSP aktif, di-hosting di LiteSpeed)."
-                                    </div>
-                                </div>
+                            <div class="rtco-step-card c">
+                                <div class="rtco-badge">C</div>
+                                <h3 class="rtco-step-name">Context (Situasi / Cerita)</h3>
+                                <div class="rtco-step-tagline">Kasih latar belakang masalah</div>
+                                <p class="rtco-step-desc">Jelasin situasi proyek, teknologi yang dipake, atau untuk siapa karya ini dibuat.</p>
+                                <div class="rtco-step-example">"Aku santri yang lagi bikin website portofolio pribadi pake Vanilla HTML &amp; CSS..."</div>
                             </div>
 
                             <!-- T -->
-                            <div class="framework-step">
-                                <div class="step-letter-badge">T</div>
-                                <div class="step-info">
-                                    <h4>Task / Action <span class="step-tag">Instruksi Pokok Spesifik</span></h4>
-                                    <p>Tugas utama yang harus dikerjakan. Gunakan kata kerja operasional yang tegas (seperti: Analisis, Buat, Refaktor, Temukan Celah, Konversi) bukan kata pasif.</p>
-                                    <div class="step-example-box">
-                                        Contoh: "Buatkan skrip JavaScript mandiri untuk memvalidasi formulir login, memeriksa kecocokan username dan password, serta menyimpan status sesi sementara di sessionStorage."
-                                    </div>
-                                </div>
+                            <div class="rtco-step-card t">
+                                <div class="rtco-badge">T</div>
+                                <h3 class="rtco-step-name">Task (Tugas Nyata)</h3>
+                                <div class="rtco-step-tagline">Instruksi aksi yang spesifik</div>
+                                <p class="rtco-step-desc">Gunakan kata kerja aktif yang jelas. Apa persisnya yang harus dia kerjakan?</p>
+                                <div class="rtco-step-example">"Buatkan komponen navbar yang punya tombol switch ganti tema gelap dan terang..."</div>
                             </div>
 
                             <!-- O -->
-                            <div class="framework-step">
-                                <div class="step-letter-badge">O</div>
-                                <div class="step-info">
-                                    <h4>Output Constraints &amp; Guardrails <span class="step-tag">Batasan &amp; Format Hasil</span></h4>
-                                    <p>Aturan mutlak mengenai apa yang BOLEH dan TIDAK BOLEH dilakukan, serta format eksak hasil keluaran (JSON, tabel, blok kode modular tanpa intro klise).</p>
-                                    <div class="step-example-box">
-                                        Contoh: "Aturan: (1) Jangan gunakan pustaka pihak ketiga. (2) Jangan ada inline script di HTML. (3) Berikan hanya satu blok kode JavaScript bersih dengan komentar fungsi ringkas, tanpa teks pembuka/penutup."
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==============================================
-                     TAB 3: TEKNIK LANJUTAN (ADVANCED TECHNIQUES)
-                     ============================================== -->
-                <div class="prompt-tab-pane" id="tabAdvanced">
-                    <div class="prompt-card">
-                        <div class="prompt-card-header">
-                            <div class="prompt-card-icon">
-                                <i class="fa-solid fa-bolt"></i>
-                            </div>
-                            <div>
-                                <h2 class="prompt-card-title">Teknik Prompting Tingkat Lanjut</h2>
-                                <p class="prompt-card-subtitle">Metode canggih untuk memecahkan masalah logika kompleks dan algoritma rumit</p>
+                            <div class="rtco-step-card o">
+                                <div class="rtco-badge">O</div>
+                                <h3 class="rtco-step-name">Output (Bentuk Jadi)</h3>
+                                <div class="rtco-step-tagline">Format hasil yang diwajibkan</div>
+                                <p class="rtco-step-desc">Mau dalam bentuk apa? Kode bersih? Tabel Markdown? Poin-poin ringkas?</p>
+                                <div class="rtco-step-example">"Berikan hanya blok kode HTML dan CSS bersih, tanpa penjelasan panjang."</div>
                             </div>
                         </div>
 
-                        <div class="pillars-grid">
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-diagram-project"></i></div>
-                                <h4>1. Chain-of-Thought (CoT) Prompting</h4>
-                                <p>Instruksikan model untuk menjabarkan proses berpikir langkah-demi-langkah ("<em>Think step-by-step</em>") sebelum menuliskan kesimpulan atau kode akhir. Teknik ini terbukti secara riset melipatgandakan akurasi penalaran matematika, logika pemrograman, dan arsitektur sistem.</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                                <h4>2. Few-Shot Prompting (Memberi Contoh)</h4>
-                                <p>Jangan hanya menjelaskan aturan secara abstrak. Berikan 1 hingga 3 pasangan contoh konkret [Input] -> [Output yang Diharapkan]. Model bahasa mengenali pola contoh jauh lebih cepat dan deterministik dibandingkan deskripsi teks panjang (In-Context Learning).</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-code"></i></div>
-                                <h4>3. Delimiters &amp; Semantic Tags</h4>
-                                <p>Gunakan pemisah tegas seperti triple quotes (<code>"""</code>), triple backticks (<code>```</code>), atau tag XML semantik (<code>&lt;context&gt;...&lt;/context&gt;</code>). Ini mengisolasi instruksi kerja dari data mentah pengguna, mencegah kebingungan model dan serangan *prompt injection*.</p>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon"><i class="fa-solid fa-ban"></i></div>
-                                <h4>4. Negative Constraints (Batasan Negatif)</h4>
-                                <p>Jelaskan secara eksplisit apa yang DILARANG: misal <em>"Jangan gunakan fitur deprecated"</em>, <em>"Jangan menulis ulang seluruh kode jika hanya 1 fungsi yang diubah"</em>, atau <em>"Jangan meminta maaf atau menuliskan basa-basi salam di awal"</em>.</p>
+                        <!-- Trik Ekstra -->
+                        <div class="analogy-box" style="margin-top: 1.5rem;">
+                            <div class="analogy-icon">⚡</div>
+                            <div class="analogy-text">
+                                <h4>2 Trik Juara Tambahan:</h4>
+                                <p><strong>1. Pagar Larangan (Negative Constraints):</strong> Tulis apa yang GAK BOLEH AI lakukan. Contoh: <em>"Jangan gunakan pustaka eksternal (Bootstrap/Tailwind)"</em> atau <em>"Jangan pakai kata-kata kaku"</em>.<br>
+                                <strong>2. Few-Shot (Kasih Contoh):</strong> Berikan 1 contoh format jawaban yang lo pengenin biar AI langsung niru gayanya secara presisi!</p>
                             </div>
                         </div>
 
-                        <!-- Contoh Penerapan Few-Shot & CoT -->
-                        <div class="copyable-prompt-block" style="margin-top: 2rem;">
-                            <button type="button" class="copy-btn" data-copy-target="advPromptSample">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Salin Contoh Prompt CoT</span>
-                            </button>
-                            <pre id="advPromptSample">Anda adalah Senior Database Administrator.
-Tugas: Optimasi query SQL yang mengalami query-timeout pada tabel transaksi (10 juta baris).
-
-Instruksi Penalaran (Chain-of-Thought):
-1. Analisis EXPLAIN query dan sebutkan di mana letak bottleneck (misal: Sequential Scan vs Index Scan).
-2. Tuliskan hipotesis mengapa indeks yang ada tidak dimanfaatkan oleh query planner.
-3. Berikan usulan indeks gabungan (Composite Index) yang tepat.
-4. Tuliskan query hasil refaktor beserta estimasi penurunan *execution cost*.
-
-Batasan: Gunakan format PostgreSQL 16, jangan rekomendasikan migrasi hardware, dan jelaskan langkah 1-4 secara runut sebelum kode akhir.</pre>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ==============================================
-                     TAB 4: KOMPARASI BAD VS GOOD PROMPT
-                     ============================================== -->
-                <div class="prompt-tab-pane" id="tabCompare">
-                    <div class="prompt-card">
-                        <div class="prompt-card-header">
-                            <div class="prompt-card-icon">
-                                <i class="fa-solid fa-code-compare"></i>
-                            </div>
-                            <div>
-                                <h2 class="prompt-card-title">Komparasi Nyata: Bad Prompt vs. Good Prompt</h2>
-                                <p class="prompt-card-subtitle">Perbedaan drastis antara prompt amatir yang menimbulkan frustrasi dan prompt profesional yang efisien</p>
-                            </div>
-                        </div>
-
-                        <!-- Studi Kasus 1: Web Development -->
-                        <h3 style="color: var(--text-gold); font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">
-                            <i class="fa-solid fa-laptop-code"></i> Studi Kasus 1: Pembuatan Fitur Login Website
+                        <!-- Komparasi Bad vs Good -->
+                        <h3 style="font-size: 1.15rem; color: var(--text-primary); margin: 2rem 0 1rem 0;">
+                            <i class="fa-solid fa-code-compare text-gradient"></i> Contoh Nyata: Bad Prompt vs Good Prompt
                         </h3>
-                        <div class="comparison-wrapper">
-                            <div class="compare-box bad">
-                                <div class="compare-box-header">
-                                    <span class="compare-badge"><i class="fa-solid fa-circle-xmark"></i> Prompt Amatir / Kurang Jelas</span>
+
+                        <div class="compare-row">
+                            <!-- Bad -->
+                            <div class="compare-card bad">
+                                <div class="compare-header">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    <span>CONTOH BURUK (HASIL MENGECEWAKAN)</span>
                                 </div>
-                                <div class="compare-code">"Buatin saya halaman login yang keren dong, pake html css js."</div>
-                                <p class="compare-reason">
-                                    <strong>Mengapa Buruk?</strong> Tidak ada definisi peran, tidak ada kriteria "keren", tidak ada informasi framework atau keamanan, tidak ada batasan CSP, menghasilkan kode acak yang seringkali tidak cocok dengan proyekmu.
-                                </p>
+                                <div class="compare-bubble">"Bikinin script tombol javascript dong biar keren"</div>
+                                <div class="compare-verdict">
+                                    <i class="fa-solid fa-triangle-exclamation" style="color: #f87171;"></i>
+                                    <span><strong>Kenapa Jelek?</strong> AI gak tau tombol apa, keren maksudnya gimana, ada animasi apa enggak, dan tujuannya buat apa. Akhirnya lo dapet tombol generik standar yang gak kepake.</span>
+                                </div>
                             </div>
 
-                            <div class="compare-box good">
-                                <div class="compare-box-header">
-                                    <span class="compare-badge"><i class="fa-solid fa-circle-check"></i> Prompt Profesional (RTCO)</span>
+                            <!-- Good -->
+                            <div class="compare-card good">
+                                <div class="compare-header">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>CONTOH SAKTI (HASIL MEMUASKAN)</span>
                                 </div>
-                                <div class="compare-code">Bertindaklah sebagai Senior Frontend Developer.
-Konteks: Saya membuat sistem autentikasi portofolio santri dengan tema dark glassmorphism, menggunakan HTML5 dan Vanilla JavaScript murni (Strict CSP aktif).
-Tugas: Buatkan komponen formulir login dengan input nama pengguna dan kata sandi, lengkap dengan tombol intip password (toggle eye icon) dan penanganan event onSubmit.
-Batasan:
-- Kredensial valid: username "qsbs", password "AK561".
-- Simpan sesi aktif di sessionStorage ('ssa_auth', 'true').
-- Jangan gunakan inline script di HTML; pisahkan logic ke berkas JS terpisah.
-- Tampilkan animasi shake jika kredensial salah.
-Output: Berikan struktur HTML bersih dan skrip JS terpisah.</div>
-                                <p class="compare-reason">
-                                    <strong>Mengapa Berhasil?</strong> AI memahami persona, konteks teknologi, logika verifikasi eksak, standar keamanan CSP, dan format keluaran tanpa celah salah tafsir.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Studi Kasus 2: Debugging Error -->
-                        <h3 style="color: var(--text-gold); font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.75rem;">
-                            <i class="fa-solid fa-bug"></i> Studi Kasus 2: Penanganan Bug Error JavaScript
-                        </h3>
-                        <div class="comparison-wrapper">
-                            <div class="compare-box bad">
-                                <div class="compare-box-header">
-                                    <span class="compare-badge"><i class="fa-solid fa-circle-xmark"></i> Prompt Amatir / Panik</span>
+                                <div class="compare-bubble">[ROLE] Frontend JavaScript Developer
+[CONTEXT] Website portofolio santri tema dark-mode
+[TASK] Buat fungsi tombol toggle ganti tema dark & light mode dengan simpan pilihan ke localStorage
+[CONSTRAINTS] Pure Vanilla JS (tanpa library), aman dari error null, sertakan komentar ramah pemula
+[OUTPUT] Blok kode JavaScript siap pakai</div>
+                                <div class="compare-verdict">
+                                    <i class="fa-solid fa-circle-check" style="color: #34d399;"></i>
+                                    <span><strong>Kenapa Sakti?</strong> AI langsung paham 100% batasan teknologinya, logika localStorage, dan format kode bersih yang langsung bisa lo copy-paste!</span>
                                 </div>
-                                <div class="compare-code">"Kode saya error Uncaught TypeError: Cannot read properties of null, tolong benerin cepet!"</div>
-                                <p class="compare-reason">
-                                    <strong>Mengapa Buruk?</strong> AI dipaksa menebak baris kode apa yang null, di mana error terjadi, dan apa struktur dokumen DOM-nya. Hasilnya AI hanya memberi saran generik yang tidak menyelesaikan masalah.
-                                </p>
-                            </div>
-
-                            <div class="compare-box good">
-                                <div class="compare-box-header">
-                                    <span class="compare-badge"><i class="fa-solid fa-circle-check"></i> Prompt Diagnostik Presisi</span>
-                                </div>
-                                <div class="compare-code">Saya mengalami error runtime pada peramban:
-`Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')` di script.js baris 42.
-
-Konteks Kode (script.js:40-45):
-```javascript
-const btn = document.getElementById('submitBtn');
-btn.addEventListener('click', handleSubmit);
-```
-
-Analisis saya: Elemen dengan id 'submitBtn' belum siap di DOM saat script dieksekusi.
-Tugas:
-1. Jelaskan akar penyebab masalah ini secara ringkas.
-2. Berikan 2 solusi terbaik (misal: wrapping DOMContentLoaded dan penambahan pengecekan null-safety).
-3. Berikan perbaikan kode minimal yang langsung bisa di-drop ke file saya.</div>
-                                <p class="compare-reason">
-                                    <strong>Mengapa Berhasil?</strong> Stack trace, cuplikan baris kode, dan asumsi awal disediakan. AI langsung memberikan solusi solutif dalam sekali tembak tanpa tanya balik.
-                                </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -1342,66 +1659,75 @@ Tugas:
                             </div>
                             <div>
                                 <h2 class="prompt-card-title">Interactive Prompt Builder &amp; Generator</h2>
-                                <p class="prompt-card-subtitle">Rancang prompt profesionalmu sendiri secara live dengan formula RTCO terstandarisasi</p>
+                                <p class="prompt-card-subtitle">Pilih preset santri &amp; pelajar zaman now di bawah, atau isi formulir untuk meracik prompt sakti instan!</p>
                             </div>
                         </div>
 
                         <!-- Presets Selector -->
-                        <div style="margin-bottom: 1rem;">
-                            <label style="font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">
-                                <i class="fa-solid fa-wand-magic"></i> Pilih Template Cepat (Preset):
-                            </label>
+                        <div style="margin-bottom: 1.5rem;">
+                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.6rem;">
+                                <i class="fa-solid fa-wand-sparkles"></i> PILIH PRESET SIAP PAKAI:
+                            </span>
                             <div class="builder-presets">
-                                <button type="button" class="preset-btn active" data-preset="webdev">Frontend Web Dev</button>
-                                <button type="button" class="preset-btn" data-preset="debug">Bug Fixing &amp; Debugging</button>
-                                <button type="button" class="preset-btn" data-preset="refactor">Code Refactoring &amp; Clean Code</button>
-                                <button type="button" class="preset-btn" data-preset="content">Penulisan Edukasi Santri</button>
+                                <button type="button" class="preset-btn active" data-preset="webdev">
+                                    <i class="fa-solid fa-globe"></i> 1. Web Portofolio Santri
+                                </button>
+                                <button type="button" class="preset-btn" data-preset="debug">
+                                    <i class="fa-solid fa-bug"></i> 2. Dokter Koding (Fix Error)
+                                </button>
+                                <button type="button" class="preset-btn" data-preset="summary">
+                                    <i class="fa-solid fa-book-open"></i> 3. Rangkum Pelajaran Cepat
+                                </button>
+                                <button type="button" class="preset-btn" data-preset="content">
+                                    <i class="fa-solid fa-paper-plane"></i> 4. Ide Konten Santri Gaul
+                                </button>
                             </div>
                         </div>
 
+                        <!-- 2-Column Grid: Form & Live Output -->
                         <div class="builder-grid">
                             <!-- Input Form -->
                             <div class="builder-form-wrapper">
                                 <div class="builder-field">
                                     <label for="builderRole">
-                                        <span><i class="fa-solid fa-user-astronaut"></i> Role / Persona (R)</span>
-                                        <span class="badge-hint">Identitas keahlian AI</span>
+                                        <span><i class="fa-solid fa-user-astronaut"></i> Role / Topeng Ahli (R)</span>
+                                        <span class="badge-hint">Siapa peran AI</span>
                                     </label>
-                                    <input type="text" id="builderRole" class="builder-input" value="Senior Fullstack Web Developer &amp; Security Specialist">
+                                    <input type="text" id="builderRole" class="builder-input" value="Senior Frontend Web Developer &amp; UI Specialist">
                                 </div>
 
                                 <div class="builder-field">
                                     <label for="builderContext">
-                                        <span><i class="fa-solid fa-layer-group"></i> Context &amp; Stack (C)</span>
-                                        <span class="badge-hint">Situasi, stack, library</span>
+                                        <span><i class="fa-solid fa-layer-group"></i> Context / Situasi (C)</span>
+                                        <span class="badge-hint">Latar belakang proyek</span>
                                     </label>
-                                    <textarea id="builderContext" class="builder-textarea">Proyek website portofolio santri modern menggunakan HTML5 semantik, CSS Grid/Flexbox, dan Vanilla JavaScript (ES6+). Server berjalan di LiteSpeed dengan header CSP ketat.</textarea>
+                                    <textarea id="builderContext" class="builder-textarea">Website portofolio santri modern bertema dark mode dengan aksen cyan glow. Dibuat menggunakan HTML5 semantik dan CSS Flexbox murni.</textarea>
                                 </div>
 
                                 <div class="builder-field">
                                     <label for="builderTask">
-                                        <span><i class="fa-solid fa-bullseye"></i> Task / Instruksi Pokok (T)</span>
-                                        <span class="badge-hint">Tugas spesifik operasional</span>
+                                        <span><i class="fa-solid fa-bullseye"></i> Task / Perintah Inti (T)</span>
+                                        <span class="badge-hint">Tugas spesifik aksi</span>
                                     </label>
-                                    <textarea id="builderTask" class="builder-textarea">Buatkan modul JavaScript interaktif untuk memvalidasi formulir dan menampilkan notifikasi toast dinamis saat aksi berhasil disimpan.</textarea>
+                                    <textarea id="builderTask" class="builder-textarea">Bikinkan komponen hero section interaktif yang menampilkan foto profil melingkar dengan glowing border, nama, tagline keahlian santri developer, dan tombol call-to-action.</textarea>
                                 </div>
 
                                 <div class="builder-field">
                                     <label for="builderConstraints">
-                                        <span><i class="fa-solid fa-shield-halved"></i> Constraints &amp; Guardrails (C)</span>
-                                        <span class="badge-hint">Batasan mutlak &amp; larangan</span>
+                                        <span><i class="fa-solid fa-shield-halved"></i> Pagar Larangan / Constraints</span>
+                                        <span class="badge-hint">Aturan &amp; larangan</span>
                                     </label>
-                                    <textarea id="builderConstraints" class="builder-textarea">- Jangan gunakan pustaka pihak ketiga (pure vanilla JS).
-- Wajib bebas celah XSS (gunakan sanitasi input).
-- Kode harus modular, mudah dibaca, dan disertai komentar penjelas fungsi.</textarea>
+                                    <textarea id="builderConstraints" class="builder-textarea">- Jangan pakai Bootstrap atau Tailwind (pure custom CSS).
+- Desain harus responsif di HP (mobile-friendly).
+- Berikan animasi halus saat tombol di-hover.</textarea>
                                 </div>
 
                                 <div class="builder-field">
                                     <label for="builderOutput">
                                         <span><i class="fa-solid fa-file-code"></i> Output Format (O)</span>
-                                        <span class="badge-hint">Format eksak hasil</span>
+                                        <span class="badge-hint">Format hasil jadi</span>
                                     </label>
-                                    <input type="text" id="builderOutput" class="builder-input" value="Berikan hanya blok kode JavaScript bersih tanpa narasi pembuka atau penutup.">
+                                    <input type="text" id="builderOutput" class="builder-input" value="Berikan blok kode HTML dan CSS terpisah yang bersih dan siap copy-paste tanpa penjelasan bertele-tele.">
                                 </div>
                             </div>
 
@@ -1410,7 +1736,7 @@ Tugas:
                                 <div class="builder-preview-header">
                                     <div class="builder-preview-title">
                                         <i class="fa-solid fa-terminal"></i>
-                                        <span>Generated Prompt Output</span>
+                                        <span>Hasil Prompt Siap Kirim</span>
                                     </div>
                                     <button type="button" class="copy-btn" id="copyBuilderBtn">
                                         <i class="fa-regular fa-copy"></i>
@@ -1420,6 +1746,7 @@ Tugas:
                                 <div class="builder-preview-output" id="builderLiveOutput"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -1427,10 +1754,10 @@ Tugas:
         </main>
     </div>
 
-    <!-- Toast Notification Container -->
+    <!-- Toast Notifications Container -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- External Script (Strict CSP Compliant) -->
-    <script src="others.js?v=2.0"></script>
+    <script src="others.js?v=3.0"></script>
 </body>
 </html>

@@ -1,11 +1,12 @@
 /**
- * Shifan Shalih Adiluhung - Others Page Security & AI Prompting Engine
+ * Shifan Shalih Adiluhung - Others Page Security & AI Hub
  * Strict CSP Compliant (No inline scripts)
+ * Versi 3.0 - Gen Z & Gen Alpha Interactive Edition
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     // === 1. CREDENTIAL CONFIGURATION ===
-    // Sesuai permintaan pengguna:
+    // Kredensial Akses Khusus Others:
     // Username: qsbs
     // Password: AK561
     const VALID_USERNAME = 'qsbs';
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gatekeeperSection) gatekeeperSection.style.display = 'none';
         if (blankPageSection) blankPageSection.style.display = 'block';
 
-        // Inisialisasi generator prompt saat masuk
+        // Inisialisasi builder output real-time saat login
         updateBuilderPreview();
     };
 
@@ -71,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePasswordIcon.classList.add('fa-eye');
         }
 
-        // Auto-focus username field after rendering
+        // Fokus ke input username setelah render
         setTimeout(() => {
             if (usernameInput) usernameInput.focus();
         }, 150);
     };
 
-    // Show Error Alert Helper
+    // Tampilkan pesan error dengan animasi getar
     const showError = (message) => {
         if (!authErrorAlert || !authErrorText) return;
         authErrorText.textContent = message;
@@ -85,8 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (gatekeeperCard) {
             gatekeeperCard.classList.remove('shake-anim');
-            // Force browser reflow to re-trigger keyframe
-            void gatekeeperCard.offsetWidth;
+            void gatekeeperCard.offsetWidth; // trigger reflow
             gatekeeperCard.classList.add('shake-anim');
             setTimeout(() => {
                 gatekeeperCard.classList.remove('shake-anim');
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validasi kredensial pengguna
+            // Validasi kredensial pengguna (case-insensitive username)
             if (inputUser.toLowerCase() === VALID_USERNAME.toLowerCase() && inputPass === VALID_PASSWORD) {
                 const now = new Date();
                 const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -117,9 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
                     sessionStorage.setItem(AUTH_USER_KEY, VALID_USERNAME);
                     sessionStorage.setItem(AUTH_TIME_KEY, timeString);
-                } catch (e) {
-                    // Fallback jika storage dinonaktifkan
-                }
+                } catch (e) {}
 
                 showToast(`Verifikasi sukses! Selamat datang, ${VALID_USERNAME}.`, 'success');
                 setAuthenticatedView();
@@ -201,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3200);
     }
 
-    // === 7. PROMPT GUIDE TABS SWITCHER ===
+    // === 7. NAVIGATION TABS SWITCHER ===
     const tabButtons = document.querySelectorAll('.prompt-tab-btn');
     const tabPanes = document.querySelectorAll('.prompt-tab-pane');
 
@@ -225,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
             } else {
-                // Fallback for non-https or older environments
                 const textarea = document.createElement('textarea');
                 textarea.value = text;
                 textarea.style.position = 'fixed';
@@ -256,10 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-copy-target');
-            if (!targetId) return;
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) {
-                copyToClipboard(targetEl.textContent.trim(), btn);
+            if (targetId) {
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    copyToClipboard(targetEl.textContent.trim(), btn);
+                }
             }
         });
     });
@@ -274,35 +272,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyBuilderBtn = document.getElementById('copyBuilderBtn');
     const presetBtns = document.querySelectorAll('.preset-btn');
 
-    // Presets Definition
+    // Presets Definition (Gen Z & Santri Friendly)
     const BUILDER_PRESETS = {
         webdev: {
-            role: "Senior Fullstack Web Developer & Security Specialist",
-            context: "Proyek website portofolio santri modern menggunakan HTML5 semantik, CSS Grid/Flexbox, dan Vanilla JavaScript (ES6+). Server berjalan di LiteSpeed dengan header CSP ketat.",
-            task: "Buatkan modul JavaScript interaktif untuk memvalidasi formulir dan menampilkan notifikasi toast dinamis saat aksi berhasil disimpan.",
-            constraints: "- Jangan gunakan pustaka pihak ketiga (pure vanilla JS).\n- Wajib bebas celah XSS (gunakan sanitasi input).\n- Kode harus modular, mudah dibaca, dan disertai komentar penjelas fungsi.",
-            output: "Berikan hanya blok kode JavaScript bersih tanpa narasi pembuka atau penutup."
+            role: "Senior Frontend Web Developer & UI Specialist",
+            context: "Website portofolio santri modern bertema dark mode dengan aksen cyan glow. Dibuat menggunakan HTML5 semantik dan CSS Flexbox murni.",
+            task: "Bikinkan komponen hero section interaktif yang menampilkan foto profil melingkar dengan glowing border, nama, tagline keahlian santri developer, dan tombol call-to-action.",
+            constraints: "- Jangan pakai Bootstrap atau Tailwind (pure custom CSS).\n- Desain harus responsif di HP (mobile-friendly).\n- Berikan animasi halus saat tombol di-hover.",
+            output: "Berikan blok kode HTML dan CSS terpisah yang bersih dan siap copy-paste tanpa penjelasan bertele-tele."
         },
         debug: {
-            role: "Principal Software Engineer & Expert Code Diagnostician",
-            context: "Aplikasi Single Page Application (SPA) berbasis Vanilla JS mengalami memory leak dan error 'Uncaught TypeError' saat berpindah halaman secara dinamis di peramban mobile.",
-            task: "Analisis cuplikan kode yang bermasalah, temukan akar penyebabnya (Root Cause), dan berikan rekomendasi perbaikan kode beserta alasan teknisnya.",
-            constraints: "- Wajib gunakan metode Chain-of-Thought: jelaskan analisis logis terlebih dahulu sebelum kode.\n- Pertahankan kompatibilitas browser modern tanpa menambahkan dependensi baru.\n- Berikan solusi minimal yang paling hemat CPU.",
-            output: "Format: (1) Diagnosa Masalah, (2) Solusi Teknis, (3) Cuplikan Kode Refaktor."
+            role: "Dokter Koding & Senior JavaScript Debugger",
+            context: "Aplikasi web portofolio Vanilla JS mengalami error saat tombol diklik: 'Uncaught TypeError: Cannot read properties of null (reading addEventListener)'.",
+            task: "Jelaskan dengan bahasa santai kenapa error ini bisa terjadi, dan berikan kode perbaikan yang aman agar script tidak macet.",
+            constraints: "- Jelaskan dulu penyebabnya dalam 2 kalimat gampang.\n- Kode perbaikan harus mengecek apakah elemen DOM sudah ada sebelum dipasangi event listener.\n- Bahasa santai, ramah, dan memotivasi.",
+            output: "Format: (1) Kenapa Bisa Error, (2) Solusi Kode Perbaikan."
         },
-        refactor: {
-            role: "Clean Code Evangelist & Software Architect",
-            context: "Fungsi JavaScript monolithic sepanjang 250 baris yang menangani render UI, kalkulasi data, dan request API sekaligus dalam satu blok kode.",
-            task: "Refaktor kode menjadi fungsi-fungsi murni (Pure Functions) yang modular, menerapkan prinsip Single Responsibility Principle (SRP) dan Immutability.",
-            constraints: "- Jangan mengubah fungsionalitas dan return value eksternal.\n- Gunakan sintaks modern ES6+ (Destructuring, Optional Chaining, Arrow Functions).\n- Berikan penamaan variabel dan fungsi yang self-documenting.",
-            output: "Tuliskan kode hasil refaktor lengkap dengan JSDoc dokumentasi di setiap fungsi."
+        summary: {
+            role: "Tutor Pembelajaran Cerdas & Master Pembuat Catatan Ringkas",
+            context: "Catatan pelajaran tentang dasar-dasar jaringan komputer (IP Address, DNS, dan Protokol HTTP/HTTPS) untuk santri sekolah menengah.",
+            task: "Rangkum konsep-konsep kunci tersebut menjadi 5 poin penting yang super gampang dipahami, lengkapi dengan 3 kuis pilihan ganda singkat.",
+            constraints: "- Gunakan analogi dunia nyata (misal: analogi alamat rumah untuk IP Address).\n- Hindari istilah teknis yang tidak dijelaskan.\n- Format poin-poin bersih dengan emoji menarik.",
+            output: "Format Markdown dengan bullet points dan kuis pilihan ganda beserta kunci jawaban."
         },
         content: {
-            role: "Penulis Konten Teknologi Edukasi & Pengajar Santri Developer",
-            context: "Artikel blog edukatif untuk santri pondok pesantren yang baru mulai belajar pemrograman web dasar (HTML/CSS) agar memiliki semangat keilmuan tinggi.",
-            task: "Tuliskan artikel pengantar yang inspiratif tentang perpaduan antara integritas santri (adab, ketekunan, kejujuran) dan keterampilan teknologi modern di era digital.",
-            constraints: "- Bahasa santun, ramah, dan memotivasi tanpa kata-kata teknis yang terlalu membingungkan.\n- Sertakan analogi hafalan Al-Qur'an dengan konsistensi belajar coding.\n- Panjang 300-400 kata.",
-            output: "Gunakan format Markdown dengan heading terstruktur, bullet point, dan callout inspiratif."
+            role: "Kreator Konten Edukasi Digital & Influencer Santri Inspiratif",
+            context: "Video pendek TikTok / Instagram Reels berdurasi 60 detik yang mengajak anak muda/santri untuk semangat belajar coding dan adab teknologi.",
+            task: "Buatkan naskah (script) video pendek yang catchy dari hook 3 detik pertama, isi pesan motivasi (santri melek teknologi), sampai call-to-action.",
+            constraints: "- Hook awal harus bikin orang berhenti scroll (menggugah rasa penasaran).\n- Bahasa gaul santun, energik, dan tidak menggurui.\n- Sertakan arahan visual/kamera (Scene direction).",
+            output: "Tabel naskah: Detik ke berapa | Visual & Aksi Kamera | Narasi Suara."
         }
     };
 
@@ -316,16 +314,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const output = outputInput?.value.trim() || '';
 
         const compiledPrompt = 
-`[ROLE & PERSONA]
+`[ROLE / TOPENG KEAHLIAN]
 ${role}
 
-[CONTEXT & BACKGROUND]
+[CONTEXT / LATAR BELAKANG]
 ${context}
 
-[TASK / ACTION]
+[TASK / PERINTAH INTI]
 ${task}
 
-[CONSTRAINTS & GUARDRAILS]
+[CONSTRAINTS / PAGAR LARANGAN]
 ${constraints}
 
 [EXPECTED OUTPUT FORMAT]
@@ -334,7 +332,7 @@ ${output}`;
         liveOutputEl.textContent = compiledPrompt;
     }
 
-    // Bind real-time input listeners
+    // Input listeners real-time
     [roleInput, contextInput, taskInput, constraintsInput, outputInput].forEach(input => {
         if (input) {
             input.addEventListener('input', updateBuilderPreview);
@@ -358,7 +356,7 @@ ${output}`;
             if (outputInput) outputInput.value = data.output;
 
             updateBuilderPreview();
-            showToast(`Preset "${btn.textContent}" dimuat!`, 'info');
+            showToast(`Preset "${btn.textContent.trim()}" dimuat!`, 'info');
         });
     });
 
