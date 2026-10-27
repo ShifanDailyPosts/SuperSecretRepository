@@ -805,29 +805,43 @@
                     <div class="step-item">
                         <div class="step-num">1</div>
                         <div class="step-body">
-                            <h5>&lt;!DOCTYPE html&gt;</h5>
-                            <p>Mendeklarasikan bahwa dokumen ini menggunakan standar HTML5 modern.</p>
+                            <h5>&lt;!DOCTYPE html&gt; &amp; &lt;html lang="id"&gt;</h5>
+                            <p>Deklarasi awal dokumen: '&lt;!DOCTYPE html&gt;' memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut 'lang="id"' (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">2</div>
                         <div class="step-body">
-                            <h5>&lt;head&gt; vs &lt;body&gt;</h5>
-                            <p>&lt;head&gt; memuat informasi metadata, judul tab, dan font. Sedangkan &lt;body&gt; memuat seluruh elemen visual yang dilihat pengunjung di layar.</p>
+                            <h5>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</h5>
+                            <p>Kunci wajib website responsif di layar ponsel/tablet. Tag ini memiliki 2 instruksi vital: (1) 'width=device-width' menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) 'initial-scale=1.0' menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom).</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">3</div>
                         <div class="step-body">
-                            <h5>Tag Heading &lt;h1&gt; - &lt;h6&gt;</h5>
-                            <p>Digunakan untuk hierarki judul utama (h1) hingga sub-judul yang lebih kecil (h2-h6).</p>
+                            <h5>Pemisahan Landmark Semantik: &lt;header&gt;, &lt;nav&gt;, dan &lt;main&gt;</h5>
+                            <p>Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) '&lt;header&gt;' adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) '&lt;nav&gt;' khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) '&lt;main&gt;' adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: tag &lt;main&gt; HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">4</div>
                         <div class="step-body">
-                            <h5>Tag Tautan &lt;a&gt; &amp; Atribut href</h5>
-                            <p>Tag anchor dengan atribut href (hypertext reference) menghubungkan halaman ke website lain.</p>
+                            <h5>Aksesibilitas Formulir: Relasi &lt;label for="id"&gt; dan &lt;input id="..."&gt;</h5>
+                            <p>Standar aksesibilitas WCAG: nilai atribut 'for' pada tag &lt;label&gt; harus persis sama dengan atribut 'id' pada kotak &lt;input&gt;. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-body">
+                            <h5>Sistem Validasi Input Bawaan HTML5</h5>
+                            <p>Atribut 'required' mencegah form dikirim jika belum diisi, atribut 'type="email"' otomatis mengecek keberadaan tanda '@' dan domain surat elektronik, serta 'minlength="3"' membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">6</div>
+                        <div class="step-body">
+                            <h5>Tautan Aksesibilitas 'Skip-Link' (&lt;a href="#main-content"&gt;)</h5>
+                            <p>Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (&lt;main id="main-content"&gt;).</p>
                         </div>
                     </div>
                 </div>
@@ -894,6 +908,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Learning Portal External Script (Strict CSP Compliant) -->
-    <script src="learn.js?v=2.0"></script>
+    <script src="learn.js?v=2.2"></script>
 </body>
 </html>

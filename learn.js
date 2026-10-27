@@ -80,12 +80,36 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 </html>`,
                 steps: [
-                    { num: 1, title: "<!DOCTYPE html> & <html lang='id'>", desc: "Mendeklarasikan standar HTML5 dan bahasa dokumen (id = Bahasa Indonesia) agar browser dan screen reader dapat melafalkan kata dengan intonasi tepat." },
-                    { num: 2, title: "<meta name='viewport'>", desc: "Wajib ada untuk web responsif: memastikan rasio pixel dan lebar viewport menyesuaikan layar smartphone tanpa zoom-out default yang mengecilkan teks." },
-                    { num: 3, title: "<header>, <nav>, dan <main>", desc: "Tag landmark resmi W3C. Tag <main> hanya boleh muncul satu kali per halaman untuk memuat konten utama tanpa duplikasi header/footer." },
-                    { num: 4, title: "Aksesibilitas Form: <label for='id'>", desc: "Atribut 'for' pada <label> wajib identik dengan 'id' pada <input>, sehingga saat teks label diklik kursor otomatis fokus ke kotak input." },
-                    { num: 5, title: "Validasi Form HTML5 Bawaan", desc: "Atribut 'required' dan type='email' memicu pengecekan format otomatis oleh browser sebelum formulir dapat dikirimkan ke server." },
-                    { num: 6, title: "Tautan Skip-Link", desc: "Teknik aksesibilitas tingkat lanjut: tautan tersembunyi yang memungkinkan pengguna tunanetra melompati navigasi panjang langsung ke konten utama." }
+                    { 
+                        num: 1, 
+                        title: "<!DOCTYPE html> & <html lang='id'>", 
+                        desc: "Deklarasi awal dokumen: '<!DOCTYPE html>' memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut 'lang=\"id\"' (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "<meta name='viewport' content='width=device-width, initial-scale=1.0'>", 
+                        desc: "Kunci wajib website responsif di layar ponsel/tablet. Tag ini memiliki 2 instruksi vital: (1) 'width=device-width' menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) 'initial-scale=1.0' menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom)." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Pemisahan Landmark Semantik: <header>, <nav>, dan <main>", 
+                        desc: "Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) '<header>' adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) '<nav>' khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) '<main>' adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: tag <main> HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Aksesibilitas Formulir: Relasi <label for='id'> dan <input id='...'>", 
+                        desc: "Standar aksesibilitas WCAG: nilai atribut 'for' pada tag <label> harus persis sama dengan atribut 'id' pada kotak <input>. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Sistem Validasi Input Bawaan HTML5", 
+                        desc: "Atribut 'required' mencegah form dikirim jika belum diisi, atribut 'type=\"email\"' otomatis mengecek keberadaan tanda '@' dan domain surat elektronik, serta 'minlength=\"3\"' membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Tautan Aksesibilitas 'Skip-Link' (<a href='#main-content'>)", 
+                        desc: "Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (<main id='main-content'>)." 
+                    }
                 ],
                 tip: "Hindari 'div soup' (menggunakan <div> untuk segala hal). Selalu utamakan tag semantik (<article>, <section>, <aside>, <button>). Jangan pernah mengganti <button> dengan <div onclick='...'> karena <div> tidak dapat diakses keyboard (tombol Tab/Enter) dan tidak dikenali screen reader."
             },
@@ -321,12 +345,36 @@ body {
     outline-offset: 4px;
 }`,
                 steps: [
-                    { num: 1, title: "Token Desain di :root", desc: "Menempatkan variabel warna, font, dan radius di pseudo-class :root memudahkan pembuatan tema gelap/terang serta menjamin konsistensi di seluruh komponen." },
-                    { num: 2, title: "Universal Box-Sizing Reset", desc: "Aturan *, *::before, *::after { box-sizing: border-box } memastikan nilai padding dan border tidak menambah lebar total elemen." },
-                    { num: 3, title: "CSS Grid: repeat(auto-fit, minmax(...))", desc: "Trik sakti CSS Grid modern: kartu otomatis terbagi 1 kolom di ponsel, 2 kolom di tablet, dan 3-4 kolom di desktop secara adaptif tanpa perlu menuliskan banyak media query." },
-                    { num: 4, title: "Efek Glassmorphism (Kaca Buram)", desc: "Properti backdrop-filter: blur(12px) memburamkan konten yang berada di belakang kartu, menciptakan kedalaman antarmuka yang sangat elegan." },
-                    { num: 5, title: "Animasi Ramah GPU (60 FPS)", desc: "Penggunaan translateY(-6px) diproses di Compositor Thread GPU tanpa memicu 'Layout Thrashing' atau 'Paint Reflow' pada prosesor CPU." },
-                    { num: 6, title: "Aksesibilitas :focus-visible", desc: "Menampilkan garis fokus kontras tinggi hanya saat pengguna menavigasi menggunakan keyboard (tombol Tab), menjaga keindahan visual bagi pengguna mouse." }
+                    { 
+                        num: 1, 
+                        title: "Token Desain Terpusat di :root (CSS Custom Properties)", 
+                        desc: "Menempatkan variabel warna, jenis huruf, dan radius sudut di pseudo-class ':root'. Manfaat utamanya: saat kamu ingin mengubah warna tema website atau menerapkan fitur Dark/Light Mode, kamu cukup mengganti nilai variabel di satu tempat (:root) dan seluruh komponen antarmuka seketika berubah serentak tanpa perlu mengedit ratusan baris CSS satu per satu." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Universal Box-Sizing Reset (*, *::before, *::after)", 
+                        desc: "Secara bawaan peramban menerapkan model 'content-box', di mana jika elemen diberi 'width: 100%' lalu ditambah 'padding: 20px' dan 'border: 2px', lebar totalnya membengkak menjadi 100% + 40px + 4px sehingga layout jebol ke samping. Deklarasi 'box-sizing: border-box' pada reset universal (*) memastikan nilai padding dan border 'ditelan' ke dalam kalkulasi total lebar dan tinggi elemen, sehingga ukuran elemen selalu presisi dan tidak pernah merusak kontainer luar." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Tata Letak Responsif Modern: repeat(auto-fit, minmax(280px, 1fr))", 
+                        desc: "Formula sakti CSS Grid 2 dimensi tanpa perlu menuliskan banyak aturan kaku @media query: (1) 'repeat()' mengulang pembagian kolom; (2) 'auto-fit' secara cerdas mengisi kolom sebanyak mungkin sesuai sisa ruang layar; dan (3) 'minmax(280px, 1fr)' mengunci batas minimal lebar kartu 280px (pas di layar HP), dan jika ada ruang sisa, kartu akan meregang rata ('1fr' = 1 fraction). Hasilnya: otomatis 1 kolom di ponsel, 2 kolom di tablet, dan 3-4 kolom di monitor desktop secara adaptif dan elegan." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Estetika Kaca Buram Modern (Glassmorphism)", 
+                        desc: "Kombinasi latar semi-transparan ('background: rgba(15, 23, 42, 0.75)') dengan filter mutakhir 'backdrop-filter: blur(12px)'. Efek ini memburamkan konten apa pun yang berada persis di belakang kartu, menciptakan kedalaman antarmuka (depth of field) futuristik layaknya kaca frosted glass pada sistem operasi modern." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Animasi Akselerasi GPU 60 FPS (Hardware Acceleration)", 
+                        desc: "Saat mendesain efek hover kartu atau tombol, hindari menganimasikan properti layout seperti 'top', 'margin', atau 'width' karena memicu proses berat 'Layout Reflow' pada prosesor CPU. Selalu gunakan 'transform: translateY(-6px)' dan 'opacity' yang diproses langsung oleh kartu grafis (GPU) pada Compositor Thread, menghasilkan gerakan selembut sutra tanpa stuttering (patah-patah)." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Aksesibilitas Navigasi Keyboard (:focus-visible)", 
+                        desc: "Solusi cerdas standar WCAG: pseudo-class ':focus-visible' menampilkan garis cincin fokus kontras tinggi HANYA ketika pengguna menavigasi halaman menggunakan tombol Tab keyboard (sangat membantu penyandang disabilitas motorik), namun tidak akan memunculkan garis kotak yang mengganggu saat elemen diklik biasa menggunakan mouse." 
+                    }
                 ],
                 tip: "Gunakan unit relatif 'rem' untuk font dan margin/padding daripada 'px' absolut. Karena 1rem dihitung dari ukuran dasar font di peramban pengguna (default 16px), tampilan akan tetap proporsional jika pengguna memperbesar font sistem untuk alasan keterbacaan mata."
             },
@@ -571,12 +619,36 @@ function escapeHtml(str) {
 // Inisialisasi awal UI
 renderTasks();`,
                 steps: [
-                    { num: 1, title: "Immutability & State Driven", desc: "Kita tidak langsung mengubah teks HTML secara serampangan, melainkan memperbarui variabel 'tasks' (state) terlebih dahulu, lalu merender ulang tampilan (Single Source of Truth)." },
-                    { num: 2, title: "Event Delegation pada Induk", desc: "Alih-alih memasang ratusan event listener pada setiap tombol tugas, kita hanya memasang 1 listener pada 'taskListEl' dan memanfaatkan 'e.target.closest()' untuk efisiensi memori." },
-                    { num: 3, title: "Array Methods: .map() & .filter()", desc: "Menggunakan method modern bawaan JavaScript yang tidak memutasi data asli untuk menghasilkan data turunan baru secara bersih." },
-                    { num: 4, title: "Spread Operator ({ ...t, done })", desc: "Sintaksis salinan dangkal (shallow copy) ES6 untuk memperbarui properti objek tertentu tanpa merusak properti lainnya." },
-                    { num: 5, title: "JSON.stringify() & JSON.parse()", desc: "LocalStorage hanya menerima tipe data string primitif; fungsi JSON mengubah objek JavaScript menjadi string dan sebaliknya." },
-                    { num: 6, title: "Pencegahan XSS (Cross-Site Scripting)", desc: "Fungsi escapeHtml() memastikan teks yang diketik pengguna tidak dieksekusi sebagai tag skrip berbahaya oleh peramban." }
+                    { 
+                        num: 1, 
+                        title: "Pola Arsitektur State-Driven & Single Source of Truth", 
+                        desc: "Standar software engineering modern melarang memanipulasi teks HTML secara terpisah-pisah di berbagai fungsi. Kita memisahkan antara 'State' (variabel data 'tasks' di memori JavaScript sebagai satu-satunya pusat kebenaran) dan 'UI' (tampilan visual di browser). Setiap kali data ditambah, dicentang, atau dihapus, kita hanya memodifikasi array 'tasks', menyimpannya ke LocalStorage, lalu memanggil fungsi 'renderTasks()' untuk menyinkronkan tampilan antarmuka secara otomatis dan rapi." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Efisiensi Memori: Event Delegation & e.target.closest()", 
+                        desc: "Mengapa kita tidak memasang 'addEventListener' pada setiap tombol hapus tugas? Jika ada 1.000 tugas, membuat 1.000 event listener akan memboroskan RAM browser secara drastis, dan tugas baru yang ditambahkan nanti tidak akan memiliki listener. Dengan 'Event Delegation', kita HANYA memasang 1 listener pada elemen induk ('taskListEl'). Memanfaatkan fenomena 'Event Bubbling' (sinyal klik merambat naik ke induk), fungsi 'e.target.closest(\".task-item\")' melacak kartu tugas terdekat yang diklik, membaca ID uniknya lewat dataset, lalu memproses aksi yang sesuai dengan sangat cepat dan hemat memori." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Prinsip Immutability: Transformasi .map() & Penyaringan .filter()", 
+                        desc: "Hindari merusak data asli secara langsung. (1) '.map()' digunakan untuk mentransformasikan setiap elemen array menjadi bentuk baru—misalnya mengubah array objek data menjadi untaian elemen HTML '<li>...</li>' untuk dirender ke layar. (2) '.filter()' digunakan untuk menyaring data—misalnya saat menghapus tugas, kita membuat array baru yang hanya memuat tugas dengan ID yang tidak cocok ('t.id !== taskId'). Array lama tidak dimutasi secara liar, mencegah timbulnya bug efek samping (*side-effects*) yang sulit dilacak." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Salinan Dangkal Bersih: Spread Operator ({ ...t, done })", 
+                        desc: "Sintaksis tiga titik ('...') adalah fitur sakti ES6 untuk membuat salinan objek (shallow copy). Kode '{ ...t, done: e.target.checked }' menyalin seluruh properti lama dari objek tugas 't' (seperti id dan title), kemudian menimpa hanya nilai 'done' dengan status centang terbaru tanpa mengubah objek aslinya secara destruktif." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Serialisasi Penyimpanan: JSON.stringify() vs JSON.parse()", 
+                        desc: "Fitur browser LocalStorage hanya dapat menyimpan tipe data teks string primitif, bukan objek atau array JavaScript. Oleh karena itu, kita menggunakan 'JSON.stringify(tasks)' untuk mengonversi array objek menjadi format teks string JSON sebelum disimpan, dan menggunakan 'JSON.parse(raw)' saat website dibuka kembali untuk merekonstruksi teks JSON tersebut kembali menjadi array objek JavaScript yang siap dipakai." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Sanitasi Input & Proteksi Keamanan XSS (Cross-Site Scripting)", 
+                        desc: "Celah keamanan berbahaya pada aplikasi web: jika pengguna mengetik teks '<script>curiPassword()</script>' lalu kita langsung memasukkannya ke innerHTML, peramban akan mengeksekusi kode jahat tersebut. Fungsi 'escapeHtml()' menetralkan ancaman ini dengan mengganti karakter khusus seperti '<' menjadi entitas aman '&lt;' dan '>' menjadi '&gt;' sehingga teks murni tampil sebagai tulisan biasa tanpa celah eksekusi." 
+                    }
                 ],
                 tip: "Gunakan fitur modern Optional Chaining (obj?.prop) dan Nullish Coalescing (val ?? defaultVal) untuk mencegah error runtime legendaris 'Cannot read properties of undefined'."
             },
@@ -787,12 +859,36 @@ def buat_laporan_harian(filename: str) -> bool:
 sukses = buat_laporan_harian("rekap_santri.txt")
 print(f"Status pembuatan berkas: {'Sukses' if sukses else 'Gagal'}")`,
                 steps: [
-                    { num: 1, title: "Type Hints (Typing Annotation)", desc: "Menambahkan anotasi tipe data seperti 'List[Dict]' dan '-> bool' membuat kode lebih mudah dipahami oleh programmer lain dan diverifikasi oleh static analyzer." },
-                    { num: 2, title: "List Comprehension", desc: "Cara idiomatik Python untuk menyaring dan mentransformasi data dalam satu baris yang sangat ekspresif: [ekspresi for item in koleksi if kondisi]." },
-                    { num: 3, title: "Context Manager: with open(...)", desc: "Kunci penanganan resource file: file dijamin ditutup otomatis saat blok kode selesai, mencegah kerusakan data atau penguncian file oleh sistem operasi." },
-                    { num: 4, title: "F-Strings dengan Format Specifier", desc: "Format f'{rata_juz:.2f}' membatasi angka desimal menjadi tepat 2 digit di belakang koma tanpa perlu fungsi pembulatan terpisah." },
-                    { num: 5, title: "Fungsi bawaan enumerate()", desc: "Mengulang koleksi data sekaligus mendapatkan nomor urut indeks dan nilainya secara bersamaan tanpa perlu membuat variabel counter manual." },
-                    { num: 6, title: "Error Handling: try...except OSError", desc: "Menangkap potensi kegagalan sistem operasi (seperti permission denied atau disk penuh) secara elegan tanpa memutus alur program utama." }
+                    { 
+                        num: 1, 
+                        title: "Type Hints & Anotasi Tipe Data Modern (PEP 484)", 
+                        desc: "Meskipun Python adalah bahasa pengetikan dinamis, standar Python modern mewajibkan Type Hints seperti 'santri_db: List[Dict]' dan 'def buat_laporan(...) -> bool'. Anotasi ini berfungsi sebagai dokumentasi mandiri yang hidup, memudahkan programmer lain memahami struktur data tanpa menebak-nebak, serta mengaktifkan deteksi error otomatis di editor (IntelliSense) sebelum program dijalankan." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Sintaks Idiomatik: List Comprehension", 
+                        desc: "Fitur khas Python paling elegan untuk menyaring dan mentransformasikan data dalam satu baris ekspresif tanpa perulangan for bertingkat. Pola dasarnya: '[ekspresi for item in koleksi if kondisi]'. Pada contoh kode: '[s[\"nama\"] for s in santri_db if s[\"aktif\"] and s[\"juz\"] >= 4]' dibaca: 'Ambil nama santri, dari database santri_db, HANYA jika santri aktif dan hafalannya minimal 4 juz'. Selain jauh lebih ringkas, List Comprehension dieksekusi langsung pada layer internal C-Python sehingga kecepatannya jauh melampaui metode append manual." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Pengelolaan Resource Aman: Context Manager 'with open(...)'", 
+                        desc: "Mengapa kita TIDAK BOLEH membuka berkas dengan cara lama 'f = open(...); f.close()'? Jika di tengah proses penulisan terjadi error atau program mati mendadak, baris 'f.close()' tidak akan pernah dieksekusi sehingga berkas terkunci di RAM sistem operasi (resource leak) atau file menjadi korup. Pernyataan 'with open(...) as f' menerapkan protokol Context Manager (method bawaan '__enter__' dan '__exit__') yang menjamin berkas PASTI dan OTOMATIS DITUTUP dengan aman seketika blok kode selesai, bahkan jika terjadi error di dalamnya." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Format String Canggih: F-Strings dengan Format Specifier", 
+                        desc: "Awalan huruf 'f' di depan string ('f\"...\"') memungkinkan penyisipan variabel dan ekspresi langsung di dalam kurung kurawal. Fitur Format Specifier seperti '{rata_juz:.2f}' membulatkan bilangan desimal float secara presisi menjadi tepat 2 digit di belakang koma (misal 5.3333 menjadi '5.33') tanpa memerlukan pemanggilan fungsi pembulatan tambahan." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Iterasi Elegan dengan Fungsi Bawaan enumerate(..., start=1)", 
+                        desc: "Alih-alih membuat variabel hitungan manual 'i = 1' lalu menambahkan 'i += 1' di setiap putaran loop, fungsi 'enumerate(koleksi, start=1)' langsung mengembalikan pasangan nomor urut dan nilai elemen secara bersamaan. Kode menjadi jauh lebih bersih, mudah dibaca, dan bebas dari potensi bug lupa menaikkan angka counter." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Penanganan Error Sistem: Blok try...except OSError", 
+                        desc: "Operasi pembacaan/penulisan berkas sangat rentan terhadap kegagalan di luar kendali kode kita—seperti media penyimpanan penuh, hak akses ditolak (permission denied), atau disk tidak dapat diakses. Menangkap exception spesifik 'OSError' mencegah program crash mendadak dan memungkinkan kita menampilkan pesan log yang bersahabat kepada pengguna." 
+                    }
                 ],
                 tip: "Gunakan environment virtual (python -m venv .venv) di setiap proyek barumu untuk mengisolasi versi pustaka dan paket pip, mencegah konflik dependensi antar-proyek di komputermu."
             },
@@ -995,12 +1091,36 @@ git push -u origin feat/modul-belajar-interaktif
 # ====================================================
 git log --graph --oneline --decorate -n 5`,
                 steps: [
-                    { num: 1, title: "Feature Branch Workflow", desc: "Jangan pernah mengedit fitur baru langsung di branch 'main'. Selalu buat branch terpisah (misal feat/nama-fitur) agar branch produksi tetap bersih dan stabil." },
-                    { num: 2, title: "Staging Area (Panggung Persiapan)", desc: "Perintah 'git add' menempatkan berkas ke index staging; kamu bisa memilih berkas mana saja yang ingin disertakan dalam commit berikutnya secara selektif." },
-                    { num: 3, title: "Pesan Commit Semantik", desc: "Standar industri menggunakan format Semantic Commits: 'feat:' untuk fitur baru, 'fix:' untuk perbaikan bug, 'refactor:' untuk perapian kode, dan 'chore:' untuk pemeliharaan rutin." },
-                    { num: 4, title: "git fetch vs git pull", desc: "'git fetch' hanya mengunduh data riwayat terbaru dari cloud tanpa memodifikasi berkas lokalmu, memberi kesempatan untuk memeriksa perubahan sebelum digabungkan." },
-                    { num: 5, title: "Rebase (--rebase) vs Merge", desc: "Rebase memindahkan riwayat commit fiturmu ke puncak cabang utama, menghasilkan riwayat git log yang lurus, bersih, dan mudah dilacak." },
-                    { num: 6, title: "Pull Request (PR) & Code Review", desc: "Di GitHub, branch fitur diajukan sebagai PR agar dapat diuji oleh automated tests dan ditinjau rekan programmer sebelum dimerge ke branch 'main'." }
+                    { 
+                        num: 1, 
+                        title: "Alur Kerja Terisolasi: Feature Branch (git checkout -b)", 
+                        desc: "Aturan emas kontrol versi: jangan pernah mengedit kode fitur baru atau melakukan uji coba langsung di cabang utama ('main'). Perintah 'git checkout -b feat/nama-fitur' (atau 'git switch -c') membuat cabang terisolasi baru. Jika eksperimen fiturnya gagal atau dibatalkan, kamu cukup menghapus cabang tersebut tanpa pernah merusak kestabilan kode produksi di branch utama." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Panggung Seleksi: Staging Area (git add) & git diff --staged", 
+                        desc: "Arsitektur Git membagi siklus berkas menjadi 3 zona: (1) 'Working Directory' (folder lokal tempat kamu mengetik kode), (2) 'Staging Area / Index' (panggung penyeleksian berkas), dan (3) 'Repository / HEAD' (rekaman snapshot commit permanen). Perintah 'git add <file>' memungkinkan kita memilih hanya berkas tertentu yang ingin dimasukkan ke dalam commit berikutnya. Hindari kebiasaan asal 'git add .', dan selalu gunakan 'git diff --staged' untuk meninjau secara saksama setiap baris kode hijau (tambah) dan merah (hapus) yang siap direkam." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Standar Pesan Commit Semantik (Conventional Commits)", 
+                        desc: "Jangan pernah menuliskan pesan commit yang ambigu seperti 'update' atau 'perbaikan bug'. Industri perangkat lunak global mewajibkan format Semantic Commits terstruktur: (1) 'feat:' untuk fitur baru (misal 'feat(auth): tambah login Google'), (2) 'fix:' untuk perbaikan bug error, (3) 'refactor:' untuk merapikan struktur kode tanpa mengubah fungsi, (4) 'docs:' untuk perubahan dokumentasi, dan (5) 'chore:' untuk pembaruan dependensi build. Pola ini memudahkan pembuatan changelog versi rilis secara otomatis dan membuat riwayat proyek mudah diaudit." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Perbedaan Krusial: git fetch origin main vs git pull", 
+                        desc: "'git fetch origin main' hanya mengambil metadata dan commit terbaru dari server GitHub ke komputer lokal tanpa menyentuh atau mengubah berkas kerjamu, sehingga aman untuk memeriksa update. Sebaliknya, 'git pull' langsung mengunduh SEKALIGUS menggabungkan (fetch + merge) commit remote ke cabang lokalmu secara instan, yang berpotensi memicu konflik jika kamu belum siap." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Pembersihan Riwayat Log: Rebase (--rebase) vs Merge Biasa", 
+                        desc: "Saat menggabungkan cabang fitur kembali ke cabang utama, perintah 'git pull --rebase' memindahkan pangkal branch fitur kita ke atas commit terbaru dari remote. Hasilnya: riwayat komit pada 'git log' menjadi satu garis lurus yang rapi dan elegan tanpa menghasilkan commit sampah 'Merge branch...' yang mengotori diagram repositori." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Kolaborasi Tim di Cloud: Pull Request (PR) & Code Review", 
+                        desc: "Setelah cabang fitur di-push ke GitHub ('git push -u origin <cabang>'), kita membuat Pull Request (PR). Di halaman PR ini, rekan satu tim dapat menginspeksi perbedaan kode baris per baris (code review), meninggalkan komentar saran perbaikan, dan menunggu hasil automated test (CI/CD) lulus sebelum tombol merge ke branch produksi ditekan." 
+                    }
                 ],
                 tip: "Gunakan 'git commit --amend' jika kamu hanya ingin memperbaiki typo pada pesan commit terakhir yang belum di-push ke remote, atau 'git stash' untuk menyimpan sementara pekerjaan yang belum selesai saat harus berganti cabang mendadak."
             },
@@ -1207,12 +1327,36 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
 #     Require all denied
 # </FilesMatch>`,
                 steps: [
-                    { num: 1, title: "Alamat Host Server & Akun FTP", desc: "IP server host (misal 145.79.9.243) dan username khusus akun FTP yang dibuat di panel kontrol hPanel Hostinger." },
-                    { num: 2, title: "Protokol STOR (Store)", desc: "Perintah standar protokol RFC 959 FTP yang memberi instruksi server untuk menerima aliran berkas data dan menyimpannya di path tujuan." },
-                    { num: 3, title: "Retry Mechanism (Percobaan Ulang)", desc: "Skrip dilengkapi loop 3x percobaan untuk mengatasi lonjakan latensi jaringan sementara tanpa menggagalkan seluruh proses deployment." },
-                    { num: 4, title: "Pelepasan Memori: client.Dispose()", desc: "Wajib menutup koneksi WebClient setelah berkas selesai ditransfer agar server hosting tidak kehabisan kuota koneksi concurrent." },
-                    { num: 5, title: "Peran Berkas .htaccess", desc: "Berkas konfigurasi tingkat direktori pada web server Apache/LiteSpeed yang memblokir akses ke skrip sensitif (.ps1, .env) dan mengatur cache." },
-                    { num: 6, title: "Cache-Busting (?v=2.0)", desc: "Menambahkan parameter versi pada berkas JS/CSS di HTML agar pengunjung segera menerima kode terbaru tanpa tertahan cache browser lama." }
+                    { 
+                        num: 1, 
+                        title: "Konektivitas Host Server & Kredensial Akun FTP", 
+                        desc: "Untuk menghubungkan komputer lokal ke server hosting Hostinger secara terprogram, kita memerlukan 3 data penting dari hPanel: (1) Alamat IP/Host FTP (seperti 145.79.9.243), (2) Username akun FTP yang berwenang mengakses direktori publik, dan (3) Kata sandi FTP yang terlindungi secara aman." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Protokol Jaringan RFC 959: Perintah STOR (Store) vs RETR", 
+                        desc: "Bagaimanakah protokol FTP mentransfer berkas melintasi internet? Dalam skrip PowerShell '$client.UploadFile($ftpUrl, \"STOR\", $localPath)', parameter 'STOR' (Store) adalah instruksi baku protokol FTP resmi yang memerintahkan server web Hostinger untuk membuka kanal data transfer dan menyimpan aliran biner berkas dari komputer lokal ke direktori tujuan server. Kebalikannya adalah perintah 'RETR' (Retrieve) yang digunakan untuk mengunduh berkas dari server ke komputer lokal kita." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Mekanisme Ketahanan: Retry Loop Otomatis 3x Percobaan", 
+                        desc: "Koneksi internet antar-benua ke server hosting rentan mengalami lonjakan latensi atau timeout singkat. Alih-alih membiarkan deployment gagal total saat terjadi gangguan sesaat, kita membungkus perintah upload di dalam perulangan 'for ($attempt = 1; $attempt -le 3; $attempt++)' yang dipadukan dengan 'try...catch'. Jika percobaan pertama gagal, skrip akan memberikan jeda istirahat 2 detik ('Start-Sleep -Seconds 2') lalu otomatis mencoba kembali hingga maksimal 3 kali sebelum melaporkan kegagalan." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Manajemen Memori Jaringan: client.Dispose()", 
+                        desc: "Setelah satu berkas selesai diunggah, objek 'System.Net.WebClient' wajib ditutup dan dibersihkan dari RAM menggunakan method 'client.Dispose()'. Jika diabaikan, sesi koneksi soket TCP akan menggantung (hung socket), yang dapat mengakibatkan server hosting memblokir IP komputermu karena dianggap melebihi batas kuota koneksi bersamaan (*concurrent connections limit*)." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Pengamanan Server Web dengan Berkas .htaccess", 
+                        desc: "Berkas '.htaccess' adalah pusat konfigurasi direktori pada web server LiteSpeed/Apache di Hostinger. Perintah 'Options -Indexes' mencegah pengunjung asing melihat daftar folder website jika file index tidak ada. Blok '<FilesMatch>' digunakan untuk memblokir unduhan langsung berkas sensitif seperti skrip PowerShell (.ps1), variabel lingkungan (.env), dan konfigurasi Git dari publik." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Teknik Cache-Busting (?v=2.0) pada Aset Statis", 
+                        desc: "Peramban web pengguna secara agresif menyimpan berkas CSS dan JavaScript di memori cache lokal agar hemat kuota. Masalahnya: saat kita memperbarui kode di server, pengunjung lama sering kali masih melihat tampilan lama yang rusak. Dengan menambahkan parameter string query unik seperti 'learn.js?v=2.1' pada tag HTML, browser akan mendeteksi URL baru dan seketika mengunduh berkas kode paling mutakhir." 
+                    }
                 ],
                 tip: "Jangan pernah mengunggah berkas skrip deployment (yang berisi kata sandi FTP) ke repositori publik GitHub. Selalu daftarkan 'upload_ftp.ps1' ke dalam berkas '.gitignore' agar kredensial servermu tetap aman."
             },
@@ -1409,12 +1553,36 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
     }
 }`,
                 steps: [
-                    { num: 1, title: "Ctrl + Shift + P (Command Palette)", desc: "Pintu gerbang seluruh perintah VS Code: kamu bisa mengakses fitur apa saja (mengubah tema warna, menginstal ekstensi, format kode) tanpa menyentuh mouse." },
-                    { num: 2, title: "Ctrl + P (Quick Open File)", desc: "Ketik sebagian nama berkas untuk berpindah berkas secara instan dalam hitungan milidetik di proyek raksasa." },
-                    { num: 3, title: "Ctrl + ` (Toggle Integrated Terminal)", desc: "Membuka dan menutup terminal PowerShell/Bash tepat di direktori proyek saat ini, mempercepat pengetikan perintah Git." },
-                    { num: 4, title: "Ctrl + D (Multi-Cursor Selection)", desc: "Pilih kata yang sama berikutnya secara berurutan; kamu dapat mengedit 5 atau 10 kata yang sama secara serentak dalam satu ketukan." },
-                    { num: 5, title: "Shift + Alt + Panah Atas/Bawah", desc: "Menduplikasi baris kode saat ini ke atas atau ke bawah seketika tanpa proses copy-paste manual yang lambat." },
-                    { num: 6, title: "Emmet Abbreviations (Sakti!)", desc: "Ketik singkatan seperti 'ul.nav>li*3>a' lalu tekan tombol Tab, VS Code akan otomatis membentangkannya menjadi 3 baris list lengkap dengan tag anchor!" }
+                    { 
+                        num: 1, 
+                        title: "Pusat Kendali Editor: Ctrl + Shift + P (Command Palette)", 
+                        desc: "Pintu gerbang utama ke seluruh fitur, perintah, dan konfigurasi VS Code. Menekan 'Ctrl + Shift + P' (atau F1) memunculkan bilah pencarian universal tempat kamu dapat menjalankan tindakan apa saja—seperti mengubah tema warna, memformat dokumen, reload window, hingga menginstal ekstensi—semuanya hanya dengan mengetik kata kunci tanpa perlu menyentuh mouse." 
+                    },
+                    { 
+                        num: 2, 
+                        title: "Navigasi Kilat Proyek: Ctrl + P (Quick Open File)", 
+                        desc: "Mengapa programmer profesional jarang mengklik folder satu per satu di panel Explorer? Pada proyek nyata dengan puluhan subfolder dan ribuan berkas, mencari file secara manual sangat membuang waktu. Pintasan 'Ctrl + P' memunculkan palet pencarian instan berbasis pencocokan fuzzy (fuzzy search). Cukup ketik beberapa huruf tanpa perlu nama lengkap (misalnya ketik 'lrnjs' untuk menemukan 'learn.js'), lalu tekan Enter. Berkas seketika terbuka dalam hitungan milidetik tanpa tanganmu perlu meninggalkan keyboard." 
+                    },
+                    { 
+                        num: 3, 
+                        title: "Terminal Terintegrasi: Ctrl + ` (Tanda Petik Miring Backtick)", 
+                        desc: "Tombol backtick ('\`') terletak di pojok kiri atas keyboard, tepat di bawah tombol Esc dan di sebelah kiri angka 1. Menekan kombinasi 'Ctrl + \`' akan memunculkan atau menyembunyikan terminal bawaan (PowerShell / Bash) langsung di bagian bawah editor. Nilai plus terbesarnya: terminal otomatis aktif tepat di direktori kerja proyek saat ini ('d:\\Portofolio Shifan'), sehingga kamu tidak perlu membuka jendela PowerShell terpisah di luar editor dan tidak perlu repot mengetikkan perintah 'cd' berulang-ulang untuk menjalankan Git atau skrip deployment." 
+                    },
+                    { 
+                        num: 4, 
+                        title: "Multi-Cursor Editing: Ctrl + D (Pilih Kata Serupa)", 
+                        desc: "Sorot satu kata atau nama variabel yang ingin kamu ganti, lalu tekan 'Ctrl + D'. VS Code akan secara otomatis menyorot kemunculan kata berikutnya yang sama dan menambahkan kursor aktif tambahan. Tekan beberapa kali untuk memilih 3, 5, atau 10 kata sekaligus, lalu ketik nama barunya—seluruh kata akan berubah serentak dalam satu ketukan tanpa risiko salah ketik pada fitur Find & Replace global." 
+                    },
+                    { 
+                        num: 5, 
+                        title: "Duplikasi Baris Kilat: Shift + Alt + Panah Atas/Bawah", 
+                        desc: "Alih-alih melakukan blok teks manual, Ctrl+C lalu Ctrl+V yang lambat, cukup letakkan kursor pada baris kode yang ingin kamu gandakan lalu tekan kombinasi 'Shift + Alt + Panah Bawah' (atau Panah Atas). Baris kode tersebut seketika terduplikasi secara presisi tepat di bawahnya dalam hitungan sepersekian detik." 
+                    },
+                    { 
+                        num: 6, 
+                        title: "Generator Kerangka Sakti: Emmet Abbreviations (Tombol Tab)", 
+                        desc: "Fitur penulisan kode HTML/CSS paling revolusioner: daripada mengetik tag pembuka dan penutup secara manual satu per satu, kamu cukup mengetikkan notasi singkatan selector CSS—misalnya 'ul.menu>li*3>a'—lalu tekan tombol Tab. VS Code seketika membentangkan singkatan tersebut menjadi elemen list beranggotakan 3 baris lengkap dengan tag tautan anchor secara sempurna!" 
+                    }
                 ],
                 tip: "Pasang ekstensi wajib developer modern: (1) Prettier untuk format kode rapi otomatis saat save, (2) Live Server untuk preview web otomatis reload, dan (3) GitLens untuk melihat riwayat penulis setiap baris kode secara visual."
             },
