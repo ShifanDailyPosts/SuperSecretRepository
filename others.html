@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Others | Shifan Shalih Adiluhung</title>
+    <title>AI Prompt Engineering Guide | Others - Shifan Shalih Adiluhung</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -207,7 +207,6 @@
             display: flex;
         }
 
-        /* Shake animation for invalid credentials */
         @keyframes shakeCard {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-8px); }
@@ -243,13 +242,13 @@
         }
 
         /* ========================================================
-           AUTHENTICATED BLANK PAGE STYLES
+           AUTHENTICATED PORTAL: AI PROMPTING WORKSPACE
            ======================================================== */
         .others-topbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(11, 15, 25, 0.85);
+            background: rgba(11, 15, 25, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
@@ -279,113 +278,575 @@
             gap: 0.75rem;
         }
 
-        .others-blank-main {
-            padding: 4rem 0 6rem 0;
-            min-height: calc(100vh - 72px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Prompt Workspace Main Container */
+        .prompt-workspace {
+            padding: 3rem 0 6rem 0;
             position: relative;
             z-index: 10;
         }
 
-        .blank-canvas-card {
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px dashed rgba(6, 182, 212, 0.35);
-            border-radius: var(--radius-lg);
-            padding: 4.5rem 2.5rem;
+        /* Hero Banner */
+        .prompt-hero {
             text-align: center;
-            max-width: 780px;
-            width: 100%;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-            transition: all var(--transition-normal);
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
         }
 
-        body.light-theme .blank-canvas-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
-        }
-
-        .blank-canvas-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 1.75rem auto;
-            border-radius: 50%;
-            background: rgba(6, 182, 212, 0.1);
-            border: 2px solid rgba(6, 182, 212, 0.25);
-            display: flex;
+        .prompt-hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            box-shadow: 0 0 35px rgba(6, 182, 212, 0.2);
+            gap: 0.5rem;
+            padding: 0.45rem 1.1rem;
+            border-radius: var(--radius-full);
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #38bdf8;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
         }
 
-        .blank-canvas-title {
-            font-size: 2.1rem;
+        .prompt-hero-title {
+            font-size: 2.5rem;
             font-weight: 800;
+            line-height: 1.25;
             color: var(--text-primary);
-            margin-bottom: 0.85rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
         }
 
-        .blank-canvas-desc {
-            font-size: 1.05rem;
+        .prompt-hero-desc {
+            font-size: 1.08rem;
             color: var(--text-secondary);
             line-height: 1.75;
-            max-width: 580px;
-            margin: 0 auto 2.25rem auto;
+            max-width: 760px;
+            margin: 0 auto;
         }
 
-        .blank-meta-tags {
+        /* Tabs Navigation Strip */
+        .prompt-tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            background: rgba(15, 23, 42, 0.55);
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+        }
+
+        body.light-theme .prompt-tabs-nav {
+            background: rgba(241, 245, 249, 0.8);
+        }
+
+        .prompt-tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            padding: 0.7rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all var(--transition-fast);
+            font-family: var(--font-body);
+        }
+
+        .prompt-tab-btn:hover {
+            color: var(--primary-color);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .prompt-tab-btn.active {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
+        }
+
+        /* Tab Content Panes */
+        .prompt-tab-pane {
+            display: none;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .prompt-tab-pane.active {
+            display: block;
+        }
+
+        /* Card & Content Components */
+        .prompt-card {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+            transition: border-color var(--transition-fast);
+        }
+
+        body.light-theme .prompt-card {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        .prompt-card:hover {
+            border-color: rgba(6, 182, 212, 0.35);
+        }
+
+        .prompt-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
+        }
+
+        .prompt-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
+            font-size: 1.35rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
         }
 
-        .blank-meta-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.45rem 1rem;
-            border-radius: var(--radius-full);
-            font-size: 0.84rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
+        .prompt-card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
         }
 
-        .blank-meta-pill.pill-success {
-            background: rgba(16, 185, 129, 0.12);
-            border-color: rgba(16, 185, 129, 0.35);
-            color: #6ee7b7;
+        .prompt-card-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0.2rem 0 0 0;
         }
 
-        .blank-meta-pill.pill-user {
-            background: rgba(6, 182, 212, 0.12);
-            border-color: rgba(6, 182, 212, 0.35);
-            color: #38bdf8;
+        /* Pillars Grid (Mengapa Prompting Penting) */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .blank-notice-box {
+        .pillar-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 1.25rem 1.5rem;
-            max-width: 540px;
-            margin: 0 auto;
-            font-size: 0.88rem;
-            color: var(--text-muted);
+            padding: 1.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .pillar-item:hover {
+            background: rgba(6, 182, 212, 0.04);
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .pillar-icon {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .pillar-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-item p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* RTCO Framework Step-by-Step Boxes */
+        .framework-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .framework-step {
+            display: flex;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.6rem;
+            position: relative;
+            transition: border-color var(--transition-fast);
+        }
+
+        .framework-step:hover {
+            border-color: rgba(6, 182, 212, 0.35);
+        }
+
+        .step-letter-badge {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .step-info {
+            flex-grow: 1;
+        }
+
+        .step-info h4 {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .step-info .step-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .step-info p {
+            font-size: 0.93rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 0.85rem;
+        }
+
+        .step-example-box {
+            background: rgba(11, 15, 25, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1.1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #a5f3fc;
             line-height: 1.6;
+        }
+
+        body.light-theme .step-example-box {
+            background: #0f172a;
+            color: #7dd3fc;
+        }
+
+        /* Side-by-Side Comparison (Bad vs Good Prompt) */
+        .comparison-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+        }
+
+        @media (max-width: 860px) {
+            .comparison-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .compare-box {
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .compare-box.bad {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        .compare-box.good {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .compare-box-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .compare-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .compare-box.bad .compare-badge {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .compare-box.good .compare-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .compare-code {
+            background: rgba(11, 15, 25, 0.8);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.86rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .compare-box.bad .compare-code {
+            color: #fca5a5;
+            border: 1px dashed rgba(239, 68, 68, 0.3);
+        }
+
+        .compare-box.good .compare-code {
+            color: #86efac;
+            border: 1px dashed rgba(16, 185, 129, 0.3);
+        }
+
+        .compare-reason {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .compare-box.bad .compare-reason { color: #fca5a5; }
+        .compare-box.good .compare-reason { color: #a7f3d0; }
+
+        /* Code Block with Copy Button */
+        .copyable-prompt-block {
+            position: relative;
+            background: #090d16;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.25rem 1rem 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .copyable-prompt-block pre {
+            margin: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.87rem;
+            color: #e2e8f0;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: #cbd5e1;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-color);
+            color: #0b0f19;
+            border-color: var(--primary-color);
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+            color: #ffffff;
+            border-color: #10b981;
+        }
+
+        /* Interactive Prompt Builder Form */
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .builder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .builder-form-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+        }
+
+        .builder-presets {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .preset-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .preset-btn:hover, .preset-btn.active {
+            background: rgba(6, 182, 212, 0.15);
+            border-color: var(--primary-color);
+            color: #38bdf8;
+        }
+
+        .builder-field {
+            margin-bottom: 1.15rem;
+        }
+
+        .builder-field label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .builder-field label span.badge-hint {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .builder-input, .builder-textarea {
+            width: 100%;
+            padding: 0.75rem 0.95rem;
+            background: rgba(11, 15, 25, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        body.light-theme .builder-input, body.light-theme .builder-textarea {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.15);
+            color: #0f172a;
+        }
+
+        .builder-input:focus, .builder-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .builder-textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .builder-preview-wrapper {
+            position: sticky;
+            top: 5rem;
+            background: #090d16;
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-theme .builder-preview-wrapper {
+            background: #0f172a;
+        }
+
+        .builder-preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.85rem;
+        }
+
+        .builder-preview-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .builder-preview-output {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.86rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 520px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 1.25rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Toast notification */
@@ -416,29 +877,12 @@
             pointer-events: auto;
         }
 
-        .toast-success {
-            border-left: 4px solid #10b981;
-        }
-
-        .toast-success i {
-            color: #10b981;
-        }
-
-        .toast-info {
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .toast-info i {
-            color: var(--primary-color);
-        }
-
-        .toast-error {
-            border-left: 4px solid #ef4444;
-        }
-
-        .toast-error i {
-            color: #ef4444;
-        }
+        .toast-success { border-left: 4px solid #10b981; }
+        .toast-success i { color: #10b981; }
+        .toast-info { border-left: 4px solid var(--primary-color); }
+        .toast-info i { color: var(--primary-color); }
+        .toast-error { border-left: 4px solid #ef4444; }
+        .toast-error i { color: #ef4444; }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(12px); }
@@ -446,22 +890,11 @@
         }
 
         @media (max-width: 640px) {
-            .gatekeeper-card {
-                padding: 2.25rem 1.5rem;
-            }
-            .blank-canvas-card {
-                padding: 3rem 1.5rem;
-            }
-            .blank-canvas-title {
-                font-size: 1.65rem;
-            }
-            .others-topbar-inner {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .others-topbar-right {
-                justify-content: flex-end;
-            }
+            .prompt-hero-title { font-size: 1.85rem; }
+            .prompt-card { padding: 1.5rem; }
+            .gatekeeper-card { padding: 2.25rem 1.5rem; }
+            .others-topbar-inner { flex-direction: column; align-items: stretch; }
+            .others-topbar-right { justify-content: flex-end; }
         }
     </style>
 </head>
@@ -552,7 +985,7 @@
     </section>
 
     <!-- ========================================================
-         VIEW 2: BLANK PAGE WORKSPACE (AUTHENTICATED)
+         VIEW 2: AI PROMPTING WORKSPACE (AUTHENTICATED)
          ======================================================== -->
     <div id="blankPageSection">
         <!-- Top Navigation Bar -->
@@ -565,7 +998,7 @@
                     </a>
                     <div class="badge-pill" style="margin: 0;">
                         <span class="pulse-dot"></span>
-                        <span>Others Workspace</span>
+                        <span>AI Prompting Masterclass</span>
                     </div>
                 </div>
 
@@ -586,40 +1019,410 @@
             </div>
         </header>
 
-        <!-- Blank Page Content Body -->
-        <main class="others-blank-main">
+        <!-- Prompt Workspace Main Content Body -->
+        <main class="prompt-workspace">
             <div class="container">
-                <div class="blank-canvas-card">
-                    <div class="blank-canvas-icon">
-                        <i class="fa-solid fa-layer-group"></i>
+                
+                <!-- Hero Header -->
+                <div class="prompt-hero">
+                    <div class="prompt-hero-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Eksklusif Santri &amp; Developer Portal</span>
                     </div>
-
-                    <h1 class="blank-canvas-title">Halaman Kosong (Blank Page)</h1>
-                    
-                    <p class="blank-canvas-desc">
-                        Selamat datang, <strong class="text-gradient" id="displayUsername">qsbs</strong>! Halaman ini diproteksi autentikasi dan saat ini masih berupa halaman awal yang bersih (blank), siap diisi dengan konten atau fitur baru yang kamu inginkan.
+                    <h1 class="prompt-hero-title">
+                        Panduan Terstruktur <br>
+                        <span class="text-gradient">Cara Melakukan Prompting AI Secara Profesional</span>
+                    </h1>
+                    <p class="prompt-hero-desc">
+                        Pelajari filosofi ilmiah di balik LLM, mengapa prompt terstruktur mutlak diperlukan, rumus formula standar industri (RTCO Framework), teknik penalaran lanjutan (Chain-of-Thought), serta bangun prompt siap pakai dengan generator interaktif.
                     </p>
+                </div>
 
-                    <div class="blank-meta-tags">
-                        <span class="blank-meta-pill pill-user">
-                            <i class="fa-solid fa-user-check"></i>
-                            <span>Pengguna: <strong>qsbs</strong></span>
-                        </span>
-                        <span class="blank-meta-pill pill-success">
-                            <i class="fa-solid fa-shield-check"></i>
-                            <span>Status: <strong>Terotentikasi</strong></span>
-                        </span>
-                        <span class="blank-meta-pill">
-                            <i class="fa-solid fa-clock"></i>
-                            <span id="sessionTimeDisplay">Sesi Aktif</span>
-                        </span>
-                    </div>
+                <!-- Navigation Tabs -->
+                <nav class="prompt-tabs-nav" aria-label="Pilihan Bab Panduan">
+                    <button type="button" class="prompt-tab-btn active" data-tab="tabWhy">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>1. Mengapa Harus Prompting?</span>
+                    </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabFramework">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                        <span>2. Anatomi &amp; Framework RTCO</span>
+                    </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabAdvanced">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>3. Teknik Lanjutan (CoT &amp; Delimiters)</span>
+                    </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabCompare">
+                        <i class="fa-solid fa-code-compare"></i>
+                        <span>4. Bad vs Good Prompt</span>
+                    </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabBuilder">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <span>5. Interactive Prompt Builder</span>
+                    </button>
+                </nav>
 
-                    <div class="blank-notice-box">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                        <span>Area kerja ini siap dikembangkan untuk proyek, catatan pribadi, portofolio tambahan, atau integrasi aplikasi lainnya.</span>
+                <!-- ==============================================
+                     TAB 1: MENGAPA HARUS PROMPTING? (THE WHY)
+                     ============================================== -->
+                <div class="prompt-tab-pane active" id="tabWhy">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Mekanisme Kerja LLM &amp; Urgensi Prompting</h2>
+                                <p class="prompt-card-subtitle">Memahami model probabilitas bahasa agar tidak terjebak ekspektasi keliru</p>
+                            </div>
+                        </div>
+
+                        <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">
+                            Banyak orang mengira AI seperti ChatGPT, Claude, atau Gemini adalah entitas yang bisa "membaca pikiran" atau memiliki kesadaran manusiawi. Kenyataannya, <strong>Large Language Model (LLM)</strong> adalah mesin probabilitas statistik raksasa berbasis arsitektur Transformer. AI memprediksi token (kata/karakter) berikutnya berdasarkan konteks teks yang kamu masukkan.
+                        </p>
+
+                        <div class="pillars-grid">
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-trash-can-arrow-up"></i></div>
+                                <h4>1. Prinsip GIGO (Garbage In, Garbage Out)</h4>
+                                <p>Jika instruksi yang dimasukkan samar, ambigu, atau tidak terarah, probabilitas ruang jawaban AI akan melebar ke mana-mana. Output menjadi basi, klise, atau tidak sesuai tujuan. Prompt yang spesifik mempersempit probabilitas hingga menghasilkan jawaban tepat sasaran.</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <h4>2. Mereduksi Halusinasi (Factuality)</h4>
+                                <p>Ketika AI tidak diberikan batasan (constraints) dan data referensi yang jelas, model akan cenderung "mengarang indah" (halusinasi) agar kalimatnya terdengar meyakinkan. Prompt yang baik memaksa AI bertumpu hanya pada fakta atau menyatakan 'tidak tahu' jika informasi tidak ditemukan.</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-coins"></i></div>
+                                <h4>3. Efisiensi Token, Kuota &amp; Waktu</h4>
+                                <p>Prompt buruk membutuhkan 5–10 kali percakapan bolak-balik hanya untuk memperbaiki kesalahan kecil. Dengan prompt terstruktur sejak awal, kamu mendapatkan solusi sempurna pada percobaan pertama (First-shot Accuracy), menghemat token API dan jam kerja berharga.</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-file-code"></i></div>
+                                <h4>4. Determinisme Format Output</h4>
+                                <p>Dalam rekayasa perangkat lunak, kita membutuhkan output yang langsung dapat diproses mesin (misal: JSON valid, kode tanpa wrapper markdown, atau tabel). Prompt engineering memungkinkanmu mengunci skema keluaran tanpa narasi basa-basi pembuka dan penutup.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- ==============================================
+                     TAB 2: ANATOMI PROMPT (FRAMEWORK RTCO)
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabFramework">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-cubes-stacked"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Framework RTCO: Formula Baku Prompt Profesional</h2>
+                                <p class="prompt-card-subtitle">Struktur baku 4 pilar yang digunakan pengembang sistem AI global</p>
+                            </div>
+                        </div>
+
+                        <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">
+                            Jangan pernah menulis prompt dalam satu kalimat mentah tanpa struktur. Selalu gunakan formula <strong>RTCO (Role, Task, Context, Output Constraints)</strong> untuk mendapatkan hasil berkualitas tinggi secara konsisten:
+                        </p>
+
+                        <div class="framework-flow">
+                            <!-- R -->
+                            <div class="framework-step">
+                                <div class="step-letter-badge">R</div>
+                                <div class="step-info">
+                                    <h4>Role / Persona <span class="step-tag">Peran &amp; Sudut Pandang</span></h4>
+                                    <p>Memberitahu AI siapa dirinya dan keahlian spesifik apa yang harus diaktifkan dalam jaringan bobot neural-nya. Menetapkan persona langsung mengubah gaya bahasa, kedalaman analisis, dan ketajaman teknis AI.</p>
+                                    <div class="step-example-box">
+                                        Contoh: "Bertindaklah sebagai Senior Fullstack Architect spesialis keamanan aplikasi web (OWASP Top 10) dan performa tinggi."
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- C -->
+                            <div class="framework-step">
+                                <div class="step-letter-badge">C</div>
+                                <div class="step-info">
+                                    <h4>Context &amp; Background <span class="step-tag">Latar Belakang &amp; Lingkungan</span></h4>
+                                    <p>Jelaskan situasi proyek, teknologi stack yang digunakan, versi pustaka, target audiens, dan masalah mendesak yang dihadapi agar AI tidak membuat asumsi salah.</p>
+                                    <div class="step-example-box">
+                                        Contoh: "Saya sedang membangun website portofolio santri menggunakan HTML5 murni, CSS Modern, dan Vanilla JavaScript (tanpa framework, strict CSP aktif, di-hosting di LiteSpeed)."
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- T -->
+                            <div class="framework-step">
+                                <div class="step-letter-badge">T</div>
+                                <div class="step-info">
+                                    <h4>Task / Action <span class="step-tag">Instruksi Pokok Spesifik</span></h4>
+                                    <p>Tugas utama yang harus dikerjakan. Gunakan kata kerja operasional yang tegas (seperti: Analisis, Buat, Refaktor, Temukan Celah, Konversi) bukan kata pasif.</p>
+                                    <div class="step-example-box">
+                                        Contoh: "Buatkan skrip JavaScript mandiri untuk memvalidasi formulir login, memeriksa kecocokan username dan password, serta menyimpan status sesi sementara di sessionStorage."
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- O -->
+                            <div class="framework-step">
+                                <div class="step-letter-badge">O</div>
+                                <div class="step-info">
+                                    <h4>Output Constraints &amp; Guardrails <span class="step-tag">Batasan &amp; Format Hasil</span></h4>
+                                    <p>Aturan mutlak mengenai apa yang BOLEH dan TIDAK BOLEH dilakukan, serta format eksak hasil keluaran (JSON, tabel, blok kode modular tanpa intro klise).</p>
+                                    <div class="step-example-box">
+                                        Contoh: "Aturan: (1) Jangan gunakan pustaka pihak ketiga. (2) Jangan ada inline script di HTML. (3) Berikan hanya satu blok kode JavaScript bersih dengan komentar fungsi ringkas, tanpa teks pembuka/penutup."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 3: TEKNIK LANJUTAN (ADVANCED TECHNIQUES)
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabAdvanced">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Teknik Prompting Tingkat Lanjut</h2>
+                                <p class="prompt-card-subtitle">Metode canggih untuk memecahkan masalah logika kompleks dan algoritma rumit</p>
+                            </div>
+                        </div>
+
+                        <div class="pillars-grid">
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                                <h4>1. Chain-of-Thought (CoT) Prompting</h4>
+                                <p>Instruksikan model untuk menjabarkan proses berpikir langkah-demi-langkah ("<em>Think step-by-step</em>") sebelum menuliskan kesimpulan atau kode akhir. Teknik ini terbukti secara riset melipatgandakan akurasi penalaran matematika, logika pemrograman, dan arsitektur sistem.</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <h4>2. Few-Shot Prompting (Memberi Contoh)</h4>
+                                <p>Jangan hanya menjelaskan aturan secara abstrak. Berikan 1 hingga 3 pasangan contoh konkret [Input] -> [Output yang Diharapkan]. Model bahasa mengenali pola contoh jauh lebih cepat dan deterministik dibandingkan deskripsi teks panjang (In-Context Learning).</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-code"></i></div>
+                                <h4>3. Delimiters &amp; Semantic Tags</h4>
+                                <p>Gunakan pemisah tegas seperti triple quotes (<code>"""</code>), triple backticks (<code>```</code>), atau tag XML semantik (<code>&lt;context&gt;...&lt;/context&gt;</code>). Ini mengisolasi instruksi kerja dari data mentah pengguna, mencegah kebingungan model dan serangan *prompt injection*.</p>
+                            </div>
+
+                            <div class="pillar-item">
+                                <div class="pillar-icon"><i class="fa-solid fa-ban"></i></div>
+                                <h4>4. Negative Constraints (Batasan Negatif)</h4>
+                                <p>Jelaskan secara eksplisit apa yang DILARANG: misal <em>"Jangan gunakan fitur deprecated"</em>, <em>"Jangan menulis ulang seluruh kode jika hanya 1 fungsi yang diubah"</em>, atau <em>"Jangan meminta maaf atau menuliskan basa-basi salam di awal"</em>.</p>
+                            </div>
+                        </div>
+
+                        <!-- Contoh Penerapan Few-Shot & CoT -->
+                        <div class="copyable-prompt-block" style="margin-top: 2rem;">
+                            <button type="button" class="copy-btn" data-copy-target="advPromptSample">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Salin Contoh Prompt CoT</span>
+                            </button>
+                            <pre id="advPromptSample">Anda adalah Senior Database Administrator.
+Tugas: Optimasi query SQL yang mengalami query-timeout pada tabel transaksi (10 juta baris).
+
+Instruksi Penalaran (Chain-of-Thought):
+1. Analisis EXPLAIN query dan sebutkan di mana letak bottleneck (misal: Sequential Scan vs Index Scan).
+2. Tuliskan hipotesis mengapa indeks yang ada tidak dimanfaatkan oleh query planner.
+3. Berikan usulan indeks gabungan (Composite Index) yang tepat.
+4. Tuliskan query hasil refaktor beserta estimasi penurunan *execution cost*.
+
+Batasan: Gunakan format PostgreSQL 16, jangan rekomendasikan migrasi hardware, dan jelaskan langkah 1-4 secara runut sebelum kode akhir.</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 4: KOMPARASI BAD VS GOOD PROMPT
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabCompare">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-code-compare"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Komparasi Nyata: Bad Prompt vs. Good Prompt</h2>
+                                <p class="prompt-card-subtitle">Perbedaan drastis antara prompt amatir yang menimbulkan frustrasi dan prompt profesional yang efisien</p>
+                            </div>
+                        </div>
+
+                        <!-- Studi Kasus 1: Web Development -->
+                        <h3 style="color: var(--text-gold); font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">
+                            <i class="fa-solid fa-laptop-code"></i> Studi Kasus 1: Pembuatan Fitur Login Website
+                        </h3>
+                        <div class="comparison-wrapper">
+                            <div class="compare-box bad">
+                                <div class="compare-box-header">
+                                    <span class="compare-badge"><i class="fa-solid fa-circle-xmark"></i> Prompt Amatir / Kurang Jelas</span>
+                                </div>
+                                <div class="compare-code">"Buatin saya halaman login yang keren dong, pake html css js."</div>
+                                <p class="compare-reason">
+                                    <strong>Mengapa Buruk?</strong> Tidak ada definisi peran, tidak ada kriteria "keren", tidak ada informasi framework atau keamanan, tidak ada batasan CSP, menghasilkan kode acak yang seringkali tidak cocok dengan proyekmu.
+                                </p>
+                            </div>
+
+                            <div class="compare-box good">
+                                <div class="compare-box-header">
+                                    <span class="compare-badge"><i class="fa-solid fa-circle-check"></i> Prompt Profesional (RTCO)</span>
+                                </div>
+                                <div class="compare-code">Bertindaklah sebagai Senior Frontend Developer.
+Konteks: Saya membuat sistem autentikasi portofolio santri dengan tema dark glassmorphism, menggunakan HTML5 dan Vanilla JavaScript murni (Strict CSP aktif).
+Tugas: Buatkan komponen formulir login dengan input nama pengguna dan kata sandi, lengkap dengan tombol intip password (toggle eye icon) dan penanganan event onSubmit.
+Batasan:
+- Kredensial valid: username "qsbs", password "AK561".
+- Simpan sesi aktif di sessionStorage ('ssa_auth', 'true').
+- Jangan gunakan inline script di HTML; pisahkan logic ke berkas JS terpisah.
+- Tampilkan animasi shake jika kredensial salah.
+Output: Berikan struktur HTML bersih dan skrip JS terpisah.</div>
+                                <p class="compare-reason">
+                                    <strong>Mengapa Berhasil?</strong> AI memahami persona, konteks teknologi, logika verifikasi eksak, standar keamanan CSP, dan format keluaran tanpa celah salah tafsir.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Studi Kasus 2: Debugging Error -->
+                        <h3 style="color: var(--text-gold); font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.75rem;">
+                            <i class="fa-solid fa-bug"></i> Studi Kasus 2: Penanganan Bug Error JavaScript
+                        </h3>
+                        <div class="comparison-wrapper">
+                            <div class="compare-box bad">
+                                <div class="compare-box-header">
+                                    <span class="compare-badge"><i class="fa-solid fa-circle-xmark"></i> Prompt Amatir / Panik</span>
+                                </div>
+                                <div class="compare-code">"Kode saya error Uncaught TypeError: Cannot read properties of null, tolong benerin cepet!"</div>
+                                <p class="compare-reason">
+                                    <strong>Mengapa Buruk?</strong> AI dipaksa menebak baris kode apa yang null, di mana error terjadi, dan apa struktur dokumen DOM-nya. Hasilnya AI hanya memberi saran generik yang tidak menyelesaikan masalah.
+                                </p>
+                            </div>
+
+                            <div class="compare-box good">
+                                <div class="compare-box-header">
+                                    <span class="compare-badge"><i class="fa-solid fa-circle-check"></i> Prompt Diagnostik Presisi</span>
+                                </div>
+                                <div class="compare-code">Saya mengalami error runtime pada peramban:
+`Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')` di script.js baris 42.
+
+Konteks Kode (script.js:40-45):
+```javascript
+const btn = document.getElementById('submitBtn');
+btn.addEventListener('click', handleSubmit);
+```
+
+Analisis saya: Elemen dengan id 'submitBtn' belum siap di DOM saat script dieksekusi.
+Tugas:
+1. Jelaskan akar penyebab masalah ini secara ringkas.
+2. Berikan 2 solusi terbaik (misal: wrapping DOMContentLoaded dan penambahan pengecekan null-safety).
+3. Berikan perbaikan kode minimal yang langsung bisa di-drop ke file saya.</div>
+                                <p class="compare-reason">
+                                    <strong>Mengapa Berhasil?</strong> Stack trace, cuplikan baris kode, dan asumsi awal disediakan. AI langsung memberikan solusi solutif dalam sekali tembak tanpa tanya balik.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==============================================
+                     TAB 5: INTERACTIVE PROMPT BUILDER
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabBuilder">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Interactive Prompt Builder &amp; Generator</h2>
+                                <p class="prompt-card-subtitle">Rancang prompt profesionalmu sendiri secara live dengan formula RTCO terstandarisasi</p>
+                            </div>
+                        </div>
+
+                        <!-- Presets Selector -->
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.86rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">
+                                <i class="fa-solid fa-wand-magic"></i> Pilih Template Cepat (Preset):
+                            </label>
+                            <div class="builder-presets">
+                                <button type="button" class="preset-btn active" data-preset="webdev">Frontend Web Dev</button>
+                                <button type="button" class="preset-btn" data-preset="debug">Bug Fixing &amp; Debugging</button>
+                                <button type="button" class="preset-btn" data-preset="refactor">Code Refactoring &amp; Clean Code</button>
+                                <button type="button" class="preset-btn" data-preset="content">Penulisan Edukasi Santri</button>
+                            </div>
+                        </div>
+
+                        <div class="builder-grid">
+                            <!-- Input Form -->
+                            <div class="builder-form-wrapper">
+                                <div class="builder-field">
+                                    <label for="builderRole">
+                                        <span><i class="fa-solid fa-user-astronaut"></i> Role / Persona (R)</span>
+                                        <span class="badge-hint">Identitas keahlian AI</span>
+                                    </label>
+                                    <input type="text" id="builderRole" class="builder-input" value="Senior Fullstack Web Developer &amp; Security Specialist">
+                                </div>
+
+                                <div class="builder-field">
+                                    <label for="builderContext">
+                                        <span><i class="fa-solid fa-layer-group"></i> Context &amp; Stack (C)</span>
+                                        <span class="badge-hint">Situasi, stack, library</span>
+                                    </label>
+                                    <textarea id="builderContext" class="builder-textarea">Proyek website portofolio santri modern menggunakan HTML5 semantik, CSS Grid/Flexbox, dan Vanilla JavaScript (ES6+). Server berjalan di LiteSpeed dengan header CSP ketat.</textarea>
+                                </div>
+
+                                <div class="builder-field">
+                                    <label for="builderTask">
+                                        <span><i class="fa-solid fa-bullseye"></i> Task / Instruksi Pokok (T)</span>
+                                        <span class="badge-hint">Tugas spesifik operasional</span>
+                                    </label>
+                                    <textarea id="builderTask" class="builder-textarea">Buatkan modul JavaScript interaktif untuk memvalidasi formulir dan menampilkan notifikasi toast dinamis saat aksi berhasil disimpan.</textarea>
+                                </div>
+
+                                <div class="builder-field">
+                                    <label for="builderConstraints">
+                                        <span><i class="fa-solid fa-shield-halved"></i> Constraints &amp; Guardrails (C)</span>
+                                        <span class="badge-hint">Batasan mutlak &amp; larangan</span>
+                                    </label>
+                                    <textarea id="builderConstraints" class="builder-textarea">- Jangan gunakan pustaka pihak ketiga (pure vanilla JS).
+- Wajib bebas celah XSS (gunakan sanitasi input).
+- Kode harus modular, mudah dibaca, dan disertai komentar penjelas fungsi.</textarea>
+                                </div>
+
+                                <div class="builder-field">
+                                    <label for="builderOutput">
+                                        <span><i class="fa-solid fa-file-code"></i> Output Format (O)</span>
+                                        <span class="badge-hint">Format eksak hasil</span>
+                                    </label>
+                                    <input type="text" id="builderOutput" class="builder-input" value="Berikan hanya blok kode JavaScript bersih tanpa narasi pembuka atau penutup.">
+                                </div>
+                            </div>
+
+                            <!-- Real-time Preview & Copy Box -->
+                            <div class="builder-preview-wrapper">
+                                <div class="builder-preview-header">
+                                    <div class="builder-preview-title">
+                                        <i class="fa-solid fa-terminal"></i>
+                                        <span>Generated Prompt Output</span>
+                                    </div>
+                                    <button type="button" class="copy-btn" id="copyBuilderBtn">
+                                        <i class="fa-regular fa-copy"></i>
+                                        <span>Salin Prompt Ini</span>
+                                    </button>
+                                </div>
+                                <div class="builder-preview-output" id="builderLiveOutput"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>
@@ -628,6 +1431,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- External Script (Strict CSP Compliant) -->
-    <script src="others.js?v=1.0"></script>
+    <script src="others.js?v=2.0"></script>
 </body>
 </html>
