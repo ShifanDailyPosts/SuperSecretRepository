@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.showcase-slide');
     const pillButtons = document.querySelectorAll('.showcase-pill-btn');
     const browserUrlText = document.getElementById('browserUrlText');
+    const openRealPageBtn = document.getElementById('openRealPageBtn');
     const browserProgressFill = document.getElementById('browserProgressFill');
     const browserMockup = document.getElementById('browserMockup');
     const prevSlideBtn = document.getElementById('prevSlideBtn');
@@ -272,10 +273,14 @@ document.addEventListener('DOMContentLoaded', () => {
             pill.classList.toggle('active', idx === currentSlideIndex);
         });
 
-        // Update address bar
+        // Update address bar & real page button
         const activeSlide = slides[currentSlideIndex];
         if (activeSlide && browserUrlText) {
             browserUrlText.textContent = activeSlide.getAttribute('data-url') || 'https://shifandailyposts.mediasosial.net';
+        }
+        if (activeSlide && openRealPageBtn) {
+            const target = activeSlide.getAttribute('data-target') || 'demo-nova.html';
+            openRealPageBtn.href = target;
         }
 
         // Reset progress bar

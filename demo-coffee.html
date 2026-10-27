@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ArtisanRoast Coffee Co. — Indonesian Specialty Roastery</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #120d09;
+            --card-bg: rgba(36, 25, 17, 0.6);
+            --border-amber: rgba(217, 119, 6, 0.25);
+            --amber-accent: #f59e0b;
+            --caramel-accent: #d97706;
+            --text-main: #fffbeb;
+            --text-muted: #d1d5db;
+            --radius-md: 10px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.15) 0%, transparent 65%),
+                radial-gradient(circle at 85% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 45%);
+        }
+
+        /* Top Demo Bar */
+        .demo-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(18, 13, 9, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.25);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.86rem;
+        }
+
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f59e0b;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: rgba(245, 158, 11, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .back-to-portal:hover {
+            background: #f59e0b;
+            color: #120d09;
+        }
+
+        .demo-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .demo-pill {
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            color: #fde68a;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            transition: all 0.2s;
+        }
+
+        .demo-pill:hover {
+            color: #ffffff;
+            border-color: #f59e0b;
+        }
+
+        .demo-pill.active {
+            background: var(--caramel-accent);
+            color: #ffffff;
+            border-color: var(--caramel-accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Floating Cart Trigger */
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 100;
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 0.75rem 1.4rem;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .floating-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(217, 119, 6, 0.7);
+        }
+
+        .cart-badge {
+            background: #ffffff;
+            color: #b45309;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1.75rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f59e0b;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fde68a;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: #ffffff; }
+
+        .btn-coffee {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            color: #ffffff;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-coffee:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.5);
+        }
+
+        .btn-outline-coffee {
+            background: transparent;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fde68a;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-coffee:hover {
+            background: rgba(245, 158, 11, 0.12);
+            color: #ffffff;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0 3.5rem 0;
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #f59e0b;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #fffbeb;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        /* Products Grid */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #fffbeb;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3.5rem 0 5rem 0;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-amber);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .bean-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            background: rgba(245, 158, 11, 0.15);
+            color: #fde68a;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fffbeb;
+            margin-bottom: 0.35rem;
+        }
+
+        .product-specs {
+            font-size: 0.84rem;
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-notes {
+            font-size: 0.9rem;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Brew Calculator Section */
+        .calculator-section {
+            background: rgba(36, 25, 17, 0.4);
+            border: 1px solid var(--border-amber);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            margin-bottom: 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 850px) {
+            .calculator-section { grid-template-columns: 1fr; }
+        }
+
+        .calc-display {
+            background: #0d0906;
+            border: 1px solid var(--border-amber);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calc-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #f59e0b;
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-box {
+            background: #1c140e;
+            border: 1px solid var(--border-amber);
+            border-radius: var(--radius-lg);
+            max-width: 520px;
+            width: 100%;
+            padding: 2.25rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Toast */
+        .toast-box {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .toast-item {
+            background: #271a10;
+            border-left: 4px solid #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <a href="others.html" class="back-to-portal">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Others
+        </a>
+        <div class="demo-switcher">
+            <span style="color: #fde68a; margin-right: 0.5rem; font-size: 0.78rem;">PILIH LANDING PAGE:</span>
+            <a href="demo-nova.html" class="demo-pill">NovaAI</a>
+            <a href="demo-santri.html" class="demo-pill">SantriTech</a>
+            <a href="demo-cyber.html" class="demo-pill">CyberShield</a>
+            <a href="demo-coffee.html" class="demo-pill active">ArtisanRoast</a>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button type="button" class="floating-cart-btn" id="btnOpenCart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Keranjang Belanja</span>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+    </button>
+
+    <div class="container">
+        <!-- Main Navbar -->
+        <nav class="navbar">
+            <a href="#" class="logo">
+                ARTISANROAST &bull; CO.
+            </a>
+            <ul class="nav-links">
+                <li><a id="navBeans">Single Origin</a></li>
+                <li><a id="navBrewManual">Brew Calculator</a></li>
+                <li><a id="navStory">Cerita Kami</a></li>
+            </ul>
+            <button type="button" class="btn-coffee" id="btnOrderNav">
+                <i class="fa-solid fa-bag-shopping"></i> Order Biji Segar
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">Specialty Indonesian Coffee Roastery</div>
+            <h1 class="hero-title">
+                Craft Roasted in Small Batches for the Discerning Palate
+            </h1>
+            <p class="hero-desc">
+                Biji kopi pilihan yang dipanen langsung dari ketinggian dataran tinggi vulkanik Nusantara, dipanggang perlahan dengan profil rasa khas dan aroma buah tropis yang memikat.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn-coffee" style="padding: 0.85rem 2rem; font-size: 0.95rem;" id="btnHeroOrder">
+                    <i class="fa-solid fa-seedling"></i> Belanja Biji Kopi
+                </button>
+                <button type="button" class="btn-outline-coffee" style="padding: 0.85rem 2rem; font-size: 0.95rem;" id="btnHeroCalculator">
+                    <i class="fa-solid fa-flask"></i> Buka Brew Calculator
+                </button>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="sectionProducts">
+            <h2 class="section-title">Koleksi Biji Kopi Sangrai Pekan Ini</h2>
+            <p style="text-align: center; color: #d1d5db; font-size: 0.95rem;">Dipanggang segar setiap hari Selasa &amp; Jumat</p>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="bean-badge"><i class="fa-solid fa-wine-glass"></i> Anaerobic Natural</div>
+                    <h3 class="product-name">Aceh Gayo Winey</h3>
+                    <div class="product-specs">Elevasi: 1,600m &bull; Profil: Light-Medium</div>
+                    <p class="product-notes">
+                        Sensasi rasa anggur merah matang yang intens, disusul keasaman segar buah beri tropis, dan diakhiri manisnya dark chocolate karamel.
+                    </p>
+                    <div class="product-price">Rp 125.000 <span style="font-size: 0.85rem; color: #a8a29e; font-weight: 500;">/ 200g</span></div>
+                    <button type="button" class="btn-coffee" style="width: 100%; justify-content: center;" onclick="addToCart('Aceh Gayo Winey (200g)', 125000)">
+                        <i class="fa-solid fa-cart-plus"></i> + Masukkan Keranjang
+                    </button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="bean-badge"><i class="fa-solid fa-mountain"></i> Full Washed</div>
+                    <h3 class="product-name">Toraja Sapan Specialty</h3>
+                    <div class="product-specs">Elevasi: 1,850m &bull; Profil: Medium Roast</div>
+                    <p class="product-notes">
+                        Cita rasa rempah herbal yang lembut dan elegan, berpadu harmonis dengan manisnya gula aren murni serta aftertaste yang bersih dan panjang.
+                    </p>
+                    <div class="product-price">Rp 135.000 <span style="font-size: 0.85rem; color: #a8a29e; font-weight: 500;">/ 200g</span></div>
+                    <button type="button" class="btn-coffee" style="width: 100%; justify-content: center;" onclick="addToCart('Toraja Sapan Specialty (200g)', 135000)">
+                        <i class="fa-solid fa-cart-plus"></i> + Masukkan Keranjang
+                    </button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="bean-badge"><i class="fa-solid fa-droplet"></i> Honey Process</div>
+                    <h3 class="product-name">Flores Bajawa Arabica</h3>
+                    <div class="product-specs">Elevasi: 1,500m &bull; Profil: Medium Roast</div>
+                    <p class="product-notes">
+                        Karakter aroma kacang hazelnut gurih yang dibalut kelembutan madu hutan alami, dengan body tebal dan aroma semerbak bunga melati.
+                    </p>
+                    <div class="product-price">Rp 120.000 <span style="font-size: 0.85rem; color: #a8a29e; font-weight: 500;">/ 200g</span></div>
+                    <button type="button" class="btn-coffee" style="width: 100%; justify-content: center;" onclick="addToCart('Flores Bajawa Arabica (200g)', 120000)">
+                        <i class="fa-solid fa-cart-plus"></i> + Masukkan Keranjang
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Brew Calculator -->
+        <section class="calculator-section" id="sectionCalculator">
+            <div>
+                <span style="color: #f59e0b; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">
+                    <i class="fa-solid fa-flask"></i> BREW RATIO CALCULATOR
+                </span>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #fffbeb; margin: 0.5rem 0 1rem 0;">
+                    Kalkulator Rasio Seduh Manual
+                </h3>
+                <p style="color: #d1d5db; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Pilih alat seduh dan berat bubuk kopi kamu untuk menghitung takaran air panas dan estimasi waktu tuang yang presisi:
+                </p>
+
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.86rem; font-weight: 700; color: #fde68a; margin-bottom: 0.4rem;">Metode Seduh</label>
+                    <select id="methodSelect" style="width: 100%; padding: 0.75rem 1rem; border-radius: 8px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-amber); color: #fff;">
+                        <option value="15">V60 Pour Over (Rasio 1:15)</option>
+                        <option value="16">French Press (Rasio 1:16)</option>
+                        <option value="12">Aeropress Inverted (Rasio 1:12)</option>
+                        <option value="10">Cold Brew Concentrated (Rasio 1:10)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: flex; justify-content: space-between; font-size: 0.86rem; font-weight: 700; color: #fde68a;">
+                        <span>Dosis Bubuk Kopi:</span>
+                        <span id="doseLabel" style="color: #f59e0b; font-size: 1.05rem;">15 Gram</span>
+                    </label>
+                    <input type="range" id="doseSlider" min="10" max="40" value="15" style="width: 100%; margin-top: 0.5rem; accent-color: #f59e0b; cursor: pointer;">
+                </div>
+            </div>
+
+            <div class="calc-display">
+                <span style="font-size: 0.85rem; color: #d1d5db; text-transform: uppercase; letter-spacing: 0.05em;">Air Panas Yang Dibutuhkan:</span>
+                <div class="calc-number" id="waterAmountDisplay">225 ml</div>
+                <div style="color: #fde68a; font-size: 0.9rem; font-weight: 600;" id="tempGuide">Suhu Air: 92&deg;C &bull; Target Waktu: 2:30 Menit</div>
+                <button type="button" class="btn-coffee" style="margin-top: 1.5rem;" onclick="showToast('Timer seduh dimulai! Nikmati aromanya.');">
+                    <i class="fa-solid fa-stopwatch"></i> Mulai Timer Seduh
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #fffbeb;">
+                    <i class="fa-solid fa-bag-shopping" style="color: #f59e0b;"></i> Keranjang Pesanan Kamu
+                </h3>
+                <button type="button" style="background: none; border: none; color: #fde68a; font-size: 1.4rem; cursor: pointer;" id="closeCartModal">&times;</button>
+            </div>
+            <div id="cartItemsList" style="min-height: 120px; max-height: 240px; overflow-y: auto; font-size: 0.9rem; color: #d1d5db;">
+                <div style="text-align: center; padding: 2rem; color: #a8a29e;">Keranjang belanja kamu masih kosong.</div>
+            </div>
+            <div style="border-top: 1px solid var(--border-amber); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; font-weight: 700; color: #fff;">
+                <span>Total Estimasi:</span>
+                <span id="cartTotalDisplay">Rp 0</span>
+            </div>
+            <button type="button" class="btn-coffee" style="width: 100%; justify-content: center; margin-top: 1.25rem;" id="btnCheckout">
+                Proses Checkout Sekarang &rarr;
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-box" id="toastBox"></div>
+
+    <script>
+        function showToast(message) {
+            const container = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            toast.className = 'toast-item';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #f59e0b;"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Cart Management
+        let cart = [];
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartCountBadge');
+            const list = document.getElementById('cartItemsList');
+            const totalDisplay = document.getElementById('cartTotalDisplay');
+
+            badge.textContent = cart.length;
+
+            if (cart.length === 0) {
+                list.innerHTML = '<div style="text-align: center; padding: 2rem; color: #a8a29e;">Keranjang belanja kamu masih kosong.</div>';
+                totalDisplay.textContent = 'Rp 0';
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.price;
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.justifyContent = 'space-between';
+                row.style.marginBottom = '0.75rem';
+                row.style.paddingBottom = '0.75rem';
+                row.style.borderBottom = '1px dashed rgba(245, 158, 11, 0.2)';
+                row.innerHTML = `
+                    <div>
+                        <div style="color: #fffbeb; font-weight: 600;">${item.name}</div>
+                        <div style="font-size: 0.8rem; color: #f59e0b;">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    </div>
+                    <button type="button" onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer;">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                list.appendChild(row);
+            });
+
+            totalDisplay.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            showToast(`${name} ditambahkan ke keranjang!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            showToast('Item dihapus dari keranjang.');
+        }
+
+        // Modals
+        const cartModal = document.getElementById('cartModal');
+        document.getElementById('btnOpenCart').addEventListener('click', () => cartModal.classList.add('active'));
+        document.getElementById('closeCartModal').addEventListener('click', () => cartModal.classList.remove('active'));
+
+        document.getElementById('btnCheckout').addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Keranjang masih kosong, pilih biji kopi terlebih dahulu.');
+                return;
+            }
+            cart = [];
+            updateCartUI();
+            cartModal.classList.remove('active');
+            showToast('Terima kasih! Pesanan kamu sedang diproses oleh roaster kami.');
+        });
+
+        // Brew Ratio Calculator
+        const doseSlider = document.getElementById('doseSlider');
+        const doseLabel = document.getElementById('doseLabel');
+        const methodSelect = document.getElementById('methodSelect');
+        const waterAmountDisplay = document.getElementById('waterAmountDisplay');
+
+        function recalculateBrew() {
+            const dose = parseInt(doseSlider.value, 10);
+            const ratio = parseInt(methodSelect.value, 10);
+            doseLabel.textContent = `${dose} Gram`;
+
+            const waterTotal = dose * ratio;
+            waterAmountDisplay.textContent = `${waterTotal} ml`;
+        }
+
+        doseSlider.addEventListener('input', recalculateBrew);
+        methodSelect.addEventListener('change', recalculateBrew);
+
+        // Smooth Scroll Buttons
+        document.getElementById('navBeans').addEventListener('click', () => {
+            document.getElementById('sectionProducts').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('btnHeroOrder').addEventListener('click', () => {
+            document.getElementById('sectionProducts').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('btnOrderNav').addEventListener('click', () => {
+            document.getElementById('sectionProducts').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('navBrewManual').addEventListener('click', () => {
+            document.getElementById('sectionCalculator').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('btnHeroCalculator').addEventListener('click', () => {
+            document.getElementById('sectionCalculator').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('navStory').addEventListener('click', () => {
+            showToast('ArtisanRoast didirikan untuk memberdayakan petani kopi lokal di dataran tinggi Nusantara.');
+        });
+    </script>
+</body>
+</html>

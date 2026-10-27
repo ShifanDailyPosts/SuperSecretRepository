@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>NovaAI Cloud — Autonomous AI Agents Platform</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #070913;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --border-color: rgba(99, 102, 241, 0.25);
+            --primary-accent: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+        }
+
+        /* Top Demo Floating Header */
+        .demo-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(7, 9, 19, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.86rem;
+        }
+
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .back-to-portal:hover {
+            background: #38bdf8;
+            color: #070913;
+        }
+
+        .demo-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .demo-pill {
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s;
+        }
+
+        .demo-pill:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .demo-pill.active {
+            background: var(--primary-accent);
+            color: #ffffff;
+            border-color: var(--primary-accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .logo i { color: #818cf8; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: #ffffff; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-accent);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0 4rem 0;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge-release {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1.25rem;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .badge-release:hover {
+            border-color: #a5b4fc;
+            transform: scale(1.03);
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 760px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 4.5rem 0;
+            padding: 2.25rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(20px);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #a5b4fc;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Interactive Terminal Section */
+        .terminal-section {
+            margin: 4rem 0;
+            background: #030712;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+        }
+
+        .terminal-header {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.r { background: #ef4444; }
+        .terminal-dot.y { background: #f59e0b; }
+        .terminal-dot.g { background: #10b981; }
+
+        .terminal-toolbar {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .term-btn {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            color: #c7d2fe;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .term-btn:hover {
+            background: var(--primary-accent);
+            color: #ffffff;
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.86rem;
+            color: #38bdf8;
+            min-height: 220px;
+            max-height: 340px;
+            overflow-y: auto;
+            line-height: 1.7;
+            background: #030712;
+        }
+
+        .term-line {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .term-prompt { color: #a855f7; font-weight: 700; }
+        .term-text { color: #e2e8f0; }
+        .term-success { color: #34d399; }
+        .term-warning { color: #fbbf24; }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #818cf8;
+            box-shadow: 0 15px 35px -10px rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #818cf8;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            max-width: 560px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            color: #ffffff;
+            font-size: 0.92rem;
+            outline: none;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Toast Container */
+        .toast-box {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast-item {
+            background: #1e1b4b;
+            border-left: 4px solid #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <a href="others.html" class="back-to-portal">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Others
+        </a>
+        <div class="demo-switcher">
+            <span style="color: var(--text-muted); margin-right: 0.5rem; font-size: 0.78rem;">PILIH LANDING PAGE:</span>
+            <a href="demo-nova.html" class="demo-pill active">NovaAI</a>
+            <a href="demo-santri.html" class="demo-pill">SantriTech</a>
+            <a href="demo-cyber.html" class="demo-pill">CyberShield</a>
+            <a href="demo-coffee.html" class="demo-pill">ArtisanRoast</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Main Navbar -->
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <span>NovaAI</span>
+            </a>
+            <ul class="nav-links">
+                <li><a id="navDocsBtn">Docs</a></li>
+                <li><a id="navFeaturesBtn">Features</a></li>
+                <li><a id="navSwarmBtn">Live Swarm</a></li>
+                <li><a id="navPricingBtn">Pricing</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button type="button" class="btn btn-outline" id="btnLiveDemoNav">Watch Demo</button>
+                <button type="button" class="btn btn-primary" id="btnLaunchStudioNav">
+                    <i class="fa-solid fa-rocket"></i> Launch Studio
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge-release" id="badgeRelease">
+                <i class="fa-solid fa-bolt"></i> Nova 4.0 Autonomous Engine Released &bull; Cek Detail ↗
+            </div>
+            <h1 class="hero-title">
+                Deploy Autonomous AI Agents That Build While You Sleep
+            </h1>
+            <p class="hero-desc">
+                Platform cloud generasi berikutnya untuk mengorkestrasi swarm AI Agent mandiri. Mampu mengeksekusi kode, browsing data internet terkini, dan memperbaiki bug otomatis dalam hitungan detik.
+            </p>
+            <div class="hero-cta">
+                <button type="button" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem;" id="btnHeroSandbox">
+                    <i class="fa-solid fa-terminal"></i> Start Free Sandbox
+                </button>
+                <button type="button" class="btn btn-outline" style="padding: 0.85rem 2rem; font-size: 1rem;" id="btnHeroDemo">
+                    <i class="fa-solid fa-play"></i> Watch Live Demo
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div>
+                <div class="stat-value">99.99%</div>
+                <div class="stat-label">Inference Uptime</div>
+            </div>
+            <div>
+                <div class="stat-value">2.4B+</div>
+                <div class="stat-label">Tokens / Second</div>
+            </div>
+            <div>
+                <div class="stat-value">145k+</div>
+                <div class="stat-label">Active Swarm Agents</div>
+            </div>
+            <div>
+                <div class="stat-value">0.03s</div>
+                <div class="stat-label">Average Edge Latency</div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal Simulator -->
+        <section class="terminal-section" id="swarmSection">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot r"></span>
+                    <span class="terminal-dot y"></span>
+                    <span class="terminal-dot g"></span>
+                    <span style="font-size: 0.78rem; color: #94a3b8; margin-left: 0.5rem; font-family: monospace;">nova-agent-cluster-01 &bull; bash</span>
+                </div>
+                <div class="terminal-toolbar">
+                    <button type="button" class="term-btn" id="btnSpawnAgent">
+                        <i class="fa-solid fa-plus"></i> Spawn Agent
+                    </button>
+                    <button type="button" class="term-btn" id="btnRunAudit">
+                        <i class="fa-solid fa-shield-halved"></i> Run Security Audit
+                    </button>
+                    <button type="button" class="term-btn" id="btnClearTerm">
+                        <i class="fa-solid fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+            <div class="terminal-body" id="termOutput">
+                <div class="term-line">
+                    <span class="term-prompt">root@nova-swarm:~$</span>
+                    <span class="term-text">nova agent:status --all</span>
+                </div>
+                <div class="term-line">
+                    <span class="term-success">[OK] Swarm Cluster #402 online. 12 Subagents ready for dispatch.</span>
+                </div>
+                <div class="term-line">
+                    <span class="term-text">Klik tombol di kanan atas terminal untuk menguji agen secara live!</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="features-grid" id="featuresSection">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 class="feature-title">Multi-Agent Swarm Orchestration</h3>
+                <p class="feature-desc">
+                    Koordinasi instan antar puluhan agen AI spesialis (Coder, Tester, Security Auditor, dan Cloud Deployer) yang bekerja secara simultan tanpa konflik.
+                </p>
+                <button type="button" class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="showToast('Fitur Multi-Agent telah dikonfigurasi pada akun demo Anda!')">
+                    Coba Fitur Ini
+                </button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-bug-slash"></i></div>
+                <h3 class="feature-title">Self-Healing Runtime Code</h3>
+                <p class="feature-desc">
+                    Ketika sistem mendeteksi exception atau memory leak, agen otomatis mendiagnosa akar masalah, menulis patch, menguji secara lokal, dan mengunggah perbaikan.
+                </p>
+                <button type="button" class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="showToast('Simulasi Self-Healing berhasil dijalankan!')">
+                    Simulasikan Perbaikan
+                </button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-cloud-bolt"></i></div>
+                <h3 class="feature-title">Zero-Latency Edge Deployment</h3>
+                <p class="feature-desc">
+                    Distribusi agen langsung ke 280+ lokasi edge server di seluruh dunia untuk memastikan respons sub-5ms bagi pengguna global Anda.
+                </p>
+                <button type="button" class="btn btn-outline" style="width: 100%; justify-content: center;" onclick="showToast('Edge Cluster terhubung di 280 region!')">
+                    Cek Jaringan Global
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal 1: Launch Studio -->
+    <div class="modal-overlay" id="studioModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: #fff;">
+                    <i class="fa-solid fa-robot" style="color: #818cf8;"></i> Launch New AI Agent
+                </h3>
+                <button type="button" class="modal-close" id="closeStudioModal">&times;</button>
+            </div>
+            <form id="studioForm">
+                <div class="form-group">
+                    <label>Nama Agent</label>
+                    <input type="text" class="form-input" id="agentNameInput" value="Agent-Santri-Dev" required>
+                </div>
+                <div class="form-group">
+                    <label>Peran / Spesialisasi</label>
+                    <select class="form-select" id="agentRoleSelect">
+                        <option value="Fullstack Web Architect">Fullstack Web Architect</option>
+                        <option value="Security Penetration Auditor">Security Penetration Auditor</option>
+                        <option value="Data Science & ML Pipeline">Data Science & ML Pipeline</option>
+                        <option value="Prompt Engineering Specialist">Prompt Engineering Specialist</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tugas Pertama (Action Task)</label>
+                    <input type="text" class="form-input" id="agentTaskInput" value="Bikinkan modul autentikasi JWT aman dan deploy ke edge cluster" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <i class="fa-solid fa-paper-plane"></i> Deploy Agent Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Live Demo Video Player -->
+    <div class="modal-overlay" id="demoModal">
+        <div class="modal-box" style="max-width: 680px;">
+            <div class="modal-header">
+                <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff;">
+                    <i class="fa-solid fa-circle-play" style="color: #c084fc;"></i> Autonomous Swarm in Action
+                </h3>
+                <button type="button" class="modal-close" id="closeDemoModal">&times;</button>
+            </div>
+            <div style="background: #000; border-radius: 8px; padding: 2.5rem; text-align: center; border: 1px dashed rgba(255,255,255,0.2);">
+                <i class="fa-solid fa-network-wired" style="font-size: 3rem; color: #818cf8; margin-bottom: 1rem; animation: pulseGlow 2s infinite;"></i>
+                <h4 style="color: #fff; margin-bottom: 0.5rem;">Simulasi Eksekusi Multi-Agent Berjalan</h4>
+                <p style="color: #94a3b8; font-size: 0.88rem; max-width: 480px; margin: 0 auto 1.5rem auto;">
+                    Agen Coder menulis skrip &rarr; Agen Tester mengecek unit test &rarr; Agen Auditor memvalidasi CVE &rarr; Aplikasi berhasil di-deploy tanpa campur tangan manusia.
+                </p>
+                <button type="button" class="btn btn-primary" onclick="showToast('Demo selesai! Semua pengujian lolos 100%.'); document.getElementById('demoModal').classList.remove('active');">
+                    Tutup &amp; Mulai Menggunakan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-box" id="toastBox"></div>
+
+    <script>
+        // Toast Helper
+        function showToast(message) {
+            const container = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            toast.className = 'toast-item';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #34d399;"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Terminal Interactive Simulator
+        const termOutput = document.getElementById('termOutput');
+        const btnSpawnAgent = document.getElementById('btnSpawnAgent');
+        const btnRunAudit = document.getElementById('btnRunAudit');
+        const btnClearTerm = document.getElementById('btnClearTerm');
+
+        function appendTermLine(prompt, text, type = 'text') {
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            line.innerHTML = `<span class="term-prompt">${prompt}</span> <span class="term-${type}">${text}</span>`;
+            termOutput.appendChild(line);
+            termOutput.scrollTop = termOutput.scrollHeight;
+        }
+
+        btnSpawnAgent.addEventListener('click', () => {
+            appendTermLine('nova-cli:', 'Meminta instansiasi Subagent baru di region ap-southeast-1...');
+            setTimeout(() => {
+                appendTermLine('worker-03:', 'Mengunduh container LLM runtime v4.2...', 'warning');
+            }, 500);
+            setTimeout(() => {
+                appendTermLine('worker-03:', '[SUCCESS] Agent #512 ("Fullstack-Bot") aktif & mendengarkan port 8080.', 'success');
+                showToast('Agent #512 berhasil di-spawn dan siap menerima instruksi!');
+            }, 1200);
+        });
+
+        btnRunAudit.addEventListener('click', () => {
+            appendTermLine('audit-bot:', 'Memulai pemindaian kerentanan kode di repository...', 'warning');
+            setTimeout(() => {
+                appendTermLine('audit-bot:', 'Mengecek injeksi XSS, CSRF, dan SQLi di 148 endpoint...');
+            }, 600);
+            setTimeout(() => {
+                appendTermLine('audit-bot:', '[CLEAN] 0 Vulnerability ditemukan. Skor keamanan: 100/100.', 'success');
+                showToast('Audit keamanan selesai: Sistem 100% aman!');
+            }, 1400);
+        });
+
+        btnClearTerm.addEventListener('click', () => {
+            termOutput.innerHTML = '';
+            appendTermLine('root@nova-swarm:~$', 'Terminal dibersihkan.');
+        });
+
+        // Modals Management
+        const studioModal = document.getElementById('studioModal');
+        const demoModal = document.getElementById('demoModal');
+        const closeStudioModal = document.getElementById('closeStudioModal');
+        const closeDemoModal = document.getElementById('closeDemoModal');
+
+        document.getElementById('btnLaunchStudioNav').addEventListener('click', () => studioModal.classList.add('active'));
+        document.getElementById('btnHeroSandbox').addEventListener('click', () => studioModal.classList.add('active'));
+        document.getElementById('btnLiveDemoNav').addEventListener('click', () => demoModal.classList.add('active'));
+        document.getElementById('btnHeroDemo').addEventListener('click', () => demoModal.classList.add('active'));
+        document.getElementById('badgeRelease').addEventListener('click', () => demoModal.classList.add('active'));
+
+        closeStudioModal.addEventListener('click', () => studioModal.classList.remove('active'));
+        closeDemoModal.addEventListener('click', () => demoModal.classList.remove('active'));
+
+        document.getElementById('studioForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('agentNameInput').value;
+            const role = document.getElementById('agentRoleSelect').value;
+            studioModal.classList.remove('active');
+            showToast(`Sukses! Agent "${name}" (${role}) berhasil diluncurkan ke cloud.`);
+            appendTermLine('orchestrator:', `Agent "${name}" ditugaskan dengan peran: ${role}.`, 'success');
+        });
+
+        // Navigation Smooth Scroll
+        document.getElementById('navFeaturesBtn').addEventListener('click', () => {
+            document.getElementById('featuresSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('navSwarmBtn').addEventListener('click', () => {
+            document.getElementById('swarmSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('navDocsBtn').addEventListener('click', () => {
+            showToast('Dokumentasi API v4.0 telah terbuka di console simulator.');
+            appendTermLine('nova-docs:', 'curl -X POST https://api.nova-ai.cloud/v1/agents -H "Authorization: Bearer $NOVA_KEY"');
+        });
+        document.getElementById('navPricingBtn').addEventListener('click', () => {
+            showToast('Tersedia Paket Gratis (Sandbox) dan Pro ($29/bln). Semua tombol aktif!');
+        });
+    </script>
+</body>
+</html>

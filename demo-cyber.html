@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CyberShield SecOps — Enterprise Zero-Trust Defense</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #02040a;
+            --card-bg: rgba(10, 15, 29, 0.7);
+            --border-red: rgba(239, 68, 68, 0.3);
+            --neon-red: #ef4444;
+            --neon-cyan: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --radius-md: 8px;
+            --radius-lg: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Fira Code', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.12) 0%, transparent 60%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Top Demo Bar */
+        .demo-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(2, 4, 10, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px dashed rgba(239, 68, 68, 0.35);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.84rem;
+        }
+
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f87171;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .back-to-portal:hover {
+            background: #ef4444;
+            color: #02040a;
+        }
+
+        .demo-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .demo-pill {
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s;
+        }
+
+        .demo-pill:hover {
+            color: #ffffff;
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .demo-pill.active {
+            background: var(--neon-red);
+            color: #02040a;
+            border-color: var(--neon-red);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo i { color: #ef4444; }
+
+        .radar-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            font-size: 0.76rem;
+            border-radius: 4px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
+            box-shadow: 0 0 12px #ef4444;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        .btn-cyber {
+            background: #ef4444;
+            color: #02040a;
+            padding: 0.65rem 1.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-cyber:hover {
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-cyber {
+            background: transparent;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 0.65rem 1.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-cyber:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38bdf8;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4.5rem 0 3.5rem 0;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            color: #ef4444;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span { color: #38bdf8; }
+
+        .hero-desc {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Console Section */
+        .console-box {
+            background: #02040a;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 3.5rem 0;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .console-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .console-stream {
+            min-height: 200px;
+            max-height: 320px;
+            overflow-y: auto;
+            font-size: 0.84rem;
+            line-height: 1.8;
+        }
+
+        .log-entry { margin-bottom: 0.25rem; }
+        .log-warn { color: #fbbf24; }
+        .log-alert { color: #f87171; }
+        .log-info { color: #38bdf8; }
+        .log-clean { color: #34d399; }
+
+        /* Feature Cards */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .card-cyber {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            transition: all 0.2s;
+        }
+
+        .card-cyber:hover {
+            border-color: #ef4444;
+            transform: translateY(-3px);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-box {
+            background: #090e1a;
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            max-width: 580px;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Toast */
+        .toast-box {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .toast-item {
+            background: #18080a;
+            border-left: 4px solid #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <a href="others.html" class="back-to-portal">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Others
+        </a>
+        <div class="demo-switcher">
+            <span style="color: var(--text-muted); margin-right: 0.5rem; font-size: 0.78rem;">PILIH LANDING PAGE:</span>
+            <a href="demo-nova.html" class="demo-pill">NovaAI</a>
+            <a href="demo-santri.html" class="demo-pill">SantriTech</a>
+            <a href="demo-cyber.html" class="demo-pill active">CyberShield</a>
+            <a href="demo-coffee.html" class="demo-pill">ArtisanRoast</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Main Navbar -->
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>CyberShield SOC</span>
+            </a>
+            <div class="radar-status">
+                <span class="pulse-dot"></span>
+                <span>STATUS: DEFCON 3 &bull; ALL 4,820 NODES ONLINE</span>
+            </div>
+            <button type="button" class="btn-cyber" id="btnInitiateAuditNav">
+                <i class="fa-solid fa-bug"></i> Initiate Audit
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">
+                <i class="fa-solid fa-terminal"></i> // MILITARY-GRADE THREAT INTELLIGENCE &amp; QUARANTINE
+            </div>
+            <h1 class="hero-title">
+                Zero-Trust Defense Against <span>Advanced Persistent Threats</span>
+            </h1>
+            <p class="hero-desc">
+                Platform telemetri siber berbasis kernel dan kecerdasan buatan otonom untuk mendeteksi injeksi payload zero-day, mencegah memory corruption, dan mengisolasi serangan siber sebelum merusak data perusahaan.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button type="button" class="btn-cyber" id="btnTriggerScan">
+                    <i class="fa-solid fa-satellite-dish"></i> Start Threat Simulation
+                </button>
+                <button type="button" class="btn-outline-cyber" id="btnSecurityReport">
+                    <i class="fa-solid fa-file-shield"></i> Run Browser Diagnostic
+                </button>
+            </div>
+        </section>
+
+        <!-- Interactive Live Console -->
+        <section class="console-box">
+            <div class="console-header">
+                <div style="color: #38bdf8; font-weight: 700; font-size: 0.86rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-tv"></i> LIVE TELEMETRY LOG STREAM [REGION: AP-SOUTHEAST]
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn-outline-cyber" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" id="btnSimulateAttack">
+                        + Inject Attack Test
+                    </button>
+                    <button type="button" class="btn-outline-cyber" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" id="btnClearLogs">
+                        Clear Logs
+                    </button>
+                </div>
+            </div>
+            <div class="console-stream" id="consoleStream">
+                <div class="log-entry log-info">[INFO] Telemetry sensor activated on network interface eth0.</div>
+                <div class="log-entry log-clean">[OK] TLS 1.3 handshake verified with SHA-384 certificate.</div>
+                <div class="log-entry log-info">[MONITOR] Listening on 100Gbps trunk line. 0 anomalies detected.</div>
+            </div>
+        </section>
+
+        <!-- Feature Capabilities -->
+        <section class="grid-cards">
+            <div class="card-cyber">
+                <div style="font-size: 1.8rem; color: #ef4444; margin-bottom: 0.75rem;"><i class="fa-solid fa-radar"></i></div>
+                <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Wire-Speed Deep Packet Inspection</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    Analisis setiap paket TCP/UDP secara mendalam hingga ke level byte untuk mendeteksi enkripsi mencurigakan.
+                </p>
+                <button type="button" class="btn-outline-cyber" style="width: 100%; justify-content: center;" onclick="showToast('Paket sniffer aktif: 0 paket mencurigakan!')">
+                    Cek Status Sniffer
+                </button>
+            </div>
+
+            <div class="card-cyber">
+                <div style="font-size: 1.8rem; color: #38bdf8; margin-bottom: 0.75rem;"><i class="fa-solid fa-key"></i></div>
+                <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Post-Quantum Cryptography</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    Kriptografi Kyber-1024 yang tahan terhadap serangan dekripsi superkomputer kuantum di masa mendatang.
+                </p>
+                <button type="button" class="btn-outline-cyber" style="width: 100%; justify-content: center;" onclick="showToast('Enkripsi Kyber-1024 berhasil diverifikasi.')">
+                    Uji Kunci Kuantum
+                </button>
+            </div>
+
+            <div class="card-cyber">
+                <div style="font-size: 1.8rem; color: #10b981; margin-bottom: 0.75rem;"><i class="fa-solid fa-box-archive"></i></div>
+                <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Air-Gapped Vault Storage</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    Penyimpanan token rahasia yang terisolasi total dari koneksi internet langsung untuk menghindari exfiltration.
+                </p>
+                <button type="button" class="btn-outline-cyber" style="width: 100%; justify-content: center;" onclick="showToast('Koneksi Vault: Air-Gapped Secure.')">
+                    Periksa Vault
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Diagnostic Modal -->
+    <div class="modal-overlay" id="diagModal">
+        <div class="modal-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #38bdf8;">
+                    <i class="fa-solid fa-shield-virus"></i> Client Security Diagnostic
+                </h3>
+                <button type="button" style="background: none; border: none; color: #ef4444; font-size: 1.4rem; cursor: pointer;" id="closeDiagModal">&times;</button>
+            </div>
+            <div id="diagContent" style="font-size: 0.85rem; color: #e2e8f0; line-height: 1.8;">
+                <div>Sedang memindai parameter keamanan peramban Anda...</div>
+            </div>
+            <button type="button" class="btn-cyber" style="width: 100%; justify-content: center; margin-top: 1.5rem;" onclick="document.getElementById('diagModal').classList.remove('active')">
+                Selesai &bull; Tutup Laporan
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-box" id="toastBox"></div>
+
+    <script>
+        function showToast(message) {
+            const container = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            toast.className = 'toast-item';
+            toast.innerHTML = `<i class="fa-solid fa-shield-check" style="color: #34d399;"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        const consoleStream = document.getElementById('consoleStream');
+
+        function appendLog(text, type = 'info') {
+            const now = new Date().toLocaleTimeString('id-ID');
+            const el = document.createElement('div');
+            el.className = `log-entry log-${type}`;
+            el.textContent = `[${now}] ${text}`;
+            consoleStream.appendChild(el);
+            consoleStream.scrollTop = consoleStream.scrollHeight;
+        }
+
+        document.getElementById('btnSimulateAttack').addEventListener('click', () => {
+            appendLog('[ALERT] SQL Injection signature terdeteksi dari IP 194.26.29.112 di port 443!', 'alert');
+            setTimeout(() => {
+                appendLog('[FIREWALL] Menerapkan aturan mitigasi sementara & memutus koneksi...', 'warn');
+            }, 600);
+            setTimeout(() => {
+                appendLog('[QUARANTINE] IP penyerang telah dimasukkan ke blacklist global. Skor risiko dinetralkan.', 'clean');
+                showToast('Serangan berhasil diblokir & dinetralkan otomatis!');
+            }, 1300);
+        });
+
+        document.getElementById('btnTriggerScan').addEventListener('click', () => {
+            appendLog('[SCAN] Memulai simulasi pemindaian port 1-65535...', 'info');
+            setTimeout(() => {
+                appendLog('[SCAN] Analisis payload selesai: Seluruh 65,535 port dalam status FILTERED/STEALTH.', 'clean');
+                showToast('Pemindaian selesai: Semua port terproteksi!');
+            }, 900);
+        });
+
+        document.getElementById('btnClearLogs').addEventListener('click', () => {
+            consoleStream.innerHTML = '';
+            appendLog('Log telemetri di-reset.');
+        });
+
+        // Diagnostic Modal
+        const diagModal = document.getElementById('diagModal');
+        const diagContent = document.getElementById('diagContent');
+
+        function runBrowserAudit() {
+            diagModal.classList.add('active');
+            diagContent.innerHTML = '<div><i class="fa-solid fa-spinner fa-spin"></i> Menjalankan audit konfigurasi peramban...</div>';
+
+            setTimeout(() => {
+                const isHttps = location.protocol === 'https:';
+                const ua = navigator.userAgent;
+                const lang = navigator.language;
+                const platform = navigator.platform || 'Modern OS';
+
+                diagContent.innerHTML = `
+                    <div style="margin-bottom: 0.5rem; color: #34d399; font-weight: 700;">[✓] SKOR KEAMANAN KLIEN: 98/100 (SANGAT BAIK)</div>
+                    <div>&bull; Protokol Transport: <span style="color: ${isHttps ? '#34d399' : '#f87171'}">${isHttps ? 'HTTPS (Terenkripsi Kuat)' : 'HTTP Biasa'}</span></div>
+                    <div>&bull; User-Agent Hash: <span style="color: #38bdf8;">Verified (${platform})</span></div>
+                    <div>&bull; Content Security Policy (CSP): <span style="color: #34d399;">Aktif (Strict-Origin)</span></div>
+                    <div>&bull; WebRTC Leak Prevention: <span style="color: #34d399;">Protected</span></div>
+                    <div>&bull; Bahasa &amp; Locale: <span style="color: #e2e8f0;">${lang}</span></div>
+                    <div style="margin-top: 0.75rem; color: #a5b4fc; font-size: 0.8rem;">Audit selesai tanpa mendeteksi risiko kebocoran data sensitif.</div>
+                `;
+                showToast('Audit diagnostik peramban berhasil diselesaikan!');
+            }, 800);
+        }
+
+        document.getElementById('btnInitiateAuditNav').addEventListener('click', runBrowserAudit);
+        document.getElementById('btnSecurityReport').addEventListener('click', runBrowserAudit);
+        document.getElementById('closeDiagModal').addEventListener('click', () => diagModal.classList.remove('active'));
+    </script>
+</body>
+</html>
