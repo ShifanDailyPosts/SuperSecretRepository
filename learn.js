@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
             brief: {
                 summary: "HTML (HyperText Markup Language) adalah bahasa markup standar yang menjadi fondasi dasar seluruh website di internet. Dalam era web modern, HTML bukan sekadar menampilkan teks atau gambar, melainkan bertindak sebagai arsitektur semantik yang memberi makna pada setiap elemen. Arsitektur semantik ini memungkinkan peramban web (browser), mesin pencari (SEO Googlebot), dan teknologi bantu disabilitas (Screen Readers) untuk memahami struktur dokumen secara akurat, hierarkis, dan mudah diakses oleh semua pengguna.",
                 takeaways: [
-                    { icon: "fa-solid fa-sitemap", title: "Arsitektur Semantik & SEO", desc: "Tag seperti #header, #nav, #main, #article, #section, dan #footer memberi sinyal struktural yang jelas ke Googlebot untuk meningkatkan ranking SEO." },
+                    { icon: "fa-solid fa-sitemap", title: "Arsitektur Semantik & SEO", desc: "Tag seperti #<header>, #<nav>, #<main>, #<article>, #<section>, dan #<footer> memberi sinyal struktural yang jelas ke Googlebot untuk meningkatkan ranking SEO." },
                     { icon: "fa-solid fa-universal-access", title: "Aksesibilitas Universal (WCAG)", desc: "Standar aksesibilitas memastikan konten dapat dinavigasi oleh screen reader melalui atribut alt, aria-label, dan struktur form yang benar." },
                     { icon: "fa-solid fa-shield-halved", title: "Validasi Form Bawaan", desc: "HTML5 menyediakan sistem validasi input bawaan tanpa JavaScript melalui atribut #required, type='email', pattern, min, dan max." },
-                    { icon: "fa-solid fa-mobile-screen-button", title: "Metadata & Viewport", desc: "Tag #meta viewport menjamin scaling responsif di layar ponsel, serta meta Open Graph (og:) untuk kartu preview media sosial." }
+                    { icon: "fa-solid fa-mobile-screen-button", title: "Metadata & Viewport", desc: "Tag #<meta viewport> menjamin scaling responsif di layar ponsel, serta meta Open Graph (og:) untuk kartu preview media sosial." }
                 ]
             },
             lesson: {
@@ -82,23 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 steps: [
                     { 
                         num: 1, 
-                        title: "Deklarasi Standar: Tag #!DOCTYPE html & Atribut #lang", 
-                        desc: "Deklarasi awal dokumen: Tag #!DOCTYPE html memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut #lang=\"id\" (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat." 
+                        title: "Deklarasi Standar: Tag #<!DOCTYPE html> & Atribut #lang", 
+                        desc: "Deklarasi awal dokumen: Tag #<!DOCTYPE html> memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut #lang=\"id\" (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat." 
                     },
                     { 
                         num: 2, 
-                        title: "Tag #meta viewport (Kunci Desain Web Responsif Layar HP)", 
-                        desc: "Kunci wajib website responsif di layar ponsel/tablet. Tag #meta viewport memiliki 2 instruksi vital: (1) Parameter #width=device-width menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) Parameter #initial-scale=1.0 menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom)." 
+                        title: "Tag #<meta viewport> (Kunci Desain Web Responsif Layar HP)", 
+                        desc: "Kunci wajib website responsif di layar ponsel/tablet. Tag #<meta viewport> memiliki 2 instruksi vital: (1) Parameter #width=device-width menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) Parameter #initial-scale=1.0 menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom)." 
                     },
                     { 
                         num: 3, 
-                        title: "Pemisahan Landmark Semantik: Tag #header, #nav, dan #main", 
-                        desc: "Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) Tag #header adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) Tag #nav khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) Tag #main adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: Tag #main HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer." 
+                        title: "Pemisahan Landmark Semantik: Tag #<header>, #<nav>, dan #<main>", 
+                        desc: "Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) Tag #<header> adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) Tag #<nav> khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) Tag #<main> adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: Tag #<main> HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer." 
                     },
                     { 
                         num: 4, 
-                        title: "Aksesibilitas Formulir: Relasi Tag #label dan Tag #input", 
-                        desc: "Standar aksesibilitas WCAG: nilai atribut for pada Tag #label harus persis sama dengan atribut id pada kotak Tag #input. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik." 
+                        title: "Aksesibilitas Formulir: Relasi Tag #<label> dan Tag #<input>", 
+                        desc: "Standar aksesibilitas WCAG: nilai atribut for pada Tag #<label> harus persis sama dengan atribut id pada kotak Tag #<input>. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik." 
                     },
                     { 
                         num: 5, 
@@ -107,27 +107,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     { 
                         num: 6, 
-                        title: "Tautan Aksesibilitas: Tag #a skip-link (#main-content)", 
-                        desc: "Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan Tag #a ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (Tag #main id=\"main-content\")." 
+                        title: "Tautan Aksesibilitas: Tag #<a> skip-link (#main-content)", 
+                        desc: "Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan Tag #<a> ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (Tag #<main> id=\"main-content\")." 
                     }
                 ],
-                tip: "Hindari 'div soup' (menggunakan Tag #div untuk segala hal). Selalu utamakan tag semantik (Tag #article, #section, #aside, #button). Jangan pernah mengganti Tag #button dengan Tag #div onclick karena Tag #div tidak dapat diakses keyboard (tombol Tab/Enter) dan tidak dikenali screen reader.",
+                tip: "Hindari 'div soup' (menggunakan Tag #<div> untuk segala hal). Selalu utamakan tag semantik (Tag #<article>, #<section>, #<aside>, #<button>). Jangan pernah mengganti Tag #<button> dengan Tag #<div> onclick karena Tag #<div> tidak dapat diakses keyboard (tombol Tab/Enter) dan tidak dikenali screen reader.",
             },
-            challenge: "Buka teks editor, buat dokumen HTML5 semantik yang memuat: (1) satu Tag #main, (2) formulir pendaftaran dengan input nama (type='text', required) dan nomor WhatsApp (type='tel'), serta (3) Tag #figure dengan Tag #img yang memiliki atribut alt deskriptif dan Tag #figcaption keterangan gambar.",
+            challenge: "Buka teks editor, buat dokumen HTML5 semantik yang memuat: (1) satu Tag #<main>, (2) formulir pendaftaran dengan input nama (type='text', required) dan nomor WhatsApp (type='tel'), serta (3) Tag #<figure> dengan Tag #<img> yang memiliki atribut alt deskriptif dan Tag #<figcaption> keterangan gambar.",
             questionPool: [
                 {
-                    q: "Manakah perbedaan mendasar antara tag semantik Tag #article dan Tag #section?",
+                    q: "Manakah perbedaan mendasar antara tag semantik Tag #<article> dan Tag #<section>?",
                     options: [
-                        "Tag #article berdiri sendiri dan bermakna mandiri (dapat disindikasi/dibagikan terpisah), sedangkan Tag #section mengelompokkan konten yang memiliki tema serumpun",
-                        "Tag #article hanya untuk teks blog tulisan panjang, sedangkan Tag #section hanya untuk gambar dan video",
-                        "Tag #article adalah elemen inline, sedangkan Tag #section adalah elemen block-level",
-                        "Tidak ada perbedaan sama sekali, keduanya identik fungsinya dengan Tag #div"
+                        "Tag #<article> berdiri sendiri dan bermakna mandiri (dapat disindikasi/dibagikan terpisah), sedangkan Tag #<section> mengelompokkan konten yang memiliki tema serumpun",
+                        "Tag #<article> hanya untuk teks blog tulisan panjang, sedangkan Tag #<section> hanya untuk gambar dan video",
+                        "Tag #<article> adalah elemen inline, sedangkan Tag #<section> adalah elemen block-level",
+                        "Tidak ada perbedaan sama sekali, keduanya identik fungsinya dengan Tag #<div>"
                     ],
                     ans: 0,
-                    explain: "Tepat! Standar W3C menyatakan Tag #article dirancang untuk konten independen dan mandiri (seperti postingan blog, kartu produk, atau berita), sedangkan Tag #section membagi dokumen ke dalam bab atau bagian bertema sama."
+                    explain: "Tepat! Standar W3C menyatakan Tag #<article> dirancang untuk konten independen dan mandiri (seperti postingan blog, kartu produk, atau berita), sedangkan Tag #<section> membagi dokumen ke dalam bab atau bagian bertema sama."
                 },
                 {
-                    q: "Mengapa atribut alt pada Tag #img sangat penting dalam standar web modern?",
+                    q: "Mengapa atribut alt pada Tag #<img> sangat penting dalam standar web modern?",
                     options: [
                         "Hanya berfungsi mempercepat proses unduhan gambar di server web",
                         "Menyediakan teks pengganti bagi pembaca layar tunanetra (Screen Reader) dan membantu SEO mesin pencari saat gambar gagal dimuat",
@@ -138,29 +138,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     explain: "Benar! Atribut alt (alternative text) adalah pilar aksesibilitas (WCAG) yang dibacakan oleh screen reader dan ditampilkan jika gambar gagal dimuat atau koneksi lambat."
                 },
                 {
-                    q: "Berapa kali tag semantik Tag #main diperbolehkan muncul di dalam satu dokumen HTML?",
+                    q: "Berapa kali tag semantik Tag #<main> diperbolehkan muncul di dalam satu dokumen HTML?",
                     options: [
                         "Boleh sebanyak-banyaknya di setiap kartu",
                         "Maksimal 2 kali (satu untuk desktop, satu untuk mobile)",
                         "Hanya boleh 1 kali per halaman karena merepresentasikan konten inti unik halaman tersebut",
-                        "Tergantung pada jumlah Tag #header yang digunakan"
+                        "Tergantung pada jumlah Tag #<header> yang digunakan"
                     ],
                     ans: 2,
-                    explain: "Tepat! Spesifikasi HTML5 menetapkan bahwa Tag #main harus unik dan hanya ada satu dalam satu dokumen, tidak boleh diletakkan di dalam Tag #header, #footer, atau #nav."
+                    explain: "Tepat! Spesifikasi HTML5 menetapkan bahwa Tag #<main> harus unik dan hanya ada satu dalam satu dokumen, tidak boleh diletakkan di dalam Tag #<header>, #<footer>, atau #<nav>."
                 },
                 {
                     q: "Agar saat pengguna mengklik teks label kursor otomatis masuk ke kotak input, atribut apa yang harus dihubungkan?",
                     options: [
                         "Atribut 'name' pada label dan 'class' pada input",
-                        "Atribut 'for' pada Tag #label harus bernilai sama persis dengan atribut 'id' pada Tag #input",
+                        "Atribut 'for' pada Tag #<label> harus bernilai sama persis dengan atribut 'id' pada Tag #<input>",
                         "Atribut 'href' pada label dan 'target' pada input",
                         "Atribut 'title' pada label dan 'placeholder' pada input"
                     ],
                     ans: 1,
-                    explain: "Benar! Keterkaitan antara Tag #label for='emailId' dan Tag #input id='emailId' menciptakan relasi aksesibilitas resmi sehingga area klik menjadi lebih luas dan ramah pengguna."
+                    explain: "Benar! Keterkaitan antara Tag #<label> for='emailId' dan Tag #<input> id='emailId' menciptakan relasi aksesibilitas resmi sehingga area klik menjadi lebih luas dan ramah pengguna."
                 },
                 {
-                    q: "Apakah fungsi utama Tag #meta viewport (width=device-width, initial-scale=1.0)?",
+                    q: "Apakah fungsi utama Tag #<meta viewport> (width=device-width, initial-scale=1.0)?",
                     options: [
                         "Mengompresi ukuran gambar agar halaman lebih ringan diakses",
                         "Memerintahkan browser untuk menyesuaikan lebar halaman dengan lebar fisik layar perangkat pengguna (kunci web responsif)",
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         "Mengaktifkan mode gelap (dark mode) otomatis pada browser ponsel"
                     ],
                     ans: 1,
-                    explain: "Tepat! Tanpa Tag #meta viewport, browser smartphone akan merender halaman web pada resolusi layar desktop virtual (biasanya 980px) lalu mengecilkannya secara drastis (zoom-out)."
+                    explain: "Tepat! Tanpa Tag #<meta viewport>, browser smartphone akan merender halaman web pada resolusi layar desktop virtual (biasanya 980px) lalu mengecilkannya secara drastis (zoom-out)."
                 },
                 {
                     q: "Mengapa tautan dengan target='_blank' disarankan untuk selalu dilengkapi atribut rel='noopener noreferrer'?",
@@ -184,21 +184,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     q: "Manakah pasangan elemen yang tepat untuk menyajikan gambar ilustrasi beserta takarir keterangan teksnya secara semantik?",
                     options: [
-                        "Tag #div dan Tag #span",
-                        "Tag #image dan Tag #text",
-                        "Tag #figure dan Tag #figcaption",
-                        "Tag #picture dan Tag #summary"
+                        "Tag #<div> dan Tag #<span>",
+                        "Tag #<image> dan Tag #<text>",
+                        "Tag #<figure> dan Tag #<figcaption>",
+                        "Tag #<picture> dan Tag #<summary>"
                     ],
                     ans: 2,
-                    explain: "Tepat! Elemen Tag #figure digunakan untuk membungkus konten mandiri (seperti diagram, foto, kode), dan Tag #figcaption menyediakan takarir penjelas semantik."
+                    explain: "Tepat! Elemen Tag #<figure> digunakan untuk membungkus konten mandiri (seperti diagram, foto, kode), dan Tag #<figcaption> menyediakan takarir penjelas semantik."
                 },
                 {
-                    q: "Bagaimanakah perilaku elemen bertipe inline (seperti Tag #span atau Tag #a) dibandingkan elemen block (seperti Tag #div atau Tag #p)?",
+                    q: "Bagaimanakah perilaku elemen bertipe inline (seperti Tag #<span> atau Tag #<a>) dibandingkan elemen block (seperti Tag #<div> atau Tag #<p>)?",
                     options: [
                         "Elemen inline selalu memulai baris baru di bawahnya dan mengambil lebar penuh 100%",
                         "Elemen inline hanya mengambil lebar selebar kontennya dan tidak memaksa baris baru",
                         "Elemen inline tidak dapat diberi gaya warna atau ukuran font dengan CSS",
-                        "Elemen inline tidak boleh diletakkan di dalam Tag #body"
+                        "Elemen inline tidak boleh diletakkan di dalam Tag #<body>"
                     ],
                     ans: 1,
                     explain: "Benar! Elemen inline mengalir bersama teks tanpa memutus baris, sedangkan elemen block secara default membentang selebar kontainer induk dan memulai baris baru."
@@ -228,24 +228,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     q: "Tag HTML manakah yang paling tepat dan semantik untuk menampilkan kutipan panjang beserta sumber rujukannya?",
                     options: [
-                        "Tag #q",
-                        "Tag #blockquote",
-                        "Tag #cite",
-                        "Tag #em"
+                        "Tag #<q>",
+                        "Tag #<blockquote>",
+                        "Tag #<cite>",
+                        "Tag #<em>"
                     ],
                     ans: 1,
-                    explain: "Tepat! Tag #blockquote digunakan untuk kutipan blok teks panjang dari sumber lain, sering dikombinasikan dengan atribut cite='URL'."
+                    explain: "Tepat! Tag #<blockquote> digunakan untuk kutipan blok teks panjang dari sumber lain, sering dikombinasikan dengan atribut cite='URL'."
                 },
                 {
-                    q: "Apa fungsi dari tag semantik Tag #aside dalam tata letak dokumen web?",
+                    q: "Apa fungsi dari tag semantik Tag #<aside> dalam tata letak dokumen web?",
                     options: [
                         "Membungkus menu navigasi utama di bagian atas",
                         "Memuat konten pelengkap/pendukung yang berhubungan tidak langsung dengan konten utama (seperti sidebar, callout, atau arsip tautan)",
                         "Menampilkan video latar belakang secara otomatis",
-                        "Menutup seluruh konten halaman sebelum Tag #html selesai"
+                        "Menutup seluruh konten halaman sebelum Tag #<html> selesai"
                     ],
                     ans: 1,
-                    explain: "Tepat! Tag #aside mewakili bagian dokumen yang kontennya berhubungan secara tangensial (pendukung/pelengkap) terhadap konten inti di sekitarnya."
+                    explain: "Tepat! Tag #<aside> mewakili bagian dokumen yang kontennya berhubungan secara tangensial (pendukung/pelengkap) terhadap konten inti di sekitarnya."
                 }
             ]
         },
@@ -472,12 +472,12 @@ body {
                     q: "Ukuran unit 'rem' dihitung secara relatif terhadap ukuran font dari elemen apa?",
                     options: [
                         "Elemen induk langsung (Parent element)",
-                        "Elemen akar dokumen (Root element Tag #html)",
+                        "Elemen akar dokumen (Root element Tag #<html>)",
                         "Ukuran lebar layar perangkat (Viewport width)",
-                        "Elemen Tag #body terdekat"
+                        "Elemen Tag #<body> terdekat"
                     ],
                     ans: 1,
-                    explain: "Benar! 'rem' singkatan dari Root EM, nilainya selalu dikalkulasikan relatif terhadap ukuran font pada elemen Tag #html (bawaan browser biasanya 16px)."
+                    explain: "Benar! 'rem' singkatan dari Root EM, nilainya selalu dikalkulasikan relatif terhadap ukuran font pada elemen Tag #<html> (bawaan browser biasanya 16px)."
                 },
                 {
                     q: "Pseudo-class manakah yang menampilkan indikator fokus hanya saat pengguna berinteraksi menggunakan keyboard (misalnya tombol Tab)?",
@@ -632,7 +632,7 @@ renderTasks();`,
                     { 
                         num: 3, 
                         title: "Prinsip Immutability: Transformasi .map() & Penyaringan .filter()", 
-                        desc: "Hindari merusak data asli secara langsung. (1) '.map()' digunakan untuk mentransformasikan setiap elemen array menjadi bentuk baru—misalnya mengubah array objek data menjadi untaian elemen HTML Tag #li untuk dirender ke layar. (2) '.filter()' digunakan untuk menyaring data—misalnya saat menghapus tugas, kita membuat array baru yang hanya memuat tugas dengan ID yang tidak cocok ('t.id !== taskId'). Array lama tidak dimutasi secara liar, mencegah timbulnya bug efek samping (*side-effects*) yang sulit dilacak." 
+                        desc: "Hindari merusak data asli secara langsung. (1) '.map()' digunakan untuk mentransformasikan setiap elemen array menjadi bentuk baru—misalnya mengubah array objek data menjadi untaian elemen HTML Tag #<li> untuk dirender ke layar. (2) '.filter()' digunakan untuk menyaring data—misalnya saat menghapus tugas, kita membuat array baru yang hanya memuat tugas dengan ID yang tidak cocok ('t.id !== taskId'). Array lama tidak dimutasi secara liar, mencegah timbulnya bug efek samping (*side-effects*) yang sulit dilacak." 
                     },
                     { 
                         num: 4, 
@@ -740,7 +740,7 @@ renderTasks();`,
                         "Mendelegasikan penanganan event ke server backend"
                     ],
                     ans: 1,
-                    explain: "Sangat tepat! Event Delegation memanfaatkan sifat 'Event Bubbling': satu event listener pada induk (misal Tag #ul) dapat menangani klik pada ribuan elemen anak (Tag #li) secara hemat memori."
+                    explain: "Sangat tepat! Event Delegation memanfaatkan sifat 'Event Bubbling': satu event listener pada induk (misal Tag #<ul>) dapat menangani klik pada ribuan elemen anak (Tag #<li>) secara hemat memori."
                 },
                 {
                     q: "Operator Nullish Coalescing (??) hanya akan mengembalikan nilai sisi kanan jika nilai sisi kirinya bernilai apa?",
@@ -2063,7 +2063,7 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
             .replace(/'/g, "&#039;");
     }
 
-    // Helper to format rich text: escapes raw HTML characters, then wraps #tags, tags & backticks into high-contrast code pills
+    // Helper to format rich text: escapes raw HTML characters, then wraps #<tag>, <tag>, #attributes & backticks into high-contrast code pills
     function formatRichText(str) {
         if (!str) return '';
         let text = String(str)
@@ -2071,13 +2071,13 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
 
-        // Highlight #tag or #!DOCTYPE into high-contrast inline code badge
+        // 1. Highlight #<tag ...> or <tag ...> with or without # prefix into high-contrast inline code badge
+        text = text.replace(/(#?)&lt;(!?[a-zA-Z/][^&<>]*?)&gt;/g, '<code class="inline-code">$1&lt;$2&gt;</code>');
+
+        // 2. Highlight standalone #attribute or #tag (e.g. #required, #lang)
         text = text.replace(/#([a-zA-Z!][a-zA-Z0-9_\-]*)/g, '<code class="inline-code">#$1</code>');
 
-        // Highlight tags like &lt;tag ...&gt; with an inline-code pill
-        text = text.replace(/&lt;(!?[a-zA-Z/][^&<>]*?)&gt;/g, '<code class="inline-code">&lt;$1&gt;</code>');
-
-        // Highlight backtick code: `code`
+        // 3. Highlight backtick code: `code`
         text = text.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
         return text;
