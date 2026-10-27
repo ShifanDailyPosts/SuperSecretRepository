@@ -1,7 +1,7 @@
 /**
- * Shifan Shalih Adiluhung - Others Page Security & AI Hub
+ * Shifan Shalih Adiluhung - Others Page Security & Web Showcase Engine
  * Strict CSP Compliant (No inline scripts)
- * Versi 3.0 - Gen Z & Gen Alpha Interactive Edition
+ * Versi 4.0 - Auto-Shifting 5s Showcase & Auto-Scroll Viewport
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gatekeeperSection) gatekeeperSection.style.display = 'none';
         if (blankPageSection) blankPageSection.style.display = 'block';
 
-        // Inisialisasi builder output real-time saat login
-        updateBuilderPreview();
+        // Start showcase auto-shift loop when authenticated
+        initShowcaseCarousel();
     };
 
     const setUnauthenticatedView = () => {
@@ -71,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePasswordIcon.classList.remove('fa-eye-slash');
             togglePasswordIcon.classList.add('fa-eye');
         }
+
+        // Stop showcase timer when logged out
+        stopShowcaseTimer();
 
         // Fokus ke input username setelah render
         setTimeout(() => {
@@ -214,160 +217,180 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
             const activePane = document.getElementById(targetId);
             if (activePane) activePane.classList.add('active');
+
+            // If switching to showcase tab, restart auto-shift timer
+            if (targetId === 'tabShowcase') {
+                startShowcaseTimer();
+            }
         });
     });
 
-    // === 8. COPY TO CLIPBOARD HELPER ===
-    const copyToClipboard = async (text, btnElement) => {
-        try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(text);
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
+    // === 8. SHOWCASE CAROUSEL ENGINE (5s AUTO-SHIFT & AUTO-SCROLL) ===
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.showcase-slide');
+    const pillButtons = document.querySelectorAll('.showcase-pill-btn');
+    const browserUrlText = document.getElementById('browserUrlText');
+    const browserProgressFill = document.getElementById('browserProgressFill');
+    const browserMockup = document.getElementById('browserMockup');
+    const prevSlideBtn = document.getElementById('prevSlideBtn');
+    const nextSlideBtn = document.getElementById('nextSlideBtn');
+    const togglePlayBtn = document.getElementById('togglePlayBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const refreshBrowserBtn = document.getElementById('refreshBrowserBtn');
 
-            if (btnElement) {
-                const originalHtml = btnElement.innerHTML;
-                btnElement.classList.add('copied');
-                btnElement.innerHTML = `<i class="fa-solid fa-check"></i> <span>Tersalin!</span>`;
-                setTimeout(() => {
-                    btnElement.classList.remove('copied');
-                    btnElement.innerHTML = originalHtml;
-                }, 2200);
-            }
+    const TOTAL_SLIDES = slides.length;
+    const SLIDE_DURATION_MS = 5000;
+    let slideTimer = null;
+    let progressStartTime = 0;
+    let progressAnimFrame = null;
+    let isUserPaused = false;
+    let isHoverPaused = false;
 
-            showToast('Prompt berhasil disalin ke clipboard!', 'success');
-        } catch (err) {
-            showToast('Gagal menyalin teks ke clipboard.', 'error');
-        }
-    };
+    function goToSlide(index) {
+        if (TOTAL_SLIDES === 0) return;
 
-    // Bind generic copy buttons
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetId = btn.getAttribute('data-copy-target');
-            if (targetId) {
-                const targetEl = document.getElementById(targetId);
-                if (targetEl) {
-                    copyToClipboard(targetEl.textContent.trim(), btn);
+        // Wrap around index
+        currentSlideIndex = (index + TOTAL_SLIDES) % TOTAL_SLIDES;
+
+        slides.forEach((slide, idx) => {
+            const isActive = idx === currentSlideIndex;
+            slide.classList.toggle('active', isActive);
+
+            // Reset animation on active slide to restart auto-scroll from top
+            if (isActive) {
+                const scrollable = slide.querySelector('.web-page-scrollable');
+                if (scrollable) {
+                    scrollable.style.animation = 'none';
+                    void scrollable.offsetWidth; // Force reflow
+                    scrollable.style.animation = '';
                 }
             }
         });
-    });
 
-    // === 9. INTERACTIVE PROMPT BUILDER ENGINE ===
-    const roleInput = document.getElementById('builderRole');
-    const contextInput = document.getElementById('builderContext');
-    const taskInput = document.getElementById('builderTask');
-    const constraintsInput = document.getElementById('builderConstraints');
-    const outputInput = document.getElementById('builderOutput');
-    const liveOutputEl = document.getElementById('builderLiveOutput');
-    const copyBuilderBtn = document.getElementById('copyBuilderBtn');
-    const presetBtns = document.querySelectorAll('.preset-btn');
+        // Update pills
+        pillButtons.forEach((pill, idx) => {
+            pill.classList.toggle('active', idx === currentSlideIndex);
+        });
 
-    // Presets Definition (Gen Z & Santri Friendly)
-    const BUILDER_PRESETS = {
-        webdev: {
-            role: "Senior Frontend Web Developer & UI Specialist",
-            context: "Website portofolio santri modern bertema dark mode dengan aksen cyan glow. Dibuat menggunakan HTML5 semantik dan CSS Flexbox murni.",
-            task: "Bikinkan komponen hero section interaktif yang menampilkan foto profil melingkar dengan glowing border, nama, tagline keahlian santri developer, dan tombol call-to-action.",
-            constraints: "- Jangan pakai Bootstrap atau Tailwind (pure custom CSS).\n- Desain harus responsif di HP (mobile-friendly).\n- Berikan animasi halus saat tombol di-hover.",
-            output: "Berikan blok kode HTML dan CSS terpisah yang bersih dan siap copy-paste tanpa penjelasan bertele-tele."
-        },
-        debug: {
-            role: "Dokter Koding & Senior JavaScript Debugger",
-            context: "Aplikasi web portofolio Vanilla JS mengalami error saat tombol diklik: 'Uncaught TypeError: Cannot read properties of null (reading addEventListener)'.",
-            task: "Jelaskan dengan bahasa santai kenapa error ini bisa terjadi, dan berikan kode perbaikan yang aman agar script tidak macet.",
-            constraints: "- Jelaskan dulu penyebabnya dalam 2 kalimat gampang.\n- Kode perbaikan harus mengecek apakah elemen DOM sudah ada sebelum dipasangi event listener.\n- Bahasa santai, ramah, dan memotivasi.",
-            output: "Format: (1) Kenapa Bisa Error, (2) Solusi Kode Perbaikan."
-        },
-        summary: {
-            role: "Tutor Pembelajaran Cerdas & Master Pembuat Catatan Ringkas",
-            context: "Catatan pelajaran tentang dasar-dasar jaringan komputer (IP Address, DNS, dan Protokol HTTP/HTTPS) untuk santri sekolah menengah.",
-            task: "Rangkum konsep-konsep kunci tersebut menjadi 5 poin penting yang super gampang dipahami, lengkapi dengan 3 kuis pilihan ganda singkat.",
-            constraints: "- Gunakan analogi dunia nyata (misal: analogi alamat rumah untuk IP Address).\n- Hindari istilah teknis yang tidak dijelaskan.\n- Format poin-poin bersih dengan emoji menarik.",
-            output: "Format Markdown dengan bullet points dan kuis pilihan ganda beserta kunci jawaban."
-        },
-        content: {
-            role: "Kreator Konten Edukasi Digital & Influencer Santri Inspiratif",
-            context: "Video pendek TikTok / Instagram Reels berdurasi 60 detik yang mengajak anak muda/santri untuk semangat belajar coding dan adab teknologi.",
-            task: "Buatkan naskah (script) video pendek yang catchy dari hook 3 detik pertama, isi pesan motivasi (santri melek teknologi), sampai call-to-action.",
-            constraints: "- Hook awal harus bikin orang berhenti scroll (menggugah rasa penasaran).\n- Bahasa gaul santun, energik, dan tidak menggurui.\n- Sertakan arahan visual/kamera (Scene direction).",
-            output: "Tabel naskah: Detik ke berapa | Visual & Aksi Kamera | Narasi Suara."
+        // Update address bar
+        const activeSlide = slides[currentSlideIndex];
+        if (activeSlide && browserUrlText) {
+            browserUrlText.textContent = activeSlide.getAttribute('data-url') || 'https://shifandailyposts.mediasosial.net';
         }
-    };
 
-    function updateBuilderPreview() {
-        if (!liveOutputEl) return;
-
-        const role = roleInput?.value.trim() || '';
-        const context = contextInput?.value.trim() || '';
-        const task = taskInput?.value.trim() || '';
-        const constraints = constraintsInput?.value.trim() || '';
-        const output = outputInput?.value.trim() || '';
-
-        const compiledPrompt = 
-`[ROLE / TOPENG KEAHLIAN]
-${role}
-
-[CONTEXT / LATAR BELAKANG]
-${context}
-
-[TASK / PERINTAH INTI]
-${task}
-
-[CONSTRAINTS / PAGAR LARANGAN]
-${constraints}
-
-[EXPECTED OUTPUT FORMAT]
-${output}`;
-
-        liveOutputEl.textContent = compiledPrompt;
+        // Reset progress bar
+        resetProgressBar();
     }
 
-    // Input listeners real-time
-    [roleInput, contextInput, taskInput, constraintsInput, outputInput].forEach(input => {
-        if (input) {
-            input.addEventListener('input', updateBuilderPreview);
-        }
-    });
-
-    // Preset button switcher
-    presetBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const presetKey = btn.getAttribute('data-preset');
-            const data = BUILDER_PRESETS[presetKey];
-            if (!data) return;
-
-            presetBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            if (roleInput) roleInput.value = data.role;
-            if (contextInput) contextInput.value = data.context;
-            if (taskInput) taskInput.value = data.task;
-            if (constraintsInput) constraintsInput.value = data.constraints;
-            if (outputInput) outputInput.value = data.output;
-
-            updateBuilderPreview();
-            showToast(`Preset "${btn.textContent.trim()}" dimuat!`, 'info');
-        });
-    });
-
-    // Copy Builder Output Button
-    if (copyBuilderBtn && liveOutputEl) {
-        copyBuilderBtn.addEventListener('click', () => {
-            copyToClipboard(liveOutputEl.textContent.trim(), copyBuilderBtn);
-        });
+    function nextSlide() {
+        goToSlide(currentSlideIndex + 1);
     }
 
-    // === 10. SMOOTH CURSOR FOLLOWER ===
+    function prevSlide() {
+        goToSlide(currentSlideIndex - 1);
+    }
+
+    function resetProgressBar() {
+        if (!browserProgressFill) return;
+        browserProgressFill.style.width = '0%';
+        progressStartTime = performance.now();
+    }
+
+    function updateProgress(now) {
+        if (!isUserPaused && !isHoverPaused && browserProgressFill) {
+            const elapsed = now - progressStartTime;
+            const progress = Math.min(elapsed / SLIDE_DURATION_MS, 1);
+            browserProgressFill.style.width = `${progress * 100}%`;
+
+            if (elapsed >= SLIDE_DURATION_MS) {
+                nextSlide();
+            }
+        } else {
+            // Keep timer reference synced while paused
+            progressStartTime = now - (parseFloat(browserProgressFill?.style.width || '0') / 100 * SLIDE_DURATION_MS);
+        }
+
+        progressAnimFrame = requestAnimationFrame(updateProgress);
+    }
+
+    function startShowcaseTimer() {
+        if (progressAnimFrame) cancelAnimationFrame(progressAnimFrame);
+        progressStartTime = performance.now();
+        progressAnimFrame = requestAnimationFrame(updateProgress);
+    }
+
+    function stopShowcaseTimer() {
+        if (progressAnimFrame) {
+            cancelAnimationFrame(progressAnimFrame);
+            progressAnimFrame = null;
+        }
+    }
+
+    function initShowcaseCarousel() {
+        if (TOTAL_SLIDES === 0) return;
+
+        goToSlide(0);
+        startShowcaseTimer();
+
+        // Bind control buttons
+        if (nextSlideBtn) {
+            nextSlideBtn.addEventListener('click', () => {
+                nextSlide();
+            });
+        }
+
+        if (prevSlideBtn) {
+            prevSlideBtn.addEventListener('click', () => {
+                prevSlide();
+            });
+        }
+
+        if (togglePlayBtn && playPauseIcon) {
+            togglePlayBtn.addEventListener('click', () => {
+                isUserPaused = !isUserPaused;
+                if (isUserPaused) {
+                    playPauseIcon.classList.remove('fa-pause');
+                    playPauseIcon.classList.add('fa-play');
+                    showToast('Auto-shift website dijeda', 'info');
+                } else {
+                    playPauseIcon.classList.remove('fa-play');
+                    playPauseIcon.classList.add('fa-pause');
+                    showToast('Auto-shift website dilanjutkan', 'info');
+                    progressStartTime = performance.now();
+                }
+            });
+        }
+
+        if (refreshBrowserBtn) {
+            refreshBrowserBtn.addEventListener('click', () => {
+                goToSlide(currentSlideIndex);
+                showToast('Tampilan website dimuat ulang!', 'info');
+            });
+        }
+
+        // Bind Pill Buttons
+        pillButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetIdx = parseInt(btn.getAttribute('data-slide'), 10);
+                if (!isNaN(targetIdx)) {
+                    goToSlide(targetIdx);
+                }
+            });
+        });
+
+        // Pause auto-shift when hovering the mockup window so user can explore
+        if (browserMockup) {
+            browserMockup.addEventListener('mouseenter', () => {
+                isHoverPaused = true;
+            });
+
+            browserMockup.addEventListener('mouseleave', () => {
+                isHoverPaused = false;
+            });
+        }
+    }
+
+    // === 9. SMOOTH CURSOR FOLLOWER ===
     const cursorDot = document.getElementById('cursorDot');
     const cursorBlur = document.getElementById('cursorBlur');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -403,6 +426,6 @@ ${output}`;
         if (cursorBlur) cursorBlur.remove();
     }
 
-    // === 11. INITIALIZE AUTHENTICATION STATE ===
+    // === 10. INITIALIZE AUTHENTICATION STATE ===
     checkAuthState();
 });

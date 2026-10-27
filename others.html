@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>AI & Prompting Hub | Others - Shifan Shalih Adiluhung</title>
+    <title>AI & Web Showcase Hub | Others - Shifan Shalih Adiluhung</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -259,7 +259,7 @@
         }
 
         /* ========================================================
-           AUTHENTICATED PORTAL: AI & PROMPTING WORKSPACE
+           AUTHENTICATED PORTAL: TOPBAR & WORKSPACE
            ======================================================== */
         .others-topbar {
             position: sticky;
@@ -938,32 +938,35 @@
             gap: 0.4rem;
         }
 
-        /* Interactive Builder Grid */
-        .builder-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
+        /* ========================================================
+           TAB 5: 5-SECOND AUTO-SHIFTING & AUTO-SCROLLING SHOWCASE
+           ======================================================== */
+        .showcase-control-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 0.85rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
         }
 
-        @media (max-width: 992px) {
-            .builder-grid { grid-template-columns: 1fr; }
-        }
-
-        .builder-presets {
+        .showcase-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 1.5rem;
+            gap: 0.5rem;
         }
 
-        .preset-btn {
+        .showcase-pill-btn {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            padding: 0.45rem 0.9rem;
+            padding: 0.4rem 0.85rem;
             border-radius: var(--radius-full);
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
             transition: all var(--transition-fast);
@@ -972,156 +975,618 @@
             gap: 0.4rem;
         }
 
-        .preset-btn:hover {
+        .showcase-pill-btn:hover {
             color: var(--primary-color);
             border-color: var(--primary-color);
             background: rgba(6, 182, 212, 0.08);
         }
 
-        .preset-btn.active {
-            background: var(--primary-color);
+        .showcase-pill-btn.active {
+            background: var(--primary-gradient);
             color: #ffffff;
-            border-color: var(--primary-color);
+            border-color: transparent;
             box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
         }
 
-        .builder-form-wrapper {
+        .showcase-playback-tools {
             display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
+            align-items: center;
+            gap: 0.6rem;
         }
 
-        .builder-field {
+        .playback-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.45rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .playback-btn:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .timer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* Mockup Browser Frame */
+        .browser-mockup {
+            background: #0f172a;
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(6, 182, 212, 0.15);
+            position: relative;
+        }
+
+        body.light-theme .browser-mockup {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Browser Header */
+        .browser-header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1.25rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            position: relative;
+        }
+
+        body.light-theme .browser-header {
+            background: #f1f5f9;
+        }
+
+        .browser-dots {
+            display: flex;
+            align-items: center;
             gap: 0.45rem;
         }
 
-        .builder-field label {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .dot-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
-        .builder-field .badge-hint {
-            font-size: 0.75rem;
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .browser-url-bar {
+            flex-grow: 1;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            padding: 0.35rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-family: var(--font-code);
+        }
+
+        body.light-theme .browser-url-bar {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            color: #475569;
+        }
+
+        .browser-url-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #38bdf8;
             font-weight: 500;
-            color: var(--text-muted);
         }
 
-        .builder-input, .builder-textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 0.75rem 1rem;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-family: var(--font-body);
-            transition: all var(--transition-fast);
-        }
-
-        body.light-theme .builder-input, body.light-theme .builder-textarea {
-            background: #ffffff;
-            border-color: #cbd5e1;
-        }
-
-        .builder-input:focus, .builder-textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background: rgba(6, 182, 212, 0.03);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
-        }
-
-        .builder-textarea {
-            min-height: 80px;
-            resize: vertical;
-            line-height: 1.5;
-        }
-
-        .builder-preview-wrapper {
-            background: rgba(11, 15, 25, 0.85);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
+        .browser-actions {
             display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            height: fit-content;
-            position: sticky;
-            top: 5rem;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
-        body.light-theme .builder-preview-wrapper {
-            background: #ffffff;
-            border-color: #cbd5e1;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+        /* 5-Second Progress Bar Line */
+        .browser-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            overflow: hidden;
         }
 
-        .builder-preview-header {
+        .browser-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-gradient);
+            transition: width 0.1s linear;
+        }
+
+        /* Viewport Container */
+        .browser-viewport {
+            height: 560px;
+            position: relative;
+            overflow: hidden;
+            background: #090d16;
+            cursor: grab;
+        }
+
+        .browser-viewport:active {
+            cursor: grabbing;
+        }
+
+        /* Showcase Slides */
+        .showcase-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+            overflow-y: hidden;
+        }
+
+        .showcase-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        /* Smooth Auto-Scrolling Container */
+        .web-page-scrollable {
+            width: 100%;
+            position: relative;
+            transform: translateY(0);
+        }
+
+        /* Continuous Dynamic Auto-Scroll Keyframe */
+        .showcase-slide.active .web-page-scrollable {
+            animation: autoScrollPage 5s ease-in-out infinite alternate;
+        }
+
+        /* Pause auto-scroll on hover */
+        .browser-viewport:hover .showcase-slide.active .web-page-scrollable {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScrollPage {
+            0% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-20%);
+            }
+            65% {
+                transform: translateY(-48%);
+            }
+            85% {
+                transform: translateY(-68%);
+            }
+            100% {
+                transform: translateY(-78%);
+            }
+        }
+
+        /* ========================================================
+           LANDING PAGE 1: NOVA AI AGENT CLOUD
+           ======================================================== */
+        .lp-nova {
+            background: radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.15) 0%, #090d16 65%);
+            color: #f8fafc;
+            font-family: var(--font-body);
+            padding: 2.5rem 3rem 4rem 3rem;
+            min-height: 1900px;
+        }
+
+        .nova-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .builder-preview-title {
-            font-size: 0.95rem;
+        .nova-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+        }
+
+        .nova-logo i { color: #818cf8; }
+
+        .nova-nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.88rem;
+            color: #94a3b8;
+        }
+
+        .nova-btn-cta {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #ffffff;
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.86rem;
             font-weight: 700;
-            color: var(--primary-color);
+            border: none;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .nova-hero {
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .nova-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .nova-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(135deg, #ffffff 40%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nova-subtitle {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .nova-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+            padding: 1.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .nova-stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #a5b4fc;
+            margin-bottom: 0.25rem;
+        }
+
+        .nova-stat-label {
+            font-size: 0.82rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nova-grid-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .nova-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+        }
+
+        .nova-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ========================================================
+           LANDING PAGE 2: SANTRITECH ACADEMY (DIGITAL PESANTREN)
+           ======================================================== */
+        .lp-santri {
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, #061c14 70%);
+            color: #f1f5f9;
+            font-family: var(--font-body);
+            padding: 2.5rem 3rem 4rem 3rem;
+            min-height: 1900px;
+        }
+
+        .santri-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .santri-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #34d399;
+        }
+
+        .santri-arabic-verse {
+            font-size: 1.4rem;
+            color: #fbbf24;
+            font-family: serif;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .santri-hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .santri-hero-title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            line-height: 1.25;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+        }
+
+        .santri-hero-title span {
+            color: #34d399;
+        }
+
+        .santri-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: #fde68a;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        .santri-program-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .santri-card {
+            background: rgba(6, 78, 59, 0.25);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            position: relative;
+        }
+
+        .santri-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #6ee7b7;
+            margin: 0.75rem 0 0.5rem 0;
+        }
+
+        /* ========================================================
+           LANDING PAGE 3: CYBERSHIELD SECOPS (CYBER DEFENSE)
+           ======================================================== */
+        .lp-cyber {
+            background: #050811;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            padding: 2.5rem 3rem 4rem 3rem;
+            min-height: 1900px;
+            border-left: 2px solid #ef4444;
+        }
+
+        .cyber-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed rgba(239, 68, 68, 0.3);
+        }
+
+        .cyber-logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #f87171;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .copy-btn {
-            background: rgba(6, 182, 212, 0.12);
-            border: 1px solid rgba(6, 182, 212, 0.35);
-            color: #38bdf8;
-            padding: 0.45rem 0.9rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
+        .cyber-radar-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: all var(--transition-fast);
+            gap: 0.5rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            font-size: 0.75rem;
         }
 
-        .copy-btn:hover {
-            background: var(--primary-color);
+        .cyber-radar-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
+            box-shadow: 0 0 10px #ef4444;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        .cyber-hero {
+            max-width: 850px;
+            margin-bottom: 3rem;
+        }
+
+        .cyber-title {
+            font-size: 2.6rem;
+            font-weight: 800;
             color: #ffffff;
+            margin: 0.75rem 0;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
 
-        .copy-btn.copied {
-            background: #10b981;
-            color: #ffffff;
-            border-color: #10b981;
-        }
+        .cyber-title span { color: #38bdf8; }
 
-        .builder-preview-output {
-            font-family: var(--font-code);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: #e2e8f0;
-            white-space: pre-wrap;
-            word-break: break-word;
-            max-height: 480px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.35);
-            padding: 1rem;
+        .cyber-console-box {
+            background: #02040a;
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            font-size: 0.84rem;
+            color: #38bdf8;
+            line-height: 1.6;
+            margin: 2.5rem 0;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
         }
 
-        body.light-theme .builder-preview-output {
-            background: #f8fafc;
-            color: #1e293b;
+        /* ========================================================
+           LANDING PAGE 4: ARTISANROAST COFFEE (SPECIALTY CAFE)
+           ======================================================== */
+        .lp-coffee {
+            background: #18120c;
+            color: #fef3c7;
+            font-family: 'Playfair Display', serif;
+            padding: 2.5rem 3rem 4rem 3rem;
+            min-height: 1900px;
+        }
+
+        .coffee-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(217, 119, 6, 0.25);
+            font-family: var(--font-body);
+        }
+
+        .coffee-logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #f59e0b;
+            letter-spacing: 0.05em;
+        }
+
+        .coffee-hero {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .coffee-tagline {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #d97706;
+            margin-bottom: 1rem;
+            font-family: var(--font-body);
+            font-weight: 700;
+        }
+
+        .coffee-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #fffbeb;
+            margin-bottom: 1.5rem;
+        }
+
+        .coffee-desc {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .coffee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            font-family: var(--font-body);
+        }
+
+        .coffee-card {
+            background: rgba(254, 243, 199, 0.03);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            text-align: center;
+        }
+
+        .coffee-bean-icon {
+            font-size: 2rem;
+            color: #f59e0b;
+            margin-bottom: 1rem;
         }
 
         /* Toast Container */
@@ -1178,7 +1643,7 @@
             </div>
             <h1 class="gate-title">Area Khusus Others</h1>
             <p class="gate-desc">
-                Halaman ini dilindungi. Masukkan kredensial akun kamu untuk membuka materi rahasia dan tool AI.
+                Halaman ini dilindungi. Masukkan kredensial akun kamu untuk membuka materi rahasia dan showcase web.
             </p>
 
             <div class="gate-alert" id="authErrorAlert">
@@ -1226,7 +1691,7 @@
     </div>
 
     <!-- ========================================================
-         VIEW 2: AUTHENTICATED AI & PROMPTING WORKSPACE
+         VIEW 2: AUTHENTICATED AI & WEB WORKSPACE
          ======================================================== -->
     <div id="blankPageSection">
         <!-- Topbar Navigation -->
@@ -1270,7 +1735,7 @@
                         <span class="text-gradient">Dari AI Agent Sampai Seni Prompting</span>
                     </h1>
                     <p class="prompt-hero-desc">
-                        Gak usah pusing sama istilah rumit! Di sini kita bedah tuntas apa itu AI Agent, 4 jagoan AI terbesar di dunia (Claude, Gemini, Grok, GPT), dan trik sakti cara ngobrol (prompting) biar hasil tugas &amp; kodingan lo 10x lebih gokil! ⚡
+                        Gak usah pusing sama istilah rumit! Di sini kita bedah tuntas apa itu AI Agent, 4 jagoan AI terbesar di dunia (Claude, Gemini, Grok, GPT), trik sakti prompting, dan showcase website interaktif yang auto-scroll! ⚡
                     </p>
                 </div>
 
@@ -1292,9 +1757,9 @@
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span>4. Formula Sakti (RTCO)</span>
                     </button>
-                    <button type="button" class="prompt-tab-btn" data-tab="tabBuilder">
-                        <i class="fa-solid fa-sliders"></i>
-                        <span>5. Prompt Builder</span>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabShowcase">
+                        <i class="fa-solid fa-display"></i>
+                        <span>5. Contoh Website</span>
                     </button>
                 </nav>
 
@@ -1468,7 +1933,7 @@
                                     <li><i class="fa-solid fa-check"></i> <strong>Real-Time dari X (Twitter):</strong> Berita yang baru kejadian 5 menit lalu di medsos udah dia tahu.</li>
                                     <li><i class="fa-solid fa-check"></i> <strong>Gaya Bicara Asik:</strong> Punya "Fun Mode", ceplas-ceplos, anti jaim, dan gak kaku seperti korporat.</li>
                                     <li><i class="fa-solid fa-check"></i> <strong>Generator Gambar Bebas:</strong> Bikin ilustrasi visual unik dengan sensor yang minim.</li>
-                                </ul>
+                                </div>
                                 <div class="big4-best-for">
                                     <strong>Paling Cocok Buat:</strong> Pantau isu &amp; topik yang lagi trending viral di medsos, opini sudut pandang alternatif.
                                 </div>
@@ -1649,101 +2114,339 @@
                 </div>
 
                 <!-- ==============================================
-                     TAB 5: INTERACTIVE PROMPT BUILDER
+                     TAB 5: 5-SECOND AUTO-SHIFTING & AUTO-SCROLL SHOWCASE
                      ============================================== -->
-                <div class="prompt-tab-pane" id="tabBuilder">
+                <div class="prompt-tab-pane" id="tabShowcase">
                     <div class="prompt-card">
                         <div class="prompt-card-header">
                             <div class="prompt-card-icon">
-                                <i class="fa-solid fa-sliders"></i>
+                                <i class="fa-solid fa-display"></i>
                             </div>
                             <div>
-                                <h2 class="prompt-card-title">Interactive Prompt Builder &amp; Generator</h2>
-                                <p class="prompt-card-subtitle">Pilih preset santri &amp; pelajar zaman now di bawah, atau isi formulir untuk meracik prompt sakti instan!</p>
+                                <h2 class="prompt-card-title">Live Showcase: Contoh Landing Page Interaktif</h2>
+                                <p class="prompt-card-subtitle">Website otomatis bergeser setiap 5 detik dengan efek auto-scroll dinamis ke bawah. Sentuh / arahkan kursor untuk menjeda.</p>
                             </div>
                         </div>
 
-                        <!-- Presets Selector -->
-                        <div style="margin-bottom: 1.5rem;">
-                            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.6rem;">
-                                <i class="fa-solid fa-wand-sparkles"></i> PILIH PRESET SIAP PAKAI:
-                            </span>
-                            <div class="builder-presets">
-                                <button type="button" class="preset-btn active" data-preset="webdev">
-                                    <i class="fa-solid fa-globe"></i> 1. Web Portofolio Santri
+                        <!-- Showcase Control Bar -->
+                        <div class="showcase-control-bar">
+                            <div class="showcase-pills">
+                                <button type="button" class="showcase-pill-btn active" data-slide="0">
+                                    <i class="fa-solid fa-robot"></i> 1. Nova AI Cloud
                                 </button>
-                                <button type="button" class="preset-btn" data-preset="debug">
-                                    <i class="fa-solid fa-bug"></i> 2. Dokter Koding (Fix Error)
+                                <button type="button" class="showcase-pill-btn" data-slide="1">
+                                    <i class="fa-solid fa-mosque"></i> 2. SantriTech Hub
                                 </button>
-                                <button type="button" class="preset-btn" data-preset="summary">
-                                    <i class="fa-solid fa-book-open"></i> 3. Rangkum Pelajaran Cepat
+                                <button type="button" class="showcase-pill-btn" data-slide="2">
+                                    <i class="fa-solid fa-shield-halved"></i> 3. CyberShield SOC
                                 </button>
-                                <button type="button" class="preset-btn" data-preset="content">
-                                    <i class="fa-solid fa-paper-plane"></i> 4. Ide Konten Santri Gaul
+                                <button type="button" class="showcase-pill-btn" data-slide="3">
+                                    <i class="fa-solid fa-mug-hot"></i> 4. ArtisanRoast Cafe
+                                </button>
+                            </div>
+
+                            <div class="showcase-playback-tools">
+                                <span class="timer-badge">
+                                    <i class="fa-solid fa-clock-rotate-left"></i> Auto-Shift: 5 Detik
+                                </span>
+                                <button type="button" class="playback-btn" id="prevSlideBtn" title="Website Sebelumnya">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="playback-btn" id="togglePlayBtn" title="Jeda / Lanjutkan Auto-Shift">
+                                    <i class="fa-solid fa-pause" id="playPauseIcon"></i>
+                                </button>
+                                <button type="button" class="playback-btn" id="nextSlideBtn" title="Website Selanjutnya">
+                                    <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- 2-Column Grid: Form & Live Output -->
-                        <div class="builder-grid">
-                            <!-- Input Form -->
-                            <div class="builder-form-wrapper">
-                                <div class="builder-field">
-                                    <label for="builderRole">
-                                        <span><i class="fa-solid fa-user-astronaut"></i> Role / Topeng Ahli (R)</span>
-                                        <span class="badge-hint">Siapa peran AI</span>
-                                    </label>
-                                    <input type="text" id="builderRole" class="builder-input" value="Senior Frontend Web Developer &amp; UI Specialist">
+                        <!-- Browser Mockup Window -->
+                        <div class="browser-mockup" id="browserMockup">
+                            <!-- Mockup Browser Header -->
+                            <div class="browser-header">
+                                <div class="browser-dots">
+                                    <span class="dot-circle dot-red"></span>
+                                    <span class="dot-circle dot-yellow"></span>
+                                    <span class="dot-circle dot-green"></span>
                                 </div>
-
-                                <div class="builder-field">
-                                    <label for="builderContext">
-                                        <span><i class="fa-solid fa-layer-group"></i> Context / Situasi (C)</span>
-                                        <span class="badge-hint">Latar belakang proyek</span>
-                                    </label>
-                                    <textarea id="builderContext" class="builder-textarea">Website portofolio santri modern bertema dark mode dengan aksen cyan glow. Dibuat menggunakan HTML5 semantik dan CSS Flexbox murni.</textarea>
+                                <div class="browser-url-bar">
+                                    <i class="fa-solid fa-lock" style="color: #10b981;"></i>
+                                    <span class="browser-url-text" id="browserUrlText">https://nova-ai.cloud/platform</span>
                                 </div>
-
-                                <div class="builder-field">
-                                    <label for="builderTask">
-                                        <span><i class="fa-solid fa-bullseye"></i> Task / Perintah Inti (T)</span>
-                                        <span class="badge-hint">Tugas spesifik aksi</span>
-                                    </label>
-                                    <textarea id="builderTask" class="builder-textarea">Bikinkan komponen hero section interaktif yang menampilkan foto profil melingkar dengan glowing border, nama, tagline keahlian santri developer, dan tombol call-to-action.</textarea>
+                                <div class="browser-actions">
+                                    <i class="fa-solid fa-arrow-rotate-right" id="refreshBrowserBtn" style="cursor: pointer;" title="Refresh Scroll"></i>
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </div>
-
-                                <div class="builder-field">
-                                    <label for="builderConstraints">
-                                        <span><i class="fa-solid fa-shield-halved"></i> Pagar Larangan / Constraints</span>
-                                        <span class="badge-hint">Aturan &amp; larangan</span>
-                                    </label>
-                                    <textarea id="builderConstraints" class="builder-textarea">- Jangan pakai Bootstrap atau Tailwind (pure custom CSS).
-- Desain harus responsif di HP (mobile-friendly).
-- Berikan animasi halus saat tombol di-hover.</textarea>
-                                </div>
-
-                                <div class="builder-field">
-                                    <label for="builderOutput">
-                                        <span><i class="fa-solid fa-file-code"></i> Output Format (O)</span>
-                                        <span class="badge-hint">Format hasil jadi</span>
-                                    </label>
-                                    <input type="text" id="builderOutput" class="builder-input" value="Berikan blok kode HTML dan CSS terpisah yang bersih dan siap copy-paste tanpa penjelasan bertele-tele.">
+                                <!-- 5s Progress Bar Line -->
+                                <div class="browser-progress-track">
+                                    <div class="browser-progress-fill" id="browserProgressFill"></div>
                                 </div>
                             </div>
 
-                            <!-- Real-time Preview & Copy Box -->
-                            <div class="builder-preview-wrapper">
-                                <div class="builder-preview-header">
-                                    <div class="builder-preview-title">
-                                        <i class="fa-solid fa-terminal"></i>
-                                        <span>Hasil Prompt Siap Kirim</span>
+                            <!-- Viewport with 4 Auto-Scrolling Slides -->
+                            <div class="browser-viewport" id="browserViewport">
+                                
+                                <!-- SLIDE 1: NOVA AI AGENT CLOUD -->
+                                <div class="showcase-slide active" data-url="https://nova-ai.cloud/platform" data-index="0">
+                                    <div class="web-page-scrollable lp-nova">
+                                        <header class="nova-nav">
+                                            <div class="nova-logo">
+                                                <i class="fa-solid fa-brain"></i>
+                                                <span>NovaAI</span>
+                                            </div>
+                                            <ul class="nova-nav-links">
+                                                <li>Models</li>
+                                                <li>Autonomous Swarm</li>
+                                                <li>Documentation</li>
+                                                <li>Pricing</li>
+                                            </ul>
+                                            <button type="button" class="nova-btn-cta">Launch Studio</button>
+                                        </header>
+
+                                        <div class="nova-hero">
+                                            <div class="nova-badge">
+                                                <i class="fa-solid fa-bolt"></i> Nova 4.0 Autonomous Engine Released
+                                            </div>
+                                            <h2 class="nova-title">Deploy Autonomous AI Agents That Build While You Sleep</h2>
+                                            <p class="nova-subtitle">
+                                                Platform cloud generasi berikutnya untuk meluncurkan swarm AI Agent mandiri. Mampu mengeksekusi kode, browsing data real-time, dan memperbaiki bug otomatis dalam hitungan detik.
+                                            </p>
+                                            <div style="display: flex; gap: 1rem; justify-content: center;">
+                                                <button type="button" class="nova-btn-cta" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
+                                                    Start Free Sandbox
+                                                </button>
+                                                <button type="button" class="playback-btn" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+                                                    Watch Live Demo
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="nova-stats-row">
+                                            <div>
+                                                <div class="nova-stat-num">99.99%</div>
+                                                <div class="nova-stat-label">Inference Uptime</div>
+                                            </div>
+                                            <div>
+                                                <div class="nova-stat-num">2.4B+</div>
+                                                <div class="nova-stat-label">Tokens / Sec</div>
+                                            </div>
+                                            <div>
+                                                <div class="nova-stat-num">145k+</div>
+                                                <div class="nova-stat-label">Active Swarm Agents</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="nova-grid-features">
+                                            <div class="nova-card">
+                                                <div class="nova-card-icon"><i class="fa-solid fa-network-wired"></i></div>
+                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Multi-Agent Orchestration</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Koordinasi otomatis antara puluhan agen AI spesialis (Coder, Tester, Security Auditor, dan Deployer).
+                                                </p>
+                                            </div>
+                                            <div class="nova-card">
+                                                <div class="nova-card-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Zero-Day Code Patching</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Deteksi kerentanan runtime dan injeksi patch keamanan mandiri tanpa downtime aplikasi.
+                                                </p>
+                                            </div>
+                                            <div class="nova-card">
+                                                <div class="nova-card-icon"><i class="fa-solid fa-microchip"></i></div>
+                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Sub-5ms Edge Latency</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Jaringan inferensi global terdistribusi di 280+ lokasi edge server seluruh dunia.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button type="button" class="copy-btn" id="copyBuilderBtn">
-                                        <i class="fa-regular fa-copy"></i>
-                                        <span>Salin Prompt Ini</span>
-                                    </button>
                                 </div>
-                                <div class="builder-preview-output" id="builderLiveOutput"></div>
+
+                                <!-- SLIDE 2: SANTRITECH ACADEMY -->
+                                <div class="showcase-slide" data-url="https://santritech.id/academy" data-index="1">
+                                    <div class="web-page-scrollable lp-santri">
+                                        <header class="santri-nav">
+                                            <div class="santri-logo">
+                                                <i class="fa-solid fa-kaaba"></i>
+                                                <span>SantriTech Academy</span>
+                                            </div>
+                                            <ul class="nova-nav-links" style="color: #a7f3d0;">
+                                                <li>Kurikulum</li>
+                                                <li>Tahfidz + Coding</li>
+                                                <li>Karya Santri</li>
+                                                <li>Beasiswa</li>
+                                            </ul>
+                                            <button type="button" class="nova-btn-cta" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                                                Daftar Santri Baru
+                                            </button>
+                                        </header>
+
+                                        <div class="santri-hero">
+                                            <div class="santri-arabic-verse">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                                            <div class="santri-badge-tag">
+                                                <i class="fa-solid fa-star"></i> Pesantren Digital Unggulan Masa Depan
+                                            </div>
+                                            <h2 class="santri-hero-title">
+                                                Mencetak Generasi <span>Hafizh Al-Qur'an</span> &amp; Software Engineer Kelas Dunia
+                                            </h2>
+                                            <p style="font-size: 1.05rem; color: #d1fae5; line-height: 1.7; margin-bottom: 2rem;">
+                                                Memadukan kemuliaan adab pesantren, hafalan Al-Qur'an 30 Juz, dan keahlian rekayasa kecerdasan buatan &amp; web development modern untuk kebangkitan umat.
+                                            </p>
+                                            <div style="display: flex; gap: 1rem; justify-content: center;">
+                                                <button type="button" class="nova-btn-cta" style="background: #10b981; padding: 0.75rem 1.75rem;">
+                                                    Jelajahi Kurikulum
+                                                </button>
+                                                <button type="button" class="playback-btn" style="border-color: #059669; padding: 0.75rem 1.5rem;">
+                                                    Karya Unggulan Santri
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="santri-program-grid">
+                                            <div class="santri-card">
+                                                <div style="font-size: 1.8rem; color: #fbbf24;"><i class="fa-solid fa-book-quran"></i></div>
+                                                <h4>Tahfidz Mutqin 30 Juz</h4>
+                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
+                                                    Metode muraja'ah intensif dengan pemahaman tafsir ayat dan pembentukan karakter adab islami yang kokoh.
+                                                </p>
+                                            </div>
+                                            <div class="santri-card">
+                                                <div style="font-size: 1.8rem; color: #34d399;"><i class="fa-solid fa-code"></i></div>
+                                                <h4>Fullstack &amp; AI Engineering</h4>
+                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
+                                                    Penguasaan HTML5, CSS Grid, JavaScript modern, Python, REST API, dan pemanfaatan AI Agent profesional.
+                                                </p>
+                                            </div>
+                                            <div class="santri-card">
+                                                <div style="font-size: 1.8rem; color: #6ee7b7;"><i class="fa-solid fa-rocket"></i></div>
+                                                <h4>Inkubator Startup Santri</h4>
+                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
+                                                    Praktek langsung mendirikan produk digital yang memberi manfaat nyata bagi pesantren dan masyarakat.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SLIDE 3: CYBERSHIELD SECOPS -->
+                                <div class="showcase-slide" data-url="https://cybershield.security/live-intel" data-index="2">
+                                    <div class="web-page-scrollable lp-cyber">
+                                        <header class="cyber-nav">
+                                            <div class="cyber-logo">
+                                                <i class="fa-solid fa-shield-halved"></i>
+                                                <span>CyberShield SOC</span>
+                                            </div>
+                                            <div class="cyber-radar-badge">
+                                                DEFCON 3 • MONITORING ACTIVE
+                                            </div>
+                                            <button type="button" class="playback-btn" style="border-color: #ef4444; color: #f87171;">
+                                                INITIATE AUDIT
+                                            </button>
+                                        </header>
+
+                                        <div class="cyber-hero">
+                                            <div style="color: #ef4444; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
+                                                // MILITARY-GRADE THREAT INTELLIGENCE
+                                            </div>
+                                            <h2 class="cyber-title">
+                                                Zero-Trust Defense Against <span>Advanced Persistent Threats</span>
+                                            </h2>
+                                            <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.7;">
+                                                Real-time anomaly detection, kernel-level telemetry, and automated AI threat neutralization for mission-critical enterprise infrastructure.
+                                            </p>
+                                        </div>
+
+                                        <div class="cyber-console-box">
+                                            <div>[SYS_LOG] 22:55:10 - Telemetry gateway initialized on cluster 0x8F</div>
+                                            <div>[THREAT] 22:55:12 - SQL Injection attempt detected from 185.220.101.4 -> BLOCKED</div>
+                                            <div>[ISOLATE] 22:55:13 - Malicious payload quarantined in sandbox container #991</div>
+                                            <div>[STATUS] 22:55:15 - All 4,820 edge nodes operating within normal parameters (0.02ms latency)</div>
+                                        </div>
+
+                                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
+                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(239,68,68,0.25); padding: 1.25rem;">
+                                                <div style="font-size: 1.5rem; color: #ef4444; margin-bottom: 0.5rem;"><i class="fa-solid fa-radar"></i></div>
+                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Realtime Packet Sniffer</div>
+                                                <div style="font-size: 0.8rem; color: #94a3b8;">Deep packet inspection at wire speed across 100Gbps trunks.</div>
+                                            </div>
+                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(56,189,248,0.25); padding: 1.25rem;">
+                                                <div style="font-size: 1.5rem; color: #38bdf8; margin-bottom: 0.5rem;"><i class="fa-solid fa-key"></i></div>
+                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Post-Quantum Crypto</div>
+                                                <div style="font-size: 0.8rem; color: #94a3b8;">Kyber-1024 asymmetric handshake resistant to future quantum decoders.</div>
+                                            </div>
+                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(16,185,129,0.25); padding: 1.25rem;">
+                                                <div style="font-size: 1.5rem; color: #10b981; margin-bottom: 0.5rem;"><i class="fa-solid fa-lock"></i></div>
+                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Air-Gapped Vaults</div>
+                                                <div style="font-size: 0.8rem; color: #94a3b8;">Zero network persistence for sensitive token and credential storage.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- SLIDE 4: ARTISANROAST COFFEE -->
+                                <div class="showcase-slide" data-url="https://artisanroast.coffee/collections" data-index="3">
+                                    <div class="web-page-scrollable lp-coffee">
+                                        <header class="coffee-nav">
+                                            <div class="coffee-logo">
+                                                ARTISANROAST • CO.
+                                            </div>
+                                            <ul class="nova-nav-links" style="color: #fde68a;">
+                                                <li>Single Origin</li>
+                                                <li>Brew Guides</li>
+                                                <li>Roastery Journal</li>
+                                                <li>Subscription</li>
+                                            </ul>
+                                            <button type="button" class="nova-btn-cta" style="background: #d97706; font-family: var(--font-body);">
+                                                Order Fresh Roast
+                                            </button>
+                                        </header>
+
+                                        <div class="coffee-hero">
+                                            <div class="coffee-tagline">Specialty Indonesian Beans</div>
+                                            <h2 class="coffee-title">Craft Roasted in Small Batches for the Discerning Palate</h2>
+                                            <p class="coffee-desc">
+                                                Biji kopi pilihan yang dipanen langsung dari ketinggian dataran tinggi vulkanik Nusantara, dipanggang perlahan dengan profil rasa unik dan aroma buah tropis yang memikat.
+                                            </p>
+                                            <div style="display: flex; gap: 1rem; justify-content: center; font-family: var(--font-body);">
+                                                <button type="button" class="nova-btn-cta" style="background: #b45309; padding: 0.75rem 1.75rem;">
+                                                    Explore Origins
+                                                </button>
+                                                <button type="button" class="playback-btn" style="border-color: #d97706; color: #fde68a; padding: 0.75rem 1.5rem;">
+                                                    Brewing Manual
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="coffee-grid">
+                                            <div class="coffee-card">
+                                                <div class="coffee-bean-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Aceh Gayo Winey</h4>
+                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,600m • Anaerobic Natural</div>
+                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
+                                                    Aroma anggur merah fermentasi berpadu dengan keasaman segar buah beri dan manisnya cokelat gelap.
+                                                </p>
+                                            </div>
+                                            <div class="coffee-card">
+                                                <div class="coffee-bean-icon"><i class="fa-solid fa-mountain"></i></div>
+                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Toraja Sapan</h4>
+                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,850m • Full Washed</div>
+                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
+                                                    Cita rasa herbal rempah lembut dengan sentuhan karamel manis dan aftertaste bersih yang tahan lama.
+                                                </p>
+                                            </div>
+                                            <div class="coffee-card">
+                                                <div class="coffee-bean-icon"><i class="fa-solid fa-seedling"></i></div>
+                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Flores Bajawa</h4>
+                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,500m • Honey Process</div>
+                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
+                                                    Sentuhan rasa kacang hazelnut gurih yang dibalut kelembutan madu murni dan aroma floral semerbak.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -1758,6 +2461,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- External Script (Strict CSP Compliant) -->
-    <script src="others.js?v=3.0"></script>
+    <script src="others.js?v=4.0"></script>
 </body>
 </html>
