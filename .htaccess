@@ -36,6 +36,11 @@ RedirectMatch 404 /\.(git|github)(/|$)
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
 
     # Panel admin masih memakai skrip inline: kebijakan khusus & jangan diindeks mesin pencari
+    <FilesMatch "^(admin|others)\.html$">
+        Header always set X-Robots-Tag "noindex, nofollow"
+        Header always set Cache-Control "no-store"
+    </FilesMatch>
+
     <Files "admin.html">
         Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
         Header always set X-Robots-Tag "noindex, nofollow"
