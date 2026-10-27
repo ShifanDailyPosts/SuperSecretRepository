@@ -1803,17 +1803,17 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
                 </div>
                 <div class="learn-hero-title">
                     <h1>
-                        <span>${mod.name}</span>
-                        <span class="learn-badge ${mod.badgeClass}">${mod.category}</span>
+                        <span>${escapeHtml(mod.name)}</span>
+                        <span class="learn-badge ${mod.badgeClass}">${escapeHtml(mod.category)}</span>
                     </h1>
-                    <p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 1.05rem;">
-                        ${mod.tagline}
+                    <p class="learn-hero-subtitle">
+                        ${formatRichText(mod.tagline)}
                     </p>
                 </div>
             </div>
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <span class="badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--border-color); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
-                    <i class="fa-solid fa-graduation-cap"></i> Tingkat: Komprehensif & Mendalam
+                    <i class="fa-solid fa-graduation-cap"></i> Tingkat: Komprehensif &amp; Mendalam
                 </span>
                 <span class="badge" style="background: rgba(6, 182, 212, 0.12); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3); font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: 20px;">
                     <i class="fa-solid fa-dice"></i> 5 Soal Latihan (Acak Setiap Sesi)
@@ -1825,16 +1825,16 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
         sectionBrief.innerHTML = `
             <div class="section-tag-heading">
                 <i class="fa-solid fa-circle-info"></i>
-                <span>1. Ringkasan &amp; Pembahasan Mendalam ${mod.name}</span>
+                <span>1. Ringkasan &amp; Pembahasan Mendalam ${escapeHtml(mod.name)}</span>
             </div>
-            <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 1.5rem;">
-                ${mod.brief.summary}
+            <p style="font-size: 1.02rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">
+                ${formatRichText(mod.brief.summary)}
             </p>
             <div class="takeaway-grid">
                 ${mod.brief.takeaways.map(t => `
                     <div class="takeaway-card">
-                        <h4><i class="${t.icon}"></i> ${t.title}</h4>
-                        <p>${t.desc}</p>
+                        <h4><i class="${t.icon}"></i> ${formatRichText(t.title)}</h4>
+                        <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.6;">${formatRichText(t.desc)}</p>
                     </div>
                 `).join('')}
             </div>
@@ -1844,10 +1844,10 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
         sectionLesson.innerHTML = `
             <div class="section-tag-heading">
                 <i class="fa-solid fa-book-open"></i>
-                <span>2. ${mod.lesson.title}</span>
+                <span>2. ${formatRichText(mod.lesson.title)}</span>
             </div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem;">
-                ${mod.lesson.desc}
+            <p class="lesson-desc">
+                ${formatRichText(mod.lesson.desc)}
             </p>
 
             <div class="code-playground">
@@ -1857,7 +1857,7 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
                         <span class="code-dot dot-yellow"></span>
                         <span class="code-dot dot-green"></span>
                     </div>
-                    <span class="code-title"><i class="fa-regular fa-file-code"></i> ${mod.lesson.codeTitle}</span>
+                    <span class="code-title"><i class="fa-regular fa-file-code"></i> ${escapeHtml(mod.lesson.codeTitle)}</span>
                     <button type="button" class="copy-btn" id="copyCodeBtn" data-code="${encodeURIComponent(mod.lesson.code)}">
                         <i class="fa-regular fa-copy"></i>
                         <span>Salin Kode</span>
@@ -1871,8 +1871,8 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
                     <div class="step-item">
                         <div class="step-num">${s.num}</div>
                         <div class="step-body">
-                            <h5>${s.title}</h5>
-                            <p>${s.desc}</p>
+                            <h5>${formatRichText(s.title)}</h5>
+                            <p>${formatRichText(s.desc)}</p>
                         </div>
                     </div>
                 `).join('')}
@@ -1880,7 +1880,7 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
 
             <div class="pro-tip-box">
                 <h5><i class="fa-solid fa-lightbulb"></i> Tips Santri Developer:</h5>
-                <p>${mod.lesson.tip}</p>
+                <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.65; margin: 0;">${formatRichText(mod.lesson.tip)}</p>
             </div>
         `;
 
@@ -1949,7 +1949,7 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
                         <span class="quiz-q-num"><i class="fa-solid fa-circle-question"></i> Soal ${qIdx + 1} dari ${totalQ}</span>
                         ${isAnswered ? (isCorrect ? '<span class="badge" style="background: rgba(16,185,129,0.18); color: #34d399; font-size: 0.78rem; font-weight:600;"><i class="fa-solid fa-check"></i> Jawaban Tepat</span>' : '<span class="badge" style="background: rgba(239,68,68,0.18); color: #f87171; font-size: 0.78rem; font-weight:600;"><i class="fa-solid fa-xmark"></i> Kurang Tepat</span>') : ''}
                     </div>
-                    <h4>${escapeHtml(qItem.q)}</h4>
+                    <h4>${formatRichText(qItem.q)}</h4>
                     <div class="quiz-options">
                         ${qItem.options.map((optText, optIdx) => {
                             let extraClass = '';
@@ -1960,14 +1960,14 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
                             return `
                                 <button type="button" class="quiz-opt-btn ${extraClass}" data-q="${qIdx}" data-opt="${optIdx}" ${isAnswered ? 'disabled' : ''}>
                                     <span class="opt-letter">${letters[optIdx]}</span>
-                                    <span>${escapeHtml(optText)}</span>
+                                    <span>${formatRichText(optText)}</span>
                                 </button>
                             `;
                         }).join('')}
                     </div>
 
                     <div class="quiz-feedback-box ${isAnswered ? 'show' : ''} ${isAnswered ? (isCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong') : ''}">
-                        ${isAnswered ? (isCorrect ? `<strong><i class="fa-solid fa-circle-check"></i> Tepat Sekali!</strong> ` : `<strong><i class="fa-solid fa-circle-xmark"></i> Kurang Tepat.</strong> `) + escapeHtml(qItem.explain) : ''}
+                        ${isAnswered ? (isCorrect ? `<strong><i class="fa-solid fa-circle-check"></i> Tepat Sekali!</strong> ` : `<strong><i class="fa-solid fa-circle-xmark"></i> Kurang Tepat.</strong> `) + formatRichText(qItem.explain) : ''}
                     </div>
                 </div>
             `;
@@ -1978,10 +1978,10 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
         sectionQuiz.innerHTML = `
             <div class="section-tag-heading">
                 <i class="fa-solid fa-pen-to-square"></i>
-                <span>3. Latihan Soal Interaktif (${mod.name})</span>
+                <span>3. Latihan Soal Interaktif (${escapeHtml(mod.name)})</span>
             </div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
-                Tersedia <strong>5 soal pilihan ganda acak</strong> yang diundi otomatis dari bank soal materi ${mod.name} setiap kali kamu membuka halaman. Uji pemahamanmu sekarang:
+            <p style="font-size: 0.98rem; color: #cbd5e1; margin-bottom: 0.85rem; line-height: 1.6;">
+                Tersedia <strong>5 soal pilihan ganda acak</strong> yang diundi otomatis dari bank soal materi ${escapeHtml(mod.name)} setiap kali kamu membuka halaman. Uji pemahamanmu sekarang:
             </p>
 
             <div class="quiz-container">
@@ -2008,7 +2008,7 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
             <!-- Hands-on Challenge -->
             <div class="challenge-card">
                 <h4><i class="fa-solid fa-laptop-code"></i> Tantangan Praktik Mandiri:</h4>
-                <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">${mod.challenge}</p>
+                <p style="color: #cbd5e1; font-size: 0.94rem; line-height: 1.7; margin: 0;">${formatRichText(mod.challenge)}</p>
             </div>
         `;
 
@@ -2061,6 +2061,23 @@ Upload-FtpFile "d:\\Portofolio Shifan\\learn.js"   "learn.js"
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+    }
+
+    // Helper to format rich text: escapes raw HTML characters, then wraps tags & backticks into high-contrast code pills
+    function formatRichText(str) {
+        if (!str) return '';
+        let text = String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // Highlight tags like &lt;tag ...&gt; with an inline-code pill
+        text = text.replace(/&lt;(!?[a-zA-Z/][^&<>]*?)&gt;/g, '<code class="inline-code">&lt;$1&gt;</code>');
+
+        // Highlight backtick code: `code`
+        text = text.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
+        return text;
     }
 
     // Toast Helper

@@ -342,42 +342,98 @@
         .step-list {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 1.15rem;
+            margin-top: 1.75rem;
         }
 
         .step-item {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             align-items: flex-start;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: 1.35rem 1.5rem;
+            transition: all 0.25s ease;
+        }
+
+        .step-item:hover {
+            background: rgba(255, 255, 255, 0.045);
+            border-color: rgba(6, 182, 212, 0.35);
+            transform: translateX(4px);
         }
 
         .step-num {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: rgba(6, 182, 212, 0.15);
-            border: 1px solid var(--primary-color);
+            background: rgba(6, 182, 212, 0.16);
+            border: 1.5px solid var(--primary-color);
             color: var(--primary-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
+            font-weight: 800;
+            font-size: 0.95rem;
             flex-shrink: 0;
             margin-top: 2px;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .step-body {
+            flex-grow: 1;
         }
 
         .step-body h5 {
-            color: var(--text-primary);
-            font-size: 0.98rem;
-            margin-bottom: 0.25rem;
+            color: #ffffff;
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            letter-spacing: 0.2px;
         }
 
         .step-body p {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
+            color: #cbd5e1;
+            font-size: 0.93rem;
+            line-height: 1.7;
             margin: 0;
+        }
+
+        /* Inline Code Badge Styling (High Contrast & Clear) */
+        .inline-code {
+            background: rgba(6, 182, 212, 0.14);
+            color: #38bdf8;
+            border: 1px solid rgba(6, 182, 212, 0.32);
+            padding: 0.12rem 0.48rem;
+            border-radius: 5px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88em;
+            font-weight: 600;
+            word-break: break-word;
+            display: inline-block;
+            line-height: 1.35;
+        }
+
+        /* Hero Subtitle */
+        .learn-hero-subtitle {
+            color: #e2e8f0;
+            font-size: 1.08rem;
+            font-weight: 500;
+            margin-top: 0.4rem;
+            line-height: 1.55;
+        }
+
+        /* Lesson Description */
+        .lesson-desc {
+            font-size: 1.02rem;
+            color: #cbd5e1;
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
         }
 
         /* Pro Tip Callout */
@@ -711,8 +767,8 @@
                         <span>HTML</span>
                         <span class="learn-badge learn-badge-cyan">Markup Language</span>
                     </h1>
-                    <p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 1.05rem;">
-                        Pondasi Kerangka &amp; Struktur Utama Halaman Web
+                    <p class="learn-hero-subtitle">
+                        Pondasi Arsitektur Semantik, Aksesibilitas (A11y) &amp; Struktur Web Modern
                     </p>
                 </div>
             </div>
@@ -805,28 +861,28 @@
                     <div class="step-item">
                         <div class="step-num">1</div>
                         <div class="step-body">
-                            <h5>&lt;!DOCTYPE html&gt; &amp; &lt;html lang="id"&gt;</h5>
-                            <p>Deklarasi awal dokumen: '&lt;!DOCTYPE html&gt;' memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut 'lang="id"' (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat.</p>
+                            <h5><code class="inline-code">&lt;!DOCTYPE html&gt;</code> &amp; <code class="inline-code">&lt;html lang="id"&gt;</code></h5>
+                            <p>Deklarasi awal dokumen: '<code class="inline-code">&lt;!DOCTYPE html&gt;</code>' memberitahu peramban agar merender halaman menggunakan standar HTML5 modern (bukan Quirks Mode lama). Atribut '<code class="inline-code">lang="id"</code>' (Bahasa Indonesia) sangat penting bagi mesin pencari (SEO) dan memungkinkan software pembaca layar (Screen Reader) melafalkan teks dengan intonasi serta aksen bahasa Indonesia yang tepat.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">2</div>
                         <div class="step-body">
-                            <h5>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</h5>
-                            <p>Kunci wajib website responsif di layar ponsel/tablet. Tag ini memiliki 2 instruksi vital: (1) 'width=device-width' menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) 'initial-scale=1.0' menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom).</p>
+                            <h5><code class="inline-code">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></h5>
+                            <p>Kunci wajib website responsif di layar ponsel/tablet. Tag ini memiliki 2 instruksi vital: (1) '<code class="inline-code">width=device-width</code>' menyelaraskan lebar halaman web dengan lebar fisik layar smartphone dalam satuan CSS pixel (bukan resolusi monitor PC), dan (2) '<code class="inline-code">initial-scale=1.0</code>' menetapkan tingkat pembesaran (zoom) awal pada rasio 100% (1:1 proporsional). Tanpa tag ini, browser smartphone akan memperlakukan website seolah-olah dibuka di layar desktop lebar (default 980px), mengakibatkan halaman mengecil drastis (zoom-out) dan teks menjadi mikroskopis hingga sulit dibaca tanpa dicubit (pinch-to-zoom).</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">3</div>
                         <div class="step-body">
-                            <h5>Pemisahan Landmark Semantik: &lt;header&gt;, &lt;nav&gt;, dan &lt;main&gt;</h5>
-                            <p>Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) '&lt;header&gt;' adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) '&lt;nav&gt;' khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) '&lt;main&gt;' adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: tag &lt;main&gt; HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer.</p>
+                            <h5>Pemisahan Landmark Semantik: <code class="inline-code">&lt;header&gt;</code>, <code class="inline-code">&lt;nav&gt;</code>, dan <code class="inline-code">&lt;main&gt;</code></h5>
+                            <p>Tiga tag struktural resmi W3C dengan fungsi yang sangat berbeda: (1) '<code class="inline-code">&lt;header&gt;</code>' adalah area kepala/pengantar (berisi logo, judul situs, slogan, atau banner atas); (2) '<code class="inline-code">&lt;nav&gt;</code>' khusus membungkus daftar tautan navigasi penting (menu utama) agar pengguna tuna netra dapat langsung mengenali menu tanpa harus membaca seluruh isi halaman; dan (3) '<code class="inline-code">&lt;main&gt;</code>' adalah wadah tunggal konten pokok yang unik pada halaman tersebut. Aturan mutlak W3C: tag &lt;main&gt; HANYA BOLEH ADA 1 KALI per halaman dan tidak boleh dibungkus di dalam header atau footer.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">4</div>
                         <div class="step-body">
-                            <h5>Aksesibilitas Formulir: Relasi &lt;label for="id"&gt; dan &lt;input id="..."&gt;</h5>
+                            <h5>Aksesibilitas Formulir: Relasi <code class="inline-code">&lt;label for="id"&gt;</code> dan <code class="inline-code">&lt;input id="..."&gt;</code></h5>
                             <p>Standar aksesibilitas WCAG: nilai atribut 'for' pada tag &lt;label&gt; harus persis sama dengan atribut 'id' pada kotak &lt;input&gt;. Keuntungannya: saat pengguna mengklik atau menyentuh teks label, kursor seketika aktif di dalam kotak input terkait. Ini memperbesar target sentuh di layar ponsel dan mempermudah pengguna disabilitas motorik.</p>
                         </div>
                     </div>
@@ -834,13 +890,13 @@
                         <div class="step-num">5</div>
                         <div class="step-body">
                             <h5>Sistem Validasi Input Bawaan HTML5</h5>
-                            <p>Atribut 'required' mencegah form dikirim jika belum diisi, atribut 'type="email"' otomatis mengecek keberadaan tanda '@' dan domain surat elektronik, serta 'minlength="3"' membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript.</p>
+                            <p>Atribut '<code class="inline-code">required</code>' mencegah form dikirim jika belum diisi, atribut '<code class="inline-code">type="email"</code>' otomatis mengecek keberadaan tanda '@' dan domain surat elektronik, serta '<code class="inline-code">minlength="3"</code>' membatasi jumlah karakter minimal. Semua pengecekan ini dijalankan otomatis oleh browser secara instan tanpa membutuhkan sebaris pun kode JavaScript.</p>
                         </div>
                     </div>
                     <div class="step-item">
                         <div class="step-num">6</div>
                         <div class="step-body">
-                            <h5>Tautan Aksesibilitas 'Skip-Link' (&lt;a href="#main-content"&gt;)</h5>
+                            <h5>Tautan Aksesibilitas 'Skip-Link' (<code class="inline-code">&lt;a href="#main-content"&gt;</code>)</h5>
                             <p>Teknik aksesibilitas profesional: tautan navigasi tersembunyi di posisi paling atas halaman yang baru muncul saat pengguna menekan tombol Tab keyboard. Tautan ini memungkinkan pengguna tunanetra melompati daftar panjang menu navigasi di header dan langsung mendarat pada konten inti halaman (&lt;main id="main-content"&gt;).</p>
                         </div>
                     </div>
@@ -908,6 +964,6 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Learning Portal External Script (Strict CSP Compliant) -->
-    <script src="learn.js?v=2.2"></script>
+    <script src="learn.js?v=2.3"></script>
 </body>
 </html>
