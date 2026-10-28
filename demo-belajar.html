@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Pentingnya & Serunya Belajar — Petualangan Sains & Coding Santri</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-learn: #060a17;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --border-glow: rgba(56, 189, 248, 0.25);
+            --neon-blue: #38bdf8;
+            --neon-gold: #fbbf24;
+            --neon-emerald: #34d399;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-learn);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.2) 0%, transparent 65%),
+                radial-gradient(circle at 85% 30%, rgba(251, 191, 36, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 10% 70%, rgba(52, 211, 153, 0.1) 0%, transparent 50%);
+        }
+
+        /* Top Demo Bar */
+        .demo-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(6, 10, 23, 0.94);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.86rem;
+        }
+
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .back-to-portal:hover {
+            background: #38bdf8;
+            color: #060a17;
+        }
+
+        .demo-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .demo-pill {
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s;
+        }
+
+        .demo-pill:hover {
+            color: #ffffff;
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .demo-pill.active {
+            background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            color: #ffffff;
+            border-color: transparent;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 5rem 0 3.5rem 0;
+            text-align: center;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1.25rem;
+            border-radius: var(--radius-full);
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.4rem;
+            font-weight: 900;
+            line-height: 1.18;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #38bdf8 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 780px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .btn-outline:hover {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        /* Pillars Section */
+        .section-padding { padding: 4rem 0; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            backdrop-filter: blur(16px);
+            transition: all 0.25s;
+            position: relative;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            border-color: #38bdf8;
+            box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.3);
+        }
+
+        .pillar-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #38bdf8;
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-desc {
+            font-size: 0.94rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Interactive Roadmap */
+        .roadmap-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .roadmap-container { grid-template-columns: 1fr; }
+        }
+
+        .roadmap-step {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .roadmap-step:hover {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.04);
+        }
+
+        .step-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* Interactive Quiz Box */
+        .quiz-section {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(6, 10, 23, 0.9) 100%);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 2.75rem;
+            margin: 4rem 0;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .quiz-option-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-option-btn:hover {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .quiz-result-card {
+            display: none;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid #38bdf8;
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Quotes Box */
+        .quote-box {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .quote-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .quote-text {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #ffffff;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Toast */
+        .toast-box {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast-item {
+            background: #0f172a;
+            border-left: 4px solid #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <a href="others.html" class="back-to-portal">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Others
+        </a>
+        <div class="demo-switcher">
+            <span style="color: var(--text-muted); margin-right: 0.5rem; font-size: 0.78rem;">PILIH LANDING PAGE:</span>
+            <a href="demo-game.html" class="demo-pill">🎮 CodeQuest Game</a>
+            <a href="demo-belajar.html" class="demo-pill active">🚀 Serunya Belajar</a>
+            <a href="demo-tools.html" class="demo-pill">🛠️ DevTools Universe</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <i class="fa-solid fa-sparkles"></i> Eksplorasi Tanpa Batas &bull; Khusus Pelajar &amp; Santri
+            </div>
+            <h1 class="hero-title">
+                Belajar Itu Bukan Beban, <br>
+                <span>Tapi Petualangan Membuka Dunia!</span>
+            </h1>
+            <p class="hero-desc">
+                Kenapa para inovator dunia dan santri hebat gak pernah berhenti belajar? Karena ilmu adalah satu-satunya <em>superpower</em> nyata di dunia yang bisa mengubah ide sederhana di kepalamu menjadi karya teknologi yang bermanfaat bagi jutaan manusia.
+            </p>
+            <div class="hero-cta">
+                <button type="button" class="btn btn-primary" id="btnJelajahi">
+                    <i class="fa-solid fa-compass"></i> Mengapa Belajar Itu Seru?
+                </button>
+                <button type="button" class="btn btn-outline" id="btnMulaiKuis">
+                    <i class="fa-solid fa-circle-question"></i> Tes Gaya Belajarmu
+                </button>
+            </div>
+        </section>
+
+        <!-- 3 Rahasia Kenapa Belajar Itu Asyik -->
+        <section class="section-padding" id="sectionPillars">
+            <div class="section-header">
+                <h2 class="section-title">3 Rahasia Kenapa Belajar Coding Itu Bikin Nagih</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Bukan hafalan membosankan, tapi petualangan seru layaknya bermain game!</p>
+            </div>
+
+            <div class="pillars-grid">
+                <!-- Pillar 1 -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-box"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3 class="pillar-title">1. Sensasi Bermain Game (*Boss Fight*)</h3>
+                    <p class="pillar-desc">
+                        Di dunia coding, kamu adalah perancang duniamu sendiri. Menulis kode itu seperti merapal mantra, dan saat menemukan pesan <em>error</em> atau bug, anggap itu seperti *Boss Fight* yang ketika kamu kalahkan, level kepintaranmu naik secara permanen!
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 class="pillar-title">2. Dopamin Saat Karyamu Bekerja</h3>
+                    <p class="pillar-desc">
+                        Gak ada kepuasan yang mengalahkan momen ketika kamu mengetik baris kode di laptop, lalu tombolnya bereaksi, warnanya menyala, dan bisa dibuka oleh teman, orang tua, atau gurumu melalui tautan website di internet!
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card">
+                    <div class="pillar-icon-box"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <h3 class="pillar-title">3. Pahala Amal Jariyah Abadi</h3>
+                    <p class="pillar-desc">
+                        Bagi santri, menuntut ilmu adalah ibadah mulia. Setiap baris kode yang kamu buat untuk memudahkan orang lain — seperti aplikasi pengingat Al-Qur'an atau portal edukasi — akan terus mengalirkan kebaikan bahkan saat kamu tertidur lelap.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Peta Petualangan Santri Coder -->
+        <section class="section-padding">
+            <div class="section-header">
+                <h2 class="section-title">Peta Petualangan Belajar Web Dev Santri</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">4 Tahapan dari seorang penjelajah pemula hingga menjadi kreator web andal</p>
+            </div>
+
+            <div class="roadmap-container">
+                <div class="roadmap-step">
+                    <div class="step-number">01</div>
+                    <h4 class="step-title">Pengelana Rangka (HTML)</h4>
+                    <p class="step-desc">Mempelajari struktur tulang punggung halaman: judul, teks, gambar, dan tombol.</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">02</div>
+                    <h4 class="step-title">Seniman Visual (CSS)</h4>
+                    <p class="step-desc">Mendandani web dengan estetika warna, efek glassmorphism, dan tata letak responsif.</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">03</div>
+                    <h4 class="step-title">Penyihir Logika (JS)</h4>
+                    <p class="step-desc">Memberikan otak dan jiwa interaktivitas: animasi, tombol klik, data, dan kalkulasi dinamis.</p>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">04</div>
+                    <h4 class="step-title">Penjaga Server (Deploy)</h4>
+                    <p class="step-desc">Menerbangkan kode dari laptop ke server live dunia menggunakan Git dan hosting FTP.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Quiz: Tipe Belajar Apakah Kamu? -->
+        <section class="quiz-section" id="sectionQuiz">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="color: #fbbf24; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">
+                    <i class="fa-solid fa-brain"></i> KUIS KEPRIBADIAN BELAJAR
+                </span>
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 2rem; color: #fff; margin: 0.4rem 0;">
+                    Tipe Pembelajar Apakah Kamu?
+                </h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Pilih apa yang paling menggambarkan caramu saat menghadapi hal baru:</p>
+            </div>
+
+            <div style="display: grid; gap: 1rem; max-width: 680px; margin: 0 auto;">
+                <button type="button" class="quiz-option-btn" data-type="architect">
+                    <span><i class="fa-solid fa-palette" style="color: #38bdf8; margin-right: 0.6rem;"></i> Aku suka melihat hasil visual indah dan langsung mencoba merias tampilan.</span>
+                    <i class="fa-solid fa-chevron-right" style="color: #64748b;"></i>
+                </button>
+                <button type="button" class="quiz-option-btn" data-type="logician">
+                    <span><i class="fa-solid fa-puzzle-piece" style="color: #fbbf24; margin-right: 0.6rem;"></i> Aku penasaran cara kerja di baliknya: kenapa ini bisa jalan dan bagaimana alurnya.</span>
+                    <i class="fa-solid fa-chevron-right" style="color: #64748b;"></i>
+                </button>
+                <button type="button" class="quiz-option-btn" data-type="creator">
+                    <span><i class="fa-solid fa-hammer" style="color: #34d399; margin-right: 0.6rem;"></i> Aku tipe praktis: langsung ingin bikin proyek nyata yang bisa dibanggakan ke teman!</span>
+                    <i class="fa-solid fa-chevron-right" style="color: #64748b;"></i>
+                </button>
+            </div>
+
+            <div class="quiz-result-card" id="quizResultBox">
+                <h4 style="font-size: 1.3rem; color: #38bdf8; margin-bottom: 0.5rem;" id="quizResultTitle">Tipe Belajar Kamu</h4>
+                <p style="font-size: 0.95rem; color: #d1fae5; line-height: 1.6;" id="quizResultDesc">Deskripsi tipe belajar</p>
+                <button type="button" class="btn btn-primary" style="margin-top: 1rem;" onclick="showToast('Semangat terus menjelajah ilmu baru!')">
+                    Siap Mulai Belajar! 🚀
+                </button>
+            </div>
+        </section>
+
+        <!-- Dynamic Motivational Quotes Generator -->
+        <section class="quote-box">
+            <div class="quote-arabic" id="quoteArabic">مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ</div>
+            <p class="quote-text" id="quoteText">
+                "Barangsiapa menempuh jalan untuk menuntut ilmu, maka Allah akan memudahkan baginya jalan menuju surga."
+            </p>
+            <div class="quote-author" id="quoteAuthor">— HR. Muslim &bull; Adab Penuntut Ilmu</div>
+            <button type="button" class="btn btn-outline" style="margin-top: 1.75rem;" id="btnRandomQuote">
+                <i class="fa-solid fa-dice"></i> Tarik Inspirasi Baru Lainnya
+            </button>
+        </section>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-box" id="toastBox"></div>
+
+    <script>
+        function showToast(message) {
+            const container = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            toast.className = 'toast-item';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #38bdf8;"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Smooth Scroll
+        document.getElementById('btnJelajahi').addEventListener('click', () => {
+            document.getElementById('sectionPillars').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('btnMulaiKuis').addEventListener('click', () => {
+            document.getElementById('sectionQuiz').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Quiz Logic
+        const quizResultBox = document.getElementById('quizResultBox');
+        const quizResultTitle = document.getElementById('quizResultTitle');
+        const quizResultDesc = document.getElementById('quizResultDesc');
+
+        const QUIZ_TYPES = {
+            architect: {
+                title: "🎨 The Visual Designer & Frontend Crafter",
+                desc: "Kamu memiliki mata yang peka terhadap keindahan, warna, dan pengalaman pengguna. Kamu sangat cocok mendalami CSS Modern, UI/UX Glassmorphism, dan animasi web yang memukau mata pengunjung!"
+            },
+            logician: {
+                title: "🧠 The Problem Solver & Logic Master",
+                desc: "Kamu menyukai tantangan berpikir kritis dan memecahkan puzzle rumit. Bidang JavaScript ES6, algoritma struktur data, dan backend API akan menjadi arena bermain favoritmu!"
+            },
+            creator: {
+                title: "🚀 The Digital Builder & Santri Maker",
+                desc: "Kamu memiliki jiwa pengusaha dan pencipta karya mandiri. Kamu suka merakit ide menjadi produk nyata yang langsung dirasakan manfaatnya oleh lingkungan sekitar dan pesantren!"
+            }
+        };
+
+        document.querySelectorAll('.quiz-option-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.type;
+                const result = QUIZ_TYPES[type];
+
+                document.querySelectorAll('.quiz-option-btn').forEach(b => {
+                    b.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                    b.style.background = 'rgba(255, 255, 255, 0.03)';
+                });
+
+                btn.style.borderColor = '#38bdf8';
+                btn.style.background = 'rgba(56, 189, 248, 0.15)';
+
+                quizResultTitle.textContent = result.title;
+                quizResultDesc.textContent = result.desc;
+                quizResultBox.style.display = 'block';
+
+                showToast(`Kuis selesai! Kamu adalah ${result.title}`);
+            });
+        });
+
+        // Random Quotes Generator
+        const QUOTES = [
+            {
+                arabic: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ",
+                text: '"Barangsiapa menempuh jalan untuk menuntut ilmu, maka Allah akan memudahkan baginya jalan menuju surga."',
+                author: "— HR. Muslim • Kemuliaan Ilmu"
+            },
+            {
+                arabic: "تَعَلَّمُوا الْعِلْمَ فَإِنَّ تَعَلُّمَهُ لِلَّهِ خَشْيَةٌ، وَطَلَبَهُ عِبَادَةٌ",
+                text: '"Pelajarilah ilmu, karena mempelajarinya karena Allah adalah bukti ketaqwaan, dan mencarinya adalah ibadah."',
+                author: "— Mu'adz bin Jabal radhiyallahu 'anhu"
+            },
+            {
+                arabic: "إِنَّمَا الْعِلْمُ بِالتَّعَلُّمِ، وَإِنَّمَا الْحِلْمُ بِالتَّحَلُّمِ",
+                text: '"Sesungguhnya ilmu hanya bisa didapat dengan terus belajar, dan sifat bijak hanya didapat dengan terus berlatih sabar."',
+                author: "— HR. Thabrani • Konsistensi Belajar"
+            },
+            {
+                arabic: "الْعِلْمُ صَيْدٌ وَالْكِتَابَةُ قَيْدُهُ ... قَيِّدْ صُيُودَكَ بِالْحِبَالِ الْوَاثِقَةِ",
+                text: '"Ilmu laksana hewan buruan dan tulisan adalah pengikatnya. Maka ikatlah buruanmu dengan tali yang kuat."',
+                author: "— Imam Asy-Syafi'i rahimahullah"
+            }
+        ];
+
+        let quoteIndex = 0;
+        document.getElementById('btnRandomQuote').addEventListener('click', () => {
+            quoteIndex = (quoteIndex + 1) % QUOTES.length;
+            const q = QUOTES[quoteIndex];
+            document.getElementById('quoteArabic').textContent = q.arabic;
+            document.getElementById('quoteText').textContent = q.text;
+            document.getElementById('quoteAuthor').textContent = q.author;
+            showToast('Kutipan inspirasi diperbarui!');
+        });
+    </script>
+</body>
+</html>

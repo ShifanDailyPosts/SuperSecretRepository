@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CodeQuest — Game Interaktif Petualangan Web Dev Santri</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-game: #080c1a;
+            --panel-bg: rgba(16, 24, 48, 0.85);
+            --border-neon: rgba(6, 182, 212, 0.35);
+            --neon-cyan: #06b6d4;
+            --neon-purple: #a855f7;
+            --neon-gold: #fbbf24;
+            --neon-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-game);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 10% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 90% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 45%);
+            min-height: 100vh;
+        }
+
+        /* Top Demo Bar */
+        .demo-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(8, 12, 26, 0.94);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.25);
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.86rem;
+        }
+
+        .back-to-portal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .back-to-portal:hover {
+            background: #38bdf8;
+            color: #080c1a;
+        }
+
+        .demo-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .demo-pill {
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s;
+        }
+
+        .demo-pill:hover {
+            color: #ffffff;
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .demo-pill.active {
+            background: linear-gradient(135deg, #06b6d4 0%, #a855f7 100%);
+            color: #ffffff;
+            border-color: transparent;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Game Header / Dashboard */
+        .game-header {
+            padding: 2.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .game-title-box h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .game-title-box h1 span {
+            background: linear-gradient(135deg, #38bdf8 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-stats-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-neon);
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+        }
+
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .stat-badge i { font-size: 1rem; }
+        .badge-xp i { color: #fbbf24; }
+        .badge-level i { color: #34d399; }
+        .badge-streak i { color: #f43f5e; }
+
+        /* Stage Selector Tabs */
+        .stage-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stage-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-neon);
+            color: var(--text-muted);
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stage-btn:hover {
+            color: #ffffff;
+            border-color: var(--neon-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .stage-btn.active {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Quest Playground Grid */
+        .quest-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .quest-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Quest Card */
+        .quest-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-neon);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        .quest-stage-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-full);
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: #38bdf8;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .quest-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .quest-mission {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive Choices Buttons */
+        .choices-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .choice-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1rem;
+            color: #ffffff;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .choice-btn:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(6, 182, 212, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .choice-btn.selected {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.18);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .choice-btn.correct {
+            border-color: var(--neon-green) !important;
+            background: rgba(16, 185, 129, 0.2) !important;
+            color: #34d399 !important;
+        }
+
+        .choice-btn.wrong {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.2) !important;
+            color: #f87171 !important;
+        }
+
+        /* Action Buttons */
+        .quest-action-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.6rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-reset-game {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-muted);
+            padding: 0.75rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset-game:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* Real-time Result Sandbox */
+        .preview-card {
+            background: #0f172a;
+            border: 1px solid var(--border-neon);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .preview-bar {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-dots {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .p-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .p-dot.r { background: #ef4444; }
+        .p-dot.y { background: #f59e0b; }
+        .p-dot.g { background: #10b981; }
+
+        .preview-screen {
+            padding: 2rem;
+            background: #090e1a;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 280px;
+            transition: all 0.3s;
+        }
+
+        /* Dynamic Preview Components */
+        .sample-preview-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.3s ease;
+        }
+
+        .sample-preview-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .sample-preview-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .sample-preview-btn {
+            background: #3b82f6;
+            color: #ffffff;
+            padding: 0.65rem 1.4rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* Free Sandbox Editor */
+        .sandbox-section {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-neon);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .sandbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sandbox-textarea {
+            width: 100%;
+            min-height: 120px;
+            background: #030712;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #38bdf8;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            outline: none;
+            resize: vertical;
+        }
+
+        .sandbox-textarea:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Toast */
+        .toast-box {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast-item {
+            background: #0f172a;
+            border-left: 4px solid var(--neon-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            color: #ffffff;
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Navigation Bar -->
+    <div class="demo-bar">
+        <a href="others.html" class="back-to-portal">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Others
+        </a>
+        <div class="demo-switcher">
+            <span style="color: var(--text-muted); margin-right: 0.5rem; font-size: 0.78rem;">PILIH LANDING PAGE:</span>
+            <a href="demo-game.html" class="demo-pill active">🎮 CodeQuest Game</a>
+            <a href="demo-belajar.html" class="demo-pill">🚀 Serunya Belajar</a>
+            <a href="demo-tools.html" class="demo-pill">🛠️ DevTools Universe</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Game Dashboard Header -->
+        <header class="game-header">
+            <div class="game-title-box">
+                <h1><i class="fa-solid fa-gamepad" style="color: #38bdf8;"></i> <span>CodeQuest</span></h1>
+                <p style="color: var(--text-muted); font-size: 0.92rem;">Petualangan Interaktif Membangun Kode Web Santri</p>
+            </div>
+            <div class="game-stats-bar">
+                <div class="stat-badge badge-xp">
+                    <i class="fa-solid fa-star"></i>
+                    <span>XP: <span id="xpDisplay">120</span></span>
+                </div>
+                <div class="stat-badge badge-level">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Rank: <span id="rankDisplay">Santri Coder</span></span>
+                </div>
+                <div class="stat-badge badge-streak">
+                    <i class="fa-solid fa-fire"></i>
+                    <span>Streak: <span id="streakDisplay">3x</span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stage Navigation Tabs -->
+        <div class="stage-tabs">
+            <button type="button" class="stage-btn active" data-stage="1">
+                <i class="fa-brands fa-html5" style="color: #f97316;"></i> Stage 1: Susun Rangka HTML
+            </button>
+            <button type="button" class="stage-btn" data-stage="2">
+                <i class="fa-brands fa-css3-alt" style="color: #38bdf8;"></i> Stage 2: Rias Tombol CSS
+            </button>
+            <button type="button" class="stage-btn" data-stage="3">
+                <i class="fa-brands fa-js" style="color: #fbbf24;"></i> Stage 3: Ledakkan Logika JS
+            </button>
+        </div>
+
+        <!-- Quest Playground Grid -->
+        <div class="quest-grid">
+            <!-- Left Quest Console -->
+            <div class="quest-card">
+                <div class="quest-stage-tag" id="stageTag">Misi 1 &bull; Struktur HTML Dasar</div>
+                <h2 class="quest-title" id="stageTitle">Bantu Santri Menambahkan Tombol Aksi!</h2>
+                <p class="quest-mission" id="stageMission">
+                    Di sebelah kanan ada kartu profil website santri, tapi tombol aksinya belum punya tag yang benar. Tag HTML mana yang paling tepat untuk membuat sebuah tombol yang bisa diklik?
+                </p>
+
+                <span class="choices-label">PILIH JAWABAN KODE YANG BENAR:</span>
+                <div class="choices-grid" id="choicesContainer">
+                    <button type="button" class="choice-btn" data-correct="true">
+                        <span>&lt;button&gt;Klik Saya&lt;/button&gt;</span>
+                        <i class="fa-solid fa-circle-question"></i>
+                    </button>
+                    <button type="button" class="choice-btn" data-correct="false">
+                        <span>&lt;link&gt;Klik Saya&lt;/link&gt;</span>
+                        <i class="fa-solid fa-circle-question"></i>
+                    </button>
+                    <button type="button" class="choice-btn" data-correct="false">
+                        <span>&lt;input type="click"&gt;</span>
+                        <i class="fa-solid fa-circle-question"></i>
+                    </button>
+                    <button type="button" class="choice-btn" data-correct="false">
+                        <span>&lt;div class="click"&gt;</span>
+                        <i class="fa-solid fa-circle-question"></i>
+                    </button>
+                </div>
+
+                <div class="quest-action-row">
+                    <button type="button" class="btn-check" id="btnCheckAnswer">
+                        <i class="fa-solid fa-circle-play"></i> Eksekusi &amp; Uji Kode
+                    </button>
+                    <button type="button" class="btn-reset-game" id="btnNextStage" style="display: none;">
+                        Lanjut ke Stage Berikutnya &rarr;
+                    </button>
+                    <button type="button" class="btn-reset-game" id="btnResetQuest">
+                        <i class="fa-solid fa-rotate-right"></i> Ulangi Soal
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Real-time Preview -->
+            <div class="preview-card">
+                <div class="preview-bar">
+                    <div class="preview-dots">
+                        <span class="p-dot r"></span>
+                        <span class="p-dot y"></span>
+                        <span class="p-dot g"></span>
+                    </div>
+                    <span style="font-size: 0.78rem; color: #94a3b8; font-family: 'Fira Code', monospace;">live-preview.html</span>
+                </div>
+                <div class="preview-screen" id="previewScreen">
+                    <div class="sample-preview-box" id="sampleBox">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem; color: #38bdf8;">
+                            <i class="fa-solid fa-mosque"></i>
+                        </div>
+                        <h4 class="sample-preview-title" id="sampleTitle">Santri Developer</h4>
+                        <p class="sample-preview-desc" id="sampleDesc">Portal pembelajaran web santri mandiri.</p>
+                        <button type="button" class="sample-preview-btn" id="sampleBtn">Klik Saya</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Free Live Sandbox -->
+        <section class="sandbox-section">
+            <div class="sandbox-header">
+                <div>
+                    <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff;">
+                        <i class="fa-solid fa-code" style="color: #38bdf8;"></i> Free Live Code Playground
+                    </h3>
+                    <p style="font-size: 0.88rem; color: #94a3b8;">Ubah teks HTML di bawah dan lihat kartu di atas langsung bereaksi secara instan!</p>
+                </div>
+                <button type="button" class="stage-btn" id="btnRunSandbox">
+                    <i class="fa-solid fa-bolt"></i> Terapkan ke Preview
+                </button>
+            </div>
+            <textarea class="sandbox-textarea" id="sandboxInput">&lt;h3 style="color: #38bdf8;"&gt;Karya Santri Ciamis&lt;/h3&gt;
+&lt;p style="color: #a7f3d0;"&gt;Alhamdulillah kodingan HTML & CSS ini berhasil jalan di browser!&lt;/p&gt;</textarea>
+        </section>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-box" id="toastBox"></div>
+
+    <script>
+        // State Management
+        let currentStage = 1;
+        let xp = 120;
+        let streak = 3;
+        let selectedChoice = null;
+
+        const STAGES = {
+            1: {
+                tag: "Misi 1 &bull; Struktur HTML Dasar",
+                title: "Bantu Santri Menambahkan Tombol Aksi!",
+                mission: "Di sebelah kanan ada kartu profil website santri, tapi tombol aksinya belum punya tag yang benar. Tag HTML mana yang paling tepat untuk membuat sebuah tombol interaktif?",
+                choices: [
+                    { code: '<button>Klik Saya</button>', correct: true },
+                    { code: '<link>Klik Saya</link>', correct: false },
+                    { code: '<input type="click">', correct: false },
+                    { code: '<div class="click">', correct: false }
+                ],
+                successMsg: "Maa Syaa Allah! Tag <button> adalah elemen semantik resmi untuk tombol HTML."
+            },
+            2: {
+                tag: "Misi 2 &bull; Menata Gaya CSS Modern",
+                title: "Bikin Tombolnya Glowing Neon Cyan!",
+                mission: "Tombolnya masih terlihat biasa saja. Perintah CSS manakah yang memberikan efek latar belakang gradasi cyan, sudut membulat, dan bayangan glowing?",
+                choices: [
+                    { code: 'background: linear-gradient(135deg, #06b6d4, #3b82f6); border-radius: 9999px; box-shadow: 0 0 20px #06b6d4;', correct: true },
+                    { code: 'color: red; font-size: big; text-align: middle;', correct: false },
+                    { code: 'style: glow-cyan; rounded: yes;', correct: false },
+                    { code: 'display: block; margin: auto; border: none;', correct: false }
+                ],
+                successMsg: "Hebat! Sekarang tombolnya terlihat sangat modern dengan CSS gradient & glowing shadow."
+            },
+            3: {
+                tag: "Misi 3 &bull; Logika Interaktif JavaScript",
+                title: "Nyalakan Reaksi Klik Interaktif!",
+                mission: "Bagaimana cara mendengarkan saat pengunjung mengklik tombol tersebut agar muncul notifikasi ucapan salam di layar?",
+                choices: [
+                    { code: 'sampleBtn.addEventListener("click", () => alert("Assalamu\'alaikum!"));', correct: true },
+                    { code: 'onpress(button) -> popup();', correct: false },
+                    { code: 'document.listen("press", show);', correct: false },
+                    { code: 'click.button(doAlert);', correct: false }
+                ],
+                successMsg: "Luar biasa! addEventListener('click', ...) adalah standar logika interaktif JavaScript modern."
+            }
+        };
+
+        function showToast(message, isSuccess = true) {
+            const container = document.getElementById('toastBox');
+            const toast = document.createElement('div');
+            toast.className = 'toast-item';
+            const icon = isSuccess ? 'fa-circle-check' : 'fa-triangle-exclamation';
+            const color = isSuccess ? '#10b981' : '#ef4444';
+            toast.innerHTML = `<i class="fa-solid ${icon}" style="color: ${color};"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function loadStage(stageNum) {
+            currentStage = stageNum;
+            selectedChoice = null;
+            const data = STAGES[stageNum];
+
+            document.getElementById('stageTag').innerHTML = data.tag;
+            document.getElementById('stageTitle').textContent = data.title;
+            document.getElementById('stageMission').textContent = data.mission;
+            document.getElementById('btnNextStage').style.display = 'none';
+
+            const container = document.getElementById('choicesContainer');
+            container.innerHTML = '';
+
+            data.choices.forEach(c => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'choice-btn';
+                btn.dataset.correct = c.correct;
+                btn.innerHTML = `<span>${escapeHtml(c.code)}</span> <i class="fa-regular fa-circle"></i>`;
+
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.choice-btn').forEach(b => {
+                        b.classList.remove('selected');
+                        const icon = b.querySelector('i');
+                        if (icon) icon.className = 'fa-regular fa-circle';
+                    });
+                    btn.classList.add('selected');
+                    const icon = btn.querySelector('i');
+                    if (icon) icon.className = 'fa-solid fa-circle-dot';
+                    selectedChoice = btn;
+                });
+
+                container.appendChild(btn);
+            });
+
+            // Update stage tabs active
+            document.querySelectorAll('.stage-btn').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.stage, 10) === stageNum);
+            });
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        // Check Answer Button
+        document.getElementById('btnCheckAnswer').addEventListener('click', () => {
+            if (!selectedChoice) {
+                showToast('Pilih salah satu jawaban terlebih dahulu!', false);
+                return;
+            }
+
+            const isCorrect = selectedChoice.dataset.correct === 'true';
+
+            if (isCorrect) {
+                selectedChoice.classList.add('correct');
+                xp += 50;
+                streak += 1;
+                document.getElementById('xpDisplay').textContent = xp;
+                document.getElementById('streakDisplay').textContent = `${streak}x`;
+
+                showToast(STAGES[currentStage].successMsg, true);
+
+                // Apply visual effect to preview
+                const sampleBtn = document.getElementById('sampleBtn');
+                const sampleBox = document.getElementById('sampleBox');
+
+                if (currentStage === 1) {
+                    sampleBtn.style.display = 'inline-block';
+                    sampleBtn.textContent = 'Klik Saya (Aktif)';
+                } else if (currentStage === 2) {
+                    sampleBtn.style.background = 'linear-gradient(135deg, #06b6d4, #3b82f6)';
+                    sampleBtn.style.borderRadius = '9999px';
+                    sampleBtn.style.boxShadow = '0 0 25px rgba(6, 182, 212, 0.7)';
+                    sampleBox.style.borderColor = '#06b6d4';
+                } else if (currentStage === 3) {
+                    sampleBtn.onclick = () => {
+                        showToast('Assalamu\'alaikum! Tombol berhasil memicu JavaScript.');
+                    };
+                    sampleBtn.innerHTML = '<i class="fa-solid fa-sparkles"></i> Klik Berhasil Berfungsi!';
+                }
+
+                if (currentStage < 3) {
+                    document.getElementById('btnNextStage').style.display = 'inline-flex';
+                } else {
+                    showToast('🎉 Selamat! Kamu telah menyelesaikan seluruh stage CodeQuest!');
+                }
+            } else {
+                selectedChoice.classList.add('wrong');
+                showToast('Jawaban kurang tepat. Coba periksa kembali sintaksnya!', false);
+            }
+        });
+
+        document.getElementById('btnNextStage').addEventListener('click', () => {
+            if (currentStage < 3) {
+                loadStage(currentStage + 1);
+            }
+        });
+
+        document.getElementById('btnResetQuest').addEventListener('click', () => {
+            loadStage(currentStage);
+            showToast('Pertanyaan di-reset, silakan coba lagi.');
+        });
+
+        // Stage Tabs Direct Click
+        document.querySelectorAll('.stage-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const stage = parseInt(btn.dataset.stage, 10);
+                if (stage) loadStage(stage);
+            });
+        });
+
+        // Free Sandbox Button
+        document.getElementById('btnRunSandbox').addEventListener('click', () => {
+            const input = document.getElementById('sandboxInput').value;
+            const sampleBox = document.getElementById('sampleBox');
+            sampleBox.innerHTML = `
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; font-size: 1.5rem; color: #38bdf8;">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                ${input}
+            `;
+            showToast('Kode playground berhasil dirender ke live preview!');
+        });
+
+        // Init Stage 1
+        loadStage(1);
+    </script>
+</body>
+</html>

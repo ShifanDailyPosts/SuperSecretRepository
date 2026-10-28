@@ -1217,398 +1217,276 @@
         }
 
         /* ========================================================
-           LANDING PAGE 1: NOVA AI AGENT CLOUD
+           LANDING PAGE 1: CODEQUEST — GAME INTERAKTIF WEB DEV
            ======================================================== */
-        .lp-nova {
-            background: radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.15) 0%, #090d16 65%);
+        .lp-game {
+            background: radial-gradient(circle at 50% 10%, rgba(168, 85, 247, 0.2) 0%, #080c1a 65%);
             color: #f8fafc;
             font-family: var(--font-body);
             padding: 2.5rem 3rem 4rem 3rem;
             min-height: 1900px;
         }
 
-        .nova-nav {
+        .game-mock-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 3.5rem;
+            margin-bottom: 3rem;
             padding-bottom: 1.25rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.25);
         }
 
-        .nova-logo {
-            font-size: 1.25rem;
-            font-weight: 800;
+        .game-logo {
+            font-size: 1.3rem;
+            font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             color: #ffffff;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .nova-logo i { color: #818cf8; }
+        .game-logo i { color: #a855f7; }
 
-        .nova-nav-links {
+        .game-stats-bar {
             display: flex;
-            gap: 1.75rem;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 0.88rem;
-            color: #94a3b8;
-        }
-
-        .nova-btn-cta {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: #ffffff;
-            padding: 0.5rem 1.25rem;
+            gap: 1.5rem;
+            background: rgba(16, 24, 48, 0.7);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: var(--radius-full);
-            font-size: 0.86rem;
-            font-weight: 700;
-            border: none;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            padding: 0.4rem 1.25rem;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
         }
 
-        .nova-hero {
+        .game-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .game-hero {
             text-align: center;
-            max-width: 780px;
+            max-width: 820px;
             margin: 0 auto 3.5rem auto;
         }
 
-        .nova-badge {
+        .game-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.35rem 1rem;
             border-radius: var(--radius-full);
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #a5b4fc;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            color: #c084fc;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
         }
 
-        .nova-title {
-            font-size: 2.8rem;
-            font-weight: 800;
+        .game-title {
+            font-size: 2.9rem;
+            font-weight: 900;
             line-height: 1.2;
             margin-bottom: 1.25rem;
-            background: linear-gradient(135deg, #ffffff 40%, #818cf8 100%);
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #ffffff 30%, #a855f7 70%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nova-subtitle {
-            font-size: 1.05rem;
-            color: #94a3b8;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
-
-        .nova-stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 3rem 0;
-            padding: 1.75rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-md);
-            text-align: center;
-        }
-
-        .nova-stat-num {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #a5b4fc;
-            margin-bottom: 0.25rem;
-        }
-
-        .nova-stat-label {
-            font-size: 0.82rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .nova-grid-features {
+        .game-stages-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 2.5rem;
         }
 
-        .nova-card {
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+        .game-stage-card {
+            background: rgba(16, 24, 48, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: var(--radius-md);
             padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nova-card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-sm);
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 1.25rem;
+        .game-stage-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 0.75rem;
         }
 
         /* ========================================================
-           LANDING PAGE 2: SANTRITECH ACADEMY (DIGITAL PESANTREN)
+           LANDING PAGE 2: SERUNYA BELAJAR DI ERA DIGITAL
            ======================================================== */
-        .lp-santri {
-            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, #061c14 70%);
+        .lp-belajar {
+            background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.2) 0%, #060a17 70%);
             color: #f1f5f9;
             font-family: var(--font-body);
             padding: 2.5rem 3rem 4rem 3rem;
             min-height: 1900px;
         }
 
-        .santri-nav {
+        .belajar-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 3.5rem;
             padding-bottom: 1.25rem;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
         }
 
-        .santri-logo {
-            font-size: 1.25rem;
+        .belajar-logo {
+            font-size: 1.3rem;
             font-weight: 800;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #34d399;
+            color: #38bdf8;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .santri-arabic-verse {
-            font-size: 1.4rem;
-            color: #fbbf24;
-            font-family: serif;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+        .belajar-hero {
             text-align: center;
-        }
-
-        .santri-hero {
-            text-align: center;
-            max-width: 800px;
+            max-width: 820px;
             margin: 0 auto 3.5rem auto;
         }
 
-        .santri-hero-title {
-            font-size: 2.7rem;
+        .belajar-quote-arabic {
+            font-size: 1.5rem;
+            color: #fbbf24;
+            font-family: serif;
+            margin-bottom: 1rem;
+        }
+
+        .belajar-hero-title {
+            font-size: 2.8rem;
             font-weight: 800;
             line-height: 1.25;
             color: #ffffff;
             margin-bottom: 1.25rem;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .santri-hero-title span {
-            color: #34d399;
+        .belajar-hero-title span {
+            background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .santri-badge-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.35rem 1rem;
-            border-radius: var(--radius-full);
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(251, 191, 36, 0.35);
-            color: #fde68a;
-            font-size: 0.82rem;
-            font-weight: 700;
-            margin-bottom: 1.25rem;
-        }
-
-        .santri-program-grid {
+        .belajar-pillars-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin: 3rem 0;
         }
 
-        .santri-card {
-            background: rgba(6, 78, 59, 0.25);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        .belajar-pillar-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             border-radius: var(--radius-md);
             padding: 1.75rem;
-            position: relative;
         }
 
-        .santri-card h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #6ee7b7;
+        .belajar-pillar-card h4 {
+            font-size: 1.2rem;
+            color: #38bdf8;
             margin: 0.75rem 0 0.5rem 0;
+            font-family: 'Outfit', sans-serif;
         }
 
         /* ========================================================
-           LANDING PAGE 3: CYBERSHIELD SECOPS (CYBER DEFENSE)
+           LANDING PAGE 3: DEVTOOLS UNIVERSE (7 TOOLS UTAMA)
            ======================================================== */
-        .lp-cyber {
-            background: #050811;
+        .lp-tools {
+            background: #070b19;
             color: #e2e8f0;
-            font-family: 'Fira Code', monospace;
+            font-family: var(--font-body);
             padding: 2.5rem 3rem 4rem 3rem;
             min-height: 1900px;
-            border-left: 2px solid #ef4444;
+            border-left: 2px solid #38bdf8;
         }
 
-        .cyber-nav {
+        .tools-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 3.5rem;
             padding-bottom: 1.25rem;
-            border-bottom: 1px dashed rgba(239, 68, 68, 0.3);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
         }
 
-        .cyber-logo {
-            font-size: 1.2rem;
+        .tools-logo {
+            font-size: 1.3rem;
             font-weight: 800;
-            color: #f87171;
+            color: #38bdf8;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .cyber-radar-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.85rem;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            font-size: 0.75rem;
-        }
-
-        .cyber-radar-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
-            animation: pulseGlow 1.5s infinite;
-        }
-
-        .cyber-hero {
+        .tools-hero {
             max-width: 850px;
             margin-bottom: 3rem;
         }
 
-        .cyber-title {
-            font-size: 2.6rem;
-            font-weight: 800;
+        .tools-title {
+            font-size: 2.7rem;
+            font-weight: 900;
             color: #ffffff;
             margin: 0.75rem 0;
             line-height: 1.2;
-            letter-spacing: -0.02em;
+            font-family: 'Outfit', sans-serif;
         }
 
-        .cyber-title span { color: #38bdf8; }
-
-        .cyber-console-box {
-            background: #02040a;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: var(--radius-sm);
-            padding: 1.5rem;
-            font-size: 0.84rem;
-            color: #38bdf8;
-            line-height: 1.6;
-            margin: 2.5rem 0;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        .tools-title span {
+            background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* ========================================================
-           LANDING PAGE 4: ARTISANROAST COFFEE (SPECIALTY CAFE)
-           ======================================================== */
-        .lp-coffee {
-            background: #18120c;
-            color: #fef3c7;
-            font-family: 'Playfair Display', serif;
-            padding: 2.5rem 3rem 4rem 3rem;
-            min-height: 1900px;
-        }
-
-        .coffee-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 3.5rem;
-            padding-bottom: 1.25rem;
-            border-bottom: 1px solid rgba(217, 119, 6, 0.25);
-            font-family: var(--font-body);
-        }
-
-        .coffee-logo {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #f59e0b;
-            letter-spacing: 0.05em;
-        }
-
-        .coffee-hero {
-            text-align: center;
-            max-width: 760px;
-            margin: 0 auto 3.5rem auto;
-        }
-
-        .coffee-tagline {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #d97706;
-            margin-bottom: 1rem;
-            font-family: var(--font-body);
-            font-weight: 700;
-        }
-
-        .coffee-title {
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: #fffbeb;
-            margin-bottom: 1.5rem;
-        }
-
-        .coffee-desc {
-            font-family: var(--font-body);
-            font-size: 1.05rem;
-            color: #d1d5db;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .coffee-grid {
+        .tools-7-showcase-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 3rem;
-            font-family: var(--font-body);
+            gap: 1.25rem;
+            margin: 2.5rem 0;
         }
 
-        .coffee-card {
-            background: rgba(254, 243, 199, 0.03);
-            border: 1px solid rgba(217, 119, 6, 0.25);
+        .tool-mini-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--radius-md);
-            padding: 1.75rem;
-            text-align: center;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
         }
 
-        .coffee-bean-icon {
-            font-size: 2rem;
-            color: #f59e0b;
-            margin-bottom: 1rem;
+        .tool-mini-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .tool-mini-code {
+            background: #02040a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem 0.85rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.76rem;
+            color: #34d399;
+            white-space: pre;
+            overflow-x: hidden;
         }
 
         /* Toast Container */
@@ -2154,16 +2032,13 @@
                         <div class="showcase-control-bar">
                             <div class="showcase-pills">
                                 <button type="button" class="showcase-pill-btn active" data-slide="0">
-                                    <i class="fa-solid fa-robot"></i> 1. Nova AI Cloud
+                                    <i class="fa-solid fa-gamepad"></i> 1. CodeQuest (Game)
                                 </button>
                                 <button type="button" class="showcase-pill-btn" data-slide="1">
-                                    <i class="fa-solid fa-mosque"></i> 2. SantriTech Hub
+                                    <i class="fa-solid fa-graduation-cap"></i> 2. Serunya Belajar
                                 </button>
                                 <button type="button" class="showcase-pill-btn" data-slide="2">
-                                    <i class="fa-solid fa-shield-halved"></i> 3. CyberShield SOC
-                                </button>
-                                <button type="button" class="showcase-pill-btn" data-slide="3">
-                                    <i class="fa-solid fa-mug-hot"></i> 4. ArtisanRoast Cafe
+                                    <i class="fa-solid fa-toolbox"></i> 3. DevTools Universe
                                 </button>
                             </div>
 
@@ -2194,10 +2069,10 @@
                                 </div>
                                 <div class="browser-url-bar">
                                     <i class="fa-solid fa-lock" style="color: #10b981;"></i>
-                                    <span class="browser-url-text" id="browserUrlText">https://nova-ai.cloud/platform</span>
+                                    <span class="browser-url-text" id="browserUrlText">https://shifandailyposts.mediasosial.net/demo-game.html</span>
                                 </div>
                                 <div class="browser-actions">
-                                    <a href="demo-nova.html" target="_blank" class="open-real-page-btn" id="openRealPageBtn" title="Buka Halaman Utuh di Tab Baru">
+                                    <a href="demo-game.html" target="_blank" class="open-real-page-btn" id="openRealPageBtn" title="Buka Halaman Utuh di Tab Baru">
                                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                         <span>Buka Halaman Utuh ↗</span>
                                     </a>
@@ -2209,264 +2084,208 @@
                                 </div>
                             </div>
 
-                            <!-- Viewport with 4 Auto-Scrolling Slides -->
+                            <!-- Viewport with 3 Auto-Scrolling Slides -->
                             <div class="browser-viewport" id="browserViewport">
                                 
-                                <!-- SLIDE 1: NOVA AI AGENT CLOUD -->
-                                <div class="showcase-slide active" data-url="https://shifandailyposts.mediasosial.net/demo-nova.html" data-target="demo-nova.html" data-index="0">
-                                    <div class="web-page-scrollable lp-nova">
-                                        <header class="nova-nav">
-                                            <div class="nova-logo">
-                                                <i class="fa-solid fa-brain"></i>
-                                                <span>NovaAI</span>
+                                <!-- SLIDE 1: CODEQUEST — GAME INTERAKTIF WEB DEV -->
+                                <div class="showcase-slide active" data-url="https://shifandailyposts.mediasosial.net/demo-game.html" data-target="demo-game.html" data-index="0">
+                                    <div class="web-page-scrollable lp-game">
+                                        <header class="game-mock-nav">
+                                            <div class="game-logo">
+                                                <i class="fa-solid fa-gamepad"></i>
+                                                <span>CodeQuest MMORPG</span>
                                             </div>
-                                            <ul class="nova-nav-links">
-                                                <li>Models</li>
-                                                <li>Autonomous Swarm</li>
-                                                <li>Documentation</li>
-                                                <li>Pricing</li>
-                                            </ul>
-                                            <button type="button" class="nova-btn-cta">Launch Studio</button>
+                                            <div class="game-stats-bar">
+                                                <div class="game-stat-item"><i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> <span>1,250 XP</span></div>
+                                                <div class="game-stat-item"><i class="fa-solid fa-fire" style="color: #f97316;"></i> <span>Streak 5 Hari</span></div>
+                                                <div class="game-stat-item"><i class="fa-solid fa-shield-halved" style="color: #38bdf8;"></i> <span>Rank: Santri Coder</span></div>
+                                            </div>
                                         </header>
 
-                                        <div class="nova-hero">
-                                            <div class="nova-badge">
-                                                <i class="fa-solid fa-bolt"></i> Nova 4.0 Autonomous Engine Released
+                                        <div class="game-hero">
+                                            <div class="game-badge">
+                                                <i class="fa-solid fa-trophy"></i> Turnamen Koding Interaktif Season 1
                                             </div>
-                                            <h2 class="nova-title">Deploy Autonomous AI Agents That Build While You Sleep</h2>
-                                            <p class="nova-subtitle">
-                                                Platform cloud generasi berikutnya untuk meluncurkan swarm AI Agent mandiri. Mampu mengeksekusi kode, browsing data real-time, dan memperbaiki bug otomatis dalam hitungan detik.
+                                            <h2 class="game-title">Belajar Web Dev Sambil Main Game &amp; Raih XP Tertinggi!</h2>
+                                            <p style="font-size: 1.05rem; color: #94a3b8; line-height: 1.7; margin-bottom: 2rem;">
+                                                Taklukkan boss monster sintaks dengan menyusun tag HTML yang hilang, racik racun CSS neon gradient, dan aktifkan sihir JavaScript event listener langsung di browser.
                                             </p>
                                             <div style="display: flex; gap: 1rem; justify-content: center;">
-                                                <button type="button" class="nova-btn-cta" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
-                                                    Start Free Sandbox
-                                                </button>
-                                                <button type="button" class="playback-btn" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
-                                                    Watch Live Demo
-                                                </button>
+                                                <a href="demo-game.html" target="_blank" class="nova-btn-cta" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%); padding: 0.75rem 1.75rem; text-decoration: none;">
+                                                    Mainkan Game Utuh 🎮
+                                                </a>
                                             </div>
                                         </div>
 
-                                        <div class="nova-stats-row">
-                                            <div>
-                                                <div class="nova-stat-num">99.99%</div>
-                                                <div class="nova-stat-label">Inference Uptime</div>
-                                            </div>
-                                            <div>
-                                                <div class="nova-stat-num">2.4B+</div>
-                                                <div class="nova-stat-label">Tokens / Sec</div>
-                                            </div>
-                                            <div>
-                                                <div class="nova-stat-num">145k+</div>
-                                                <div class="nova-stat-label">Active Swarm Agents</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="nova-grid-features">
-                                            <div class="nova-card">
-                                                <div class="nova-card-icon"><i class="fa-solid fa-network-wired"></i></div>
-                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Multi-Agent Orchestration</h4>
+                                        <div class="game-stages-grid">
+                                            <div class="game-stage-card">
+                                                <span class="game-stage-badge" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">Stage 1: HTML Dungeon</span>
+                                                <h4 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Cari Tag Penutup Gaib</h4>
                                                 <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
-                                                    Koordinasi otomatis antara puluhan agen AI spesialis (Coder, Tester, Security Auditor, dan Deployer).
+                                                    Pilih tag penutup semantik yang tepat untuk menyelamatkan kerangka halaman dari kehancuran error DOM!
                                                 </p>
                                             </div>
-                                            <div class="nova-card">
-                                                <div class="nova-card-icon"><i class="fa-solid fa-shield-virus"></i></div>
-                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Zero-Day Code Patching</h4>
+                                            <div class="game-stage-card">
+                                                <span class="game-stage-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">Stage 2: CSS Neon Lab</span>
+                                                <h4 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Racik Efek Glassmorphic</h4>
                                                 <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
-                                                    Deteksi kerentanan runtime dan injeksi patch keamanan mandiri tanpa downtime aplikasi.
+                                                    Campur backdrop-filter blur, border radius, dan gradien neon untuk membuka perisai pertahanan cyber.
                                                 </p>
                                             </div>
-                                            <div class="nova-card">
-                                                <div class="nova-card-icon"><i class="fa-solid fa-microchip"></i></div>
-                                                <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #fff;">Sub-5ms Edge Latency</h4>
+                                            <div class="game-stage-card">
+                                                <span class="game-stage-badge" style="background: rgba(234, 179, 8, 0.2); color: #fbbf24;">Stage 3: JS Reactor</span>
+                                                <h4 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem;">Picu Event Listener</h4>
                                                 <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
-                                                    Jaringan inferensi global terdistribusi di 280+ lokasi edge server seluruh dunia.
+                                                    Dengarkan event klik dan kalkulasi variabel reactive state untuk melipatgandakan poin combo seranganmu!
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- SLIDE 2: SANTRITECH ACADEMY -->
-                                <div class="showcase-slide" data-url="https://shifandailyposts.mediasosial.net/demo-santri.html" data-target="demo-santri.html" data-index="1">
-                                    <div class="web-page-scrollable lp-santri">
-                                        <header class="santri-nav">
-                                            <div class="santri-logo">
-                                                <i class="fa-solid fa-kaaba"></i>
-                                                <span>SantriTech Academy</span>
+                                <!-- SLIDE 2: PENTINGNYA & SERUNYA BELAJAR -->
+                                <div class="showcase-slide" data-url="https://shifandailyposts.mediasosial.net/demo-belajar.html" data-target="demo-belajar.html" data-index="1">
+                                    <div class="web-page-scrollable lp-belajar">
+                                        <header class="belajar-nav">
+                                            <div class="belajar-logo">
+                                                <i class="fa-solid fa-graduation-cap"></i>
+                                                <span>Pentingnya &amp; Serunya Belajar</span>
                                             </div>
-                                            <ul class="nova-nav-links" style="color: #a7f3d0;">
-                                                <li>Kurikulum</li>
-                                                <li>Tahfidz + Coding</li>
-                                                <li>Karya Santri</li>
-                                                <li>Beasiswa</li>
+                                            <ul class="nova-nav-links" style="color: #7dd3fc;">
+                                                <li>Kenapa Koding Seru?</li>
+                                                <li>Peta Roadmap</li>
+                                                <li>Tes Gaya Belajar</li>
+                                                <li>Kata Bijak Ulama</li>
                                             </ul>
-                                            <button type="button" class="nova-btn-cta" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-                                                Daftar Santri Baru
-                                            </button>
                                         </header>
 
-                                        <div class="santri-hero">
-                                            <div class="santri-arabic-verse">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                                        <div class="belajar-hero">
+                                            <div class="belajar-quote-arabic">طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ</div>
                                             <div class="santri-badge-tag">
-                                                <i class="fa-solid fa-star"></i> Pesantren Digital Unggulan Masa Depan
+                                                <i class="fa-solid fa-seedling"></i> Petualangan Sains &amp; Teknologi Generasi Santri
                                             </div>
-                                            <h2 class="santri-hero-title">
-                                                Mencetak Generasi <span>Hafizh Al-Qur'an</span> &amp; Software Engineer Kelas Dunia
+                                            <h2 class="belajar-hero-title">
+                                                Bukan Sekadar Menghafal, Tapi <span>Mencipta Peradaban Masa Depan</span>
                                             </h2>
-                                            <p style="font-size: 1.05rem; color: #d1fae5; line-height: 1.7; margin-bottom: 2rem;">
-                                                Memadukan kemuliaan adab pesantren, hafalan Al-Qur'an 30 Juz, dan keahlian rekayasa kecerdasan buatan &amp; web development modern untuk kebangkitan umat.
+                                            <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 2rem;">
+                                                Belajar koding dan sains bukan beban tugas sekolah! Saat kodingan pertamamu berhasil jalan tanpa error, ada sensasi ledakan dopamin yang membuktikan kamu mampu mewujudkan ide menjadi kenyataan.
                                             </p>
                                             <div style="display: flex; gap: 1rem; justify-content: center;">
-                                                <button type="button" class="nova-btn-cta" style="background: #10b981; padding: 0.75rem 1.75rem;">
-                                                    Jelajahi Kurikulum
-                                                </button>
-                                                <button type="button" class="playback-btn" style="border-color: #059669; padding: 0.75rem 1.5rem;">
-                                                    Karya Unggulan Santri
-                                                </button>
+                                                <a href="demo-belajar.html" target="_blank" class="nova-btn-cta" style="background: linear-gradient(135deg, #0284c7 0%, #10b981 100%); padding: 0.75rem 1.75rem; text-decoration: none;">
+                                                    Jelajahi Panduan Belajar 📖
+                                                </a>
                                             </div>
                                         </div>
 
-                                        <div class="santri-program-grid">
-                                            <div class="santri-card">
-                                                <div style="font-size: 1.8rem; color: #fbbf24;"><i class="fa-solid fa-book-quran"></i></div>
-                                                <h4>Tahfidz Mutqin 30 Juz</h4>
-                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
-                                                    Metode muraja'ah intensif dengan pemahaman tafsir ayat dan pembentukan karakter adab islami yang kokoh.
+                                        <div class="belajar-pillars-grid">
+                                            <div class="belajar-pillar-card">
+                                                <div style="font-size: 1.8rem; color: #fbbf24;"><i class="fa-solid fa-brain"></i></div>
+                                                <h4>Otak Semakin Tajam</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Melatih computational thinking: memecah masalah raksasa yang menakutkan menjadi langkah-langkah kecil yang mudah diselesaikan.
                                                 </p>
                                             </div>
-                                            <div class="santri-card">
-                                                <div style="font-size: 1.8rem; color: #34d399;"><i class="fa-solid fa-code"></i></div>
-                                                <h4>Fullstack &amp; AI Engineering</h4>
-                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
-                                                    Penguasaan HTML5, CSS Grid, JavaScript modern, Python, REST API, dan pemanfaatan AI Agent profesional.
+                                            <div class="belajar-pillar-card">
+                                                <div style="font-size: 1.8rem; color: #38bdf8;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                                                <h4>Mandiri Finansial &amp; Global</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Cukup dari kamar santri dengan laptop dan koneksi internet, karyamu bisa dipakai dan dibayar oleh klien dari seluruh pelosok dunia.
                                                 </p>
                                             </div>
-                                            <div class="santri-card">
-                                                <div style="font-size: 1.8rem; color: #6ee7b7;"><i class="fa-solid fa-rocket"></i></div>
-                                                <h4>Inkubator Startup Santri</h4>
-                                                <p style="font-size: 0.88rem; color: #a7f3d0; line-height: 1.6;">
-                                                    Praktek langsung mendirikan produk digital yang memberi manfaat nyata bagi pesantren dan masyarakat.
+                                            <div class="belajar-pillar-card">
+                                                <div style="font-size: 1.8rem; color: #34d399;"><i class="fa-solid fa-hands-praying"></i></div>
+                                                <h4>Pahala Jariyah Tak Putus</h4>
+                                                <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+                                                    Ilmu yang bermanfaat (العِلْمُ النَّافِعُ): setiap baris kode aplikasi kebaikan yang kamu buat akan terus mengalirkan pahala kebaikan.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- SLIDE 3: CYBERSHIELD SECOPS -->
-                                <div class="showcase-slide" data-url="https://shifandailyposts.mediasosial.net/demo-cyber.html" data-target="demo-cyber.html" data-index="2">
-                                    <div class="web-page-scrollable lp-cyber">
-                                        <header class="cyber-nav">
-                                            <div class="cyber-logo">
-                                                <i class="fa-solid fa-shield-halved"></i>
-                                                <span>CyberShield SOC</span>
+                                <!-- SLIDE 3: DEVTOOLS UNIVERSE (7 TOOLS UTAMA) -->
+                                <div class="showcase-slide" data-url="https://shifandailyposts.mediasosial.net/demo-tools.html" data-target="demo-tools.html" data-index="2">
+                                    <div class="web-page-scrollable lp-tools">
+                                        <header class="tools-nav">
+                                            <div class="tools-logo">
+                                                <i class="fa-solid fa-toolbox"></i>
+                                                <span>DevTools Universe</span>
                                             </div>
-                                            <div class="cyber-radar-badge">
-                                                DEFCON 3 • MONITORING ACTIVE
+                                            <div class="cyber-radar-badge" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); color: #7dd3fc;">
+                                                7 TOOLS VERIFIED • LIVE PREVIEW
                                             </div>
-                                            <button type="button" class="playback-btn" style="border-color: #ef4444; color: #f87171;">
-                                                INITIATE AUDIT
-                                            </button>
                                         </header>
 
-                                        <div class="cyber-hero">
-                                            <div style="color: #ef4444; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
-                                                // MILITARY-GRADE THREAT INTELLIGENCE
+                                        <div class="tools-hero">
+                                            <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">
+                                                // BEDAH 7 TOOLS UTAMA BERANDA PORTOFOLIO
                                             </div>
-                                            <h2 class="cyber-title">
-                                                Zero-Trust Defense Against <span>Advanced Persistent Threats</span>
+                                            <h2 class="tools-title">
+                                                Dari <span>Pondasi Struktur</span> Hingga <span>Cloud Hosting</span>
                                             </h2>
                                             <p style="font-size: 0.95rem; color: #94a3b8; line-height: 1.7;">
-                                                Real-time anomaly detection, kernel-level telemetry, and automated AI threat neutralization for mission-critical enterprise infrastructure.
+                                                Panduan mendalam lengkap dengan kodingan riil, anatomi sintaks, dan playground interaktif untuk HTML, CSS, JavaScript, Python, Git &amp; GitHub, Hostinger FTP, dan VS Code.
                                             </p>
-                                        </div>
-
-                                        <div class="cyber-console-box">
-                                            <div>[SYS_LOG] 22:55:10 - Telemetry gateway initialized on cluster 0x8F</div>
-                                            <div>[THREAT] 22:55:12 - SQL Injection attempt detected from 185.220.101.4 -> BLOCKED</div>
-                                            <div>[ISOLATE] 22:55:13 - Malicious payload quarantined in sandbox container #991</div>
-                                            <div>[STATUS] 22:55:15 - All 4,820 edge nodes operating within normal parameters (0.02ms latency)</div>
-                                        </div>
-
-                                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
-                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(239,68,68,0.25); padding: 1.25rem;">
-                                                <div style="font-size: 1.5rem; color: #ef4444; margin-bottom: 0.5rem;"><i class="fa-solid fa-radar"></i></div>
-                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Realtime Packet Sniffer</div>
-                                                <div style="font-size: 0.8rem; color: #94a3b8;">Deep packet inspection at wire speed across 100Gbps trunks.</div>
-                                            </div>
-                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(56,189,248,0.25); padding: 1.25rem;">
-                                                <div style="font-size: 1.5rem; color: #38bdf8; margin-bottom: 0.5rem;"><i class="fa-solid fa-key"></i></div>
-                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Post-Quantum Crypto</div>
-                                                <div style="font-size: 0.8rem; color: #94a3b8;">Kyber-1024 asymmetric handshake resistant to future quantum decoders.</div>
-                                            </div>
-                                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(16,185,129,0.25); padding: 1.25rem;">
-                                                <div style="font-size: 1.5rem; color: #10b981; margin-bottom: 0.5rem;"><i class="fa-solid fa-lock"></i></div>
-                                                <div style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Air-Gapped Vaults</div>
-                                                <div style="font-size: 0.8rem; color: #94a3b8;">Zero network persistence for sensitive token and credential storage.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- SLIDE 4: ARTISANROAST COFFEE -->
-                                <div class="showcase-slide" data-url="https://shifandailyposts.mediasosial.net/demo-coffee.html" data-target="demo-coffee.html" data-index="3">
-                                    <div class="web-page-scrollable lp-coffee">
-                                        <header class="coffee-nav">
-                                            <div class="coffee-logo">
-                                                ARTISANROAST • CO.
-                                            </div>
-                                            <ul class="nova-nav-links" style="color: #fde68a;">
-                                                <li>Single Origin</li>
-                                                <li>Brew Guides</li>
-                                                <li>Roastery Journal</li>
-                                                <li>Subscription</li>
-                                            </ul>
-                                            <button type="button" class="nova-btn-cta" style="background: #d97706; font-family: var(--font-body);">
-                                                Order Fresh Roast
-                                            </button>
-                                        </header>
-
-                                        <div class="coffee-hero">
-                                            <div class="coffee-tagline">Specialty Indonesian Beans</div>
-                                            <h2 class="coffee-title">Craft Roasted in Small Batches for the Discerning Palate</h2>
-                                            <p class="coffee-desc">
-                                                Biji kopi pilihan yang dipanen langsung dari ketinggian dataran tinggi vulkanik Nusantara, dipanggang perlahan dengan profil rasa unik dan aroma buah tropis yang memikat.
-                                            </p>
-                                            <div style="display: flex; gap: 1rem; justify-content: center; font-family: var(--font-body);">
-                                                <button type="button" class="nova-btn-cta" style="background: #b45309; padding: 0.75rem 1.75rem;">
-                                                    Explore Origins
-                                                </button>
-                                                <button type="button" class="playback-btn" style="border-color: #d97706; color: #fde68a; padding: 0.75rem 1.5rem;">
-                                                    Brewing Manual
-                                                </button>
+                                            <div style="margin-top: 1.5rem;">
+                                                <a href="demo-tools.html" target="_blank" class="nova-btn-cta" style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); padding: 0.75rem 1.75rem; text-decoration: none;">
+                                                    Buka Ensiklopedia 7 Tools Lengkap 🛠️
+                                                </a>
                                             </div>
                                         </div>
 
-                                        <div class="coffee-grid">
-                                            <div class="coffee-card">
-                                                <div class="coffee-bean-icon"><i class="fa-solid fa-mug-hot"></i></div>
-                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Aceh Gayo Winey</h4>
-                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,600m • Anaerobic Natural</div>
-                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
-                                                    Aroma anggur merah fermentasi berpadu dengan keasaman segar buah beri dan manisnya cokelat gelap.
-                                                </p>
+                                        <div class="tools-7-showcase-grid">
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-brands fa-html5" style="color: #f97316; font-size: 1.3rem;"></i>
+                                                    <span>1. HTML5</span>
+                                                </div>
+                                                <div class="tool-mini-code">&lt;header&gt;
+  &lt;h1&gt;Portofolio Shifan&lt;/h1&gt;
+&lt;/header&gt;</div>
                                             </div>
-                                            <div class="coffee-card">
-                                                <div class="coffee-bean-icon"><i class="fa-solid fa-mountain"></i></div>
-                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Toraja Sapan</h4>
-                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,850m • Full Washed</div>
-                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
-                                                    Cita rasa herbal rempah lembut dengan sentuhan karamel manis dan aftertaste bersih yang tahan lama.
-                                                </p>
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-brands fa-css3-alt" style="color: #38bdf8; font-size: 1.3rem;"></i>
+                                                    <span>2. CSS3</span>
+                                                </div>
+                                                <div class="tool-mini-code">.card {
+  backdrop-filter: blur(16px);
+  border: 1px solid #38bdf8;
+}</div>
                                             </div>
-                                            <div class="coffee-card">
-                                                <div class="coffee-bean-icon"><i class="fa-solid fa-seedling"></i></div>
-                                                <h4 style="font-size: 1.25rem; font-family: 'Playfair Display', serif; color: #fffbeb; margin-bottom: 0.35rem;">Flores Bajawa</h4>
-                                                <div style="font-size: 0.8rem; color: #d97706; font-weight: 700; margin-bottom: 0.75rem;">Elevation: 1,500m • Honey Process</div>
-                                                <p style="font-size: 0.88rem; color: #d1d5db; line-height: 1.6;">
-                                                    Sentuhan rasa kacang hazelnut gurih yang dibalut kelembutan madu murni dan aroma floral semerbak.
-                                                </p>
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-brands fa-js" style="color: #fbbf24; font-size: 1.3rem;"></i>
+                                                    <span>3. JavaScript</span>
+                                                </div>
+                                                <div class="tool-mini-code">btn.addEventListener('click', () => {
+  score += 10;
+});</div>
+                                            </div>
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-brands fa-python" style="color: #60a5fa; font-size: 1.3rem;"></i>
+                                                    <span>4. Python</span>
+                                                </div>
+                                                <div class="tool-mini-code">def nilai(hafalan, koding):
+    return (hafalan + koding) / 2</div>
+                                            </div>
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-brands fa-github" style="color: #f43f5e; font-size: 1.3rem;"></i>
+                                                    <span>5. Git &amp; GitHub</span>
+                                                </div>
+                                                <div class="tool-mini-code">git add .
+git commit -m "feat: tools"
+git push origin main</div>
+                                            </div>
+                                            <div class="tool-mini-card">
+                                                <div class="tool-mini-header">
+                                                    <i class="fa-solid fa-server" style="color: #10b981; font-size: 1.3rem;"></i>
+                                                    <span>6. Hostinger FTP</span>
+                                                </div>
+                                                <div class="tool-mini-code">Upload-FtpFile "demo.html"
+# Status: 100% Deployed</div>
                                             </div>
                                         </div>
                                     </div>

@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             browserUrlText.textContent = activeSlide.getAttribute('data-url') || 'https://shifandailyposts.mediasosial.net';
         }
         if (activeSlide && openRealPageBtn) {
-            const target = activeSlide.getAttribute('data-target') || 'demo-nova.html';
+            const target = activeSlide.getAttribute('data-target') || 'demo-game.html';
             openRealPageBtn.href = target;
         }
 
