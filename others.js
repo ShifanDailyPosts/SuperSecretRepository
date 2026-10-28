@@ -431,6 +431,73 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cursorBlur) cursorBlur.remove();
     }
 
+    // === 9.5. TOKEN USAGE SIMULATOR HANDLER ===
+    const btnSimBoros = document.getElementById('btnSimBoros');
+    const btnSimHemat = document.getElementById('btnSimHemat');
+    const simTokenCount = document.getElementById('simTokenCount');
+    const simTokenBar = document.getElementById('simTokenBar');
+    const simStatusLabel = document.getElementById('simStatusLabel');
+    const simDetailTitle = document.getElementById('simDetailTitle');
+    const simDetailList = document.getElementById('simDetailList');
+
+    if (btnSimBoros && btnSimHemat && simTokenCount && simTokenBar) {
+        btnSimBoros.addEventListener('click', () => {
+            btnSimBoros.classList.add('active');
+            btnSimHemat.classList.remove('active');
+
+            simTokenCount.textContent = '18,450 Token';
+            simTokenCount.style.color = '#ef4444';
+
+            simTokenBar.style.width = '92%';
+            simTokenBar.style.backgroundColor = '#ef4444';
+
+            if (simStatusLabel) {
+                simStatusLabel.textContent = 'KRITIS (92% Limit)';
+                simStatusLabel.style.color = '#ef4444';
+            }
+
+            if (simDetailTitle && simDetailList) {
+                simDetailTitle.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Kenapa Bisa Sebegitu Boros?';
+                simDetailTitle.style.color = '#f87171';
+                simDetailList.innerHTML = 
+                    <li>Riwayat 40 chat masa lalu terus dibaca ulang setiap kali lo enter.</li>
+                    <li>Jawaban AI kepanjangan karena tidak lo batasi panjangnya.</li>
+                    <li>Hanya tersisa ~2 pertanyaan lagi sebelum akun lo kena pesan <em>"Limit Reached"</em>!</li>
+                ;
+            }
+
+            showToast('Mode Boros aktif: 18.450 token terkuras!', 'error');
+        });
+
+        btnSimHemat.addEventListener('click', () => {
+            btnSimHemat.classList.add('active');
+            btnSimBoros.classList.remove('active');
+
+            simTokenCount.textContent = '420 Token';
+            simTokenCount.style.color = '#10b981';
+
+            simTokenBar.style.width = '6%';
+            simTokenBar.style.backgroundColor = '#10b981';
+
+            if (simStatusLabel) {
+                simStatusLabel.textContent = 'SUPER AMAN (Hemat 98%)';
+                simStatusLabel.style.color = '#10b981';
+            }
+
+            if (simDetailTitle && simDetailList) {
+                simDetailTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Kenapa Bisa Super Hemat?';
+                simDetailTitle.style.color = '#34d399';
+                simDetailList.innerHTML = 
+                    <li>Buka chat baru (New Chat) membuat riwayat lama tidak ikut kebaca lagi.</li>
+                    <li>Instruksi to-the-point membuat jawaban AI padat dan minim token output.</li>
+                    <li>Kuota kamu bisa tahan hingga 100+ pertanyaan koding tanpa takut kena limit!</li>
+                ;
+            }
+
+            showToast('Mode Hemat aktif: Hemat 98% kuota token! 🚀', 'success');
+        });
+    }
+
     // === 10. INITIALIZE AUTHENTICATION STATE ===
     checkAuthState();
 });

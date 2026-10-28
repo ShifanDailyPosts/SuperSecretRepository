@@ -1525,6 +1525,193 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+            /* ========================================================
+           TAB 5: TRIK HEMAT USAGE & TOKEN AI
+           ======================================================== */
+        .usage-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0 2.5rem 0;
+        }
+
+        .usage-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            position: relative;
+            transition: all var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .usage-card:hover {
+            border-color: rgba(6, 182, 212, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .usage-card-top {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .usage-icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .usage-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .usage-problem-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 3px solid #ef4444;
+            padding: 0.75rem 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.86rem;
+            color: #fca5a5;
+            margin-bottom: 1rem;
+            line-height: 1.55;
+        }
+
+        .usage-problem-box strong { color: #f87171; }
+
+        .usage-solution-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid #10b981;
+            padding: 0.75rem 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.88rem;
+            color: #a7f3d0;
+            line-height: 1.55;
+        }
+
+        .usage-solution-box strong { color: #34d399; }
+
+        /* Token Interactive Simulator Box */
+        .token-sim-card {
+            background: linear-gradient(145deg, rgba(16, 24, 48, 0.9) 0%, rgba(8, 12, 26, 0.95) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sim-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sim-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .sim-subtitle {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .sim-switch-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .sim-mode-btn {
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sim-mode-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sim-mode-btn.active.boros {
+            background: rgba(239, 68, 68, 0.18);
+            border-color: #ef4444;
+            color: #fca5a5;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .sim-mode-btn.active.hemat {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: #10b981;
+            color: #6ee7b7;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .sim-meter-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .sim-meter-panel { grid-template-columns: 1fr; }
+        }
+
+        .token-num-display {
+            font-family: var(--font-code);
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .token-bar-track {
+            height: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: 1rem 0 0.5rem 0;
+            position: relative;
+        }
+
+        .token-bar-fill {
+            height: 100%;
+            width: 85%;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+            border-radius: var(--radius-full);
+        }
     </style>
 </head>
 <body class="dark-theme">
@@ -1657,9 +1844,13 @@
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span>4. Formula Sakti (RTCO)</span>
                     </button>
+                    <button type="button" class="prompt-tab-btn" data-tab="tabUsage">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                        <span>5. Trik Hemat Kuota AI</span>
+                    </button>
                     <button type="button" class="prompt-tab-btn" data-tab="tabShowcase">
                         <i class="fa-solid fa-display"></i>
-                        <span>5. Contoh Website</span>
+                        <span>6. Contoh Website</span>
                     </button>
                 </nav>
 
@@ -2006,6 +2197,210 @@
                                 <div class="compare-verdict">
                                     <i class="fa-solid fa-circle-check" style="color: #34d399;"></i>
                                     <span><strong>Kenapa Sakti?</strong> AI langsung paham 100% batasan teknologinya, logika localStorage, dan format kode bersih yang langsung bisa lo copy-paste!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                                <!-- ==============================================
+                     TAB 5: TRIK HEMAT USAGE & TOKEN AI
+                     ============================================== -->
+                <div class="prompt-tab-pane" id="tabUsage">
+                    <div class="prompt-card">
+                        <div class="prompt-card-header">
+                            <div class="prompt-card-icon" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); color: #10b981;">
+                                <i class="fa-solid fa-piggy-bank"></i>
+                            </div>
+                            <div>
+                                <h2 class="prompt-card-title">Trik Rahasia Hemat Kuota &amp; Token AI (Anti-Limit &amp; Anti-Boncos!)</h2>
+                                <p class="prompt-card-subtitle">Sering kesel baru nanya bentar udah kena limit kuota? Nih 6 bocoran trik pro biar token awet, AI gak pelupa, dan tetap ngebut!</p>
+                            </div>
+                        </div>
+
+                        <!-- Analogi Singkat Token -->
+                        <div class="analogy-box" style="border-color: rgba(16, 185, 129, 0.35); background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);">
+                            <div class="analogy-icon">⛽</div>
+                            <div class="analogy-text">
+                                <h4 style="color: #34d399;">Pahami Ini Dulu: Token Itu Kayak "Bensin / Pulsa"</h4>
+                                <p>Setiap kata yang lo ketik (input) dan setiap kata yang dijawab AI (output) itu dihitung pakai <strong>Token</strong>. Makin panjang riwayat chat lo, makin rakus AI nyedot kuota bensinnya. Kalau lo tahu cara mainnya, jatah gratisan aja bisa awet dipake kerja seharian penuh!</p>
+                            </div>
+                        </div>
+
+                        <!-- 6 Jurus Hemat Usage Grid -->
+                        <div class="usage-tips-grid">
+                            
+                            <!-- TIP 1: Buka Chat Baru -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171;">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">1. Buka Chat Baru Tiap Ganti Topik</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Trik Terpenting #1</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Satu ruang chat dipake buat nanya matematika, curhat, koding HTML, bikin puisi, sampe 60 pesan berturut-turut!
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Di chat ke-60, tiap kali lo nanya 1 kata, AI bakal <em>membaca ulang 59 chat sebelumnya</em>! Token kesedot 15.000 sekali enter. Begitu ganti topik, <strong>wajib klik "New Chat" (+)</strong> biar token kembali ke 0.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TIP 2: To The Point -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8;">
+                                            <i class="fa-solid fa-bullseye"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">2. Kunci Panjang Jawaban di Prompt</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Hemat Output Token</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Nanya bebas tanpa batasan, terus AI ngejawab bikin esai 1.000 kata berbunga-bunga yang ujung-ujungnya gak lo baca semua.
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Tambahin mantra sakti di ujung perintah: <em>"Jawab to the point max 3 poin"</em> atau <em>"Kasih kodingannya aja tanpa intro &amp; penutup"</em>. Hemat kuota output sampai 75%!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TIP 3: File Snippet -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.35); color: #fbbf24;">
+                                            <i class="fa-solid fa-scissors"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">3. Kirim Potongan Kode, Bukan 1 File Utuh</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Snippet Cerdas</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Upload file kodingan 2.500 baris atau PDF 80 halaman cuma buat nanya: <em>"Bang, ini kok error di baris 42?"</em>
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Copy bagian fungsi yang error aja (15-20 baris) plus pesan errornya di console. Kuota hemat 95%, dan AI lebih fokus tanpa pusing membaca ribuan baris lain!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TIP 4: Model Matching -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc;">
+                                            <i class="fa-solid fa-gauge-high"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">4. Pakai Model Ringan Dulu (Flash / Mini)</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Smart Model Selection</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Cuma nanya arti istilah Inggris atau minta ide caption Instagram, tapi pake model terberat (GPT-4o / Claude Opus). Jatah harian langsung ludes!
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Buat hal sehari-hari pakai model enteng kayak <strong>Gemini Flash, GPT-4o mini, atau Claude Haiku</strong> (limitnya gede &amp; gratis). Simpen model berat cuma buat koding algoritma rumit!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TIP 5: Custom Instructions -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399;">
+                                            <i class="fa-solid fa-sliders"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">5. Pasang System Prompt / Custom Instructions</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Set Sekali Selamanya</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Tiap bikin prompt selalu ngetik ulang kalimat panjang: <em>"Saya anak santri pemula, tolong jawab singkat dan pake bahasa santai ya..."</em>
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Masukkan preferensi itu di menu <strong>Settings &rarr; Custom Instructions</strong> akun lo. Sekali isi, AI otomatis inget di semua percakapan tanpa makan kuota prompt lo lagi!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TIP 6: Bundling Pertanyaan -->
+                            <div class="usage-card">
+                                <div>
+                                    <div class="usage-card-top">
+                                        <div class="usage-icon-box" style="background: rgba(249, 115, 22, 0.15); border: 1px solid rgba(249, 115, 22, 0.35); color: #f97316;">
+                                            <i class="fa-solid fa-boxes-stacked"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="usage-card-title">6. Teknik "Bundling" Pertanyaan Terstruktur</h3>
+                                            <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Anti Chatting Eceran</span>
+                                        </div>
+                                    </div>
+                                    <div class="usage-problem-box">
+                                        <strong>⚠️ Kesalahan Pemula:</strong> Chatting eceran kayak di WA: <em>"Halo" &rarr; "Mau nanya" &rarr; "HTML apa?" &rarr; "CSS apa?"</em> (4x enter = 4x kirim ulang riwayat).
+                                    </div>
+                                    <div class="usage-solution-box">
+                                        <strong>✅ Trik Hemat:</strong> Satukan dalam 1 prompt berpoin rapi: <em>"Jelaskan secara ringkas: 1. HTML, 2. CSS, 3. Contoh koding sederhananya."</em> Sekali kirim selesai, token super irit!
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Interactive Simulator: Mode Boros vs Mode Hemat -->
+                        <div class="token-sim-card">
+                            <div class="sim-header">
+                                <span class="badge-pill" style="margin-bottom: 0.5rem; display: inline-flex;"><i class="fa-solid fa-microchip"></i> Live Token Simulator</span>
+                                <h3 class="sim-title">Buktikan Sendiri: Mode Boros vs Mode Hemat</h3>
+                                <p class="sim-subtitle">Klik tombol di bawah untuk melihat perbedaan pemakaian token riil antara cara pemula vs cara pro!</p>
+                            </div>
+
+                            <div class="sim-switch-bar">
+                                <button type="button" class="sim-mode-btn active boros" id="btnSimBoros">
+                                    <i class="fa-solid fa-fire"></i> Mode Boros (Chat Panjang 40 Pesan)
+                                </button>
+                                <button type="button" class="sim-mode-btn hemat" id="btnSimHemat">
+                                    <i class="fa-solid fa-leaf"></i> Mode Hemat (New Chat + Prompt Ringkas)
+                                </button>
+                            </div>
+
+                            <div class="sim-meter-panel">
+                                <div>
+                                    <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 0.4rem;">
+                                        Estimasi Token Terkuras:
+                                    </div>
+                                    <div class="token-num-display" id="simTokenCount" style="color: #ef4444;">18,450 Token</div>
+                                    <div class="token-bar-track">
+                                        <div class="token-bar-fill" id="simTokenBar" style="width: 92%; background-color: #ef4444;"></div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #94a3b8;">
+                                        <span>0 Token</span>
+                                        <span id="simStatusLabel" style="color: #ef4444; font-weight: 700;">KRITIS (92% Limit)</span>
+                                        <span>20,000 Token</span>
+                                    </div>
+                                </div>
+
+                                <div id="simDetailBox" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.25rem;">
+                                    <h4 style="font-size: 1.05rem; color: #f87171; margin-bottom: 0.5rem;" id="simDetailTitle">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Kenapa Bisa Sebegitu Boros?
+                                    </h4>
+                                    <ul style="padding-left: 1.2rem; font-size: 0.86rem; color: #cbd5e1; line-height: 1.6;" id="simDetailList">
+                                        <li>Riwayat 40 chat masa lalu terus dibaca ulang setiap kali lo enter.</li>
+                                        <li>Jawaban AI kepanjangan karena tidak lo batasi panjangnya.</li>
+                                        <li>Hanya tersisa ~2 pertanyaan lagi sebelum akun lo kena pesan <em>"Limit Reached"</em>!</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
