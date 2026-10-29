@@ -151,14 +151,17 @@
             border-radius: var(--radius-sm);
             padding: 0.75rem 2.75rem 0.75rem 2.6rem;
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-family: var(--font-body);
             transition: all var(--transition-fast);
+            position: relative;
+            z-index: 2;
         }
 
         body.light-theme .gate-input {
             background: #ffffff;
             border-color: #cbd5e1;
+            color: #0f172a;
         }
 
         .gate-input:focus {
@@ -2700,6 +2703,6 @@ git push origin main</div>
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- External Script (Strict CSP Compliant) -->
-    <script src="others.js?v=4.0"></script>
+    <script src="others.js?v=5.0"></script>
 </body>
 </html>

@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const inputUser = (usernameInput?.value || '').trim();
-            const inputPass = passwordInput?.value || '';
+            const inputPass = (passwordInput?.value || '').trim();
 
             if (!inputUser || !inputPass) {
                 showError('Mohon isi nama pengguna dan kata sandi.');
@@ -111,8 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validasi kredensial pengguna (case-insensitive username)
-            if (inputUser.toLowerCase() === VALID_USERNAME.toLowerCase() && inputPass === VALID_PASSWORD) {
+            // Validasi kredensial pengguna (fleksibel case & spasi: qsbs / AK561)
+            const isUserValid = inputUser.toLowerCase() === VALID_USERNAME.toLowerCase();
+            const isPassValid = inputPass === VALID_PASSWORD || inputPass.toLowerCase() === VALID_PASSWORD.toLowerCase();
+
+            if (isUserValid && isPassValid) {
                 const now = new Date();
                 const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
@@ -459,11 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (simDetailTitle && simDetailList) {
                 simDetailTitle.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Kenapa Bisa Sebegitu Boros?';
                 simDetailTitle.style.color = '#f87171';
-                simDetailList.innerHTML = 
-                    <li>Riwayat 40 chat masa lalu terus dibaca ulang setiap kali lo enter.</li>
-                    <li>Jawaban AI kepanjangan karena tidak lo batasi panjangnya.</li>
-                    <li>Hanya tersisa ~2 pertanyaan lagi sebelum akun lo kena pesan <em>"Limit Reached"</em>!</li>
-                ;
+                simDetailList.innerHTML = '<li>Riwayat 40 chat masa lalu terus dibaca ulang setiap kali lo enter.</li>' +
+                    '<li>Jawaban AI kepanjangan karena tidak lo batasi panjangnya.</li>' +
+                    '<li>Hanya tersisa ~2 pertanyaan lagi sebelum akun lo kena pesan <em>"Limit Reached"</em>!</li>';
             }
 
             showToast('Mode Boros aktif: 18.450 token terkuras!', 'error');
@@ -487,11 +488,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (simDetailTitle && simDetailList) {
                 simDetailTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Kenapa Bisa Super Hemat?';
                 simDetailTitle.style.color = '#34d399';
-                simDetailList.innerHTML = 
-                    <li>Buka chat baru (New Chat) membuat riwayat lama tidak ikut kebaca lagi.</li>
-                    <li>Instruksi to-the-point membuat jawaban AI padat dan minim token output.</li>
-                    <li>Kuota kamu bisa tahan hingga 100+ pertanyaan koding tanpa takut kena limit!</li>
-                ;
+                simDetailList.innerHTML = '<li>Buka chat baru (New Chat) membuat riwayat lama tidak ikut kebaca lagi.</li>' +
+                    '<li>Instruksi to-the-point membuat jawaban AI padat dan minim token output.</li>' +
+                    '<li>Kuota kamu bisa tahan hingga 100+ pertanyaan koding tanpa takut kena limit!</li>';
             }
 
             showToast('Mode Hemat aktif: Hemat 98% kuota token! 🚀', 'success');
