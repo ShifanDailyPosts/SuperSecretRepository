@@ -101,10 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 id: 2,
-                title: "Zona Permainan Interaktif (Santri Arcade Hub)",
-                desc: "Pusat koleksi game berbasis web interaktif karya Shifan. Menghadirkan beragam genre permainan edukasi, petualangan logika koding, kuis ketangkasan, dan aksi reflex dengan tema gelap neon modern.",
+                title: "Zona Permainan Interaktif (Showcase Hub)",
+                desc: "Pusat galeri game berbasis web interaktif karya Shifan. Menghadirkan beragam section permainan dengan tema elegan monokrom hitam dan abu-abu.",
                 category: "web-projects",
-                tech: "HTML5 Canvas, JavaScript ES6, Game Logic, Web Audio, Responsive Arcade",
+                tech: "HTML5 Canvas, JavaScript ES6, Game Logic, Monochrome Theme, Responsive Arcade",
                 link: "games.html",
                 isGameHub: true
             },
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Load State from LocalStorage or initialize
-    const CURRENT_PROJECTS_VER = "20261101_arcade_v3";
+    const CURRENT_PROJECTS_VER = "20261101_arcade_v6";
     let storedSiteData = readStoredSiteData();
     if (storedSiteData && localStorage.getItem('ssa_projects_ver') !== CURRENT_PROJECTS_VER) {
         storedSiteData.projects = defaultSiteData.projects;
@@ -748,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return `
                         <div class="project-card glass-card project-card-clickable" data-category="${esc(p.category)}" data-href="games.html" title="Buka Zona Permainan Interaktif (Showcase Hub)">
                             <div class="project-thumb">
-                                <img src="assets/images/games_preview.jpg?v=2.0" class="project-thumb-img" alt="Preview Zona Permainan Shifan" loading="lazy">
+                                <img src="assets/images/games_showcase_preview.jpg?v=3.0" class="project-thumb-img" alt="Preview Zona Permainan Shifan" loading="lazy">
                                 <div class="project-thumb-overlay"></div>
                                 <div class="badge-live-site" style="background: #27272a; border-color: rgba(255, 255, 255, 0.25); color: #ffffff;"><span class="badge-live-dot" style="background: #ffffff;"></span> Game Hub</div>
                                 <span class="project-category" style="color: #d4d4d8; border-color: rgba(255, 255, 255, 0.2);">Game Project</span>
