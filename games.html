@@ -197,11 +197,40 @@
             box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
         }
 
-        /* Game Section Cards */
+        /* Game Section Cards with Alternating Black & Gray Backgrounds */
         .game-section {
-            padding: 4.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 5rem 0;
             position: relative;
+        }
+
+        .game-section.section-black {
+            background-color: #030408;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .game-section.section-gray {
+            background-color: #0e121d;
+            background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.035) 0%, transparent 75%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* High-contrast panels inside alternating sections */
+        .section-black .game-desc-panel,
+        .section-black .arcade-cabinet-frame,
+        .section-black .quiz-stage-box,
+        .section-black .typing-defense-box {
+            background: rgba(14, 18, 29, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .section-gray .game-desc-panel,
+        .section-gray .arcade-cabinet-frame,
+        .section-gray .quiz-stage-box,
+        .section-gray .typing-defense-box {
+            background: rgba(3, 4, 8, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .game-header-tag {
@@ -619,7 +648,6 @@
                 <a href="#codequest" class="arcade-nav-link"><i class="fa-solid fa-code"></i> CodeQuest</a>
                 <a href="#quiz-arena" class="arcade-nav-link"><i class="fa-solid fa-brain"></i> Quiz Arena</a>
                 <a href="#cyber-sentinel" class="arcade-nav-link"><i class="fa-solid fa-shield-halved"></i> Cyber Defense</a>
-                <a href="#faq-localhost" class="arcade-nav-link"><i class="fa-solid fa-circle-question"></i> Info Localhost</a>
             </nav>
 
             <div class="header-actions">
@@ -654,8 +682,8 @@
                     <a href="#game-utama" class="btn btn-primary btn-lg btn-glow" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">
                         <i class="fa-solid fa-play"></i> Mulai Mainkan Game
                     </a>
-                    <a href="#faq-localhost" class="btn btn-outline btn-lg" style="border-color: rgba(255, 255, 255, 0.2);">
-                        <i class="fa-solid fa-circle-info"></i> Seputar Integrasi Game
+                    <a href="#codequest" class="btn btn-outline btn-lg" style="border-color: rgba(255, 255, 255, 0.2);">
+                        <i class="fa-solid fa-compass"></i> Jelajahi Seluruh Permainan
                     </a>
                 </div>
 
@@ -693,7 +721,7 @@
         <!-- ==============================================
              2. SECTION PERMAINAN PERTAMA (GAME UTAMA SHIFAN)
              ============================================== -->
-        <section class="game-section" id="game-utama">
+        <section class="game-section section-black" id="game-utama">
             <div class="container">
                 <div class="game-header-tag" style="background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.35); color: #fbbf24;">
                     <i class="fa-solid fa-crown"></i> Permainan Pertama • Game Utama
@@ -780,7 +808,7 @@
         <!-- ==============================================
              3. SECTION PERMAINAN KEDUA (CODEQUEST RPG)
              ============================================== -->
-        <section class="game-section" id="codequest">
+        <section class="game-section section-gray" id="codequest">
             <div class="container">
                 <div class="game-header-tag" style="background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.35); color: #38bdf8;">
                     <i class="fa-solid fa-code"></i> Permainan Kedua • RPG Koding
@@ -850,7 +878,7 @@
         <!-- ==============================================
              4. SECTION PERMAINAN KETIGA (QUIZ ARENA LANGSUNG)
              ============================================== -->
-        <section class="game-section" id="quiz-arena">
+        <section class="game-section section-black" id="quiz-arena">
             <div class="container">
                 <div class="game-header-tag" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc;">
                     <i class="fa-solid fa-brain"></i> Permainan Ketiga • Kuis Asah Otak
@@ -917,7 +945,7 @@
         <!-- ==============================================
              5. SECTION PERMAINAN KEEMPAT (CYBER TYPING DEFENSE)
              ============================================== -->
-        <section class="game-section" id="cyber-sentinel">
+        <section class="game-section section-gray" id="cyber-sentinel">
             <div class="container">
                 <div class="game-header-tag" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399;">
                     <i class="fa-solid fa-shield-halved"></i> Permainan Keempat • Ketangkasan Mengetik
@@ -978,51 +1006,6 @@
             </div>
         </section>
 
-        <!-- ==============================================
-             6. SECTION PANDUAN: SEPUTAR TOMBOL LOCALHOST
-             ============================================== -->
-        <section class="game-section" id="faq-localhost">
-            <div class="container">
-                <div class="game-header-tag" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171;">
-                    <i class="fa-solid fa-circle-question"></i> Pertanyaan Pengguna
-                </div>
-
-                <h2 class="game-title-lg">
-                    Jawaban: <span class="text-gradient" style="background: linear-gradient(135deg, #f87171 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Bisakah Memasukkan Localhost ke Dalam Tombol?</span>
-                </h2>
-
-                <div class="faq-box-card">
-                    
-                    <div class="faq-qa-item">
-                        <h3 class="faq-question-title">
-                            <i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i>
-                            Apakah bisa memasukkan link localhost (misal: <code>http://localhost:3000</code>) ke dalam tombol website?
-                        </h3>
-                        <p class="faq-answer-text">
-                            <strong>Secara teknis kode HTML bisa</strong>, tombolnya bisa dipasangi link <code>href="http://localhost:..."</code>. <strong>TETAPI SANGAT TIDAK DISARANKAN</strong> karena:<br><br>
-                            1. <strong>Orang Lain Tidak Bisa Membukanya:</strong> Kata <em>"localhost"</em> itu artinya adalah <em>"komputer pengunjung itu sendiri"</em> (IP 127.0.0.1). Saat orang lain/penilai membuka website portofoliomu dari HP atau laptop mereka, tombol tersebut akan mencari server di laptop mereka sendiri (yang tentu saja tidak ada), sehingga langsung error <em>"This site can’t be reached / Connection refused"</em>.<br><br>
-                            2. <strong>Diblokir Keamanan Browser (Mixed Content &amp; PNA):</strong> Website portofoliomu sudah memakai HTTPS resmi (gembok hijau). Browser modern (seperti Chrome &amp; Safari) secara otomatis memblokir website HTTPS publik yang mencoba memanggil alamat IP lokal privat (Private Network Access).
-                        </p>
-                    </div>
-
-                    <div class="faq-qa-item">
-                        <h3 class="faq-question-title">
-                            <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
-                            Lalu, bagaimana solusi terbaik agar game pertamamu bisa dimainkan oleh semua orang?
-                        </h3>
-                        <p class="faq-answer-text">
-                            Solusinya <strong>sangat mudah dan cepat</strong>! Kamu cukup kirimkan file atau kodingan game tersebut ke sini:<br><br>
-                            • <strong>Kirimkan file / kodingan game-mu</strong> (misalnya file HTML, CSS, JavaScript, folder ZIP, atau build folder).<br>
-                            • <strong>Kami akan langsung mengunggahnya ke server hosting portofoliomu</strong> (misal di <code>shifandailyposts.mediasosial.net/games/permainan-1.html</code>).<br>
-                            • Tombol <strong>"Mainkan Game Pertama"</strong> di section atas akan langsung dihubungkan ke link online tersebut.<br><br>
-                            <span style="color: #34d399; font-weight: 700;">Hasilnya:</span> Game-mu akan langsung live 24/7 di internet dan bisa dimainkan oleh siapa saja, di mana saja, tanpa perlu menyalakan localhost di laptopmu lagi! 🚀
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- Modal Dialog Permainan Pertama -->
@@ -1069,6 +1052,6 @@
     </footer>
 
     <!-- External Script for Games Logic (Strict CSP Compliant) -->
-    <script src="games.js?v=1.0"></script>
+    <script src="games.js?v=2.0"></script>
 </body>
 </html>
