@@ -330,7 +330,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Load State from LocalStorage or initialize
-    const storedSiteData = readStoredSiteData();
+    const CURRENT_PROJECTS_VER = "20261101_arcade_v2";
+    let storedSiteData = readStoredSiteData();
+    if (storedSiteData && localStorage.getItem('ssa_projects_ver') !== CURRENT_PROJECTS_VER) {
+        storedSiteData.projects = defaultSiteData.projects;
+        localStorage.setItem('ssa_projects_ver', CURRENT_PROJECTS_VER);
+    }
     let siteData = storedSiteData ? normalizeSiteData(storedSiteData) : defaultSiteData;
     storeSiteData(siteData);
 
@@ -755,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ${String(p.tech || '').split(',').map(t => `<span>${esc(t.trim())}</span>`).join('')}
                                 </div>
                                 <a href="games.html" class="btn btn-sm btn-primary project-action-btn" style="width: fit-content; text-decoration: none; background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">
-                                    <i class="fa-solid fa-gamepad"></i> Masuk ke Zona Permainan ðŸŽ®
+                                    <i class="fa-solid fa-gamepad"></i> Masuk ke Zona Permainan
                                 </a>
                             </div>
                         </div>
