@@ -748,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return `
                         <div class="project-card glass-card project-card-clickable" data-category="${esc(p.category)}" data-href="games.html" title="Buka Zona Permainan Interaktif (Showcase Hub)">
                             <div class="project-thumb">
-                                <img src="assets/images/games_preview.jpg?v=1.0" class="project-thumb-img" alt="Preview Zona Permainan Shifan" loading="lazy">
+                                <img src="assets/images/games_preview.jpg?v=2.0" class="project-thumb-img" alt="Preview Zona Permainan Shifan" loading="lazy">
                                 <div class="project-thumb-overlay"></div>
                                 <div class="badge-live-site" style="background: #27272a; border-color: rgba(255, 255, 255, 0.25); color: #ffffff;"><span class="badge-live-dot" style="background: #ffffff;"></span> Game Hub</div>
                                 <span class="project-category" style="color: #d4d4d8; border-color: rgba(255, 255, 255, 0.2);">Game Project</span>
