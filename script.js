@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Shifan Shalih Adiluhung - Interactive Portfolio Engine (v3.0)
  */
 
@@ -330,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Load State from LocalStorage or initialize
-    const CURRENT_PROJECTS_VER = "20261101_arcade_v2";
+    const CURRENT_PROJECTS_VER = "20261101_arcade_v3";
     let storedSiteData = readStoredSiteData();
     if (storedSiteData && localStorage.getItem('ssa_projects_ver') !== CURRENT_PROJECTS_VER) {
         storedSiteData.projects = defaultSiteData.projects;
@@ -746,12 +746,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 } else if (isGameHub) {
                     return `
-                        <div class="project-card glass-card project-card-clickable" data-category="${esc(p.category)}" data-href="games.html" title="Buka Zona Permainan Interaktif (Game Hub)">
+                        <div class="project-card glass-card project-card-clickable" data-category="${esc(p.category)}" data-href="games.html" title="Buka Zona Permainan Interaktif (Showcase Hub)">
                             <div class="project-thumb">
                                 <img src="assets/images/games_preview.jpg?v=1.0" class="project-thumb-img" alt="Preview Zona Permainan Shifan" loading="lazy">
                                 <div class="project-thumb-overlay"></div>
-                                <div class="badge-live-site" style="background: rgba(168, 85, 247, 0.25); border-color: rgba(168, 85, 247, 0.5); color: #c084fc;"><span class="badge-live-dot" style="background: #a855f7;"></span> Game Hub (Live)</div>
-                                <span class="project-category" style="color: #c084fc; border-color: rgba(168, 85, 247, 0.4);">Game Project</span>
+                                <div class="badge-live-site" style="background: #27272a; border-color: rgba(255, 255, 255, 0.25); color: #ffffff;"><span class="badge-live-dot" style="background: #ffffff;"></span> Game Hub</div>
+                                <span class="project-category" style="color: #d4d4d8; border-color: rgba(255, 255, 255, 0.2);">Game Project</span>
                             </div>
                             <div class="project-details">
                                 <h3>${esc(p.title)}</h3>
@@ -759,7 +759,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="project-tech">
                                     ${String(p.tech || '').split(',').map(t => `<span>${esc(t.trim())}</span>`).join('')}
                                 </div>
-                                <a href="games.html" class="btn btn-sm btn-primary project-action-btn" style="width: fit-content; text-decoration: none; background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">
+                                <a href="games.html" class="btn btn-sm btn-primary project-action-btn" style="width: fit-content; text-decoration: none; background: #27272a; border: 1px solid rgba(255, 255, 255, 0.25); color: #ffffff;">
                                     <i class="fa-solid fa-gamepad"></i> Masuk ke Zona Permainan
                                 </a>
                             </div>

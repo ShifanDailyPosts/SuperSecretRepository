@@ -4,60 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Zona Permainan Interaktif — Shifan Shalih Adiluhung</title>
+    <title>Zona Permainan — Shifan Shalih Adiluhung</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Main Portfolio Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=19.0">
+    <link rel="stylesheet" href="styles.css?v=22.0">
 
     <style>
         /* ========================================================
-           PURE DEEP BLACK ARCADE THEME (WARNA LATAR HITAM)
+           MONOCHROME THEME: HITAM & ABU-ABU BERSIH (NO COLOR / NO PURPLE)
            ======================================================== */
         :root {
-            --game-bg-black: #030408;
-            --game-card-bg: rgba(12, 16, 30, 0.82);
-            --game-card-border: rgba(56, 189, 248, 0.22);
-            --game-neon-cyan: #06b6d4;
-            --game-neon-purple: #a855f7;
-            --game-neon-emerald: #10b981;
-            --game-neon-amber: #f59e0b;
-            --game-neon-rose: #f43f5e;
+            --game-bg-black: #080808;
+            --game-bg-gray: #161618;
+            --game-card-black: #111113;
+            --game-card-gray: #1e1e22;
+            --game-border-light: rgba(255, 255, 255, 0.12);
+            --game-border-subtle: rgba(255, 255, 255, 0.06);
+            --game-text-white: #ffffff;
+            --game-text-gray: #a1a1aa;
+            --game-text-muted: #71717a;
             --game-font-title: 'Outfit', sans-serif;
-            --game-font-code: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--game-bg-black) !important;
-            color: #f1f5f9;
+            background-image: none !important;
+            color: var(--game-text-white);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-image: 
-                radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.16) 0%, transparent 45%),
-                radial-gradient(circle at 85% 20%, rgba(6, 182, 212, 0.14) 0%, transparent 45%),
-                radial-gradient(circle at 50% 55%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 20% 85%, rgba(245, 158, 11, 0.12) 0%, transparent 45%) !important;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
         }
 
-        /* Top Bar Navbar */
+        /* Top Bar Navbar (Monochrome Black & Gray) */
         .arcade-header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(3, 4, 8, 0.92);
+            background: rgba(8, 8, 8, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-            padding: 0.85rem 0;
-            transition: all var(--transition-normal);
+            border-bottom: 1px solid var(--game-border-subtle);
+            padding: 0.9rem 0;
         }
 
         .arcade-nav-container {
@@ -67,101 +68,114 @@
             gap: 1rem;
         }
 
+        .logo-brand-mono {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--game-text-white);
+        }
+
+        .logo-badge-mono {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #27272a;
+            border: 1px solid var(--game-border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .logo-text-mono {
+            font-family: var(--game-font-title);
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .logo-text-mono span {
+            color: var(--game-text-gray);
+            font-weight: 500;
+        }
+
         .arcade-nav-menu {
             display: flex;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
             list-style: none;
             margin: 0;
             padding: 0;
         }
 
         .arcade-nav-link {
-            color: var(--text-secondary);
+            color: var(--game-text-gray);
             text-decoration: none;
             font-size: 0.88rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.4rem;
-            transition: all var(--transition-fast);
+            transition: color 0.2s ease;
         }
 
         .arcade-nav-link:hover,
         .arcade-nav-link.active {
-            color: var(--game-neon-cyan);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+            color: #ffffff;
         }
 
         @media (max-width: 992px) {
             .arcade-nav-menu { display: none; }
         }
 
-        /* Hero Section */
+        /* Hero Section (Hitam) */
         .arcade-hero {
-            padding: 4.5rem 0 3.5rem;
+            padding: 5rem 0 4rem;
             text-align: center;
-            position: relative;
+            background-color: var(--game-bg-black);
+            border-bottom: 1px solid var(--game-border-subtle);
+        }
+
+        .hero-badge-mono {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            background: #18181b;
+            border: 1px solid var(--game-border-light);
+            color: #d4d4d8;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
         }
 
         .arcade-hero-title {
             font-family: var(--game-font-title);
-            font-size: clamp(2.3rem, 5.5vw, 3.8rem);
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
             font-weight: 900;
             line-height: 1.15;
-            margin-bottom: 1.25rem;
+            margin: 0 auto 1.25rem;
             letter-spacing: -0.02em;
+            color: #ffffff;
+            max-width: 900px;
+        }
+
+        .arcade-hero-title span {
+            color: #a1a1aa;
         }
 
         .arcade-hero-desc {
-            max-width: 820px;
-            margin: 0 auto 2.25rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
+            color: var(--game-text-gray);
+            font-size: 1.05rem;
             line-height: 1.7;
-        }
-
-        .arcade-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-            max-width: 960px;
-            margin: 2.5rem auto 0;
-        }
-
-        @media (max-width: 768px) {
-            .arcade-stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .arcade-stat-box {
-            background: var(--game-card-bg);
-            border: 1px solid var(--game-card-border);
-            border-radius: var(--radius-md);
-            padding: 1.25rem 1rem;
-            text-align: center;
-            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
-            transition: transform var(--transition-fast);
-        }
-
-        .arcade-stat-box:hover {
-            transform: translateY(-4px);
-            border-color: var(--game-neon-cyan);
-        }
-
-        .arcade-stat-num {
-            font-family: var(--game-font-title);
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.25rem;
-        }
-
-        .arcade-stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
         }
 
         /* Quick Section Anchors Strip */
@@ -169,98 +183,90 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.65rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
-            margin: 2.5rem auto 0;
-            max-width: 920px;
+            margin: 0 auto;
+            max-width: 900px;
         }
 
         .arcade-quick-btn {
-            padding: 0.5rem 1.1rem;
-            border-radius: var(--radius-full);
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: var(--text-secondary);
+            padding: 0.55rem 1.2rem;
+            border-radius: 9999px;
+            background: #18181b;
+            border: 1px solid var(--game-border-light);
+            color: #e4e4e7;
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 700;
-            transition: all var(--transition-fast);
+            font-weight: 600;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
         }
 
         .arcade-quick-btn:hover {
-            background: rgba(6, 182, 212, 0.18);
-            border-color: var(--game-neon-cyan);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+            background: #27272a;
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
-        /* Game Section Cards with Alternating Black & Gray Backgrounds */
+        /* ========================================================
+           SECTIONS: ALTERNATING BLACK & GRAY (HITAM & ABU-ABU)
+           ======================================================== */
         .game-section {
-            padding: 5rem 0;
+            padding: 5.5rem 0;
             position: relative;
         }
 
-        .game-section.section-black {
-            background-color: #030408;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Section Hitam */
+        .section-black {
+            background-color: var(--game-bg-black);
+            border-top: 1px solid var(--game-border-subtle);
+            border-bottom: 1px solid var(--game-border-subtle);
         }
 
-        .game-section.section-gray {
-            background-color: #0e121d;
-            background-image: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.035) 0%, transparent 75%);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        /* Section Abu-abu */
+        .section-gray {
+            background-color: var(--game-bg-gray);
+            border-top: 1px solid var(--game-border-light);
+            border-bottom: 1px solid var(--game-border-light);
         }
 
-        /* High-contrast panels inside alternating sections */
-        .section-black .game-desc-panel,
-        .section-black .arcade-cabinet-frame,
-        .section-black .quiz-stage-box,
-        .section-black .typing-defense-box {
-            background: rgba(14, 18, 29, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .section-gray .game-desc-panel,
-        .section-gray .arcade-cabinet-frame,
-        .section-gray .quiz-stage-box,
-        .section-gray .typing-defense-box {
-            background: rgba(3, 4, 8, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .game-header-tag {
+        .section-header-tag {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.35rem 1rem;
-            border-radius: var(--radius-full);
-            font-size: 0.82rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--game-border-light);
+            font-size: 0.8rem;
             font-weight: 700;
             margin-bottom: 1rem;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
+            color: #d4d4d8;
         }
 
-        .game-title-lg {
+        .section-heading-lg {
             font-family: var(--game-font-title);
-            font-size: clamp(1.9rem, 4vw, 2.7rem);
-            font-weight: 900;
+            font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+            font-weight: 800;
             line-height: 1.2;
-            color: #fff;
-            margin-bottom: 1rem;
+            color: #ffffff;
+            margin: 0 0 1rem;
+        }
+
+        .section-heading-lg span {
+            color: #a1a1aa;
         }
 
         .game-layout-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1.15fr 0.85fr;
             gap: 2.5rem;
             align-items: center;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
 
         @media (max-width: 992px) {
@@ -270,310 +276,202 @@
             }
         }
 
-        /* Game Explanation Panels */
-        .game-desc-panel {
-            background: var(--game-card-bg);
-            border: 1px solid var(--game-card-border);
-            border-radius: var(--radius-lg);
+        /* Card Panels (Contrast based on section background) */
+        .section-black .game-panel-card {
+            background: var(--game-card-gray);
+            border: 1px solid var(--game-border-light);
+        }
+
+        .section-gray .game-panel-card {
+            background: var(--game-card-black);
+            border: 1px solid var(--game-border-light);
+        }
+
+        .game-panel-card {
+            border-radius: 16px;
             padding: 2.25rem;
-            backdrop-filter: blur(14px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .game-desc-lead {
             font-size: 1.05rem;
-            color: #cbd5e1;
+            color: #e4e4e7;
             line-height: 1.7;
             margin-bottom: 1.75rem;
         }
 
-        .game-feature-list {
+        .game-spec-list {
             list-style: none;
             padding: 0;
-            margin: 0 0 1.75rem 0;
+            margin: 0 0 2rem;
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
 
-        .game-feature-item {
+        .game-spec-item {
             display: flex;
             align-items: flex-start;
-            gap: 0.85rem;
+            gap: 1rem;
+            color: #d4d4d8;
             font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        .game-feature-item i {
-            margin-top: 0.25rem;
-            font-size: 1.1rem;
-            flex-shrink: 0;
+        .game-spec-item i {
+            color: #ffffff;
+            margin-top: 0.2rem;
+            font-size: 1rem;
         }
 
-        .game-feature-item strong {
-            color: #fff;
+        .game-spec-item strong {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
         }
 
-        .controls-pill-box {
+        /* Controls Pill Box */
+        .controls-pill-box-mono {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--game-border-light);
+            border-radius: 10px;
+            padding: 0.9rem 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 0.88rem;
+            color: #d4d4d8;
             display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .controls-pill-box-mono kbd {
+            background: #27272a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        /* Button Monochrome */
+        .btn-mono-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #09090b;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-mono-primary:hover {
+            background: #e4e4e7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-mono-outline {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 1.5rem 0;
-            padding: 0.9rem 1.25rem;
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-md);
-            font-size: 0.86rem;
-            color: var(--text-muted);
-        }
-
-        kbd {
-            background: #1e293b;
-            color: var(--game-neon-cyan);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 6px;
-            padding: 0.15rem 0.5rem;
-            font-family: var(--game-font-code);
-            font-size: 0.8rem;
-            font-weight: 700;
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
-        }
-
-        /* Arcade Cabinet Frame / Preview Stage */
-        .arcade-cabinet-frame {
-            background: #080c18;
-            border: 2px solid rgba(168, 85, 247, 0.4);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.25), inset 0 0 20px rgba(0, 0, 0, 0.8);
-            position: relative;
-        }
-
-        .cabinet-top-bezel {
-            background: rgba(168, 85, 247, 0.15);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 0.75rem 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.82rem;
-            font-family: var(--game-font-code);
-            color: #c084fc;
-        }
-
-        .cabinet-screen {
-            padding: 2rem;
-            min-height: 380px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.12) 0%, transparent 65%),
-                linear-gradient(180deg, rgba(8, 12, 24, 0.95) 0%, rgba(3, 5, 12, 0.98) 100%);
-        }
-
-        .cabinet-screen::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .arcade-game-icon {
-            font-size: 4rem;
-            margin-bottom: 1.25rem;
-            color: var(--game-neon-cyan);
-            text-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
-            animation: bounceGame 3s infinite ease-in-out;
-        }
-
-        @keyframes bounceGame {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* Interactive Quiz Arena Mini-Game */
-        .quiz-stage-box {
-            background: #090e1f;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: var(--radius-md);
-            padding: 1.75rem;
-            width: 100%;
-            text-align: left;
-            position: relative;
-        }
-
-        .quiz-question-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .quiz-timer-pill {
-            background: rgba(245, 158, 11, 0.2);
-            color: #fbbf24;
-            padding: 0.2rem 0.65rem;
-            border-radius: var(--radius-full);
-            font-weight: 700;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-        }
-
-        .quiz-question-text {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1.25rem;
-            line-height: 1.45;
-        }
-
-        .quiz-options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        @media (max-width: 600px) {
-            .quiz-options-grid { grid-template-columns: 1fr; }
-        }
-
-        .quiz-option-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #e2e8f0;
-            padding: 0.85rem 1rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            background: transparent;
+            color: #e4e4e7;
+            font-size: 0.88rem;
             font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--game-border-light);
             cursor: pointer;
-            text-align: left;
-            transition: all var(--transition-fast);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            transition: all 0.2s ease;
         }
 
-        .quiz-option-btn:hover {
-            background: rgba(6, 182, 212, 0.15);
-            border-color: var(--game-neon-cyan);
-            color: #fff;
-            transform: translateX(4px);
+        .btn-mono-outline:hover {
+            background: #27272a;
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .quiz-option-btn.correct {
-            background: rgba(16, 185, 129, 0.25) !important;
-            border-color: #10b981 !important;
-            color: #34d399 !important;
-        }
-
-        .quiz-option-btn.wrong {
-            background: rgba(239, 68, 68, 0.25) !important;
-            border-color: #ef4444 !important;
-            color: #fca5a5 !important;
-        }
-
-        /* Interactive Cyber Typing Defense Mini-Game */
-        .typing-defense-box {
-            background: #050814;
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            width: 100%;
-            text-align: left;
-            font-family: var(--game-font-code);
-        }
-
-        .defense-status-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.82rem;
-            margin-bottom: 1rem;
-            color: #34d399;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-            padding-bottom: 0.5rem;
-        }
-
-        .defense-target-word {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #fbbf24;
+        /* Cabinet Showcase Frame */
+        .cabinet-showcase-mono {
+            border-radius: 16px;
+            border: 1px solid var(--game-border-light);
+            background: #0d0d0f;
+            padding: 2.25rem;
             text-align: center;
-            margin: 1.5rem 0 0.5rem;
-            letter-spacing: 0.08em;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
-        .defense-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(16, 185, 129, 0.4);
-            border-radius: var(--radius-sm);
-            padding: 0.75rem 1rem;
-            font-family: var(--game-font-code);
-            font-size: 1.1rem;
-            color: #fff;
+        .cabinet-icon-mono {
+            font-size: 3rem;
+            color: #a1a1aa;
+            margin-bottom: 1.25rem;
+        }
+
+        .cabinet-title-mono {
+            font-family: var(--game-font-title);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 0.5rem;
+        }
+
+        .cabinet-desc-mono {
+            font-size: 0.9rem;
+            color: var(--game-text-gray);
+            line-height: 1.6;
+            margin: 0 auto 1.5rem;
+            max-width: 320px;
+        }
+
+        /* Empty Slot Styling for Sections 2, 3, 4 */
+        .empty-slot-box {
+            border-radius: 16px;
+            border: 1px dashed var(--game-border-light);
+            padding: 4rem 2rem;
             text-align: center;
-            outline: none;
-            transition: all var(--transition-fast);
-        }
-
-        .defense-input:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
-        }
-
-        /* FAQ / Localhost Solution Section */
-        .faq-box-card {
-            background: var(--game-card-bg);
-            border: 1px solid var(--game-card-border);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
             margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.2);
         }
 
-        .faq-qa-item {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 1.75rem;
-            margin-bottom: 1.75rem;
+        .empty-slot-icon {
+            font-size: 2.5rem;
+            color: #52525b;
+            margin-bottom: 1rem;
         }
 
-        .faq-qa-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        .faq-question-title {
+        .empty-slot-title {
+            font-family: var(--game-font-title);
             font-size: 1.25rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            font-weight: 700;
+            color: #d4d4d8;
+            margin: 0 0 0.5rem;
         }
 
-        .faq-answer-text {
-            color: #cbd5e1;
-            font-size: 0.96rem;
-            line-height: 1.7;
+        .empty-slot-desc {
+            font-size: 0.9rem;
+            color: var(--game-text-muted);
+            margin: 0 auto;
+            max-width: 420px;
+            line-height: 1.6;
         }
 
         /* Modal Dialog */
         .arcade-modal-overlay {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             z-index: 9999;
@@ -587,71 +485,71 @@
             display: flex;
         }
 
-        .arcade-modal-card {
-            background: #090e1f;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: var(--radius-lg);
-            max-width: 580px;
+        .arcade-modal-card-mono {
+            background: #141416;
+            border: 1px solid var(--game-border-light);
+            border-radius: 16px;
+            max-width: 540px;
             width: 100%;
             padding: 2.25rem;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.25);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
             position: relative;
-            animation: modalFadeIn 0.3s ease-out;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.95) translateY(15px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-close-btn {
+        .modal-close-btn-mono {
             position: absolute;
             top: 1.25rem;
             right: 1.25rem;
-            background: rgba(255, 255, 255, 0.08);
+            background: #27272a;
             border: none;
-            color: var(--text-muted);
-            width: 36px;
-            height: 36px;
+            color: #a1a1aa;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: all var(--transition-fast);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
         }
 
-        .modal-close-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
+        .modal-close-btn-mono:hover {
+            background: #3f3f46;
+            color: #ffffff;
+        }
+
+        /* Footer Monochrome */
+        .site-footer-mono {
+            background: #050505;
+            border-top: 1px solid var(--game-border-subtle);
+            padding: 3rem 0;
+            text-align: center;
         }
     </style>
 </head>
-<body class="dark-theme">
+<body>
 
-    <!-- Ambient Neon Glow Backgrounds -->
-    <div class="ambient-glow glow-1"></div>
-    <div class="ambient-glow glow-2"></div>
-
-    <!-- Navigation Header -->
+    <!-- Navigation Header (Monochrome) -->
     <header class="arcade-header">
         <div class="container arcade-nav-container">
-            <a href="index.html" class="logo-brand">
-                <div class="logo-badge" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">🎮</div>
-                <span class="logo-text">Shifan <span class="highlight" style="color: #c084fc;">Games</span></span>
+            <a href="index.html" class="logo-brand-mono">
+                <div class="logo-badge-mono">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div class="logo-text-mono">Shifan <span>Games</span></div>
             </a>
 
             <nav class="arcade-nav-menu">
                 <a href="#hero" class="arcade-nav-link active"><i class="fa-solid fa-house"></i> Utama</a>
-                <a href="#game-utama" class="arcade-nav-link"><i class="fa-solid fa-star"></i> Game Utama</a>
-                <a href="#codequest" class="arcade-nav-link"><i class="fa-solid fa-code"></i> CodeQuest</a>
-                <a href="#quiz-arena" class="arcade-nav-link"><i class="fa-solid fa-brain"></i> Quiz Arena</a>
-                <a href="#cyber-sentinel" class="arcade-nav-link"><i class="fa-solid fa-shield-halved"></i> Cyber Defense</a>
+                <a href="#permainan-1" class="arcade-nav-link"><i class="fa-solid fa-gamepad"></i> Permainan 1</a>
+                <a href="#permainan-2" class="arcade-nav-link"><i class="fa-solid fa-layer-group"></i> Permainan 2</a>
+                <a href="#permainan-3" class="arcade-nav-link"><i class="fa-solid fa-layer-group"></i> Permainan 3</a>
+                <a href="#permainan-4" class="arcade-nav-link"><i class="fa-solid fa-layer-group"></i> Permainan 4</a>
             </nav>
 
             <div class="header-actions">
-                <a href="index.html#projects" class="btn btn-outline btn-sm" style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">
+                <a href="index.html#projects" class="btn-mono-outline">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Kembali ke Portofolio</span>
                 </a>
@@ -661,394 +559,218 @@
 
     <main>
         <!-- ==============================================
-             1. HERO SECTION: ZONA GAME INTERAKTIF
+             HERO SECTION (LATAR: HITAM)
              ============================================== -->
         <section class="arcade-hero" id="hero">
             <div class="container">
-                <div class="badge-pill" style="border-color: rgba(168, 85, 247, 0.4); background: rgba(168, 85, 247, 0.12); color: #c084fc;">
+                <div class="hero-badge-mono">
                     <i class="fa-solid fa-gamepad"></i>
-                    <span>Zona Permainan &amp; Arcade Santri Developer</span>
+                    <span>Zona Permainan • Showcase Hub</span>
                 </div>
 
                 <h1 class="arcade-hero-title">
-                    Eksplorasi Dunia <span class="text-gradient" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Permainan Interaktif</span> Shifan
+                    Zona Permainan &amp; <span>Karya Interaktif</span>
                 </h1>
 
                 <p class="arcade-hero-desc">
-                    Selamat datang di arcade game resmi karya <strong>Shifan Shalih Adiluhung</strong>! Memadukan ketangkasan logika, tantangan algoritma komputasi, dan hiburan seru berbasis web modern. Mainkan langsung di browsermu tanpa instalasi, 100% gratis dan responsif di laptop maupun smartphone.
+                    Halaman showcase resmi permainan karya <strong>Shifan Shalih Adiluhung</strong>. Setiap section di bawah disiapkan khusus untuk menampilkan dan memainkan permainan interaktif.
                 </p>
-
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="#game-utama" class="btn btn-primary btn-lg btn-glow" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">
-                        <i class="fa-solid fa-play"></i> Mulai Mainkan Game
-                    </a>
-                    <a href="#codequest" class="btn btn-outline btn-lg" style="border-color: rgba(255, 255, 255, 0.2);">
-                        <i class="fa-solid fa-compass"></i> Jelajahi Seluruh Permainan
-                    </a>
-                </div>
 
                 <!-- Quick Anchors Strip -->
                 <div class="arcade-quick-strip">
-                    <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Pilih Permainan:</span>
-                    <a href="#game-utama" class="arcade-quick-btn"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> 1. Game Utama</a>
-                    <a href="#codequest" class="arcade-quick-btn"><i class="fa-solid fa-code" style="color: #38bdf8;"></i> 2. CodeQuest RPG</a>
-                    <a href="#quiz-arena" class="arcade-quick-btn"><i class="fa-solid fa-brain" style="color: #a855f7;"></i> 3. Trivia Speed Quiz</a>
-                    <a href="#cyber-sentinel" class="arcade-quick-btn"><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> 4. Cyber Typing Defense</a>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="arcade-stats-grid">
-                    <div class="arcade-stat-box">
-                        <div class="arcade-stat-num" style="color: #c084fc;">4+</div>
-                        <div class="arcade-stat-label">Mode Permainan</div>
-                    </div>
-                    <div class="arcade-stat-box">
-                        <div class="arcade-stat-num" style="color: #38bdf8;">100%</div>
-                        <div class="arcade-stat-label">Web Native (No Install)</div>
-                    </div>
-                    <div class="arcade-stat-box">
-                        <div class="arcade-stat-num" style="color: #34d399;">0 ms</div>
-                        <div class="arcade-stat-label">Latensi Responsif</div>
-                    </div>
-                    <div class="arcade-stat-box">
-                        <div class="arcade-stat-num" style="color: #fbbf24;">FREE</div>
-                        <div class="arcade-stat-label">Akses Terbuka</div>
-                    </div>
+                    <a href="#permainan-1" class="arcade-quick-btn"><i class="fa-solid fa-gamepad"></i> Permainan 1 (Game Utama)</a>
+                    <a href="#permainan-2" class="arcade-quick-btn"><i class="fa-solid fa-cube"></i> Permainan 2</a>
+                    <a href="#permainan-3" class="arcade-quick-btn"><i class="fa-solid fa-cube"></i> Permainan 3</a>
+                    <a href="#permainan-4" class="arcade-quick-btn"><i class="fa-solid fa-cube"></i> Permainan 4</a>
                 </div>
             </div>
         </section>
 
         <!-- ==============================================
-             2. SECTION PERMAINAN PERTAMA (GAME UTAMA SHIFAN)
+             SECTION 1: PERMAINAN PERTAMA (LATAR: ABU-ABU GELAP)
              ============================================== -->
-        <section class="game-section section-black" id="game-utama">
+        <section class="game-section section-gray" id="permainan-1">
             <div class="container">
-                <div class="game-header-tag" style="background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.35); color: #fbbf24;">
-                    <i class="fa-solid fa-crown"></i> Permainan Pertama • Game Utama
+                <div class="section-header-tag">
+                    <i class="fa-solid fa-star"></i> Section 1 • Permainan Pertama
                 </div>
 
-                <h2 class="game-title-lg">
-                    Permainan Utama: <span class="text-gradient" style="background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Petualangan Ksatria Santri</span>
+                <h2 class="section-heading-lg">
+                    Permainan Pertama — <span>Game Utama</span>
                 </h2>
 
                 <div class="game-layout-grid">
-                    <!-- Penjelasan Rinci Game -->
-                    <div class="game-desc-panel">
+                    <!-- Penjelasan Game Pertama -->
+                    <div class="game-panel-card">
                         <p class="game-desc-lead">
-                            Ini adalah section khusus untuk <strong>Permainan Pertama</strong> karya Shifan. Game aksi &amp; petualangan interaktif yang menantang kelincahan pemain dalam memecahkan teka-teki, menghindari jebakan musuh, dan mengumpulkan skor tertinggi.
+                            Section ini disiapkan khusus untuk menampilkan <strong>Permainan Pertama</strong> karya Shifan. Di sini dijelaskan gambaran alur permainan, tujuan misi, dan cara bermainnya.
                         </p>
 
-                        <ul class="game-feature-list">
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-gamepad" style="color: #fbbf24;"></i>
+                        <ul class="game-spec-list">
+                            <li class="game-spec-item">
+                                <i class="fa-solid fa-gamepad"></i>
                                 <div>
-                                    <strong>Konsep &amp; Alur Cerita:</strong>
-                                    <span>Pemain mengendalikan karakter santri dalam misi menjaga lentera ilmu, melintasi rintangan bertingkat yang semakin cepat dan dinamis.</span>
+                                    <strong>Gameplay &amp; Alur Permainan:</strong>
+                                    <span>Pemain menjalankan karakter melalui berbagai tantangan rintangan, mengumpulkan poin, dan menyelesaikan misi hingga garis akhir.</span>
                                 </div>
                             </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-crosshairs" style="color: #38bdf8;"></i>
+                            <li class="game-spec-item">
+                                <i class="fa-solid fa-trophy"></i>
                                 <div>
-                                    <strong>Mekanik Gameplay &amp; Aturan Skor:</strong>
-                                    <span>Kumpulkan koin permata untuk melipatgandakan multiplier poin. Hindari tabrakan dengan bug penghalang agar nyawa (HP bar) tidak habis!</span>
-                                </div>
-                            </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-microchip" style="color: #34d399;"></i>
-                                <div>
-                                    <strong>Spesifikasi Teknologi Game:</strong>
-                                    <span>Dibangun menggunakan HTML5 2D Canvas rendering, State Loop 60 FPS, Web Audio API sound effect retro, dan LocalStorage high-score persisten.</span>
+                                    <strong>Tujuan &amp; Poin Skor:</strong>
+                                    <span>Capai skor tertinggi dengan menghindari rintangan dan mengumpulkan item bonus di sepanjang arena.</span>
                                 </div>
                             </li>
                         </ul>
 
-                        <div class="controls-pill-box">
+                        <div class="controls-pill-box-mono">
                             <span style="font-weight: 700; color: #fff;"><i class="fa-solid fa-keyboard"></i> Kontrol:</span>
-                            <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> atau <kbd>&uarr;</kbd><kbd>&larr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> Gerak</span>
-                            <span>• <kbd>Spasi</kbd> Lompat / Aksi</span>
-                            <span>• Sentuhan Layar di HP</span>
+                            <span>Tombol Arah / <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Gerak</span>
+                            <span>• <kbd>Spasi</kbd> Aksi</span>
+                            <span>• Mendukung Layar Sentuh</span>
                         </div>
 
-                        <div style="display: flex; gap: 0.85rem; align-items: center; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-primary btn-glow" id="btnLaunchGame1" style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);">
-                                <i class="fa-solid fa-play"></i> Mainkan Game Pertama 🎮
+                        <div>
+                            <button type="button" class="btn-mono-primary" id="btnLaunchGame1">
+                                <i class="fa-solid fa-play"></i> Mainkan Game Pertama
                             </button>
                         </div>
                     </div>
 
-                    <!-- Visual Arcade Cabinet Showcase -->
-                    <div class="arcade-cabinet-frame" style="border-color: rgba(251, 191, 36, 0.45); box-shadow: 0 0 35px rgba(245, 158, 11, 0.2);">
-                        <div class="cabinet-top-bezel" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
-                            <span><i class="fa-solid fa-circle" style="color: #ef4444; font-size: 0.7rem;"></i> LIVE PREVIEW STAGE</span>
-                            <span>SLOT PERMAINAN #1</span>
+                    <!-- Visual Stage Permainan Pertama -->
+                    <div class="cabinet-showcase-mono">
+                        <div class="cabinet-icon-mono">
+                            <i class="fa-solid fa-gamepad"></i>
                         </div>
-
-                        <div class="cabinet-screen">
-                            <div class="arcade-game-icon" style="color: #fbbf24; text-shadow: 0 0 25px rgba(251, 191, 36, 0.6);">
-                                <i class="fa-solid fa-ghost"></i>
-                            </div>
-                            <h3 style="font-family: var(--game-font-title); font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff;">
-                                Game Pertama Siap Dihubungkan
-                            </h3>
-                            <p style="font-size: 0.88rem; color: #94a3b8; max-width: 340px; margin-bottom: 1.5rem;">
-                                Slot ini disiapkan khusus untuk file kodingan game pertamamu! Kirimkan filenya dan tombol di atas akan langsung membuka game online.
-                            </p>
-                            <button type="button" class="btn btn-sm btn-outline" id="btnPreviewCabinet" style="border-color: #fbbf24; color: #fbbf24;">
-                                <i class="fa-solid fa-circle-question"></i> Cek Cara Pasang Game
-                            </button>
-                        </div>
+                        <h3 class="cabinet-title-mono">Slot Permainan Pertama</h3>
+                        <p class="cabinet-desc-mono">
+                            Tombol di samping sudah dipersiapkan untuk menghubungkan game pertamamu secara langsung saat file dikirimkan.
+                        </p>
+                        <button type="button" class="btn-mono-outline" id="btnPreviewCabinet">
+                            <i class="fa-solid fa-circle-info"></i> Info Integrasi File
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ==============================================
-             3. SECTION PERMAINAN KEDUA (CODEQUEST RPG)
+             SECTION 2: PERMAINAN KEDUA (LATAR: HITAM)
              ============================================== -->
-        <section class="game-section section-gray" id="codequest">
+        <section class="game-section section-black" id="permainan-2">
             <div class="container">
-                <div class="game-header-tag" style="background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.35); color: #38bdf8;">
-                    <i class="fa-solid fa-code"></i> Permainan Kedua • RPG Koding
+                <div class="section-header-tag">
+                    <i class="fa-solid fa-cube"></i> Section 2 • Permainan Kedua
                 </div>
 
-                <h2 class="game-title-lg">
-                    CodeQuest: <span class="text-gradient" style="background: linear-gradient(135deg, #06b6d4 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Petualangan Koding Santri Developer</span>
+                <h2 class="section-heading-lg">
+                    Permainan Kedua — <span>Slot Kosong</span>
                 </h2>
 
-                <div class="game-layout-grid">
-                    <!-- Deskripsi CodeQuest -->
-                    <div class="game-desc-panel">
-                        <p class="game-desc-lead">
-                            <strong>CodeQuest</strong> adalah game interaktif petualangan santri di mana kode pemrograman adalah senjatamu! Hadapi boss monster syntax error dan susun kodingan nyata langsung di browser.
-                        </p>
-
-                        <ul class="game-feature-list">
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-layer-group" style="color: #f97316;"></i>
-                                <div>
-                                    <strong>Stage 1: HTML Dungeon</strong>
-                                    <span>Pilih dan letakkan tag penutup semantik yang hilang untuk memperbaiki struktur DOM yang hancur.</span>
-                                </div>
-                            </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-wand-magic-sparkles" style="color: #38bdf8;"></i>
-                                <div>
-                                    <strong>Stage 2: CSS Neon Alchemy</strong>
-                                    <span>Racik kombinasi warna gradien, border-radius neon, dan backdrop-filter blur untuk membuka perisai visual.</span>
-                                </div>
-                            </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i>
-                                <div>
-                                    <strong>Stage 3: JS Reactor Explosion</strong>
-                                    <span>Picu event listener klik dan hitung variabel reaktif untuk melipatgandakan serangan kombo kritikal!</span>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div class="controls-pill-box">
-                            <span style="font-weight: 700; color: #fff;"><i class="fa-solid fa-mouse-pointer"></i> Sistem Reward:</span>
-                            <span>+100 EXP Tiap Misi</span>
-                            <span>• Daily Streak Multiplier</span>
-                            <span>• Gelar Santri Coder</span>
-                        </div>
-
-                        <div style="display: flex; gap: 0.85rem; align-items: center; flex-wrap: wrap;">
-                            <a href="demo-game.html" target="_blank" class="btn btn-primary btn-glow" style="background: linear-gradient(135deg, #06b6d4 0%, #a855f7 100%); text-decoration: none;">
-                                <i class="fa-solid fa-up-right-from-square"></i> Buka &amp; Mainkan CodeQuest Utuh 🎮
-                            </a>
-                        </div>
+                <div class="empty-slot-box">
+                    <div class="empty-slot-icon">
+                        <i class="fa-solid fa-plus"></i>
                     </div>
-
-                    <!-- Screenshot Preview Frame -->
-                    <div class="arcade-cabinet-frame" style="border-color: rgba(6, 182, 212, 0.45); box-shadow: 0 0 35px rgba(6, 182, 212, 0.2);">
-                        <div class="cabinet-top-bezel" style="color: #38bdf8; border-color: rgba(6, 182, 212, 0.3);">
-                            <span><i class="fa-solid fa-circle" style="color: #10b981; font-size: 0.7rem;"></i> ACTIVE GAME</span>
-                            <span>CODEQUEST V1.0</span>
-                        </div>
-                        <img src="assets/images/games_preview.jpg?v=1.0" alt="CodeQuest Screenshot" style="width: 100%; height: auto; display: block; filter: brightness(0.95);">
-                    </div>
+                    <h3 class="empty-slot-title">Section Permainan Kedua (Kosong)</h3>
+                    <p class="empty-slot-desc">
+                        Section ini dikosongkan sesuai permintaan, siap untuk diisi dengan judul, deskripsi, dan tombol permainan kedua berikutnya.
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- ==============================================
-             4. SECTION PERMAINAN KETIGA (QUIZ ARENA LANGSUNG)
+             SECTION 3: PERMAINAN KETIGA (LATAR: ABU-ABU GELAP)
              ============================================== -->
-        <section class="game-section section-black" id="quiz-arena">
+        <section class="game-section section-gray" id="permainan-3">
             <div class="container">
-                <div class="game-header-tag" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc;">
-                    <i class="fa-solid fa-brain"></i> Permainan Ketiga • Kuis Asah Otak
+                <div class="section-header-tag">
+                    <i class="fa-solid fa-cube"></i> Section 3 • Permainan Ketiga
                 </div>
 
-                <h2 class="game-title-lg">
-                    Santri Trivia: <span class="text-gradient" style="background: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Speed Quiz Arena</span>
+                <h2 class="section-heading-lg">
+                    Permainan Ketiga — <span>Slot Kosong</span>
                 </h2>
 
-                <div class="game-layout-grid">
-                    <!-- Deskripsi Game Quiz -->
-                    <div class="game-desc-panel">
-                        <p class="game-desc-lead">
-                            Game cerdas tangkas interaktif yang menguji ketepatan logika, pemahaman koding, dan wawasan sains santri. Langsung dapat kamu mainkan di kotak sebelah kanan!
-                        </p>
-
-                        <ul class="game-feature-list">
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-stopwatch" style="color: #fbbf24;"></i>
-                                <div>
-                                    <strong>Batas Waktu Cepat (15 Detik):</strong>
-                                    <span>Setiap soal memiliki batas waktu reaksi cepat untuk melatih ketajaman intuisi logika.</span>
-                                </div>
-                            </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-trophy" style="color: #34d399;"></i>
-                                <div>
-                                    <strong>Sistem Skor &amp; Predikat:</strong>
-                                    <span>Jawab tepat berturut-turut untuk meraih gelar predikat tertinggi: <em>Mumtaz (Istimewa)</em>.</span>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div class="controls-pill-box">
-                            <span style="font-weight: 700; color: #fff;"><i class="fa-solid fa-hand-pointer"></i> Cara Main:</span>
-                            <span>Klik salah satu opsi jawaban (A, B, C, D) di samping sebelum timer habis!</span>
-                        </div>
+                <div class="empty-slot-box">
+                    <div class="empty-slot-icon">
+                        <i class="fa-solid fa-plus"></i>
                     </div>
-
-                    <!-- Playable Mini-Quiz Game Box -->
-                    <div class="quiz-stage-box" id="quizBoxContainer">
-                        <div class="quiz-question-header">
-                            <span id="quizProgressText"><i class="fa-solid fa-list-check"></i> Soal 1 dari 3</span>
-                            <span class="quiz-timer-pill" id="quizTimerDisplay"><i class="fa-solid fa-clock"></i> 15s</span>
-                        </div>
-
-                        <div class="quiz-question-text" id="quizQuestionText">
-                            Di dalam HTML, tag manakah yang paling tepat digunakan untuk membungkus area konten utama suatu halaman website?
-                        </div>
-
-                        <div class="quiz-options-grid" id="quizOptionsContainer">
-                            <button type="button" class="quiz-option-btn" data-opt="0">A. &lt;div class="content"&gt;</button>
-                            <button type="button" class="quiz-option-btn" data-opt="1">B. &lt;main&gt;</button>
-                            <button type="button" class="quiz-option-btn" data-opt="2">C. &lt;section-all&gt;</button>
-                            <button type="button" class="quiz-option-btn" data-opt="3">D. &lt;body-core&gt;</button>
-                        </div>
-
-                        <div id="quizFeedbackBox" style="margin-top: 1rem; font-size: 0.9rem; font-weight: 700; min-height: 24px;"></div>
-                    </div>
+                    <h3 class="empty-slot-title">Section Permainan Ketiga (Kosong)</h3>
+                    <p class="empty-slot-desc">
+                        Section ini dikosongkan sesuai permintaan, siap untuk diisi dengan judul, deskripsi, dan tombol permainan ketiga berikutnya.
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- ==============================================
-             5. SECTION PERMAINAN KEEMPAT (CYBER TYPING DEFENSE)
+             SECTION 4: PERMAINAN KEEMPAT (LATAR: HITAM)
              ============================================== -->
-        <section class="game-section section-gray" id="cyber-sentinel">
+        <section class="game-section section-black" id="permainan-4">
             <div class="container">
-                <div class="game-header-tag" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399;">
-                    <i class="fa-solid fa-shield-halved"></i> Permainan Keempat • Ketangkasan Mengetik
+                <div class="section-header-tag">
+                    <i class="fa-solid fa-cube"></i> Section 4 • Permainan Keempat
                 </div>
 
-                <h2 class="game-title-lg">
-                    CyberShield Sentinel: <span class="text-gradient" style="background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Terminal Defense Arcade</span>
+                <h2 class="section-heading-lg">
+                    Permainan Keempat — <span>Slot Kosong</span>
                 </h2>
 
-                <div class="game-layout-grid">
-                    <!-- Deskripsi Game Typing Defense -->
-                    <div class="game-desc-panel">
-                        <p class="game-desc-lead">
-                            Game arcade pengetikan refleks cepat (*speed typing arcade*). Kata-kata virus dan paket perintah penyusup jatuh menuju server. Ketik kata tersebut secara tepat untuk menembaknya jatuh sebelum menyentuh firewall!
-                        </p>
-
-                        <ul class="game-feature-list">
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-terminal" style="color: #34d399;"></i>
-                                <div>
-                                    <strong>Perintah Kode &amp; Istilah IT:</strong>
-                                    <span>Hafalkan dan ketik cepat kata-kata seperti <code>sudo</code>, <code>deploy</code>, <code>python</code>, <code>github</code>, dan <code>docker</code>.</span>
-                                </div>
-                            </li>
-                            <li class="game-feature-item">
-                                <i class="fa-solid fa-fire" style="color: #f97316;"></i>
-                                <div>
-                                    <strong>Combo Streak &amp; Skor Bertingkat:</strong>
-                                    <span>Setiap kata yang berhasil dihancurkan memberikan +100 poin dan memperkuat benteng pertahanan digital.</span>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div class="controls-pill-box">
-                            <span style="font-weight: 700; color: #fff;"><i class="fa-solid fa-keyboard"></i> Cara Main:</span>
-                            <span>Ketik kata yang muncul di kotak sebelah kanan lalu tekan <kbd>Enter</kbd> atau biarkan otomatis cocok!</span>
-                        </div>
+                <div class="empty-slot-box">
+                    <div class="empty-slot-icon">
+                        <i class="fa-solid fa-plus"></i>
                     </div>
-
-                    <!-- Playable Typing Defense Box -->
-                    <div class="typing-defense-box">
-                        <div class="defense-status-bar">
-                            <span><i class="fa-solid fa-shield-cat"></i> FIREWALL: OK</span>
-                            <span>SKOR: <strong id="typingScoreDisplay" style="color: #fbbf24;">0</strong></span>
-                            <span>STREAK: <strong id="typingStreakDisplay" style="color: #38bdf8;">0x</strong></span>
-                        </div>
-
-                        <div style="font-size: 0.8rem; color: #94a3b8; text-align: center;">KETIK KATA BERIKUT SEBELUM KADALUARSA:</div>
-                        <div class="defense-target-word" id="defenseTargetWord">sudo</div>
-
-                        <input type="text" class="defense-input" id="defenseInputBox" placeholder="Ketik kata di sini..." autocomplete="off" spellcheck="false">
-
-                        <div id="defenseResultMsg" style="text-align: center; margin-top: 0.75rem; font-size: 0.85rem; color: #34d399; min-height: 20px;">
-                            Ketik kata di atas lalu tekan Enter!
-                        </div>
-                    </div>
+                    <h3 class="empty-slot-title">Section Permainan Keempat (Kosong)</h3>
+                    <p class="empty-slot-desc">
+                        Section ini dikosongkan sesuai permintaan, siap untuk diisi dengan judul, deskripsi, dan tombol permainan keempat berikutnya.
+                    </p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Modal Dialog Permainan Pertama -->
+    <!-- Modal Dialog Permainan Pertama (Monochrome) -->
     <div class="arcade-modal-overlay" id="arcadeModal">
-        <div class="arcade-modal-card">
-            <button type="button" class="modal-close-btn" id="btnCloseModal" aria-label="Tutup Dialog">
+        <div class="arcade-modal-card-mono">
+            <button type="button" class="modal-close-btn-mono" id="btnCloseModal" aria-label="Tutup Dialog">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div style="font-size: 2.5rem; color: #fbbf24; margin-bottom: 1rem;"><i class="fa-solid fa-circle-play"></i></div>
-            <h3 style="font-family: var(--game-font-title); font-size: 1.6rem; color: #fff; margin-bottom: 0.75rem;">
-                Game Pertama Siap Terhubung!
+            <div style="font-size: 2.2rem; color: #ffffff; margin-bottom: 1rem;"><i class="fa-solid fa-gamepad"></i></div>
+            <h3 style="font-family: var(--game-font-title); font-size: 1.5rem; color: #fff; margin: 0 0 0.75rem;">
+                Game Pertama Siap Dihubungkan!
             </h3>
-            <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.65; margin-bottom: 1.5rem;">
-                Tombol ini sudah dipersiapkan untuk game pertamamu. Kirimkan file atau kodingan game lokalmu sekarang, dan kami akan langsung menautkannya ke tombol ini agar bisa dimainkan online oleh publik!
+            <p style="font-size: 0.95rem; color: #d4d4d8; line-height: 1.65; margin-bottom: 1.5rem;">
+                Tombol ini sudah dipersiapkan khusus untuk game pertamamu. Kirimkan file atau kodingan gamenya ke sini, dan tombol ini akan langsung membuka game tersebut secara online!
             </p>
             <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
-                <button type="button" class="btn btn-sm btn-outline" id="btnModalOk">Mengerti</button>
+                <button type="button" class="btn-mono-primary" id="btnModalOk">Mengerti</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="site-footer" style="background: #020306; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 3rem 0;">
+    <!-- Footer Monochrome -->
+    <footer class="site-footer-mono">
         <div class="container text-center">
-            <div class="footer-brand" style="margin-bottom: 1rem;">
-                <a href="index.html" class="logo-brand" style="display: inline-flex;">
-                    <div class="logo-badge" style="background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);">🎮</div>
-                    <span class="logo-text">Shifan <span class="highlight" style="color: #c084fc;">Games</span></span>
-                </a>
+            <div style="font-family: var(--game-font-title); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem;">
+                Shifan <span style="color: #a1a1aa;">Games</span>
             </div>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                Zona Permainan Interaktif Web • Bagian dari Ekosistem Portofolio Digital Shifan Shalih Adiluhung.
+            <p style="font-size: 0.88rem; color: #71717a; margin-bottom: 1.25rem;">
+                Zona Permainan Interaktif Web • Portofolio Digital Shifan Shalih Adiluhung.
             </p>
-            <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-                <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 0.88rem;">Beranda Portofolio</a>
-                <a href="others.html" style="color: #94a3b8; text-decoration: none; font-size: 0.88rem;">Others Hub</a>
-                <a href="asisfan.html" style="color: #94a3b8; text-decoration: none; font-size: 0.88rem;">AsisFan AI</a>
-                <a href="demo-game.html" style="color: #94a3b8; text-decoration: none; font-size: 0.88rem;">CodeQuest RPG</a>
+            <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem;">
+                <a href="index.html" style="color: #a1a1aa; text-decoration: none; font-size: 0.85rem;">Beranda Portofolio</a>
+                <a href="others.html" style="color: #a1a1aa; text-decoration: none; font-size: 0.85rem;">Others Hub</a>
+                <a href="asisfan.html" style="color: #a1a1aa; text-decoration: none; font-size: 0.85rem;">AsisFan AI</a>
             </div>
-            <div style="font-size: 0.82rem; color: #64748b;">
-                &copy; 2026 Shifan Shalih Adiluhung. Hak Cipta Dilindungi.
+            <div style="font-size: 0.8rem; color: #52525b;">
+                &copy; 2026 Shifan Shalih Adiluhung.
             </div>
         </div>
     </footer>
 
-    <!-- External Script for Games Logic (Strict CSP Compliant) -->
-    <script src="games.js?v=2.0"></script>
+    <!-- Minimal Script for Modal Dialog & Active Link -->
+    <script src="games.js?v=3.0"></script>
 </body>
 </html>

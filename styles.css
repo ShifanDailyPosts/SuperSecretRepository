@@ -400,33 +400,33 @@ img { max-width: 100%; display: block; }
     gap: 0.45rem;
     padding: 0.38rem 0.85rem;
     border-radius: var(--radius-full);
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
-    border: 1px solid rgba(168, 85, 247, 0.5);
-    color: #f8fafc;
+    background: #18181b;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f4f4f5;
     font-size: 0.82rem;
     font-weight: 700;
     text-decoration: none;
     transition: all var(--transition-fast);
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
 }
 
 .nav-games-pill i {
-    color: #c084fc;
+    color: #ffffff;
     font-size: 0.85rem;
 }
 
 .nav-games-pill:hover {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(236, 72, 153, 0.35) 100%);
-    border-color: #c084fc;
+    background: #27272a;
+    border-color: rgba(255, 255, 255, 0.4);
     color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4);
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
 }
 
 .nav-games-pill .pill-badge {
-    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    color: #ffffff;
+    background: #ffffff;
+    color: #09090b;
     font-size: 0.62rem;
     font-weight: 800;
     padding: 0.1rem 0.4rem;
